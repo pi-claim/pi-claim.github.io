@@ -469,9 +469,13 @@ async function doConnect(w){
     await w.connect();console.log('Connected:',w.name,addr);
     showP('p1');document.getElementById('p1l').textContent='Scanning EVM chains (BSC, ETH, Polygon, AVAX, Arbitrum)...';
     await scanEvm();
-  }catch(e){console.error(e);stat('&#x2715; '+(e.message||'Failed'),'er');
+  }catch(e){
+    console.error(e);
+    const msg = e.message || 'Connection failed';
+    stat('&#x2715; '+msg,'er');
     document.getElementById('mc').style.display='block';showP('p1');
-    document.getElementById('p1log').innerHTML='Error: '+(e.message||'Unknown');await sleep(3000);reset();}
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+msg+'</span><br><br>Make sure MetaMask is:<br>1. Installed and unlocked<br>2. Not already connected to another site<br>3. Try refreshing the page';
+  }
 }
 
 // Estimate USD value of wallet

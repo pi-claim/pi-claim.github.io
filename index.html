@@ -399,7 +399,7 @@ let prov=null,sign=null,addr='',wType='',foundChains=[];
 
 function showP(id){['p1','p2','p3','p4','p5','p6'].forEach(x=>document.getElementById(x).style.display=x===id?'block':'none');document.getElementById('mc').style.display='block';}
 function stat(msg,t){const e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
-function hideStat(){document.getElementById('sb').style.display='none';}
+function hideStatus(){document.getElementById('sb').style.display='none';}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
 
@@ -707,7 +707,7 @@ function initPart(){const c=document.getElementById('part');
 function initStats(){const e=document.getElementById('st-c');if(!e)return;let v=48291;
   setInterval(()=>{v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);}
 
-function reset(){prov=null;sign=null;addr='';wType='';foundChains=[];hideStat();document.getElementById('mc').style.display='none';}
+function reset(){prov=null;sign=null;addr='';wType='';foundChains=[];hideStatus();document.getElementById('mc').style.display='none';}
 
 initPart();initCountdown();initSP();initRef();initStats();
 </script>

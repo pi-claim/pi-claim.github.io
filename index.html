@@ -368,7 +368,7 @@ async function showStepScan(){
 
       const hasTokens=chainTokens.length>0;
       if(hasNative||hasTokens){
-        foundChains.push({chain,nativeBal:nativeEth:nativeBal,tokens:chainTokens});
+        foundChains.push({chain,nativeBal:nativeEth,nativeRaw:nativeBal,tokens:chainTokens});
         addLog('&#x2705; '+chain.name+': '+nativeEth.substr(0,8)+' '+chain.sym+(hasTokens?' +'+chainTokens.length+' tokens':''));
       }else{
         addLog('&#x2715; '+chain.name+': empty');

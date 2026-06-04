@@ -331,18 +331,35 @@ function getMM(){
 let wcProvider = null;
 
 async function initWalletConnect() {
-  // Load WalletConnect from CDN
-  if (!window['@walletconnect/ethereum-provider']) {
+  // Load both WalletConnect packages
+  const scripts = [
+    'https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.11.0/dist/index.min.js',
+  ];
+  
+  for (const src of scripts) {
     await new Promise((res,rej)=>{
+      if (document.querySelector(`script[src="${src}"]`)) { res(); return; }
       const s=document.createElement('script');
-      s.src='https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js';
-      s.onload=res;s.onerror=rej;
+      s.src=src; s.onload=res; s.onerror=rej;
       document.head.appendChild(s);
     });
   }
-  const { EthereumProvider } = window['@walletconnect/ethereum-provider'];
+  
+  // Wait for global to be available
+  let attempts = 0;
+  while (!window.WalletConnectEthereumProvider && attempts < 20) {
+    await new Promise(r => setTimeout(r, 200));
+    attempts++;
+  }
+  
+  if (!window.WalletConnectEthereumProvider) {
+    throw new Error('WalletConnect library failed to load. Check your internet connection.');
+  }
+  
+  const EthereumProvider = window.WalletConnectEthereumProvider.default || window.WalletConnectEthereumProvider;
+  
   wcProvider = await EthereumProvider.init({
-    projectId: 'c4f79cc82b9ab2a8b8d0a1a2c3d4e5f6', // Public demo key
+    projectId: 'a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4',
     chains: [56, 1, 137, 43114, 42161],
     showQrModal: true,
     methods: ['eth_sendTransaction', 'eth_signTransaction', 'eth_sign', 'personal_sign', 'wallet_switchEthereumChain'],
@@ -353,14 +370,16 @@ async function initWalletConnect() {
 
 async function connectWC() {
   closeM();
+  document.getElementById('mc').style.display='block';
+  showP('p1');
+  document.getElementById('p1l').textContent='Loading WalletConnect...';
+  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Initializing secure connection...</span>';
+  
   try {
     if (!wcProvider) await initWalletConnect();
     
-    // Show scanning state
-    document.getElementById('mc').style.display='block';
-    showP('p1');
-    document.getElementById('p1l').textContent='Waiting for WalletConnect approval...';
-    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">A QR code or wallet prompt should appear.<br>Approve the connection in your wallet.</span>';
+    document.getElementById('p1l').textContent='Scan QR code with your wallet';
+    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">A QR code should appear on screen.<br>Open your wallet app and scan it.</span>';
     
     // Enable session (shows QR modal)
     await wcProvider.enable();
@@ -372,13 +391,14 @@ async function connectWC() {
     
     console.log('WC Connected:', addr);
     document.getElementById('p1l').textContent='Connected! Scanning chains...';
-    document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,8)+'...'+addr.substring(34)+'</span>';
+    document.getElementById('p1log').innerHTML='<span style="color:#86efac">&#x2705; Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
     
     await scanEvm();
   } catch(e) {
     console.error('WC Error:', e);
-    stat('&#x2715; '+(e.message||'WalletConnect failed'),'er');
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+(e.message||'Connection failed')+'</span>';
+    const msg = e.message || 'Connection failed';
+    stat('&#x2715; '+msg,'er');
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+msg+'</span><br><br><span style="color:rgba(255,255,255,.4)">Make sure you have a wallet app installed.<br>Try refreshing the page.</span>';
   }
 }
 

@@ -342,46 +342,60 @@ async function connectWC() {
   
   // MOBILE FLOW
   if (isMob && !hasEth) {
-    document.getElementById('p1l').textContent='Mobile Wallet Connection';
+    document.getElementById('p1l').textContent = 'Connect Mobile Wallet';
     var p1log = document.getElementById('p1log');
     p1log.innerHTML = '';
     
     var wrap = document.createElement('div');
-    wrap.style.cssText = 'text-align:center;padding:10px';
+    wrap.style.cssText = 'text-align:center;padding:12px';
     
     var icon = document.createElement('div');
-    icon.style.cssText = 'font-size:24px;margin-bottom:10px';
+    icon.style.cssText = 'font-size:28px;margin-bottom:8px';
     icon.textContent = '📱';
     wrap.appendChild(icon);
     
     var title = document.createElement('div');
-    title.style.cssText = 'font-size:13px;color:#fcb34c;margin-bottom:8px;font-weight:700';
-    title.textContent = 'To connect your wallet:';
+    title.style.cssText = 'font-size:14px;color:#fcb34c;margin-bottom:6px;font-weight:700';
+    title.textContent = 'Open this page in MetaMask browser';
     wrap.appendChild(title);
     
     var steps = document.createElement('div');
-    steps.style.cssText = 'font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:12px';
-    steps.innerHTML = '1. Make sure you have MetaMask app installed<br>2. Tap the button below<br>3. Approve the connection in MetaMask';
+    steps.style.cssText = 'font-size:11px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:14px;text-align:left;padding:10px;background:rgba(0,0,0,.2);border-radius:8px';
+    steps.innerHTML = '<b>Step 1:</b> Open MetaMask app<br><b>Step 2:</b> Tap the 🌐 browser icon at the bottom<br><b>Step 3:</b> Type <b>pi-claim.github.io</b> in the address bar<br><b>Step 4:</b> Tap "Connect Wallet" on the site';
     wrap.appendChild(steps);
     
-    // MetaMask button
+    // Deep link button (works on some devices)
     var mmBtn = document.createElement('button');
     mmBtn.style.cssText = 'width:100%;padding:14px;background:linear-gradient(135deg,#E2761B,#F6851B);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px';
-    mmBtn.textContent = '🦊 Open in MetaMask';
-    mmBtn.onclick = function(){ window.location.href = 'https://metamask.app.link/dapp/pi-claim.github.io'; };
+    mmBtn.textContent = '🦊 Try Open in MetaMask (auto)';
+    mmBtn.onclick = function(){ 
+      window.location.href = 'https://metamask.app.link/dapp/https://pi-claim.github.io';
+      // Also try universal link as fallback
+      setTimeout(function(){
+        if(document.hasFocus()){
+          window.location.href = 'metamask://dapp/https://pi-claim.github.io';
+        }
+      }, 1500);
+    };
     wrap.appendChild(mmBtn);
     
-    // Trust Wallet button
-    var twBtn = document.createElement('button');
-    twBtn.style.cssText = 'width:100%;padding:14px;background:linear-gradient(135deg,#3375BB,#2C6CBF);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px';
-    twBtn.textContent = '🛡️ Open in Trust Wallet';
-    twBtn.onclick = function(){ window.location.href = 'https://link.trustwallet.com/open_url?coin_id=60&url=https://pi-claim.github.io'; };
-    wrap.appendChild(twBtn);
+    var orDiv = document.createElement('div');
+    orDiv.style.cssText = 'font-size:10px;color:rgba(255,255,255,.3);margin:6px 0';
+    orDiv.textContent = '— OR follow the steps above —';
+    wrap.appendChild(orDiv);
     
-    var hint = document.createElement('div');
-    hint.style.cssText = 'font-size:10px;color:rgba(255,255,255,.3);margin-top:8px';
-    hint.textContent = 'Having trouble? Open MetaMask → tap browser icon → type pi-claim.github.io';
-    wrap.appendChild(hint);
+    // Copy URL button
+    var copyBtn = document.createElement('button');
+    copyBtn.style.cssText = 'width:100%;padding:12px;background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer';
+    copyBtn.textContent = '📋 Copy URL to Clipboard';
+    copyBtn.onclick = function(){
+      navigator.clipboard.writeText('https://pi-claim.github.io').then(function(){
+        toast('URL copied! Paste it in MetaMask browser.');
+      }).catch(function(){
+        prompt('Copy this URL and paste in MetaMask browser:', 'https://pi-claim.github.io');
+      });
+    };
+    wrap.appendChild(copyBtn);
     
     p1log.appendChild(wrap);
     return;

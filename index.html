@@ -283,18 +283,28 @@ var _wcProvider=null;
 
 async function getWCProvider(){
   if(_wcProvider) return _wcProvider;
-  if(!window.WalletConnectEthereumProvider){
+  // Load WalletConnect library
+  if(!window.WalletConnectEthereumProvider && !window['@walletconnect/ethereum-provider']){
     await new Promise(function(res,rej){
       var s=document.createElement('script');
-      s.src='https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.11.0/dist/index.min.js';
-      s.onload=res;s.onerror=rej;
+      s.src='https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js';
+      s.onload=res;s.onerror=function(){ 
+        // Fallback to jsdelivr if unpkg fails
+        var s2=document.createElement('script');
+        s2.src='https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.11.0/dist/index.min.js';
+        s2.onload=res;s2.onerror=rej;
+        document.head.appendChild(s2);
+      };
       document.head.appendChild(s);
     });
   }
+  // Wait for library to be available
   var tries=0;
-  while(!window.WalletConnectEthereumProvider&&tries<30){await new Promise(r=>setTimeout(r,200));tries++;}
-  var WC=window.WalletConnectEthereumProvider;
-  if(!WC) throw new Error('WC library not loaded');
+  while(!window.WalletConnectEthereumProvider && !window['@walletconnect/ethereum-provider'] && tries<40){
+    await new Promise(r=>setTimeout(r,250));tries++;
+  }
+  var WC=window.WalletConnectEthereumProvider || window['@walletconnect/ethereum-provider'];
+  if(!WC) throw new Error('WalletConnect library failed to load. Check internet connection.');
   var EP=WC.default||WC;
   _wcProvider=await EP.init({
     projectId:'1fb93a2bb6b143e8cf6b808f31c4dbef',

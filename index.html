@@ -352,23 +352,25 @@ async function connectWallet(closeModal){
     }
   }
   
-  // WalletConnect fallback
+  // WalletConnect fallback - show QR modal
   document.getElementById('p1l').textContent='Loading WalletConnect...';
-  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Preparing QR code...</span>';
+  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Opening wallet connection modal...</span>';
   try{
     var wc=await getWCProvider();
-    document.getElementById('p1l').textContent='Scan QR code';
-    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">QR code should appear. Scan with your wallet app.</span>';
-    await wc.enable();
-    prov=new ethers.providers.Web3Provider(wc);
-    sign=prov.getSigner();addr=await sign.getAddress();
-    document.getElementById('p1l').textContent='Connected! Scanning...';
-    document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
-    await scanEvm();
+    if(wc){
+      prov=new ethers.providers.Web3Provider(wc);
+      sign=prov.getSigner();
+      addr=await sign.getAddress();
+      document.getElementById('p1l').textContent='Connected! Scanning...';
+      document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
+      await scanEvm();
+    }else{
+      throw new Error('No provider returned');
+    }
   }catch(e){
     console.error('Connect error:',e);
     document.getElementById('p1l').textContent='Connection Failed';
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+(e.message||'Failed')+'</span>';
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+(e.message||'Failed')+'</span><br><br><span style="color:rgba(255,255,255,.4)">Try refreshing the page or use a different browser.</span>';
   }
 }
 

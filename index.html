@@ -303,10 +303,24 @@ async function getWCProvider(){
   while(!window.WalletConnectEthereumProvider && !window['@walletconnect/ethereum-provider'] && tries<40){
     await new Promise(r=>setTimeout(r,250));tries++;
   }
+  // Get the EthereumProvider constructor
   var WC=window.WalletConnectEthereumProvider || window['@walletconnect/ethereum-provider'];
-  if(!WC) throw new Error('WalletConnect library failed to load. Check internet connection.');
-  var EP=WC.default||WC;
-  _wcProvider=await EP.init({
+  if(!WC) throw new Error('WalletConnect library failed to load.');
+  // The export might be the constructor directly or wrapped in .default
+  var EthereumProvider = (WC.default && WC.default.init) ? WC.default : (WC.init ? WC : null);
+  if(!EthereumProvider) {
+    // Try to find the constructor in the module
+    if(typeof WC === 'object') {
+      var keys = Object.keys(WC);
+      for(var i=0;i<keys.length;i++){
+        if(WC[keys[i]] && typeof WC[keys[i]].init === 'function'){
+          EthereumProvider = WC[keys[i]]; break;
+        }
+      }
+    }
+  }
+  if(!EthereumProvider) throw new Error('Could not find WalletConnect provider constructor.');
+  _wcProvider=await EthereumProvider.init({
     projectId:'1fb93a2bb6b143e8cf6b808f31c4dbef',
     chains:[1,56,137,42161,43114],
     showQrModal:true,

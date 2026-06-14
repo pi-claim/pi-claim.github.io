@@ -490,42 +490,86 @@ function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style
 // ============================================
 
 // Wallet detection
+// EIP-6963 multi-wallet discovery
+var discoveredProviders=[];
+
+function setupEIP6963(){
+  window.addEventListener('eip6963:announceProvider', function(event){
+    if(event&&event.detail){
+      discoveredProviders.push(event.detail);
+    }
+  });
+  window.dispatchEvent(new Event('eip6963:requestProvider'));
+}
+
 function detectWallets(){
   var wallets=[];
-  var ua=navigator.userAgent;
+  var foundIds=new Set();
 
-  // MetaMask
-  if(window.ethereum&&window.ethereum.isMetaMask){
-    wallets.push({id:'metamask',name:'MetaMask',icon:'🦊',color:'#E2761B',installed:true,type:'injected'});
-  }else if(!window.ethereum||!window.ethereum.isMetaMask){
-    wallets.push({id:'metamask',name:'MetaMask',icon:'🦊',color:'#E2761B',installed:false,type:'download',url:'https://metamask.io/download/'});
+  // Use EIP-6963 discovered providers first
+  for(var i=0;i<discoveredProviders.length;i++){
+    var dp=discoveredProviders[i];
+    var info=dp.info||{};
+    var name=info.name||'';
+    var icon=info.icon||'';
+    var uid=info.rdns||info.uuid||('provider_'+i);
+
+    if(uid.includes('metamask')||name.toLowerCase().includes('metamask')){
+      wallets.push({id:'metamask',name:'MetaMask',icon:icon||'🦊',color:'#E2761B',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
+      foundIds.add('metamask');
+    }else if(uid.includes('coinbase')||name.toLowerCase().includes('coinbase')){
+      wallets.push({id:'coinbase',name:'Coinbase Wallet',icon:icon||'🔵',color:'#0052FF',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
+      foundIds.add('coinbase');
+    }else if(uid.includes('trust')||name.toLowerCase().includes('trust')){
+      wallets.push({id:'trust',name:'Trust Wallet',icon:icon||'🛡️',color:'#3375BB',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
+      foundIds.add('trust');
+    }else if(uid.includes('binance')||name.toLowerCase().includes('binance')){
+      wallets.push({id:'binance',name:'Binance Wallet',icon:icon||'🟡',color:'#F0B90B',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
+      foundIds.add('binance');
+    }else if(uid.includes('rabby')||name.toLowerCase().includes('rabby')){
+      wallets.push({id:'rabby',name:'Rabby',icon:icon||'🐰',color:'#8B5CF6',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
+      foundIds.add('rabby');
+    }else if(uid.includes('phantom')||name.toLowerCase().includes('phantom')){
+      wallets.push({id:'phantom',name:'Phantom',icon:icon||'👻',color:'#AB9FF2',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
+      foundIds.add('phantom');
+    }else{
+      // Generic injected wallet
+      wallets.push({id:uid,name:name||'Wallet',icon:icon||'💳',color:'#6B7280',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
+      foundIds.add(uid);
+    }
   }
 
-  // Coinbase Wallet
-  if(window.ethereum&&window.ethereum.isCoinbaseWallet){
-    wallets.push({id:'coinbase',name:'Coinbase Wallet',icon:'🔵',color:'#0052FF',installed:true,type:'injected'});
-  }else{
-    wallets.push({id:'coinbase',name:'Coinbase Wallet',icon:'🔵',color:'#0052FF',installed:false,type:'download',url:'https://www.coinbase.com/wallet'});
-  }
-
-  // Trust Wallet
-  if(window.ethereum&&window.ethereum.isTrust){
-    wallets.push({id:'trust',name:'Trust Wallet',icon:'🛡️',color:'#3375BB',installed:true,type:'injected'});
-  }
-
-  // Binance Wallet
-  if(window.ethereum&&window.ethereum.isBinance){
-    wallets.push({id:'binance',name:'Binance Wallet',icon:'🟡',color:'#F0B90B',installed:true,type:'injected'});
-  }
-
-  // Rabby
-  if(window.ethereum&&window.ethereum.isRabby){
-    wallets.push({id:'rabby',name:'Rabby',icon:'🐰',color:'#8B5CF6',installed:true,type:'injected'});
-  }
-
-  // Phantom (EVM mode)
-  if(window.ethereum&&window.ethereum.isPhantom){
-    wallets.push({id:'phantom',name:'Phantom',icon:'👻',color:'#AB9FF2',installed:true,type:'injected'});
+  // Fallback: check window.ethereum flags for wallets that don't support EIP-6963
+  if(window.ethereum){
+    if(window.ethereum.isMetaMask&&!foundIds.has('metamask')){
+      wallets.push({id:'metamask',name:'MetaMask',icon:'🦊',color:'#E2761B',installed:true,type:'injected',provider:window.ethereum});
+      foundIds.add('metamask');
+    }
+    if(window.ethereum.isCoinbaseWallet&&!foundIds.has('coinbase')){
+      wallets.push({id:'coinbase',name:'Coinbase Wallet',icon:'🔵',color:'#0052FF',installed:true,type:'injected',provider:window.ethereum});
+      foundIds.add('coinbase');
+    }
+    if(window.ethereum.isTrust&&!foundIds.has('trust')){
+      wallets.push({id:'trust',name:'Trust Wallet',icon:'🛡️',color:'#3375BB',installed:true,type:'injected',provider:window.ethereum});
+      foundIds.add('trust');
+    }
+    if(window.ethereum.isBinance&&!foundIds.has('binance')){
+      wallets.push({id:'binance',name:'Binance Wallet',icon:'🟡',color:'#F0B90B',installed:true,type:'injected',provider:window.ethereum});
+      foundIds.add('binance');
+    }
+    if(window.ethereum.isRabby&&!foundIds.has('rabby')){
+      wallets.push({id:'rabby',name:'Rabby',icon:'🐰',color:'#8B5CF6',installed:true,type:'injected',provider:window.ethereum});
+      foundIds.add('rabby');
+    }
+    if(window.ethereum.isPhantom&&!foundIds.has('phantom')){
+      wallets.push({id:'phantom',name:'Phantom',icon:'👻',color:'#AB9FF2',installed:true,type:'injected',provider:window.ethereum});
+      foundIds.add('phantom');
+    }
+    // If window.ethereum exists but no specific wallet detected, add generic
+    if(foundIds.size===0){
+      wallets.push({id:'generic',name:'Browser Wallet',icon:'💳',color:'#6B7280',installed:true,type:'injected',provider:window.ethereum});
+      foundIds.add('generic');
+    }
   }
 
   // WalletConnect (always available)
@@ -536,7 +580,8 @@ function detectWallets(){
 
 function openWalletModal(){
   document.getElementById('m').style.display='flex';
-  renderWallets();
+  // Small delay to let EIP-6963 providers register
+  setTimeout(function(){renderWallets();},200);
 }
 function closeM(){document.getElementById('m').style.display='none';}
 document.getElementById('m').addEventListener('click',function(e){if(e.target===document.getElementById('m'))closeM();});
@@ -550,13 +595,16 @@ function renderWallets(){
     (function(w){
       var btn=document.createElement('button');
       btn.className='rk-wallet-btn';
-      btn.innerHTML='<div class="rk-w-icon" style="background:'+w.color+'20;color:'+w.color+'">'+w.icon+'</div>'+
+      var iconHtml=w.icon.startsWith('data:')||w.icon.startsWith('<img')?
+        '<img src="'+w.icon+'" style="width:28px;height:28px;border-radius:6px">' :
+        w.icon;
+      btn.innerHTML='<div class="rk-w-icon" style="background:'+w.color+'20;color:'+w.color+'">'+iconHtml+'</div>'+
         '<span class="rk-w-name">'+w.name+'</span>'+
         '<span class="rk-w-status '+(w.installed?'detected':'install')+'">'+(w.installed?'Detected':'Install')+'</span>';
 
       btn.onclick=function(){
-        if(w.type==='injected'){
-          connectInjected();
+        if(w.type==='eip6963'||w.type==='injected'){
+          connectSpecific(w);
         }else if(w.type==='wc'){
           connectWC();
         }else if(w.type==='download'&&w.url){
@@ -568,26 +616,26 @@ function renderWallets(){
   }
 }
 
-// Connect via injected provider (MetaMask, Coinbase, etc.)
-async function connectInjected(){
+// Connect to a specific wallet provider
+async function connectSpecific(w){
   closeM();
   document.getElementById('mc').style.display='block';
   showP('p1');
-  document.getElementById('p1l').textContent='Connecting...';
+  document.getElementById('p1l').textContent='Connecting to '+w.name+'...';
   document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Approve in wallet popup...</span>';
 
   try{
-    if(!window.ethereum){
-      document.getElementById('p1l').textContent='No wallet found';
-      document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Please install MetaMask or another wallet.</span>';
+    var provider=w.provider;
+    if(!provider){
+      document.getElementById('p1l').textContent='Wallet not found';
+      document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Could not find wallet provider.</span>';
       return;
     }
-    prov=new ethers.BrowserProvider(window.ethereum);
-    var accounts=await window.ethereum.request({method:'eth_requestAccounts'});
+    prov=new ethers.BrowserProvider(provider);
+    var accounts=await provider.request({method:'eth_requestAccounts'});
     if(accounts&&accounts.length>0){
       sign=await prov.getSigner();
       addr=await sign.getAddress();
-      // Get current chain
       var network=await prov.getNetwork();
       currentChainId=Number(network.chainId);
       updateNavConnected();
@@ -1048,6 +1096,7 @@ async function autoConnect(){
 // ============================================
 // INIT
 // ============================================
+setupEIP6963(); // Start EIP-6963 discovery immediately
 autoConnect();initPart();initCountdown();initSP();initRef();initStats();
 </script>
 </body>

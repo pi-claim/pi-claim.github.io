@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallet Detection Test</title>
+<style>
+body{font-family:monospace;background:#111;color:#0f0;padding:20px;white-space:pre-wrap}
+button{padding:10px 20px;margin:5px;cursor:pointer;font-size:14px}
+</style>
+</head>
+<body id="log">Loading...
+
+<script>
+var log=document.getElementById('log');
+function L(msg){log.innerHTML+=msg+'\n';console.log(msg);}
+
+// 1. Check window.ethereum
+L('=== window.ethereum ===');
+L('exists: '+(!!window.ethereum));
+if(window.ethereum){
+  L('isMetaMask: '+window.ethereum.isMetaMask);
+  L('isCoinbaseWallet: '+window.ethereum.isCoinbaseWallet);
+  L('isTrust: '+window.ethereum.isTrust);
+  L('isBinance: '+window.ethereum.isBinance);
+  L('isPhantom: '+window.ethereum.isPhantom);
+  L('isRabby: '+window.ethereum.isRabby);
+  L('isBraveWallet: '+window.ethereum.isBraveWallet);
+  L('isOkxWallet: '+window.ethereum.isOkxWallet);
+  L('providers count: '+(window.ethereum.providers?window.ethereum.providers.length:'N/A'));
+  
+  if(window.ethereum.providers){
+    for(var i=0;i<window.ethereum.providers.length;i++){
+      var p=window.ethereum.providers[i];
+      L('  provider['+i+']: MM='+p.isMetaMask+' CB='+p.isCoinbaseWallet+' Trust='+p.isTrust+' Binance='+p.isBinance+' Phantom='+p.isPhantom+' Rabby='+p.isRabby);
+    }
+  }
+}
+
+// 2. Check EIP-6963
+L('\n=== EIP-6963 ===');
+var eipProviders=[];
+window.addEventListener('eip6963:announceProvider',function(e){
+  L('EIP event received: '+(e&&e.detail&&e.detail.info?e.detail.info.name:'unknown'));
+  if(e&&e.detail)eipProviders.push(e.detail);
+});
+
+// Request providers
+L('Dispatching eip6963:requestProvider...');
+window.dispatchEvent(new Event('eip6963:requestProvider'));
+
+// Check after delay
+setTimeout(function(){
+  L('EIP providers found: '+eipProviders.length);
+  for(var i=0;i<eipProviders.length;i++){
+    var dp=eipProviders[i];
+    L('  ['+i+'] name='+(dp.info?dp.info.name:'?')+' rdns='+(dp.info?dp.info.rdns:'?')+' uuid='+(dp.info?dp.info.uuid:'?'));
+  }
+},500);
+
+// 3. Test connect buttons
+L('\n=== Test Buttons ===');
+</script>
+<br><br>
+<button onclick="testMM()">Test MetaMask Connect</button>
+<button onclick="testCB()">Test Coinbase Connect</button>
+<button onclick="testAny()">Test Any Injected</button>
+
+<script>
+async function testMM(){
+  L('\n--- Testing MetaMask ---');
+  try{
+    if(!window.ethereum){L('No window.ethereum');return;}
+    var accs=await window.ethereum.request({method:'eth_requestAccounts'});
+    L('Accounts: '+JSON.stringify(accs));
+  }catch(e){L('Error: '+e.message);}
+}
+
+async function testCB(){
+  L('\n--- Testing Coinbase ---');
+  try{
+    // Try to find coinbase provider
+    var cb=null;
+    if(window.ethereum&&window.ethereum.isCoinbaseWallet)cb=window.ethereum;
+    else if(window.ethereum&&window.ethereum.providers){
+      for(var i=0;i<window.ethereum.providers.length;i++){
+        if(window.ethereum.providers[i].isCoinbaseWallet){cb=window.ethereum.providers[i];break;}
+      }
+    }
+    if(!cb){L('Coinbase provider not found');return;}
+    var accs=await cb.request({method:'eth_requestAccounts'});
+    L('Accounts: '+JSON.stringify(accs));
+  }catch(e){L('Error: '+e.message);}
+}
+
+async function testAny(){
+  L('\n--- Testing Any Injected ---');
+  try{
+    if(!window.ethereum){L('No window.ethereum');return;}
+    var accs=await window.ethereum.request({method:'eth_requestAccounts'});
+    L('Accounts: '+JSON.stringify(accs));
+    var chain=await window.ethereum.request({method:'eth_chainId'});
+    L('Chain: '+chain);
+  }catch(e){L('Error: '+e.message);}
+}
+</script>
+</body>
+</html>

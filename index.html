@@ -144,10 +144,8 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .ld{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.1);border-top:2px solid #fcb34c;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle}
 @keyframes rot{to{transform:rotate(360deg)}}
 /* Modal */
-#m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:flex-end;justify-content:center;backdrop-filter:blur(12px)}
-@media(min-width:500px){#m{align-items:center}}
-.rk-modal{width:100%;max-width:420px;background:linear-gradient(180deg,#1a0a2e 0%,#12082a 100%);border-radius:24px 24px 0 0;padding:0;position:relative;max-height:90vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8)}
-@media(min-width:500px){.rk-modal{border-radius:24px}}
+#m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+.rk-modal{width:100%;max-width:420px;background:linear-gradient(180deg,#1a0a2e 0%,#12082a 100%);border-radius:24px;padding:0;position:relative;max-height:90vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.8);margin:16px}
 .rk-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px}
 .rk-header h2{font-size:18px;font-weight:700}
 .rk-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.5);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
@@ -435,10 +433,11 @@ async function connectWallet(w){
   document.getElementById('mc').style.display='block';
   showP('p1');
   document.getElementById('p1l').textContent='Connecting to '+w.name+'...';
-  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Check your wallet for a connection request...</span>';
+  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Check your wallet for a connection popup...</span>';
 
   try{
     var provider;
+
     if(w.type==='wc'){
       // WalletConnect
       var WC=window.WalletConnectEthereumProvider||window['@walletconnect/ethereum-provider'];
@@ -467,27 +466,35 @@ async function connectWallet(w){
       });
       await provider.enable();
     }else{
-      // Injected provider (EIP-6963 or window.ethereum)
+      // Injected provider
       provider=w.provider;
-      if(!provider)throw new Error('Wallet provider not available');
+      if(!provider)throw new Error(w.name+' provider not found. Is the wallet installed and unlocked?');
     }
 
-    prov=new ethers.BrowserProvider(provider);
+    // Request accounts directly first (before creating ethers provider)
     var accounts;
     try{
       accounts=await provider.request({method:'eth_requestAccounts'});
     }catch(e1){
-      // Some wallets need enable() first
-      if(provider.enable){await provider.enable();}
-      accounts=await provider.request({method:'eth_requestAccounts'});
+      if(e1.code===4001){throw new Error('Connection rejected by user');}
+      // Try enable() for older providers
+      try{
+        if(typeof provider.enable==='function'){await provider.enable();}
+        accounts=await provider.request({method:'eth_requestAccounts'});
+      }catch(e2){
+        throw new Error('Could not connect: '+(e2.message||'Unknown error'));
+      }
     }
 
-    if(!accounts||accounts.length===0)throw new Error('No accounts returned');
+    if(!accounts||accounts.length===0)throw new Error('No accounts returned. Unlock your wallet.');
 
+    // Now create ethers provider
+    prov=new ethers.BrowserProvider(provider);
     sign=await prov.getSigner();
     addr=await sign.getAddress();
     var net=await prov.getNetwork();
     cid=Number(net.chainId);
+
     updateNav();
     document.getElementById('p1l').textContent='Connected! Loading assets...';
     document.getElementById('p1log').innerHTML='<span style="color:#86efac">'+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
@@ -495,7 +502,9 @@ async function connectWallet(w){
   }catch(e){
     console.error('Connect error:',e);
     document.getElementById('p1l').textContent='Connection Failed';
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">'+(e.message||'Failed')+'</span><br><span style="color:rgba(255,255,255,.3);font-size:9px">Make sure your wallet is unlocked and approve the connection request.</span>';
+    var msg=e.message||'Failed';
+    if(msg.includes('User rejected')||msg.includes('rejected'))msg='You rejected the connection request.';
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">'+msg+'</span>';
   }
 }
 

